@@ -266,7 +266,10 @@ export default function NavBar({ withSidebar, logo }) {
               justifyContent={{ lg: "flex-start", xl: "flex-end" }}
             >
               <Link to="/">
-                <Image w="140px" src={process.env.PUBLIC_URL + "/assets/logo_full.png"} />
+                <Image
+                  w="140px"
+                  src={process.env.PUBLIC_URL + "/assets/logo_full.png"}
+                />
               </Link>
             </Flex>
             <Box w={{ lg: "530px", xl: "700px" }}>
@@ -621,7 +624,9 @@ export default function NavBar({ withSidebar, logo }) {
                   dir="rtl"
                 >
                   <Flex gap="2" alignItems="center">
-                    <Image src={process.env.PUBLIC_URL + "/assets/israel.svg"} />
+                    <Image
+                      src={process.env.PUBLIC_URL + "/assets/israel.svg"}
+                    />
                     <Text>עברית</Text>
                     <Icon5 />
                   </Flex>
@@ -656,7 +661,6 @@ export default function NavBar({ withSidebar, logo }) {
               <ChakraButton
                 mx="4"
                 bg="secondaryColor"
-                fontWeight="normal"
                 borderRadius="8px"
                 _hover={{ opacity: "0.9" }}
                 textColor="white"
@@ -667,9 +671,10 @@ export default function NavBar({ withSidebar, logo }) {
                 מכירה חדשה
               </ChakraButton>
               <ChakraButton
-              variant="link"
-              px="4"
+                variant="link"
+                px="4"
                 textColor="primary"
+                fontSize="16px"
                 fontWeight="normal"
                 _hover={{ textColor: "secondaryColor" }}
                 bg="transparent"
@@ -678,9 +683,10 @@ export default function NavBar({ withSidebar, logo }) {
                 יצירת קשר
               </ChakraButton>
               <ChakraButton
-              px="4"
-              variant="link"
+                px="4"
+                variant="link"
                 textColor="primary"
+                fontSize="16px"
                 fontWeight="normal"
                 _hover={{ textColor: "secondaryColor" }}
                 bg="transparent"
@@ -689,9 +695,10 @@ export default function NavBar({ withSidebar, logo }) {
                 איך מוכרים
               </ChakraButton>
               <ChakraButton
-              variant="link"
-              px="4"
+                variant="link"
+                px="4"
                 textColor="primary"
+                fontSize="16px"
                 fontWeight="normal"
                 _hover={{ textColor: "secondaryColor" }}
                 bg="transparent"
@@ -700,9 +707,10 @@ export default function NavBar({ withSidebar, logo }) {
                 מבצעים
               </ChakraButton>
               <ChakraButton
-              variant="link"
-              px="4"
+                variant="link"
+                px="4"
                 textColor="primary"
+                fontSize="16px"
                 fontWeight="normal"
                 _hover={{ textColor: "secondaryColor" }}
                 bg="transparent"
@@ -711,25 +719,31 @@ export default function NavBar({ withSidebar, logo }) {
                 קנייה
               </ChakraButton>
               <ChakraButton
-              variant="link"
-              px="4"
+                variant="link"
+                px="4"
                 textColor="primary"
+                fontSize="16px"
                 fontWeight="normal"
                 _hover={{ textColor: "secondaryColor" }}
                 bg="transparent"
                 onClick={() =>
                   (window.location.href =
-                    routes.Category.path.replace(":category", "") +
-                    "food")
+                    routes.Category.path.replace(":category", "") + "food")
                 }
               >
                 מכירות פומביות
               </ChakraButton>
               <Menu placement="auto">
-                <MenuButton>
-                  <ChakraButton id="ball" px="4" variant="link" color="primary" fontWeight="normal" bg="transparent" >
-                    הכל
-                  </ChakraButton>
+                <MenuButton
+                  _hover={{ color: "secondaryColor" }}
+                  px="4"
+                  variant="link"
+                  color="primary"
+                  fontSize="16px"
+                  fontWeight="normal"
+                  bg="transparent"
+                >
+                  הכל
                 </MenuButton>
                 <MenuList
                   dir="rtl"
@@ -819,526 +833,523 @@ export default function NavBar({ withSidebar, logo }) {
         </Modal>
       </Box>
 
-        <Flex
-          display={{ base: logo && "flex", md: "none" }}
-          justifyContent="center"
-          alignItems="center"
-          id="navbar"
-          w="100%"
-          bg="primary"
-          h="65px"
-        >
+      <Flex
+        display={{ base: logo && "flex", md: "none" }}
+        justifyContent="center"
+        alignItems="center"
+        id="navbar"
+        w="100%"
+        bg="primary"
+        h="65px"
+      >
+        <Link to="/">
+          <Image
+            w="122px"
+            src={process.env.PUBLIC_URL + "/assets/logo_full.png"}
+          />
+        </Link>
+      </Flex>
+
+      <Flex
+        display={{ base: logo ? "none" : "flex", md: "flex", lg: "none" }}
+        justifyContent="space-between"
+        flexDir="column"
+        id="navbar"
+        w="100%"
+        p="18px"
+        bg="primary"
+        h="131px"
+      >
+        <Flex justifyContent="space-between">
           <Link to="/">
-            <Image w="122px" src={process.env.PUBLIC_URL + "/assets/logo_full.png"} />
+            <Image
+              w="122px"
+              src={process.env.PUBLIC_URL + "/assets/logo_full.png"}
+            />
           </Link>
-        </Flex>
-    
-        <Flex
-          display={{ base: logo ? "none" : "flex", md: "flex", lg: "none" }}
-          justifyContent="space-between"
-          flexDir="column"
-          id="navbar"
-          w="100%"
-          p="18px"
-          bg="primary"
-          h="131px"
-        >
-          <Flex justifyContent="space-between">
-            <Link to="/">
-              <Image w="122px" src={process.env.PUBLIC_URL + "/assets/logo_full.png"} />
-            </Link>
-            <Flex gap="15px">
-              <Menu placement="bottom">
-                <MenuButton>
-                  <Avatar
-                    w="22px"
-                    h="22px"
-                    //name={user.userName}
-                    src={user.profileImage}
-                    borderRadius="8px"
-                  />
-                </MenuButton>
-                {token !== null ? (
-                  <MenuList
-                    dir="rtl"
-                    w="223px"
-                    p="20px 10px"
-                    bg="white"
-                    borderRadius="12px"
-                    shadow="0px 1px 54px rgba(35, 38, 59, 0.2)"
-                  >
-                    <MenuItemComponent
-                      path={routes.HOME.path}
-                      icon={HomeIcon}
-                      name="ראשי"
-                    />
-                    <MenuItemComponent
-                      path={
-                        userLogged
-                          ? routes.UserSettingsMySales.path
-                          : routes.LOGIN.path
-                      }
-                      icon={MessengerIcon}
-                      name="מכירות"
-                    />
-                    <MenuItemComponent
-                      path={
-                        userLogged
-                          ? routes.UserSettingsMyOrders.path
-                          : routes.LOGIN.path
-                      }
-                      icon={OrderIcon}
-                      name="הזמנות"
-                    />
-                    <MenuItemComponent
-                      path={
-                        userLogged
-                          ? routes.UserSettingsShippingAddress.path
-                          : routes.LOGIN.path
-                      }
-                      icon={BillingIcon}
-                      name="כתובת למשלוח"
-                    />
-                    <MenuItemComponent
-                      path={
-                        userLogged
-                          ? routes.UserSettingsDeliveryTraker.path
-                          : routes.LOGIN.path
-                      }
-                      icon={SettingsIcon}
-                      name="מעקב משלוחים"
-                    />
-                    <Divider h="1px" bg="#D9D9D9" my="19px" />
-
-                    <MenuItemComponent
-                      path={
-                        userLogged
-                          ? routes.UserSettingsDetails.path
-                          : routes.LOGIN.path
-                      }
-                      icon={SettingIcon}
-                      name="עדכון פרטים"
-                    />
-                    {userLogged ? (
-                      <MenuItemComponent
-                        onClick={() => {
-                          logout();
-                          window.location.href = routes.HOME.path;
-                        }}
-                        icon={LogoutIcon}
-                        name="התנתק"
-                      />
-                    ) : (
-                      <MenuItemComponent
-                        path={routes.LOGIN.path}
-                        icon={LogoutIcon}
-                        name="התחבר"
-                      />
-                    )}
-                  </MenuList>
-                ) : (
-                  <MenuList
-                    dir="rtl"
-                    border="none"
-                    p="10px"
-                    bg="white"
-                    //w="150px"
-                    borderRadius="12px"
-                    shadow="0px 1px 54px rgba(35, 38, 59, 0.2)"
-                  >
-                    <MenuItem bg="white" _hover={{ bg: "white" }} p="0">
-                      <Flex w="full" justifyContent="space-between">
-                        <Button
-                          w="95px"
-                          h="40px"
-                          fontSize="18px"
-                          href={routes.LOGIN.path}
-                        >
-                          התחבר
-                        </Button>
-                        <Button.Secondary
-                          w="95px"
-                          h="39px"
-                          fontSize="18px"
-                          borderColor="primary"
-                          href={routes.SIGNUP.path}
-                        >
-                          הירשם
-                        </Button.Secondary>
-                      </Flex>
-                    </MenuItem>
-                  </MenuList>
-                )}
-              </Menu>
-              <Popover>
-                <PopoverTrigger>
-                  <Flex justifyContent="center" alignItems="center">
-                    <CartIcon2 />
-                    {cart.products && cart.products.length > 0 && (
-                      <Flex
-                        position="absolute"
-                        //top="1"
-                        //right="1"
-                        mb="10px"
-                        ml="15px"
-                        alignItems="center"
-                        justifyContent="center"
-                        w="14px"
-                        h="14px"
-                        //pt="1px"
-                        borderRadius="full"
-                        bg="otherError"
-                        border="2px solid transparent"
-                        borderColor="primary"
-                      >
-                        <Text
-                          fontSize="8px"
-                          lineHeight="10px"
-                          textColor="white"
-                        >
-                          {cart.products && cart.products.length}
-                        </Text>
-                      </Flex>
-                    )}
-                  </Flex>
-                </PopoverTrigger>
-                <PopoverContent
-                  // h="637px"
-                  w="357px"
-                  borderRadius="16px"
-                  border="none"
+          <Flex gap="15px">
+            <Menu placement="bottom">
+              <MenuButton>
+                <Avatar
+                  w="22px"
+                  h="22px"
+                  //name={user.userName}
+                  src={user.profileImage}
+                  borderRadius="8px"
+                />
+              </MenuButton>
+              {token !== null ? (
+                <MenuList
+                  dir="rtl"
+                  w="223px"
+                  p="20px 10px"
                   bg="white"
-                  shadow="0px 5px 40px rgba(0, 0, 0, 0.1)"
+                  borderRadius="12px"
+                  shadow="0px 1px 54px rgba(35, 38, 59, 0.2)"
                 >
-                  <PopoverArrow />
-                  <PopoverCloseButton
-                    size="sm"
-                    position="absolute"
-                    left="0"
-                    top="68.7px"
-                    transform="translateX(-50%)"
-                    bg="white"
-                    border="1.24779px solid"
-                    borderColor="naturalDark"
-                    borderRadius="full"
+                  <MenuItemComponent
+                    path={routes.HOME.path}
+                    icon={HomeIcon}
+                    name="ראשי"
                   />
-                  <PopoverBody py="6" px="6" dir="rtl">
-                    <Flex alignItems="center" justifyContent="space-between">
-                      <Flex gap="2" fontSize="16px" lineHeight="16.5px">
-                        <Text color="naturalDarkest" fontWeight="semibold">
-                          העגלה שלי
-                        </Text>
-                        <Text color="naturalDarkest">
-                          ({cart.products && cart.products.length})
-                        </Text>
-                      </Flex>
+                  <MenuItemComponent
+                    path={
+                      userLogged
+                        ? routes.UserSettingsMySales.path
+                        : routes.LOGIN.path
+                    }
+                    icon={MessengerIcon}
+                    name="מכירות"
+                  />
+                  <MenuItemComponent
+                    path={
+                      userLogged
+                        ? routes.UserSettingsMyOrders.path
+                        : routes.LOGIN.path
+                    }
+                    icon={OrderIcon}
+                    name="הזמנות"
+                  />
+                  <MenuItemComponent
+                    path={
+                      userLogged
+                        ? routes.UserSettingsShippingAddress.path
+                        : routes.LOGIN.path
+                    }
+                    icon={BillingIcon}
+                    name="כתובת למשלוח"
+                  />
+                  <MenuItemComponent
+                    path={
+                      userLogged
+                        ? routes.UserSettingsDeliveryTraker.path
+                        : routes.LOGIN.path
+                    }
+                    icon={SettingsIcon}
+                    name="מעקב משלוחים"
+                  />
+                  <Divider h="1px" bg="#D9D9D9" my="19px" />
 
-                      <ChakraButton
-                        variant="link"
-                        onClick={() =>
-                          (window.location.href =
-                            routes.ShoppingCart.path.replace(":id", "") +
-                            cart.id)
-                        }
-                        style={{ textDecoration: "none" }}
-                        color="primaryLight"
-                        fontSize="13px"
+                  <MenuItemComponent
+                    path={
+                      userLogged
+                        ? routes.UserSettingsDetails.path
+                        : routes.LOGIN.path
+                    }
+                    icon={SettingIcon}
+                    name="עדכון פרטים"
+                  />
+                  {userLogged ? (
+                    <MenuItemComponent
+                      onClick={() => {
+                        logout();
+                        window.location.href = routes.HOME.path;
+                      }}
+                      icon={LogoutIcon}
+                      name="התנתק"
+                    />
+                  ) : (
+                    <MenuItemComponent
+                      path={routes.LOGIN.path}
+                      icon={LogoutIcon}
+                      name="התחבר"
+                    />
+                  )}
+                </MenuList>
+              ) : (
+                <MenuList
+                  dir="rtl"
+                  border="none"
+                  p="10px"
+                  bg="white"
+                  //w="150px"
+                  borderRadius="12px"
+                  shadow="0px 1px 54px rgba(35, 38, 59, 0.2)"
+                >
+                  <MenuItem bg="white" _hover={{ bg: "white" }} p="0">
+                    <Flex w="full" justifyContent="space-between">
+                      <Button
+                        w="95px"
+                        h="40px"
+                        fontSize="18px"
+                        href={routes.LOGIN.path}
                       >
-                        לצפייה בסל
-                      </ChakraButton>
+                        התחבר
+                      </Button>
+                      <Button.Secondary
+                        w="95px"
+                        h="39px"
+                        fontSize="18px"
+                        borderColor="primary"
+                        href={routes.SIGNUP.path}
+                      >
+                        הירשם
+                      </Button.Secondary>
                     </Flex>
-                    <Spacer h="10px" />
-                    <Box overflow="auto" className="slider-container">
-                      <Slider {...settings}>
-                        {products && (
-                          <>
-                            {products.map((p, key) => (
-                              <React.Fragment key={key}>
-                                <NavCartListItem
-                                  title={p.product.title}
-                                  price={
-                                    (p.product.price *
-                                      (100 - p.product.discount)) /
-                                    100
-                                  }
-                                  images={p.product.images}
-                                  amount={p.amount}
-                                  quantityLeft={p.product.quantityLeft}
-                                  onChangeAmount={(amount) =>
-                                    updateAmount(
-                                      p.product,
+                  </MenuItem>
+                </MenuList>
+              )}
+            </Menu>
+            <Popover>
+              <PopoverTrigger>
+                <Flex justifyContent="center" alignItems="center">
+                  <CartIcon2 />
+                  {cart.products && cart.products.length > 0 && (
+                    <Flex
+                      position="absolute"
+                      //top="1"
+                      //right="1"
+                      mb="10px"
+                      ml="15px"
+                      alignItems="center"
+                      justifyContent="center"
+                      w="14px"
+                      h="14px"
+                      //pt="1px"
+                      borderRadius="full"
+                      bg="otherError"
+                      border="2px solid transparent"
+                      borderColor="primary"
+                    >
+                      <Text fontSize="8px" lineHeight="10px" textColor="white">
+                        {cart.products && cart.products.length}
+                      </Text>
+                    </Flex>
+                  )}
+                </Flex>
+              </PopoverTrigger>
+              <PopoverContent
+                // h="637px"
+                w="357px"
+                borderRadius="16px"
+                border="none"
+                bg="white"
+                shadow="0px 5px 40px rgba(0, 0, 0, 0.1)"
+              >
+                <PopoverArrow />
+                <PopoverCloseButton
+                  size="sm"
+                  position="absolute"
+                  left="0"
+                  top="68.7px"
+                  transform="translateX(-50%)"
+                  bg="white"
+                  border="1.24779px solid"
+                  borderColor="naturalDark"
+                  borderRadius="full"
+                />
+                <PopoverBody py="6" px="6" dir="rtl">
+                  <Flex alignItems="center" justifyContent="space-between">
+                    <Flex gap="2" fontSize="16px" lineHeight="16.5px">
+                      <Text color="naturalDarkest" fontWeight="semibold">
+                        העגלה שלי
+                      </Text>
+                      <Text color="naturalDarkest">
+                        ({cart.products && cart.products.length})
+                      </Text>
+                    </Flex>
+
+                    <ChakraButton
+                      variant="link"
+                      onClick={() =>
+                        (window.location.href =
+                          routes.ShoppingCart.path.replace(":id", "") + cart.id)
+                      }
+                      style={{ textDecoration: "none" }}
+                      color="primaryLight"
+                      fontSize="13px"
+                    >
+                      לצפייה בסל
+                    </ChakraButton>
+                  </Flex>
+                  <Spacer h="10px" />
+                  <Box overflow="auto" className="slider-container">
+                    <Slider {...settings}>
+                      {products && (
+                        <>
+                          {products.map((p, key) => (
+                            <React.Fragment key={key}>
+                              <NavCartListItem
+                                title={p.product.title}
+                                price={
+                                  (p.product.price *
+                                    (100 - p.product.discount)) /
+                                  100
+                                }
+                                images={p.product.images}
+                                amount={p.amount}
+                                quantityLeft={p.product.quantityLeft}
+                                onChangeAmount={(amount) =>
+                                  updateAmount(
+                                    p.product,
+                                    p.size,
+                                    p.model,
+                                    amount,
+                                    p.amount
+                                  )
+                                }
+                                onDelete={() => {
+                                  const a = window.confirm(
+                                    "האם אתה בטוח שברצונך למחוק את המוצר מהעגלה?"
+                                  );
+                                  if (a) {
+                                    removeProductFromCart(
+                                      p.product.id,
                                       p.size,
-                                      p.model,
-                                      amount,
-                                      p.amount
-                                    )
-                                  }
-                                  onDelete={() => {
-                                    const a = window.confirm(
-                                      "האם אתה בטוח שברצונך למחוק את המוצר מהעגלה?"
+                                      p.model
                                     );
-                                    if (a) {
-                                      removeProductFromCart(
-                                        p.product.id,
-                                        p.size,
-                                        p.model
-                                      );
-                                    }
-                                  }}
-                                />
-                              </React.Fragment>
-                            ))}
-                          </>
-                        )}
-                      </Slider>
-                    </Box>
+                                  }
+                                }}
+                              />
+                            </React.Fragment>
+                          ))}
+                        </>
+                      )}
+                    </Slider>
+                  </Box>
 
-                    <Spacer h="38px" />
-                    <Flex justifyContent="space-between">
-                      <Box>
-                        <Text
-                          fontWeight="500"
-                          fontSize="22px"
-                          color="naturalBlack"
-                          lineHeight="30px"
-                        >
-                          סך הכל
-                        </Text>
-                        <Text
-                          color="naturalDark"
-                          fontSize="14px"
-                          lineHeight="22px"
-                        >
-                          משלוח, עמלות ומיסים יחושבו בשעת ההזמנה
-                        </Text>
-                      </Box>
-
+                  <Spacer h="38px" />
+                  <Flex justifyContent="space-between">
+                    <Box>
                       <Text
                         fontWeight="500"
                         fontSize="22px"
-                        lineHeight="30px"
                         color="naturalBlack"
+                        lineHeight="30px"
                       >
-                        ₪
-                        {(cart.products &&
-                          cart.products.length >= 1 &&
-                          Math.round(
-                            cart.products.reduce(
-                              (a, b) =>
-                                parseFloat(a) +
-                                parseFloat(
-                                  ((b.product.price *
-                                    (100 - b.product.discount)) /
-                                    100) *
-                                    b.amount
-                                ),
-                              0
-                            ) * 100
-                          ) / 100) ||
-                          "0"}
+                        סך הכל
                       </Text>
-                    </Flex>
-                    <Box mt="38px">
-                      <Button.Secondary
-                        borderColor="primary"
-                        color="primary"
-                        fontSize="20px"
+                      <Text
+                        color="naturalDark"
+                        fontSize="14px"
+                        lineHeight="22px"
+                      >
+                        משלוח, עמלות ומיסים יחושבו בשעת ההזמנה
+                      </Text>
+                    </Box>
+
+                    <Text
+                      fontWeight="500"
+                      fontSize="22px"
+                      lineHeight="30px"
+                      color="naturalBlack"
+                    >
+                      ₪
+                      {(cart.products &&
+                        cart.products.length >= 1 &&
+                        Math.round(
+                          cart.products.reduce(
+                            (a, b) =>
+                              parseFloat(a) +
+                              parseFloat(
+                                ((b.product.price *
+                                  (100 - b.product.discount)) /
+                                  100) *
+                                  b.amount
+                              ),
+                            0
+                          ) * 100
+                        ) / 100) ||
+                        "0"}
+                    </Text>
+                  </Flex>
+                  <Box mt="38px">
+                    <Button.Secondary
+                      borderColor="primary"
+                      color="primary"
+                      fontSize="20px"
+                      onClick={() =>
+                        (window.location.href =
+                          routes.ShoppingCart.path.replace(":id", "") + cart.id)
+                      }
+                    >
+                      לצפייה בעגלה
+                    </Button.Secondary>
+                    <Spacer h="4" />
+                    <Button>
+                      <Flex
+                        alignItems="center"
+                        gap="4"
                         onClick={() =>
                           (window.location.href =
                             routes.ShoppingCart.path.replace(":id", "") +
                             cart.id)
                         }
                       >
-                        לצפייה בעגלה
-                      </Button.Secondary>
-                      <Spacer h="4" />
-                      <Button>
-                        <Flex
-                          alignItems="center"
-                          gap="4"
-                          onClick={() =>
-                            (window.location.href =
-                              routes.ShoppingCart.path.replace(":id", "") +
-                              cart.id)
-                          }
-                        >
-                          לתשלום <ArrowBackIcon />
-                        </Flex>
-                      </Button>
-                    </Box>
-                  </PopoverBody>
-                </PopoverContent>
-              </Popover>
+                        לתשלום <ArrowBackIcon />
+                      </Flex>
+                    </Button>
+                  </Box>
+                </PopoverBody>
+              </PopoverContent>
+            </Popover>
 
-              <Popover>
-                <PopoverTrigger>
-                  <Flex justifyContent="center" alignItems="center">
-                    <MobileList />
-                  </Flex>
-                </PopoverTrigger>
-                <PopoverContent
-                  w="270px"
-                  border="none"
+            <Popover>
+              <PopoverTrigger>
+                <Flex justifyContent="center" alignItems="center">
+                  <MobileList />
+                </Flex>
+              </PopoverTrigger>
+              <PopoverContent
+                w="270px"
+                border="none"
+                bg="white"
+                dir="rtl"
+                shadow="0px 5px 40px rgba(0, 0, 0, 0.1)"
+              >
+                <PopoverArrow />
+                <PopoverCloseButton
+                  size="lg"
+                  color="primary"
+                  right="2"
+                  //left="100"
+                  top="2"
+                  //position="absolute"
+                  //top="68.7px"
+                  //transform="translateX(-50%)"
                   bg="white"
-                  dir="rtl"
-                  shadow="0px 5px 40px rgba(0, 0, 0, 0.1)"
-                >
-                  <PopoverArrow />
-                  <PopoverCloseButton
-                    size="lg"
-                    color="primary"
-                    right="2"
-                    //left="100"
-                    top="2"
-                    //position="absolute"
-                    //top="68.7px"
-                    //transform="translateX(-50%)"
-                    bg="white"
-                  />
-                  <PopoverBody py="80px" px="6" dir="rtl">
-                    <Flex
-                      flexDir="column"
-                      justifyContent="center"
-                      gap="30px"
-                      dir="rtl"
+                />
+                <PopoverBody py="80px" px="6" dir="rtl">
+                  <Flex
+                    flexDir="column"
+                    justifyContent="center"
+                    gap="30px"
+                    dir="rtl"
+                  >
+                    <ChakraButton
+                      h="40px"
+                      fontSize="14px"
+                      fontWeight="normal"
+                      bg="secondaryColor"
+                      borderRadius="8px"
+                      _hover={{ opacity: "0.9" }}
+                      textColor="white"
+                      shadow="inherit"
+                      onClick={() =>
+                        (window.location.href = routes.CreateProduct.path)
+                      }
                     >
+                      מכירה חדשה
+                    </ChakraButton>
+                    <Flex flexDir="column" justifyContent="center" gap="8px">
                       <ChakraButton
-                        h="40px"
-                        fontSize="14px"
+                        h="50px"
+                        fontSize="18px"
                         fontWeight="normal"
-                        bg="secondaryColor"
+                        textColor="naturalDarkest"
                         borderRadius="8px"
-                        _hover={{ opacity: "0.9" }}
-                        textColor="white"
-                        shadow="inherit"
+                        _hover={{ bg: "primaryLight", textColor: "white" }}
+                        bg="naturalLightest"
                         onClick={() =>
-                          (window.location.href = routes.CreateProduct.path)
+                          (window.location.href =
+                            routes.Category.path.replace(":category", "") +
+                            "food")
                         }
                       >
-                        מכירה חדשה
+                        קטגוריות
                       </ChakraButton>
-                      <Flex flexDir="column" justifyContent="center" gap="8px">
-                        <ChakraButton
-                          h="50px"
-                          fontSize="18px"
-                          fontWeight="normal"
-                          textColor="naturalDarkest"
-                          borderRadius="8px"
-                          _hover={{ bg: "primaryLight", textColor: "white" }}
-                          bg="naturalLightest"
-                          onClick={() =>
+                      <ChakraButton
+                        h="50px"
+                        fontSize="18px"
+                        fontWeight="normal"
+                        textColor="naturalDarkest"
+                        borderRadius="8px"
+                        _hover={{ bg: "primaryLight", textColor: "white" }}
+                        bg="naturalLightest"
+                        onClick={
+                          () =>
                             (window.location.href =
                               routes.Category.path.replace(":category", "") +
-                              "food")
-                          }
-                        >
-                          קטגוריות
-                        </ChakraButton>
-                        <ChakraButton
-                          h="50px"
-                          fontSize="18px"
-                          fontWeight="normal"
-                          textColor="naturalDarkest"
-                          borderRadius="8px"
-                          _hover={{ bg: "primaryLight", textColor: "white" }}
-                          bg="naturalLightest"
-                          onClick={() =>
-                            (window.location.href =
-                              routes.Category.path.replace(":category", "") +
-                              "food")//?type=auctions"
-                          }
-                        >
-                          מכירות פומביות
-                        </ChakraButton>
-                        <ChakraButton
-                          h="50px"
-                          fontSize="18px"
-                          fontWeight="normal"
-                          textColor="naturalDarkest"
-                          borderRadius="8px"
-                          _hover={{ bg: "primaryLight", textColor: "white" }}
-                          bg="naturalLightest"
-                          onClick={() =>
-                            (window.location.href = routes.HOME.path)
-                          }
-                        >
-                          קנייה מיידית
-                        </ChakraButton>
-                        <ChakraButton
-                          h="50px"
-                          fontSize="18px"
-                          fontWeight="normal"
-                          textColor="naturalDarkest"
-                          borderRadius="8px"
-                          _hover={{ bg: "primaryLight", textColor: "white" }}
-                          bg="naturalLightest"
-                          onClick={() =>
-                            (window.location.href = routes.HOME.path)
-                          }
-                        >
-                          מבצעים
-                        </ChakraButton>
-                        <ChakraButton
-                          h="50px"
-                          fontSize="18px"
-                          fontWeight="normal"
-                          textColor="naturalDarkest"
-                          borderRadius="8px"
-                          _hover={{ bg: "primaryLight", textColor: "white" }}
-                          bg="naturalLightest"
-                          onClick={() =>
-                            (window.location.href = routes.FAQ.path)
-                          }
-                        >
-                          איך מוכרים?
-                        </ChakraButton>
-                        <ChakraButton
-                          h="50px"
-                          fontSize="18px"
-                          fontWeight="normal"
-                          textColor="naturalDarkest"
-                          borderRadius="8px"
-                          _hover={{ bg: "primaryLight", textColor: "white" }}
-                          bg="naturalLightest"
-                          onClick={() =>
-                            (window.location.href = routes.ContactUs.path)
-                          }
-                        >
-                          יצירת קשר
-                        </ChakraButton>
-                      </Flex>
+                              "food") //?type=auctions"
+                        }
+                      >
+                        מכירות פומביות
+                      </ChakraButton>
+                      <ChakraButton
+                        h="50px"
+                        fontSize="18px"
+                        fontWeight="normal"
+                        textColor="naturalDarkest"
+                        borderRadius="8px"
+                        _hover={{ bg: "primaryLight", textColor: "white" }}
+                        bg="naturalLightest"
+                        onClick={() =>
+                          (window.location.href = routes.HOME.path)
+                        }
+                      >
+                        קנייה מיידית
+                      </ChakraButton>
+                      <ChakraButton
+                        h="50px"
+                        fontSize="18px"
+                        fontWeight="normal"
+                        textColor="naturalDarkest"
+                        borderRadius="8px"
+                        _hover={{ bg: "primaryLight", textColor: "white" }}
+                        bg="naturalLightest"
+                        onClick={() =>
+                          (window.location.href = routes.HOME.path)
+                        }
+                      >
+                        מבצעים
+                      </ChakraButton>
+                      <ChakraButton
+                        h="50px"
+                        fontSize="18px"
+                        fontWeight="normal"
+                        textColor="naturalDarkest"
+                        borderRadius="8px"
+                        _hover={{ bg: "primaryLight", textColor: "white" }}
+                        bg="naturalLightest"
+                        onClick={() => (window.location.href = routes.FAQ.path)}
+                      >
+                        איך מוכרים?
+                      </ChakraButton>
+                      <ChakraButton
+                        h="50px"
+                        fontSize="18px"
+                        fontWeight="normal"
+                        textColor="naturalDarkest"
+                        borderRadius="8px"
+                        _hover={{ bg: "primaryLight", textColor: "white" }}
+                        bg="naturalLightest"
+                        onClick={() =>
+                          (window.location.href = routes.ContactUs.path)
+                        }
+                      >
+                        יצירת קשר
+                      </ChakraButton>
                     </Flex>
-                  </PopoverBody>
-                </PopoverContent>
-              </Popover>
-            </Flex>
+                  </Flex>
+                </PopoverBody>
+              </PopoverContent>
+            </Popover>
           </Flex>
-          <Flex gap="10px" px={{ sm: "70px" }}>
-            <IconButton
-              w="50px"
+        </Flex>
+        <Flex gap="10px" px={{ sm: "70px" }}>
+          <IconButton
+            w="50px"
+            h="50px"
+            bg="secondaryColor"
+            textColor="white"
+            borderRadius="15px"
+            fontSize="21px"
+            icon={<SearchIcon />}
+            onClick={() => (window.location.href = "/category?query=" + query)}
+          />
+          <Box w="93.9%">
+            <Input
+              dir="rtl"
               h="50px"
-              bg="secondaryColor"
-              textColor="white"
-              borderRadius="15px"
-              fontSize="21px"
-              icon={<SearchIcon />}
-              onClick={() =>
-                (window.location.href = "/category?query=" + query)
-              }
+              placeholder="אני מחפש..."
+              border="none"
+              borderRadius="14px"
+              bg="white"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
             />
-            <Box w="93.9%">
-              <Input
-                dir="rtl"
-                h="50px"
-                placeholder="אני מחפש..."
-                border="none"
-                borderRadius="14px"
-                bg="white"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-              />
-            </Box>
-          </Flex>
+          </Box>
+        </Flex>
       </Flex>
     </>
   );
