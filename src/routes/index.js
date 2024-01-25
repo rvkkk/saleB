@@ -44,7 +44,7 @@ export const routes = {
         component: SignUp
     },
     HOME: {
-        path: "/sale",
+        path: "/",
         component: Home
     },
     ShoppingCart: {
