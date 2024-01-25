@@ -1,14 +1,14 @@
-/home                /
-/auth/login          /auth/login
-/auth/sign-up        /auth/sign-up
-/auth/login/no_password /auth/login/no_password
-/auth/login/email_authentication /auth/login/email_authentication
-/cart/:id            /cart/:id
-/category/:category  /category/:category
-/product/:id         /product/:id
-/product-auction/:id /product-auction/:id
-/product/create      /product/create
-/faq                 /faq
+/home                / 200
+/auth/login          /auth/login 200
+/auth/sign-up        /auth/sign-up 200
+/auth/login/no_password      /auth/login/no_password 200
+/auth/login/email_authentication      /auth/login/email_authentication 200
+/cart/ id=:id           /cart/:id 200
+/category/:category      /category/:category 200
+/product/ id=:id         /product/:id 200
+/product-auction/ id=:id  /product-auction/:id 200
+/product/create      /product/create 200
+/faq                 /faq 200
 /regulations         /regulations
 /shipping-details    /shipping-details
 /payment-info/:id    /payment-info/:id
@@ -22,6 +22,6 @@
 /setting             /setting
 /contact             /contact
 /about               /about
-/article/:id         /article/:id
-/buy-success/:id     /buy-success/:id
-/check/:id           /check/:id
+/article/ id=:id       /article/:id
+/buy-success/ id=:id    /buy-success/:id
+/check/ id=:id          /check/:id
