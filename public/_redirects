@@ -1,11 +1,1 @@
 /* /index.html 200
-/auth/login /auth/login 200
-/auth/sign-up /auth/sign-up 200
-/auth/login/no_password /auth/login/no_password 200
-/auth/login/email_authentication /auth/login/email_authentication 200
-/product/create /product/create 200
-/faq /faq 200
-/contact /contact 200
-/about /about 200
-/regulations /regulations 200
-/wishlist /wishlist 200
