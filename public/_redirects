@@ -3,7 +3,6 @@
 /auth/sign-up        /auth/sign-up
 /auth/login/no_password /auth/login/no_password
 /auth/login/email_authentication /auth/login/email_authentication
-/auth/sign-up        /auth/sign-up
 /cart/:id            /cart/:id
 /category/:category  /category/:category
 /product/:id         /product/:id
