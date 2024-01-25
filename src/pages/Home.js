@@ -96,7 +96,7 @@ export default function Home() {
                     לרכישה
                   </Button>
                 </Box>
-                <Image w="78px" src={process.env.PUBLIC_URL +"/assets/LOGO CUBE.png"} />
+                <Image w="78px" src={process.env.PUBLIC_URL +"/assets/logocube2.svg"} />
               </Flex>
             </Box>
           </Container>
