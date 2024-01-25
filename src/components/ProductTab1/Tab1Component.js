@@ -50,7 +50,7 @@ export default function Tab1Component() {
           נתקלתם בבעיה עם מוצר זה?
         </Text>
         <Flex gap="1" w="max" alignItems="center">
-          <Image src="/assets/flag.png" />
+          <Image src={process.env.PUBLIC_URL + "/assets/flag.png"} />
           <Link
             fontSize="14px"
             lineHeight="22px"

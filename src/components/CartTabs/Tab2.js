@@ -9,12 +9,19 @@ import {
   GridItem,
   useRadioGroup,
   VStack,
-  Checkbox,
   IconButton,
+  HStack,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../Button";
-import { ArrowLeftIcon, RefreshIcon, TrashIcon } from "../Icons";
+import {
+  ArrowLeftIcon,
+  PayPalIcon,
+  PenIcon,
+  RefreshIcon,
+  TrashIcon,
+  VisaIcon,
+} from "../Icons";
 import Input from "../Input";
 import DetailsHeader from "../DetailsHeader";
 import DeliveryCheckbox from "../DeliveryCheckbox";
@@ -23,6 +30,10 @@ import { ChevronRightIcon } from "@chakra-ui/icons";
 import QuantityInput from "../QuantityInput";
 import { addToCart } from "../../utils/cart";
 import { updateCart } from "../../utils/api/carts";
+import { getUserDefaultCC } from "../../utils/api/creditCards";
+import { getUserDefaultShippingAddress } from "../../utils/api/shippingAddresses";
+import CustomRadio from "../CustomRadio";
+import CheckBox from "../CheckBox";
 
 export default function Tab2(props) {
   const [firstName, setFirstName] = useState("");
@@ -39,6 +50,7 @@ export default function Tab2(props) {
   const [deliveryBuilding, setDeliveryBuilding] = useState("");
   const [deliveryFloor, setDeliveryFloor] = useState("");
   const [deliveryApartment, setDeliveryApartment] = useState("");
+  const [deliveryZipCode, setDeliveryZipCode] = useState("");
   const [deliveryType, setDeliveryType] = useState("1");
   const [invalidFirstName, setInvalidFirstName] = useState("");
   const [invalidLastName, setInvalidLastName] = useState("");
@@ -53,9 +65,13 @@ export default function Tab2(props) {
   const [invalidBuilding, setInvalidBuilding] = useState("");
   const [invalidFloor, setInvalidFloor] = useState("");
   const [invalidApartment, setInvalidApartment] = useState("");
+  const [invalidZipCode, setInvalidZipCode] = useState("");
   const [notes, setNotes] = useState("");
   const [products, setProducts] = useState(props.products);
   const [saveDeafult, setSaveDeafult] = useState(true);
+  const [showDetails, setShowDetails] = useState(false);
+  const [userAddress, setUserAdress] = useState({});
+  const [userCC, setUserCC] = useState({});
   const token = window.localStorage.getItem("token");
   const discount = props.discount;
 
@@ -147,6 +163,9 @@ export default function Tab2(props) {
             companyName,
           },
           delivery: {
+            deliveryFirstName,
+            deliveryLastName,
+            deliveryPhone,
             deliveryCountry,
             deliveryCity,
             deliveryStreet,
@@ -235,7 +254,43 @@ export default function Tab2(props) {
       return updatedProducts;
     });
   };
+  useEffect(() => {
+    if (token !== null) {
+      getUserDefaultShippingAddress()
+        .then((res) => {
+          const address = res.shippingAddress;
+          setDeliveryFirstName(address.name.split(" ")[0]);
+          setDeliveryLastName(address.name.split(" ")[1]);
+          setDeliveryPhone(address.phoneNumber);
+          setDeliveryCountry(address.country);
+          setDeliveryCity(address.city);
+          setDeliveryStreet(address.street);
+          setDeliveryBuilding(address.buildingNumber);
+          setDeliveryFloor(address.floor);
+          setDeliveryApartment(address.apartmentNumber);
+          setDeliveryZipCode(address.zipCode);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      getUserDefaultCC()
+        .then((res) => {
+          setUserCC(res.cc);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, []);
 
+  const paypal = getRadioProps({ value: "paypal" });
+  const visa = getRadioProps({ value: "visa" });
+
+  const openPayPal = () => {
+    // You can customize this URL based on your PayPal integration
+    var paypalURL = "https://www.paypal.com"; // Replace with your actual PayPal URL
+    window.location.href = paypalURL;
+  };
   return (
     <Flex gap="8" dir="rtl" mt="20" mx="15%">
       <Flex flex="1" flexDir="column" gap={token ? "40px" : "30px"} w="631px">
@@ -328,173 +383,311 @@ export default function Tab2(props) {
           </VStack>
         </Flex>
 
-        <DetailsHeader name="פרטי משלוח" />
+        <Flex flexDir="column" gap="20px">
+          <DetailsHeader name="פרטי משלוח" />
 
-        {token === null ? (
-          <Grid gridTemplateColumns="1fr 1fr" gap="6">
-            <Input
-              label="שם פרטי"
-              required
-              defaultValue={deliveryFirstName}
-              onBlur={(e) => setDeliveryFirstName(e.target.value)}
-            />
-            <Input
-              label="שם משפחה"
-              required
-              defaultValue={deliveryLastName}
-              onBlur={(e) => setDeliveryLastName(e.target.value)}
-            />
-            <Input
-              label="מדינה"
-              isInvalid={invalidCountry !== ""}
-              isInvalidMessage={invalidCountry}
-              required
-              defaultValue={deliveryCountry}
-              onChange={(e) => {
-                setDeliveryCountry(e.target.value);
-                setInvalidCountry("");
-              }}
-            />
+          {token === null || showDetails ? (
+            <Grid gridTemplateColumns="1fr 1fr" gap="6">
+              <Input
+                label="שם פרטי"
+                required
+                defaultValue={deliveryFirstName}
+                onBlur={(e) => setDeliveryFirstName(e.target.value)}
+              />
+              <Input
+                label="שם משפחה"
+                required
+                defaultValue={deliveryLastName}
+                onBlur={(e) => setDeliveryLastName(e.target.value)}
+              />
+              <Input
+                label="מדינה"
+                isInvalid={invalidCountry !== ""}
+                isInvalidMessage={invalidCountry}
+                required
+                defaultValue={deliveryCountry}
+                onChange={(e) => {
+                  setDeliveryCountry(e.target.value);
+                  setInvalidCountry("");
+                }}
+              />
 
-            <Input
-              label="טלפון"
-              placeholder=""
-              required
-              defaultValue={deliveryPhone}
-              onBlur={(e) => setDeliveryPhone(e.target.value)}
-            />
-            <Input
-              label="עיר"
-              required
-              isInvalid={invalidCity !== ""}
-              isInvalidMessage={invalidCity}
-              defaultValue={deliveryCity}
-              onBlur={(e) => {
-                setDeliveryCity(e.target.value);
-                setInvalidCity("");
-              }}
-            />
-            <Input
-              label="רחוב"
-              isInvalid={invalidStreet !== ""}
-              isInvalidMessage={invalidStreet}
-              required
-              defaultValue={deliveryStreet}
-              onBlur={(e) => {
-                setDeliveryStreet(e.target.value);
-                setInvalidStreet("");
-              }}
-            />
-            <GridItem colSpan={2}>
-              <Grid gridTemplateColumns="1fr 1fr 1fr 1fr" gap="4">
-                <GridItem colSpan={2}>
+              <Input
+                label="טלפון"
+                placeholder=""
+                required
+                defaultValue={deliveryPhone}
+                onBlur={(e) => setDeliveryPhone(e.target.value)}
+              />
+              <Input
+                label="עיר"
+                required
+                isInvalid={invalidCity !== ""}
+                isInvalidMessage={invalidCity}
+                defaultValue={deliveryCity}
+                onBlur={(e) => {
+                  setDeliveryCity(e.target.value);
+                  setInvalidCity("");
+                }}
+              />
+              <Input
+                label="רחוב"
+                isInvalid={invalidStreet !== ""}
+                isInvalidMessage={invalidStreet}
+                required
+                defaultValue={deliveryStreet}
+                onBlur={(e) => {
+                  setDeliveryStreet(e.target.value);
+                  setInvalidStreet("");
+                }}
+              />
+              <GridItem colSpan={2}>
+                <Grid gridTemplateColumns="1fr 1fr 1fr 1fr" gap="4">
+                  <GridItem colSpan={2}>
+                    <Input
+                      label="מספר בניין"
+                      isInvalid={invalidBuilding !== ""}
+                      isInvalidMessage={invalidBuilding}
+                      defaultValue={deliveryBuilding}
+                      onBlur={(e) => {
+                        setDeliveryBuilding(e.target.value);
+                        setInvalidBuilding("");
+                      }}
+                      required
+                    />
+                  </GridItem>
+
                   <Input
-                    label="מספר בניין"
-                    isInvalid={invalidBuilding !== ""}
-                    isInvalidMessage={invalidBuilding}
-                    defaultValue={deliveryBuilding}
+                    label="קומה"
+                    type="number"
+                    isInvalid={invalidFloor !== ""}
+                    isInvalidMessage={invalidFloor}
+                    defaultValue={deliveryFloor}
                     onBlur={(e) => {
-                      setDeliveryBuilding(e.target.value);
-                      setInvalidBuilding("");
+                      setDeliveryFloor(e.target.value);
+                      setInvalidFloor("");
                     }}
                     required
                   />
-                </GridItem>
 
-                <Input
-                  label="קומה"
-                  type="number"
-                  isInvalid={invalidFloor !== ""}
-                  isInvalidMessage={invalidFloor}
-                  defaultValue={deliveryFloor}
-                  onBlur={(e) => {
-                    setDeliveryFloor(e.target.value);
-                    setInvalidFloor("");
-                  }}
+                  <Input
+                    label="דירה"
+                    type="number"
+                    isInvalid={invalidApartment !== ""}
+                    isInvalidMessage={invalidApartment}
+                    defaultValue={deliveryApartment}
+                    onBlur={(e) => {
+                      setDeliveryApartment(e.target.value);
+                      setInvalidApartment("");
+                    }}
+                    required
+                  />
+                </Grid>
+              </GridItem>
+              <GridItem colSpan={2}>
+                <TextArea
+                  label="הערות למוכר"
+                  placeholder="לורם איפסום"
+                  value={notes}
+                  onBlur={(e) => setNotes(e.target.value)}
                   required
                 />
-
-                <Input
-                  label="דירה"
-                  type="number"
-                  isInvalid={invalidApartment !== ""}
-                  isInvalidMessage={invalidApartment}
-                  defaultValue={deliveryApartment}
-                  onBlur={(e) => {
-                    setDeliveryApartment(e.target.value);
-                    setInvalidApartment("");
-                  }}
-                  required
-                />
-              </Grid>
-            </GridItem>
-            <GridItem colSpan={2}>
-              <TextArea
-                label="הערות למוכר"
-                placeholder="לורם איפסום"
-                value={notes}
-                onBlur={(e) => setNotes(e.target.value)}
-                required
-              />
-            </GridItem>
-            <GridItem colSpan={2}>
-              <Checkbox
-                size="big"
-                default
-                checked={saveDeafult}
-                text="שמור את הפרטים כברירת מחדל"
-                fontSize="16px"
-                lineHeight="26px"
-                onChange={() => setSaveDeafult(!saveDeafult)}
-              ></Checkbox>
-            </GridItem>
-          </Grid>
-        ) : (
-          <Box
-            w="full"
-            border="1px solid transparent"
-            borderColor="naturalLight"
-            borderRadius="12px"
-            h="68px"
-            px="8"
-            filter="drop-shadow(4px 4px 10px rgba(79, 81, 98, 0.05))"
-            py="2"
-          >
-            <Flex justifyContent="space-between" י="full" alignItems="center">
-              <Flex alignItems="center" gap="5">
-                <Box>
-                  <Text
-                    fontSize="18px"
-                    fontWeight="medium"
-                    color="naturalBlack"
-                    letterSpacing="0.005em"
-                    lineHeight="130%"
-                  >
-                    אלי דוד
-                  </Text>
-                  <Text
+              </GridItem>
+              <GridItem colSpan={2}>
+                <Flex justifyContent="space-between">
+                  <CheckBox
+                    size="big"
+                    default
+                    checked={saveDeafult}
+                    text="שמור את הפרטים כברירת מחדל"
                     fontSize="16px"
-                    color="naturalBlack"
-                    letterSpacing="0.005em"
-                    lineHeight="130%"
+                    lineHeight="26px"
+                    onChange={() => setSaveDeafult(!saveDeafult)}
+                  ></CheckBox>
+                  {showDetails && (
+                    /* <Text
+                    cursor="pointer"
+                    onClick={() => setShowDetails(!showDetails)}
                   >
-                    חחללל
-                  </Text>
-                </Box>
+                    <PenIcon />
+                  </Text>*/
+                    <Text
+                      fontSize="16px"
+                      lineHeight="26px"
+                      letterSpacing="0.005em"
+                      color="primary"
+                      cursor="pointer"
+                      onClick={() => setShowDetails(!showDetails)}
+                    >
+                      הסתר
+                    </Text>
+                  )}
+                </Flex>
+              </GridItem>
+            </Grid>
+          ) : (
+            <Box
+              w="full"
+              border="1px solid transparent"
+              borderColor="naturalLight"
+              borderRadius="12px"
+              h="68px"
+              px="8"
+              filter="drop-shadow(4px 4px 10px rgba(79, 81, 98, 0.05))"
+              py="2"
+            >
+              <Flex justifyContent="space-between" h="full" alignItems="center">
+                <Flex alignItems="center" gap="5">
+                  <Box>
+                    <Text
+                      fontSize="18px"
+                      fontWeight="medium"
+                      color="naturalBlack"
+                      letterSpacing="0.005em"
+                      lineHeight="130%"
+                    >
+                      {deliveryFirstName} {deliveryLastName}
+                    </Text>
+                    <Text
+                      fontSize="16px"
+                      color="naturalBlack"
+                      letterSpacing="0.005em"
+                      lineHeight="130%"
+                    >
+                      {deliveryStreet} {deliveryBuilding}, {deliveryCity}{" "}
+                      {deliveryZipCode !== "" ? "מיקוד " + deliveryZipCode : ""}
+                    </Text>
+                  </Box>
+                </Flex>
+                <Text
+                  cursor="pointer"
+                  onClick={() => setShowDetails(!showDetails)}
+                >
+                  <PenIcon />
+                </Text>
               </Flex>
-              <Text color="primary">ערוך</Text>
-            </Flex>
-          </Box>
+            </Box>
+          )}
+        </Flex>
+        {token !== null && (
+          <Flex flexDir="column" gap="20px">
+            <DetailsHeader name="פרטי תשלום" />
+            <Box mb="30px">
+              <HStack {...group} w="full">
+                <CustomRadio w="215px" h="76px" {...visa} value="visa">
+                  <Flex
+                    alignItems="center"
+                    dir="rtl"
+                    w="150px"
+                    justifyContent="space-between"
+                  >
+                    <Box>
+                      <Text
+                        fontSize="16px"
+                        lineHeight="26px"
+                        letterSpacing="0.005em"
+                        color="naturalBlack"
+                        fontWeight="bold"
+                        dir="ltr"
+                      >
+                        **** {userCC.ccNumber && userCC.ccNumber.slice(-4)}
+                      </Text>
+                      <Flex gap="2" alignItems="center">
+                        <Text
+                          fontSize="16px"
+                          lineHeight="26px"
+                          letterSpacing="0.005em"
+                          color="naturalDark"
+                          fontWeight="medium"
+                          onClick={() =>
+                            props.setTabIndex(
+                              2,
+                              products,
+                              {
+                                name: options[deliveryType - 1]["deliveryName"],
+                                priceNum:
+                                  options[deliveryType - 1]["priceNum"] || 0,
+                              },
+                              {
+                                delivery: {
+                                  deliveryFirstName,
+                                  deliveryLastName,
+                                  deliveryPhone,
+                                  deliveryCountry,
+                                  deliveryCity,
+                                  deliveryStreet,
+                                  deliveryBuilding,
+                                  deliveryFloor,
+                                  deliveryApartment,
+                                  deliveryZipCode,
+                                },
+                              },
+                              userCC
+                            )
+                          }
+                        >
+                          ערוך
+                        </Text>
+                        <Box
+                          h="1"
+                          w="1"
+                          borderRadius="full"
+                          bg="naturalDark"
+                        ></Box>
+                        <Text
+                          fontSize="16px"
+                          lineHeight="26px"
+                          letterSpacing="0.005em"
+                          color="naturalDark"
+                          fontWeight="medium"
+                        >
+                          {userCC.ccType}
+                        </Text>
+                      </Flex>
+                    </Box>
+                    <VisaIcon />
+                  </Flex>
+                </CustomRadio>
+                <CustomRadio
+                  onClick={() => openPayPal()}
+                  w="215px"
+                  h="76px"
+                  {...paypal}
+                  value="paypal"
+                >
+                  <PayPalIcon />
+                </CustomRadio>
+                <Flex
+                  cursor="pointer"
+                  onClick={() =>
+                    props.setTabIndex(2, products, {
+                      name: options[deliveryType - 1]["deliveryName"],
+                      priceNum: options[deliveryType - 1]["priceNum"] || 0,
+                    })
+                  }
+                  h="76px"
+                  w="76px"
+                  bg="naturalLightest"
+                  borderRadius="12px"
+                  fontSize="40px"
+                  color="naturalDark"
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  +
+                </Flex>
+              </HStack>
+            </Box>
+          </Flex>
         )}
         <Flex h="64px" justifyContent="space-between" alignItems="center">
           <Button.TextButton
             w="max"
             onClick={() =>
-              props.setTabIndex(
-                0,
-                products,
-                options[deliveryType - 1]["priceNum"] || 0
-              )
+              props.setTabIndex(0, products, {
+                name: options[deliveryType - 1]["deliveryName"],
+                priceNum: options[deliveryType - 1]["priceNum"] || 0,
+              })
             }
           >
             <ChevronRightIcon />
@@ -503,11 +696,28 @@ export default function Tab2(props) {
           <Button
             w="max"
             h="64px"
-            onClick={() =>
+            onClick={() => token === null ? 
               props.setTabIndex(2, products, {
                 name: options[deliveryType - 1]["deliveryName"],
                 priceNum: options[deliveryType - 1]["priceNum"] || 0,
-              })
+              }) : props.setTabIndex(3, products, {
+                name: options[deliveryType - 1]["deliveryName"],
+                priceNum: options[deliveryType - 1]["priceNum"] || 0,
+              },{
+                delivery: {
+                  deliveryFirstName,
+                  deliveryLastName,
+                  deliveryPhone,
+                  deliveryCountry,
+                  deliveryCity,
+                  deliveryStreet,
+                  deliveryBuilding,
+                  deliveryFloor,
+                  deliveryApartment,
+                  deliveryZipCode,
+                },
+              },
+              userCC)
             } //verifyShippingDetailsAndContinueCheckout()
           >
             המשך לתשלום
@@ -713,16 +923,34 @@ export default function Tab2(props) {
             <Text fontSize="14px" color="naturalDark">
               האתר מאובטח ומוגן ע״י
             </Text>
-            <Image w="20" src="/assets/Norton Icon.png" />
-            <Image w="20" src="/assets/logo1.png" />
+            <Image
+              w="20"
+              src={process.env.PUBLIC_URL + "/assets/Norton Icon.png"}
+            />
+            <Image w="20" src={process.env.PUBLIC_URL + "/assets/logo1.png"} />
           </Flex>
 
           <Flex gap="4" alignItems="center" justifyContent="center">
-            <Image w="14" src="/assets/International3.png" />
-            <Image w="8" src="/assets/International.png" />
-            <Image w="8" src="/assets/International2.png" />
-            <Image w="10" src="/assets/Mastercard.svg" />
-            <Image w="10" src="/assets/International4.png" />
+            <Image
+              w="14"
+              src={process.env.PUBLIC_URL + "/assets/International3.png"}
+            />
+            <Image
+              w="8"
+              src={process.env.PUBLIC_URL + "/assets/International.png"}
+            />
+            <Image
+              w="8"
+              src={process.env.PUBLIC_URL + "/assets/International2.png"}
+            />
+            <Image
+              w="10"
+              src={process.env.PUBLIC_URL + "/assets/Mastercard.svg"}
+            />
+            <Image
+              w="10"
+              src={process.env.PUBLIC_URL + "/assets/International4.png"}
+            />
           </Flex>
         </Flex>
       </Flex>

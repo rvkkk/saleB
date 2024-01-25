@@ -85,7 +85,7 @@ const ImageSelect = ({ checked = false, image, choose }) => {
         borderRadius="12px"
         border="1px solid transparent"
         borderColor={{ base: checked && image && "primaryLight", md: "transparent" }}
-        src={image ? image.url : "/assets/Image.png"}
+        src={image ? image.url : process.env.PUBLIC_URL + "/assets/Image.png"}
       />
     </Box>
   );

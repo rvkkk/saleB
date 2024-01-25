@@ -93,7 +93,7 @@ export default function ContactUs() {
               h="full"
               borderRightRadius="30px"
               right="0"
-              src="/assets/contact_banner_bg.png"
+              src={process.env.PUBLIC_URL + "/assets/contact_banner_bg.png"}
             />
             <Flex
               justifyContent="center"
@@ -126,12 +126,12 @@ export default function ContactUs() {
               left="50%"
               transform="translate(-50%, -50%)"
             >
-              <ContactCard phone="972509409200+" imageUrl="/assets/19.png" />
+              <ContactCard phone="972509409200+" imageUrl={process.env.PUBLIC_URL + "/assets/19.png"} />
               <ContactCard
                 email="salebid@salebid.com"
-                imageUrl="/assets/39.png"
+                imageUrl={process.env.PUBLIC_URL + "/assets/39.png"}
               />
-              <ContactCard text="Tel-Aviv, Israel" imageUrl="/assets/38.png" />
+              <ContactCard text="Tel-Aviv, Israel" imageUrl={process.env.PUBLIC_URL + "/assets/38.png"} />
             </Flex>
           </Box>
 

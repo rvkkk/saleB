@@ -227,6 +227,7 @@ export default function ShoppingCart() {
       component: (
         <Tab1
         products={products}
+        delivery={delivery}
           proceedToCheckout={(products, discount) => {
             setProducts(products);
             setDiscount(discount);
@@ -240,7 +241,7 @@ export default function ShoppingCart() {
       name: "משלוח",
       imgUrl: "/assets/icon3.svg",
       component: <Tab2 products={products} discount={discount}
-      setTabIndex={(index, products = [], delivery, details) => {setProducts(products); setDelivery(delivery); setDetails(details); setTabIndex(index)}}/>,
+      setTabIndex={(index, products = [], delivery, details={}, userCC={}) => {setProducts(products); setDelivery(delivery); setDetails(details); setUserCC(userCC); setTabIndex(index)}}/>,
       icon: Icon3,
     },
     {
@@ -252,6 +253,7 @@ export default function ShoppingCart() {
         products={products}
         delivery={delivery}
         discount={discount}
+        userCC={userCC}
         />
       ),
       icon: Icon2,

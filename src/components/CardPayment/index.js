@@ -52,7 +52,7 @@ export default function CardPayment(props) {
           }}
         />
         <Flex h="45px" w="38px" justifyContent="center" alignItems="center">
-          <Image src="/assets/6.png" />
+          <Image src={process.env.PUBLIC_URL + "/assets/6.png"} />
         </Flex>
       </Flex>
     </Flex>

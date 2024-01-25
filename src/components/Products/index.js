@@ -8,7 +8,6 @@ import {
   Text,
   IconButton,
 } from "@chakra-ui/react";
-import { ReactImageMagnify } from "react-image-magnify";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation } from "swiper";
 import "swiper/swiper-bundle.css";

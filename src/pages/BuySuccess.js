@@ -11,7 +11,7 @@ export default function BuySuccess() {
     <Layout>
       <Container>
         <Flex flexDir="column" alignItems="center" py="20" >
-          <Image w="300px" src="/assets/buy_success.png" />
+          <Image w="300px" src={process.env.PUBLIC_URL + "/assets/buy_success.png"} />
           <Box>
             <Text fontSize="24px" color="naturalBlack" textAlign="center">
             הזמנתך {orderId} התקבלה בהצלחה

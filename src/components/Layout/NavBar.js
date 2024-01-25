@@ -74,7 +74,7 @@ export default function NavBar({ withSidebar, logo }) {
 
   const [user, setUser] = useState({
     userName: "Sale Bid",
-    profileImage: "/assets/LOGO CUBE 2.png",
+    profileImage: process.env.PUBLIC_URL + "/assets/LOGO CUBE 2.png",
   });
 
   const getUser = () => {
@@ -272,7 +272,7 @@ export default function NavBar({ withSidebar, logo }) {
               justifyContent={{ lg: "flex-start", xl: "flex-end" }}
             >
               <Link to="/">
-                <Image w="140px" src="/assets/logo_full.png" />
+                <Image w="140px" src={process.env.PUBLIC_URL + "/assets/logo_full.png"} />
               </Link>
             </Flex>
             <Box w={{ lg: "530px", xl: "700px" }}>
@@ -627,7 +627,7 @@ export default function NavBar({ withSidebar, logo }) {
                   dir="rtl"
                 >
                   <Flex gap="2" alignItems="center">
-                    <Image src="/assets/israel.svg" />
+                    <Image src={process.env.PUBLIC_URL + "/assets/israel.svg"} />
                     <Text>עברית</Text>
                     <Icon5 />
                   </Flex>
@@ -824,7 +824,7 @@ export default function NavBar({ withSidebar, logo }) {
           h="65px"
         >
           <Link to="/">
-            <Image w="122px" src="/assets/logo_full.png" />
+            <Image w="122px" src={process.env.PUBLIC_URL + "/assets/logo_full.png"} />
           </Link>
         </Flex>
     
@@ -840,7 +840,7 @@ export default function NavBar({ withSidebar, logo }) {
         >
           <Flex justifyContent="space-between">
             <Link to="/">
-              <Image w="122px" src="/assets/logo_full.png" />
+              <Image w="122px" src={process.env.PUBLIC_URL + "/assets/logo_full.png"} />
             </Link>
             <Flex gap="15px">
               <Menu placement="bottom">

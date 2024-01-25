@@ -88,32 +88,32 @@ export default function FAQ() {
               <Grid gridTemplateColumns="1fr 1fr 1fr" gap="4" dir="rtl">
                 <FaqCard
                   text="חשבון"
-                  imageUrl="/assets/19.png"
+                  imageUrl={process.env.PUBLIC_URL + "/assets/19.png"}
                   onClick={() => (window.location.href = "/article/account")}
                 ></FaqCard>
                 <FaqCard
                   text="מכירות"
-                  imageUrl="/assets/12.png"
+                  imageUrl={process.env.PUBLIC_URL + "/assets/12.png"}
                   onClick={() => (window.location.href = "/article/sales")}
                 ></FaqCard>
                 <FaqCard
                   text="קנייה"
-                  imageUrl="/assets/2.png"
+                  imageUrl={process.env.PUBLIC_URL + "/assets/2.png"}
                   onClick={() => (window.location.href = "/article/buy")}
                 ></FaqCard>
                 <FaqCard
                   text="עמלות וחיובים"
-                  imageUrl="/assets/35.png"
+                  imageUrl={process.env.PUBLIC_URL + "/assets/35.png"}
                   onClick={() => (window.location.href = "/article/")}
                 ></FaqCard>
                 <FaqCard
                   text="משלוחים"
-                  imageUrl="/assets/11.png"
+                  imageUrl={process.env.PUBLIC_URL + "/assets/11.png"}
                   onClick={() => (window.location.href = "/article/shipping")}
                 ></FaqCard>
                 <FaqCard
                   text="החזרות"
-                  imageUrl="/assets/49.png"
+                  imageUrl={process.env.PUBLIC_URL + "/assets/49.png"}
                   onClick={() => (window.location.href = "/article/returns")}
                 ></FaqCard>
               </Grid>

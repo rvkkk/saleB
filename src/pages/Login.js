@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Flex, Heading, Image, Text, Link, Box } from "@chakra-ui/react";
-import LoginLayout from "../components/AuthLayout/loginLayout";
+import LoginLayout from "../components/AuthLayout";
 import Button from "../components/Button";
 import Checkbox from "../components/CheckBox";
 import Input, { PasswordField } from "../components/Input";
@@ -175,7 +175,7 @@ export default function Login() {
                   </Button>
                   <Button.Secondary h="48px">
                     <span fontSize="14px">Sign in with Google</span>
-                    <Image width="25px" src="/assets/Google.svg" />
+                    <Image width="25px" src={process.env.PUBLIC_URL + "/assets/Google.svg"} />
                   </Button.Secondary>
                 </Flex>
 
@@ -322,7 +322,7 @@ export default function Login() {
                           <Text fontSize="18px" fontWeight="medium">
                             Sign in with Google
                           </Text>
-                          <Image width="30px" src="/assets/Google.svg" />
+                          <Image width="30px" src={process.env.PUBLIC_URL + "/assets/Google.svg"} />
                         </Button.Secondary>
                       </Flex>
                     </Box>

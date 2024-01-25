@@ -362,7 +362,7 @@ export default function ProductPageAuction() {
                                 color="primary"
                                 fontSize="14px"
                               >
-                                <Image h="14px" src="/assets/tool.png" />
+                                <Image h="14px" src={process.env.PUBLIC_URL + "/assets/tool.png"} />
                                 <Text lineHeight="20px">הצעות</Text>
                                 <Text lineHeight="20px">
                                   {product.product.offers}
@@ -378,7 +378,7 @@ export default function ProductPageAuction() {
                                     color="primary"
                                     fontSize="14px"
                               >
-                                <Image h="3" src="/assets/eye.png" />
+                                <Image h="3" src={process.env.PUBLIC_URL + "/assets/eye.png"} />
                                 <Text lineHeight="20px">צופים</Text>
                                 <Text lineHeight="20px">
                                   {product.product.viewed}
@@ -502,7 +502,7 @@ export default function ProductPageAuction() {
                               p="4"
                               justifyContent="center"
                             >
-                              <Image w="30px" src="/assets/Shield Check.png" />
+                              <Image w="30px" src={process.env.PUBLIC_URL + "/assets/Shield Check.png"} />
                               <Text
                                 fontSize="13px"
                                 lineHeight="14.5px"
@@ -532,9 +532,9 @@ export default function ProductPageAuction() {
                               >
                                 תשלום מאובטח ומוגן
                               </Text>
-                              <Image h="26px" src="/assets/Norton Icon.png" />
+                              <Image h="26px" src={process.env.PUBLIC_URL + "/assets/Norton Icon.png"} />
                               {/*h="26px"*/}
-                              <Image h="26px" src="/assets/logo1.png" />
+                              <Image h="26px" src={process.env.PUBLIC_URL + "/assets/logo1.png"} />
                             </Flex>
                           </Box>
 
@@ -553,7 +553,7 @@ export default function ProductPageAuction() {
                               נתקלתם בבעיה עם מוצר זה?
                             </Text>
                             <Flex gap="1" w="max" alignItems="center">
-                              <Image src="/assets/flag.png" />
+                              <Image src={process.env.PUBLIC_URL + "/assets/flag.png"} />
                               <Link
                                 fontSize="14px"
                                 lineHeight="22px"
@@ -643,7 +643,7 @@ export default function ProductPageAuction() {
                                 color="primary"
                                 fontSize="12px"
                               >
-                                <Image h="14px" src="/assets/tool.png" />
+                                <Image h="14px" src={process.env.PUBLIC_URL + "/assets/tool.png"} />
                                 <Text lineHeight="20px">הצעות</Text>
                                 <Text lineHeight="20px">
                                   {product.product.offers}
@@ -659,7 +659,7 @@ export default function ProductPageAuction() {
                                   color="primary"
                                   fontSize="12px"
                               >
-                                <Image h="3" src="/assets/eye.png" />
+                                <Image h="3" src={process.env.PUBLIC_URL + "/assets/eye.png"} />
                                 <Text lineHeight="20px">צופים</Text>
                                 <Text lineHeight="20px">
                                   {product.product.viewed}
@@ -741,7 +741,7 @@ export default function ProductPageAuction() {
                           borderRadius="8px"
                           bg="borderBg"
                         >
-                          <Image w="24px" src="/assets/Shield Check.png" />
+                          <Image w="24px" src={process.env.PUBLIC_URL + "/assets/Shield Check.png"} />
                           <Text
                             fontSize="12px"
                             lineHeight="14.5px"
@@ -769,8 +769,8 @@ export default function ProductPageAuction() {
                           >
                             תשלום מאובטח ומוגן
                           </Text>
-                          <Image h="24px" src="/assets/Norton Icon.png" />
-                          <Image h="17.19px" src="/assets/logo1.png" />
+                          <Image h="24px" src={process.env.PUBLIC_URL + "/assets/Norton Icon.png"} />
+                          <Image h="17.19px" src={process.env.PUBLIC_URL + "/assets/logo1.png"} />
                         </Flex>
                       </Flex>
                     </Flex>
@@ -817,7 +817,7 @@ export default function ProductPageAuction() {
                   gap="4"
                   justifyContent="center"
                 >
-                  <Image h="150px" src="/assets/popuo_success.png" />
+                  <Image h="150px" src={process.env.PUBLIC_URL + "/assets/popuo_success.png"} />
                   <Box w="252px" textAlign="center">
                     <Text
                       fontSize="28px"

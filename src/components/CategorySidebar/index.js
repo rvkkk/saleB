@@ -237,13 +237,13 @@ export default function CategorySidebar(props) {
               title="sortBy"
               list={[
                 "מוצרים מובילים בקטגוריה",
-               /* "מומלץ",
+                "מומלץ",
                 "חדש באתר",
-                "הכי נמכר",*/
+                "הכי נמכר",
               ]}
             />
           </AccordionComponent>
-         {/* <AccordionComponent title="מצב מוצר">
+         <AccordionComponent title="מצב מוצר">
             <CheckBoxGroup
               deleteTag={unChecked.title === "status" && unChecked.text}
               addTag={addTags}
@@ -282,7 +282,7 @@ export default function CategorySidebar(props) {
               title="color"
               list={["שחור", "לבן", "כחול", "ירוק", "אדום"]}
             />
-            </AccordionComponent>*/}
+            </AccordionComponent>
         </Accordion>
       </Box>
     </Box>

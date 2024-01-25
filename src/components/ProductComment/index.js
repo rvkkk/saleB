@@ -23,7 +23,7 @@ export default function ProductComment({
     >
       <Flex justifyContent="space-between">
         <Flex alignItems="center" gap="2">
-          <Image src="/assets/user.png" />
+          <Image src={process.env.PUBLIC_URL + "/assets/user.png"} />
           <Box>
             <Text fontWeight="semibold">{name}</Text>
             <Text fontSize="14px" color="naturalDark">

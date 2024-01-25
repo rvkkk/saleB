@@ -68,7 +68,7 @@ export default function FileUploader({ onClick, onDrop, number }) {
             bg={{base: "naturalLight", md: "white"}}
             borderRadius="full"
           >
-            <Image src="/assets/image_icon.svg" />
+            <Image src={process.env.PUBLIC_URL + "/assets/image_icon.svg"} />
           </Flex>
 
           <Box textAlign="center" display={{base: "none", md: "block"}}>
@@ -94,7 +94,7 @@ const FileComponent = () => {
       borderRadius="10px"
     >
       <Flex alignItems="center" gap="2">
-        <Image h="28px" src="/assets/FILE FORMAT.svg" />
+        <Image h="28px" src={process.env.PUBLIC_URL + "/assets/FILE FORMAT.svg"}/>
         <Box>
           <Text>אגרטל מצרי זוית ישרה.jpg</Text>
 

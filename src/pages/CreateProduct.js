@@ -308,7 +308,7 @@ export default function CreateProduct() {
                     <Image
                       w={{ base: "80px", sm: "110px", md: "140px" }}
                       h={{ base: "60px", sm: "95px", md: "115px" }}
-                      src="/assets/25.svg"
+                      src={process.env.PUBLIC_URL + "/assets/25.svg"}
                     />
                     <Text
                       fontSize={{ base: "16px", sm: "18px", md: "20px" }}
@@ -341,7 +341,7 @@ export default function CreateProduct() {
                     <Image
                       w={{ base: "70px", sm: "100px", md: "120px" }}
                       h={{ base: "55px", sm: "85px", md: "105px" }}
-                      src="/assets/5.svg"
+                      src={process.env.PUBLIC_URL + "/assets/5.svg"}
                     />
                     <Text
                       fontSize={{ base: "16px", sm: "18px", md: "20px" }}
@@ -1099,9 +1099,9 @@ export default function CreateProduct() {
                               </Text>
                             </Flex>
                             {image.name.split(".")[1] === "png" ? (
-                              <Image h="28px" src="/assets/FILE PNG.svg" />
+                              <Image h="28px" src={process.env.PUBLIC_URL + "/assets/FILE PNG.svg"} />
                             ) : (
-                              <Image h="28px" src="/assets/FILE JPG.svg" />
+                              <Image h="28px" src={process.env.PUBLIC_URL + "/assets/FILE JPG.svg"} />
                             )}
                           </Flex>
                         </Flex>

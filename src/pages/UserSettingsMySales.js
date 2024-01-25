@@ -110,7 +110,7 @@ export default function UserSettingsMySales() {
                     h="full"
                     justifyContent="center"
                   >
-                    <Image w="24px" src="/assets/filter.svg" /> סינון
+                    <Image w="24px" src={process.env.PUBLIC_URL + "/assets/filter.svg"} /> סינון
                   </Flex>
                 </MenuButton>
                 <MenuList

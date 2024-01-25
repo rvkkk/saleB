@@ -93,7 +93,7 @@ export default function UserSettingsMyOrders() {
                     h="full"
                     justifyContent="center"
                   >
-                    <Image w="24px" src="/assets/filter.svg" />
+                    <Image w="24px" src={process.env.PUBLIC_URL + "/assets/filter.svg"} />
                     <Text fontSize="18px" color="naturalDark">
                       סינון
                     </Text>

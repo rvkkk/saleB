@@ -287,7 +287,7 @@ export default function UserSettingsDetails() {
                         h="94.4px"
                         objectFit="cover"
                         borderRadius="14.16px"
-                        src={picture ? picture : "/assets/Image.png"}
+                        src={picture ? picture : process.env.PUBLIC_URL + "/assets/Image.png"}
                       />
                     </Flex>
                     <Button

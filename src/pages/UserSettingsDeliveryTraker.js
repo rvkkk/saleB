@@ -119,7 +119,7 @@ export default function UserSettingsDeliveryTraker() {
             h="full"
             borderRadius="30px"
             right="0"
-            src="/assets/GIF.png"
+            src={process.env.PUBLIC_URL + "/assets/GIF.png"}
           />
           <Flex
             borderRadius="12px"

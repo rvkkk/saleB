@@ -98,7 +98,7 @@ export default function Home() {
                     לרכישה
                   </Button>
                 </Box>
-                <Image w="78px" src="/assets/LOGO CUBE.png" />
+                <Image w="78px" src={process.env.PUBLIC_URL +"/assets/LOGO CUBE.png"} />
               </Flex>
             </Box>
           </Container>
@@ -117,7 +117,7 @@ export default function Home() {
                 justifyContent="center"
               >
                 <Box flex="1">
-                  <Image w="full" src="/assets/man-stats.png" />
+                  <Image w="full" src={process.env.PUBLIC_URL + "/assets/man-stats.png"} />
                 </Box>
                 <Box flex="1">
                   <Flex flexDir="column" gap="4" width="58%">
@@ -160,20 +160,20 @@ export default function Home() {
                 gap={{ base: "30px", sm: "35px", xl: "50px", "2xl": "100px" }}
               >
                 <InfoBox
-                  imgUrl="/assets/49.svg"
+                  imgUrl={process.env.PUBLIC_URL + "/assets/49.svg"}
                   title="החזרות עד 30 יום"
                   desc="החזרות על מוצרים פגומים"
                   link={() => (window.location.href = routes.Article.path)}
                 />
 
                 <InfoBox
-                  imgUrl="/assets/34.png"
+                  imgUrl={process.env.PUBLIC_URL + "/assets/34.png"}
                   title="100% תשלום מאובטח"
                   desc="האתר שלנו מאובטח עם אמצעי הגנה הטובים"
                   link={() => (window.location.href = routes.Article.path)}
                 />
                 <InfoBox
-                  imgUrl="/assets/45.svg"
+                  imgUrl={process.env.PUBLIC_URL + "/assets/45.svg"}
                   title="משלוח חינם ברחבי העולם"
                   desc="בכל הזמנה מעל 100$"
                   link={() => (window.location.href = routes.Article.path)}

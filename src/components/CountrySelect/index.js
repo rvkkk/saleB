@@ -166,7 +166,7 @@ export default function CountrySelect(props) {
         <FormLabel color="naturalDarkest" fontSize="12px" fontWeight="normal" mb="0">
           מטבע
         </FormLabel>
-        <Menu direction="ltr">
+        <Menu placement="bottom-start" direction="ltr" matchWidth={true}>
           <MenuButton
             h="44px"
             w="full"

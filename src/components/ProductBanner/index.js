@@ -51,7 +51,7 @@ export default function ProductBanner() {
             alignItems="center"
             gap="2"
           >
-            <Image w="18.16" src="/assets/comment-icon.png" />
+            <Image w="18.16" src={process.env.PUBLIC_URL + "/assets/comment-icon.png"} />
             <Text>צור קשר</Text>
           </Flex>
         </Flex>
@@ -63,7 +63,7 @@ export default function ProductBanner() {
           borderColor="primary"
           color="primary"
         >
-          <Image w="24px" src="/assets/Shop.png" /> לחנות המוכר
+          <Image w="24px" src={process.env.PUBLIC_URL + "/assets/Shop.png"} /> לחנות המוכר
         </Button>
       </Flex>
 

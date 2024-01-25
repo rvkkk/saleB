@@ -524,7 +524,7 @@ export default function ProductPage() {
                                   h={{ md: "60px", lg: "80px" }}
                                   objectFit="cover"
                                   borderRadius="16px"
-                                  src="/assets/Image.png"
+                                  src={process.env.PUBLIC_URL + "/assets/Image.png"}
                                 />
                               }
                             />
@@ -542,7 +542,7 @@ export default function ProductPage() {
                                   h={{ md: "60px", lg: "80px" }}
                                   objectFit="cover"
                                   borderRadius="16px"
-                                  src="/assets/Image.png"
+                                  src={process.env.PUBLIC_URL + "/assets/Image.png"}
                                 />
                               }
                             />
@@ -560,7 +560,7 @@ export default function ProductPage() {
                                   h={{ md: "60px", lg: "80px" }}
                                   objectFit="cover"
                                   borderRadius="16px"
-                                  src="/assets/Image.png"
+                                  src={process.env.PUBLIC_URL + "/assets/Image.png"}
                                 />
                               }
                             />
@@ -709,7 +709,7 @@ export default function ProductPage() {
                             p="4"
                             justifyContent="center"
                           >
-                            <Image w="30px" src="/assets/Shield Check.png" />
+                            <Image w="30px" src={process.env.PUBLIC_URL + "/assets/Shield Check.png"} />
                             <Text
                               fontSize="13px"
                               lineHeight="14.5px"
@@ -739,8 +739,8 @@ export default function ProductPage() {
                             >
                               תשלום מאובטח ומוגן
                             </Text>
-                            <Image h="24px" src="/assets/Norton Icon.png" />
-                            <Image h="17.19px" src="/assets/logo1.png" />
+                            <Image h="24px" src={process.env.PUBLIC_URL + "/assets/Norton Icon.png"} />
+                            <Image h="17.19px" src={process.env.PUBLIC_URL + "/assets/logo1.png"} />
                           </Flex>
                         </Box>
 
@@ -759,7 +759,7 @@ export default function ProductPage() {
                             נתקלתם בבעיה עם מוצר זה?
                           </Text>
                           <Flex gap="1" w="max" alignItems="center">
-                            <Image src="/assets/flag.png" />
+                            <Image src={process.env.PUBLIC_URL + "/assets/flag.png"} />
                             <Link
                               fontSize="14px"
                               lineHeight="22px"
@@ -889,7 +889,7 @@ export default function ProductPage() {
                               borderRadius="12px"
                               border={model === "1" ? "2px solid" : "none"}
                               borderColor="primaryLight"
-                              src="/assets/Image.png"
+                              src={process.env.PUBLIC_URL + "/assets/Image.png"}
                             />
                           }
                         />
@@ -911,7 +911,7 @@ export default function ProductPage() {
                               borderRadius="12px"
                               border={model === "2" ? "2px solid" : "none"}
                               borderColor="primaryLight"
-                              src="/assets/Image.png"
+                              src={process.env.PUBLIC_URL + "/assets/Image.png"}
                             />
                           }
                         />
@@ -933,7 +933,7 @@ export default function ProductPage() {
                               borderRadius="12px"
                               border={model === "3" ? "2px solid" : "none"}
                               borderColor="primaryLight"
-                              src="/assets/Image.png"
+                              src={process.env.PUBLIC_URL + "/assets/Image.png"}
                             />
                           }
                         />
@@ -1120,7 +1120,7 @@ export default function ProductPage() {
                           borderRadius="8px"
                           bg="borderBg"
                         >
-                          <Image w="24px" src="/assets/Shield Check.png" />
+                          <Image w="24px" src={process.env.PUBLIC_URL + "/assets/Shield Check.png"} />
                           <Text
                             fontSize="12px"
                             lineHeight="14.5px"
@@ -1148,8 +1148,8 @@ export default function ProductPage() {
                           >
                             תשלום מאובטח ומוגן
                           </Text>
-                          <Image h="24px" src="/assets/Norton Icon.png" />
-                          <Image h="17.19px" src="/assets/logo1.png" />
+                          <Image h="24px" src={process.env.PUBLIC_URL + "/assets/Norton Icon.png"} />
+                          <Image h="17.19px" src={process.env.PUBLIC_URL + "/assets/logo1.png"} />
                         </Flex>
                       </Flex>
                     </Flex>

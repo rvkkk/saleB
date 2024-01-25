@@ -12,14 +12,15 @@ export default function Banner() {
         w="full"
         h="full"
         objectFit="cover"
-        src="/assets/banner1.png"
+        src={process.env.PUBLIC_URL + "/assets/banner1.png"}
+        //src="../../pictures/banner1.png"
       />
       <Image
         display={{ base: "block", md: "none" }}
         w="full"
         h="full"
         objectFit="cover"
-        src="/assets/splash screen.PNG"
+        src={process.env.PUBLIC_URL + "/assets/splash screen.png"}
       />
     </Box>
   );

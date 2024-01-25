@@ -27,13 +27,14 @@ import { routes } from "../../routes";
 export default function Tab4(order) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [images, setImages] = useState([
-    "/assets/Linear/Submit/1.png",
-    "/assets/Linear/Submit/2.png",
-    "/assets/Linear/Submit/3.png",
-    "/assets/Linear/Submit/4.png",
-    "/assets/Linear/Submit/5.png",
-    "/assets/Linear/Submit/6.png",
-    "/assets/Linear/Submit/7.png",
+    process.env.PUBLIC_URL + "/assets/Linear/Submit/1.png",
+    process.env.PUBLIC_URL + "/assets/Linear/Submit/2.png",
+    process.env.PUBLIC_URL + "/assets/Linear/Submit/3.png",
+    process.env.PUBLIC_URL + "/assets/Linear/Submit/4.png",
+    process.env.PUBLIC_URL + "/assets/Linear/Submit/5.png",
+    process.env.PUBLIC_URL + "/assets/Linear/Submit/6.png",
+    process.env.PUBLIC_URL + "/assets/Linear/Submit/7.png",
+    process.env.PUBLIC_URL + "/assets/Linear/Submit/8.png",
   ]);
   const token = window.localStorage.getItem("token");
 
@@ -55,7 +56,7 @@ export default function Tab4(order) {
         });
   };
 */
-  useEffect(() => {
+/*  useEffect(() => {
    /* if(token)
     {
       //להעביר תשלום ואז למחוק מהסל
@@ -67,10 +68,10 @@ export default function Tab4(order) {
 //להוסיף לקוח חדש ואז להעביר תשלום ואז למחוק מהסל ואז ליצור הזמנה חדשה
     //props.details={details} userCC={userCC} products={products}
    // window.location.href = routes.BuySuccess.path.replace(":id", "") + 546515;
-    addOrder(order)
+   /* addOrder(order)
       .then((res) => (window.location.href = routes.BuySuccess.path.replace(":id", "") + res.order._id))
       .catch((err) => console.log(err));
-  }, []);
+  }, []);*/
 
   useEffect(() => {
     const intervalId = setInterval(() => {

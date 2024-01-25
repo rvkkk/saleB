@@ -453,7 +453,7 @@ const Empty = ({ toogleShow }) => {
         gap="16"
       >
         <Flex flexDir="column" justifyContent="center" alignItems="center">
-          <Image src="/assets/empty card.png" w="381.2px" />
+          <Image src={process.env.PUBLIC_URL + "/assets/empty card.png"} w="381.2px" />
           <Text
             fontSize="36px"
             w="max"

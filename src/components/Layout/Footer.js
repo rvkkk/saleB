@@ -9,10 +9,10 @@ import {
   Menu,
   MenuButton,
   MenuList,
-  MenuItem
+  MenuItem,
 } from "@chakra-ui/react";
 import { extendTheme } from "@chakra-ui/react";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Container from "../Container";
 import {
   FaFacebookF,
@@ -21,7 +21,15 @@ import {
   FaWhatsapp,
 } from "react-icons/fa";
 import { routes } from "../../routes";
-import { IsraelIcon, USAIcon, FranceIcon, BrazilIcon, ShekelIcon, DolarlIcon, EuroIcon } from "../Icons";
+import {
+  IsraelIcon,
+  USAIcon,
+  FranceIcon,
+  BrazilIcon,
+  ShekelIcon,
+  DolarlIcon,
+  EuroIcon,
+} from "../Icons";
 
 export default function Footer() {
   const [country, setCountry] = useState("Israel");
@@ -63,7 +71,11 @@ export default function Footer() {
             <Info />
           </Flex>
           <Box display={{ base: "none", md: "flex" }}>
-            <Image w="100px" h="100px" src="/assets/LOGO CUBE.png" />
+            <Image
+              w="100px"
+              h="100px"
+              src={process.env.PUBLIC_URL + "/assets/LOGO CUBE.png"}
+            />
           </Box>
         </Flex>
         <Box
@@ -119,17 +131,31 @@ export default function Footer() {
               </Flex>
             </Flex>
             <Flex dir="ltr" gap="8">
-              <Image w="30.61px" src="/assets/webmoney.svg" />
-              <Image w="52px" src="/assets/ApplePay.svg" />
-              <Image w="40px" src="/assets/Mastercard.svg" />
-              <Image w="49px" src="/assets/visa-logo.svg" />
-              <Image w="60.34px" src="/assets/paypal.svg" />
+              <Image
+                w="30.61px"
+                src={process.env.PUBLIC_URL + "/assets/webmoney.svg"}
+              />
+              <Image
+                w="52px"
+                src={process.env.PUBLIC_URL + "/assets/ApplePay.svg"}
+              />
+              <Image
+                w="40px"
+                src={process.env.PUBLIC_URL + "/assets/Mastercard.svg"}
+              />
+              <Image
+                w="49px"
+                src={process.env.PUBLIC_URL + "/assets/visa-logo.svg"}
+              />
+              <Image
+                w="60.34px"
+                src={process.env.PUBLIC_URL + "/assets/paypal.svg"}
+              />
             </Flex>
             <Text dir="ltr" fontSize="15px">
               © SaleBid SoferGroup. Safed, israel 2023
             </Text>
           </Flex>
-
 
           <Flex px="20px" flexDir="column" gap="30px" display={{ md: "none" }}>
             <Flex justifyContent="center" gap="10">
@@ -147,58 +173,88 @@ export default function Footer() {
                   w="100px"
                   dir="rtl"
                 >
-                  <Flex gap="2" alignItems="center" >
+                  <Flex gap="2" alignItems="center">
                     <Text fontWeight="normal">ישראל</Text>
                     <IsraelIcon />
                   </Flex>
                 </MenuButton>
-                <MenuList borderColor="naturalLight" dir="ltr" w="224px" p="6px" borderRadius="8px">
-          <MenuItem bg="white" borderRadius="6px" color="naturalDarkest" onClick={() => setCountry("Israel")} _hover={{bg: "othersLight", color: "primary"}} >
-            <Flex
-              color="naturalDrakest"
-              gap="2"
-              h="44px"
-              w="full"
-              alignItems="center"
-            >
-              <IsraelIcon />
-              <Text fontSize="16px">Israel</Text>
-            </Flex>
-          </MenuItem>
-          <MenuItem bg="white" borderRadius="6px" color="naturalDarkest" onClick={() => setCountry("USA")} _hover={{bg: "othersLight", color: "primary"}} >
-            <Flex
-              color="naturalDrakest"
-              gap="2"
-              h="44px"
-              alignItems="center"
-            >
-              <USAIcon />
-              <Text fontSize="16px">USA</Text>
-            </Flex>
-          </MenuItem>
-          <MenuItem bg="white" borderRadius="6px" color="naturalDarkest" onClick={() => setCountry("France")} _hover={{bg: "othersLight", color: "primary"}} >
-            <Flex
-              color="naturalDrakest"
-              gap="2"
-              h="44px"
-              alignItems="center"
-            >
-              <FranceIcon />
-              <Text fontSize="16px">France</Text>
-            </Flex>
-          </MenuItem>
-          <MenuItem bg="white" borderRadius="6px" color="naturalDarkest" onClick={() => setCountry("Brazil")} _hover={{bg: "othersLight", color: "primary"}} >
-            <Flex
-              color="naturalDrakest"
-              gap="2"
-              h="44px"
-              alignItems="center"
-            >
-              <BrazilIcon />
-              <Text fontSize="16px">Brazil</Text>
-            </Flex>
-          </MenuItem>
-        </MenuList>
+                <MenuList
+                  borderColor="naturalLight"
+                  dir="ltr"
+                  w="224px"
+                  p="6px"
+                  borderRadius="8px"
+                >
+                  <MenuItem
+                    bg="white"
+                    borderRadius="6px"
+                    color="naturalDarkest"
+                    onClick={() => setCountry("Israel")}
+                    _hover={{ bg: "othersLight", color: "primary" }}
+                  >
+                    <Flex
+                      color="naturalDrakest"
+                      gap="2"
+                      h="44px"
+                      w="full"
+                      alignItems="center"
+                    >
+                      <IsraelIcon />
+                      <Text fontSize="16px">Israel</Text>
+                    </Flex>
+                  </MenuItem>
+                  <MenuItem
+                    bg="white"
+                    borderRadius="6px"
+                    color="naturalDarkest"
+                    onClick={() => setCountry("USA")}
+                    _hover={{ bg: "othersLight", color: "primary" }}
+                  >
+                    <Flex
+                      color="naturalDrakest"
+                      gap="2"
+                      h="44px"
+                      alignItems="center"
+                    >
+                      <USAIcon />
+                      <Text fontSize="16px">USA</Text>
+                    </Flex>
+                  </MenuItem>
+                  <MenuItem
+                    bg="white"
+                    borderRadius="6px"
+                    color="naturalDarkest"
+                    onClick={() => setCountry("France")}
+                    _hover={{ bg: "othersLight", color: "primary" }}
+                  >
+                    <Flex
+                      color="naturalDrakest"
+                      gap="2"
+                      h="44px"
+                      alignItems="center"
+                    >
+                      <FranceIcon />
+                      <Text fontSize="16px">France</Text>
+                    </Flex>
+                  </MenuItem>
+                  <MenuItem
+                    bg="white"
+                    borderRadius="6px"
+                    color="naturalDarkest"
+                    onClick={() => setCountry("Brazil")}
+                    _hover={{ bg: "othersLight", color: "primary" }}
+                  >
+                    <Flex
+                      color="naturalDrakest"
+                      gap="2"
+                      h="44px"
+                      alignItems="center"
+                    >
+                      <BrazilIcon />
+                      <Text fontSize="16px">Brazil</Text>
+                    </Flex>
+                  </MenuItem>
+                </MenuList>
               </Menu>
               <Menu direction="rtl">
                 <MenuButton
@@ -218,44 +274,57 @@ export default function Footer() {
                     <Text fontWeight="normal">עברית</Text>
                   </Flex>
                 </MenuButton>
-                <MenuList borderColor="naturalLight" dir="ltr" w="106px" p="6px">
-            <MenuItem bg="white" borderRadius="6px" color="naturalDarkest" onClick={() => setLanguage("עברית")} _hover={{bg: "othersLight", color: "primary"}} >
-              <Flex
-                color="naturalDrakest"
-                h="44px"
-                alignItems="center"
-              >
-                <Text fontSize="14px">עברית</Text>
-              </Flex>
-            </MenuItem>
-            <MenuItem bg="white" borderRadius="6px" color="naturalDarkest" onClick={() => setLanguage("English")} _hover={{bg: "othersLight", color: "primary"}} >
-              <Flex
-                color="naturalDrakest"
-                h="44px"
-                alignItems="center"
-              >
-                <Text fontSize="14px">English</Text>
-              </Flex>
-            </MenuItem>
-            <MenuItem  bg="white" borderRadius="6px" color="naturalDarkest" onClick={() => setLanguage("español")} _hover={{bg: "othersLight", color: "primary"}} >
-              <Flex
-                color="naturalDrakest"
-                h="44px"
-                alignItems="center"
-              >
-                <Text fontSize="14px">español</Text>
-              </Flex>
-            </MenuItem>
-            <MenuItem bg="white" borderRadius="6px" color="naturalDarkest" onClick={() => setLanguage("Русский")} _hover={{bg: "othersLight", color: "primary"}} >
-              <Flex
-                color="naturalDrakest"
-                h="44px"
-                alignItems="center"
-              >
-                <Text fontSize="14px">Русский</Text>
-              </Flex>
-            </MenuItem>
-          </MenuList>
+                <MenuList
+                  borderColor="naturalLight"
+                  dir="ltr"
+                  w="106px"
+                  p="6px"
+                >
+                  <MenuItem
+                    bg="white"
+                    borderRadius="6px"
+                    color="naturalDarkest"
+                    onClick={() => setLanguage("עברית")}
+                    _hover={{ bg: "othersLight", color: "primary" }}
+                  >
+                    <Flex color="naturalDrakest" h="44px" alignItems="center">
+                      <Text fontSize="14px">עברית</Text>
+                    </Flex>
+                  </MenuItem>
+                  <MenuItem
+                    bg="white"
+                    borderRadius="6px"
+                    color="naturalDarkest"
+                    onClick={() => setLanguage("English")}
+                    _hover={{ bg: "othersLight", color: "primary" }}
+                  >
+                    <Flex color="naturalDrakest" h="44px" alignItems="center">
+                      <Text fontSize="14px">English</Text>
+                    </Flex>
+                  </MenuItem>
+                  <MenuItem
+                    bg="white"
+                    borderRadius="6px"
+                    color="naturalDarkest"
+                    onClick={() => setLanguage("español")}
+                    _hover={{ bg: "othersLight", color: "primary" }}
+                  >
+                    <Flex color="naturalDrakest" h="44px" alignItems="center">
+                      <Text fontSize="14px">español</Text>
+                    </Flex>
+                  </MenuItem>
+                  <MenuItem
+                    bg="white"
+                    borderRadius="6px"
+                    color="naturalDarkest"
+                    onClick={() => setLanguage("Русский")}
+                    _hover={{ bg: "othersLight", color: "primary" }}
+                  >
+                    <Flex color="naturalDrakest" h="44px" alignItems="center">
+                      <Text fontSize="14px">Русский</Text>
+                    </Flex>
+                  </MenuItem>
+                </MenuList>
               </Menu>
               <Menu direction="rtl">
                 <MenuButton
@@ -275,96 +344,135 @@ export default function Footer() {
                     <Text fontWeight="normal">שקל</Text>
                   </Flex>
                 </MenuButton>
-                <MenuList borderColor="naturalLight" dir="ltr" w="106px" p="6px">
-            <MenuItem bg="white" borderRadius="6px" color="naturalDarkest" onClick={() => setCoin("שקל")} _hover={{bg: "othersLight", color: "primary"}} >
-            <Flex
-              gap="2"
-              h="44px"
-              alignItems="center"
-            >
-              <ShekelIcon />
-              <Text fontSize="16px">שקל</Text>
-            </Flex>
-            </MenuItem>
-            <MenuItem bg="white" color="naturalDarkest" borderRadius="6px" onClick={() => setCoin("USD")} _hover={{bg: "othersLight", color: "primary"}} >
-              <Flex
-                h="44px"
-                gap="2"
-                alignItems="center"
-              >
-                <DolarlIcon />
-                <Text fontSize="14px">USD</Text>
-              </Flex>
-            </MenuItem>
-            <MenuItem bg="white" borderRadius="6px" color="naturalDarkest" onClick={() => setCoin("Euro")} _hover={{bg: "othersLight", color: "primary"}} >
-              <Flex
-                h="44px"
-                gap="2"
-                alignItems="center"
-              >
-                <EuroIcon />
-                <Text fontSize="14px">Euro</Text>
-              </Flex>
-            </MenuItem>
-          </MenuList>
+                <MenuList
+                  borderColor="naturalLight"
+                  dir="ltr"
+                  w="106px"
+                  p="6px"
+                >
+                  <MenuItem
+                    bg="white"
+                    borderRadius="6px"
+                    color="naturalDarkest"
+                    onClick={() => setCoin("שקל")}
+                    _hover={{ bg: "othersLight", color: "primary" }}
+                  >
+                    <Flex gap="2" h="44px" alignItems="center">
+                      <ShekelIcon />
+                      <Text fontSize="16px">שקל</Text>
+                    </Flex>
+                  </MenuItem>
+                  <MenuItem
+                    bg="white"
+                    color="naturalDarkest"
+                    borderRadius="6px"
+                    onClick={() => setCoin("USD")}
+                    _hover={{ bg: "othersLight", color: "primary" }}
+                  >
+                    <Flex h="44px" gap="2" alignItems="center">
+                      <DolarlIcon />
+                      <Text fontSize="14px">USD</Text>
+                    </Flex>
+                  </MenuItem>
+                  <MenuItem
+                    bg="white"
+                    borderRadius="6px"
+                    color="naturalDarkest"
+                    onClick={() => setCoin("Euro")}
+                    _hover={{ bg: "othersLight", color: "primary" }}
+                  >
+                    <Flex h="44px" gap="2" alignItems="center">
+                      <EuroIcon />
+                      <Text fontSize="14px">Euro</Text>
+                    </Flex>
+                  </MenuItem>
+                </MenuList>
               </Menu>
             </Flex>
 
-            <Flex py="40px" gap={{base:"20px", sm:"40px"}} justifyContent="center">
+            <Flex
+              py="40px"
+              gap={{ base: "20px", sm: "40px" }}
+              justifyContent="center"
+            >
               <Flex gap="3" w="230px" flexDir="column">
-              <Flex dir="ltr" gap="3">
-              <Image w="52px" src="/assets/ApplePay.svg" />
-              <Image w="40px" src="/assets/Mastercard.svg" />
-              <Image w="49px" src="/assets/visa-logo.svg" />
-              <Image w="60.34px" src="/assets/paypal.svg" />
-            </Flex>
-              <Flex dir="ltr" justifyContent="center" alignItems="center">
-                <Box h="1px" bg="white" w="50px"></Box>
-                <IconButton
-                  w="21px"
-                  bg="transparent"
-                  cursor="pointer"
-                  onClick=""
-                  _hover={{ bg: "transparent" }}
-                  _active={{ bg: "transparent" }}
-                  icon={<FaWhatsapp color="white" />}
-                />
-                <IconButton
-                  w="20px"
-                  bg="transparent"
-                  cursor="pointer"
-                  onClick=""
-                  _hover={{ bg: "transparent" }}
-                  _active={{ bg: "transparent" }}
-                  icon={<FaInstagram color="white" />}
-                />
-                <IconButton
-                  w="12px"
-                  bg="transparent"
-                  cursor="pointer"
-                  onClick=""
-                  _hover={{ bg: "transparent" }}
-                  _active={{ bg: "transparent" }}
-                  icon={<FaFacebookF color="white" />}
-                />
-                <IconButton
-                  w="19px"
-                  bg="transparent"
-                  cursor="pointer"
-                  onClick=""
-                  _hover={{ bg: "transparent" }}
-                  _active={{ bg: "transparent" }}
-                  icon={<FaTelegramPlane color="white" />}
-                />
-                <Box h="1px" bg="white" w="50px"></Box>
-              </Flex>
+                <Flex dir="ltr" gap="3">
+                  <Image
+                    w="52px"
+                    src={process.env.PUBLIC_URL + "/assets/ApplePay.svg"}
+                  />
+                  <Image
+                    w="40px"
+                    src={process.env.PUBLIC_URL + "/assets/Mastercard.svg"}
+                  />
+                  <Image
+                    w="49px"
+                    src={process.env.PUBLIC_URL + "/assets/visa-logo.svg"}
+                  />
+                  <Image
+                    w="60.34px"
+                    src={process.env.PUBLIC_URL + "/assets/paypal.svg"}
+                  />
+                </Flex>
+                <Flex dir="ltr" justifyContent="center" alignItems="center">
+                  <Box h="1px" bg="white" w="50px"></Box>
+                  <IconButton
+                    w="21px"
+                    bg="transparent"
+                    cursor="pointer"
+                    onClick=""
+                    _hover={{ bg: "transparent" }}
+                    _active={{ bg: "transparent" }}
+                    icon={<FaWhatsapp color="white" />}
+                  />
+                  <IconButton
+                    w="20px"
+                    bg="transparent"
+                    cursor="pointer"
+                    onClick=""
+                    _hover={{ bg: "transparent" }}
+                    _active={{ bg: "transparent" }}
+                    icon={<FaInstagram color="white" />}
+                  />
+                  <IconButton
+                    w="12px"
+                    bg="transparent"
+                    cursor="pointer"
+                    onClick=""
+                    _hover={{ bg: "transparent" }}
+                    _active={{ bg: "transparent" }}
+                    icon={<FaFacebookF color="white" />}
+                  />
+                  <IconButton
+                    w="19px"
+                    bg="transparent"
+                    cursor="pointer"
+                    onClick=""
+                    _hover={{ bg: "transparent" }}
+                    _active={{ bg: "transparent" }}
+                    icon={<FaTelegramPlane color="white" />}
+                  />
+                  <Box h="1px" bg="white" w="50px"></Box>
+                </Flex>
               </Flex>
 
-            <Flex justifyContent="center" alignItems="center">
-            <Image w="75px" h="75px" src="/assets/LOGO CUBE.png" />
-          </Flex>
+              <Flex justifyContent="center" alignItems="center">
+                <Image
+                  w="75px"
+                  h="75px"
+                  src={process.env.PUBLIC_URL + "/assets/LOGO CUBE.png"}
+                />
+              </Flex>
             </Flex>
-            <Flex justifyContent="center" alignItems="center" fontWeight="normal" color="white" dir="ltr" fontSize="12px" lineHeight="15px">
+            <Flex
+              justifyContent="center"
+              alignItems="center"
+              fontWeight="normal"
+              color="white"
+              dir="ltr"
+              fontSize="12px"
+              lineHeight="15px"
+            >
               © SaleBid SoferGroup. Safed, israel 2023
             </Flex>
           </Flex>
@@ -381,9 +489,10 @@ const NavLinks = ({ links = [], title }) => {
         {title}
       </Text>
       <Flex flexDirection="column">
-        {links.map((link) => {
+        {links.map((link, key) => {
           return (
             <Link
+              key={key}
               textColor="rgba(255,255,255,0.6)"
               fontSize="15"
               fontWeight="light"

@@ -35,7 +35,7 @@ export default function Category(props) {
           c.slice(0, 12).map((category, index) => {
             return (
               <CategoryItem
-              index={index}
+              key={index}
                 onClick={() =>
                   (window.location.href =
                     routes.Category.path.replace(":category", "") +

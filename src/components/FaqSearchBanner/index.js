@@ -20,7 +20,7 @@ export default function FaqSearchBanner(props) {
         h="full"
         borderRightRadius="30px"
         right="0"
-        src="/assets/fag_banner.png"
+        src={process.env.PUBLIC_URL + "/assets/fag_banner.png"}
       />
       <Flex
         justifyContent="center"

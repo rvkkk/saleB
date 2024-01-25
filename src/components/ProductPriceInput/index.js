@@ -34,7 +34,7 @@ export default function ProductPriceInput({ placeholder, value, onChange }) {
         h="full"
         fontSize="2rem"
         w="54px"
-        children={<Image src="/assets/Union.svg" />}
+        children={<Image src={process.env.PUBLIC_URL + "/assets/Union.svg"} />}
       />
     </InputGroup>
   );

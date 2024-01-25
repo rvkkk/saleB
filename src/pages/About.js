@@ -54,7 +54,7 @@ export default function About() {
                 justifyContent="center"
               >
                 <Box flex="1">
-                  <Image w="full" src="/assets/man-stats.png" />
+                  <Image w="full" src={process.env.PUBLIC_URL + "/assets/man-stats.png"} />
                 </Box>
                 <Box flex="1">
                   <Flex flexDir="column" gap="4" width="58%">
@@ -107,34 +107,34 @@ export default function About() {
               <Grid gridTemplateColumns="1fr 1fr 1fr" gap="4" dir="rtl">
                 <ArticleCard
                   text="חשבון"
-                  imageUrl="/assets/19.png"
+                  imageUrl={process.env.PUBLIC_URL + "/assets/19.png"}
                   onClick={() =>
                     (window.location.href = "/article/6549020abdebf997ba25fb4d")
                   }
                 ></ArticleCard>
                 <ArticleCard
                   text="מכירות"
-                  imageUrl="/assets/12.png"
+                  imageUrl={process.env.PUBLIC_URL + "/assets/12.png"}
                   onClick={() => (window.location.href = "/article/sales")}
                 ></ArticleCard>
                 <ArticleCard
                   text="קנייה"
-                  imageUrl="/assets/2.png"
+                  imageUrl={process.env.PUBLIC_URL + "/assets/2.png"}
                   onClick={() => (window.location.href = "/article/buy")}
                 ></ArticleCard>
                 <ArticleCard
                   text="עמלות וחיובים"
-                  imageUrl="/assets/35.png"
+                  imageUrl={process.env.PUBLIC_URL + "/assets/35.png"}
                   onClick={() => (window.location.href = "/article/")}
                 ></ArticleCard>
                 <ArticleCard
                   text="משלוחים"
-                  imageUrl="/assets/11.png"
+                  imageUrl={process.env.PUBLIC_URL + "/assets/11.png"}
                   onClick={() => (window.location.href = "/article/shipping")}
                 ></ArticleCard>
                 <ArticleCard
                   text="החזרות"
-                  imageUrl="/assets/49.png"
+                  imageUrl={process.env.PUBLIC_URL + "/assets/49.png"}
                   onClick={() => (window.location.href = "/article/returns")}
                 ></ArticleCard>
               </Grid>

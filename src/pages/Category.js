@@ -189,7 +189,7 @@ export default function Category() {
                       fontWeight="medium"
                       color="naturalDarkest"
                     >
-                      <Image w="18px" src="/assets/filter.svg" /> מיין לפי
+                      <Image w="18px" src={process.env.PUBLIC_URL + "/assets/filter.svg"} /> מיין לפי
                     </Flex>
                   </MenuButton>
                   <MenuList

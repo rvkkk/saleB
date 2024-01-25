@@ -207,7 +207,9 @@ export default function Tab1(props) {
   }, [token]);
 
   useEffect(() => {
-    console.log(checkedProducts.length === products.length && products.length > 0)
+    console.log(
+      checkedProducts.length === products.length && products.length > 0
+    );
     setSelectAllChecked(
       checkedProducts.length === products.length && products.length > 0
     );
@@ -276,11 +278,11 @@ export default function Tab1(props) {
                               size="medium"
                               default
                               checked={selectAllChecked}
-                onChange={() => {
-                  setCheckedProducts(
-                    selectAllChecked ? [] : products // בחירת כל המוצרים או ביטול בחירתם
-                  );
-                }}
+                              onChange={() => {
+                                setCheckedProducts(
+                                  selectAllChecked ? [] : products // בחירת כל המוצרים או ביטול בחירתם
+                                );
+                              }}
                               /*checked={
                                 checkedProducts.length === products.length
                               }
@@ -632,7 +634,7 @@ export default function Tab1(props) {
                       </Flex>
                       <Flex fontSize="16px" justifyContent="space-between">
                         <Text>משלוח</Text>
-                        <Text>יחושב במעמד התשלום</Text>
+                        <Text>{props.delivery.priceNum ? "₪" + props.delivery["priceNum"] : "יחושב במעמד התשלום"}</Text>
                       </Flex>
                       <Flex fontSize="16px" justifyContent="space-between">
                         <Text>עמלה</Text>
@@ -668,7 +670,8 @@ export default function Tab1(props) {
                         >
                           ₪
                           {(checkedProducts.length >= 1 &&
-                            3.25 +
+                            3.25 + (props.delivery.priceNum ? props.delivery["priceNum"] : 0) 
+                            +
                               Math.round(
                                 checkedProducts.reduce(
                                   (a, b) =>
@@ -688,7 +691,11 @@ export default function Tab1(props) {
                       </Flex>
                     </Flex>
 
-                    <Button onClick={() => props.proceedToCheckout(checkedProducts, discount)}>
+                    <Button
+                      onClick={() =>
+                        checkedProducts.length >= 1 && props.proceedToCheckout(checkedProducts, discount)
+                      }
+                    >
                       <Flex alignItems="center" gap="6">
                         לתשלום
                         <ArrowLeftIcon />
@@ -708,16 +715,45 @@ export default function Tab1(props) {
                       <Text fontSize="14px" color="naturalDark">
                         האתר מאובטח ומוגן ע״י
                       </Text>
-                      <Image w="20" src="/assets/Norton Icon.png" />
-                      <Image w="20" src="/assets/logo1.png" />
+                      <Image
+                        w="20"
+                        src={process.env.PUBLIC_URL + "/assets/Norton Icon.png"}
+                      />
+                      <Image
+                        w="20"
+                        src={process.env.PUBLIC_URL + "/assets/logo1.png"}
+                      />
                     </Flex>
 
                     <Flex gap="4" alignItems="center" justifyContent="center">
-                      <Image w="14" src="/assets/International3.png" />
-                      <Image w="8" src="/assets/International.png" />
-                      <Image w="8" src="/assets/International2.png" />
-                      <Image w="10" src="/assets/Mastercard.svg" />
-                      <Image w="10" src="/assets/International4.png" />
+                      <Image
+                        w="14"
+                        src={
+                          process.env.PUBLIC_URL + "/assets/International3.png"
+                        }
+                      />
+                      <Image
+                        w="8"
+                        src={
+                          process.env.PUBLIC_URL + "/assets/International.png"
+                        }
+                      />
+                      <Image
+                        w="8"
+                        src={
+                          process.env.PUBLIC_URL + "/assets/International2.png"
+                        }
+                      />
+                      <Image
+                        w="10"
+                        src={process.env.PUBLIC_URL + "/assets/Mastercard.svg"}
+                      />
+                      <Image
+                        w="10"
+                        src={
+                          process.env.PUBLIC_URL + "/assets/International4.png"
+                        }
+                      />
                     </Flex>
                   </Flex>
                 </Flex>
@@ -825,7 +861,10 @@ const EmptyCart = () => {
   return (
     <Flex pt="20" justifyContent="center">
       <Flex flexDir="column" alignItems="center" gap="10">
-        <Image w="328px" src="/assets/empty cart.png" />
+        <Image
+          w="328px"
+          src={process.env.PUBLIC_URL + "/assets/empty cart.png"}
+        />
         <Flex
           flexDir="column"
           alignItems="center"

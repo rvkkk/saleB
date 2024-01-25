@@ -1,7 +1,7 @@
 import { Box, Flex, Radio, Text, useRadio } from "@chakra-ui/react";
 import { RadioButtonIcon, RadioButtonUncheckedIcon } from "../Icons";
 
-export default function CustomRadio({ children, ...rest }) {
+export default function CustomRadio({ w="190px", h="68px", checked, onClick, children, ...rest }) {
   const { getInputProps, getCheckboxProps } = useRadio(rest);
 
   const input = getInputProps();
@@ -10,15 +10,15 @@ export default function CustomRadio({ children, ...rest }) {
   let isChecked = checkbox["data-checked"] === "";
 
   return (
-    <Box as="label">
+    <Box as="label" onClick={() => onClick()}>
       <input {...input} />
       <Box
         {...checkbox}
         cursor="pointer"
         borderRadius="12px"
-        px="6"
+        px={w ==="190px" ? "6" : "4"}
         bg="naturalLightest"
-        w="190px" h="68px"
+        w={w} h={h}
         _checked={{bg: "othersLight"}}
         py="2"
       >

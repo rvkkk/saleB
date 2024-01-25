@@ -59,7 +59,17 @@ export default function Tab3(props) {
   const token = window.localStorage.getItem("token");
   const discount = props.discount;
   const delivery = props.delivery;
+  const userCC = props.userCC;
 
+  useEffect(() => {
+    if (userCC.ccNumber) {
+      setCCNumber(userCC.ccNumber);
+      setCCMonth(userCC.ccExp.split("/")[0]);
+      setCCYear(userCC.ccExp.split("/")[1]);
+      setCCCVV(userCC.ccCVV);
+      setHolderName(userCC.ccName);
+    }
+  });
   const validateCreditCardNumber = (cardNumber) => {
     // הסרת רווחים מהמספר
     cardNumber = cardNumber.replace(/\s/g, "");
@@ -143,11 +153,23 @@ export default function Tab3(props) {
   }
 
   const checkCCAndMakeAnOrder = () => {
-    if(ccNumber === "") setInvalidNumber("שדה חובה");
+    if (ccNumber === "") setInvalidNumber("שדה חובה");
     if (holderName === "") setInvalidName("שדה חובה");
     if (ccCVV === "") setInvalidCvv("שדה חובה");
-    if (ccNumber !== "" && holderName !== "" && ccCVV !== "" && invalidNumber === "" && invalidCvv === "" && invalidName === "")
-     props.setTabIndex(4, products, {ccNumber, ccMonth, ccYear, ccCVV, holderName});
+    if (
+      ccNumber !== "" &&
+      holderName !== "" &&
+      ccCVV !== "" &&
+      invalidNumber === "" &&
+      invalidCvv === "" &&
+      invalidName === ""
+    )
+      props.setTabIndex(4, products, {
+        ccNumber,
+        ccExp: `${ccMonth}/${ccYear}`,
+        ccCVV,
+        holderName,
+      });
   };
 
   const { getRootProps, getRadioProps } = useRadioGroup({
@@ -233,7 +255,7 @@ export default function Tab3(props) {
           <DetailsHeader name="אמצעי תשלום" />
           <Box mb="30px">
             <HStack {...group} w="full">
-              <CustomRadio {...visa} value="visa">
+              <CustomRadio checked {...visa} value="visa">
                 <VisaIcon />
               </CustomRadio>
               <CustomRadio {...paypal} value="paypal">
@@ -246,7 +268,7 @@ export default function Tab3(props) {
           <Flex flexDir="column" gap="4">
             <Input
               label="מספר כרטיס"
-              isInvalid={invalidNumber  !== ""}
+              isInvalid={invalidNumber !== ""}
               isInvalidMessage={invalidNumber}
               required
               type="tel"
@@ -299,12 +321,21 @@ export default function Tab3(props) {
               checked={saveDeafult}
               onChange={() => setSaveDeafult(!saveDeafult)}
               text="שמור פרטי כרטיס לפעמים הבאות"
-            > 
-            </Checkbox>
+            ></Checkbox>
           </Flex>
           <Spacer h="4" />
           <Flex h="64px" justifyContent="space-between" alignItems="center">
-            <Button.TextButton w="max" onClick={() => props.setTabIndex(1, products)}>
+            <Button.TextButton
+              w="max"
+              onClick={() =>
+                props.setTabIndex(1, products, {
+                  ccNumber,
+                  ccExp: `${ccMonth}/${ccYear}`,
+                  ccCVV,
+                  holderName,
+                })
+              }
+            >
               <ChevronRightIcon />
               חזרה לעידכון משלוח
             </Button.TextButton>
@@ -339,7 +370,7 @@ export default function Tab3(props) {
           </Text>
           <Divider h="1px" bg="naturalLight" />
           <Box>
-          {products &&
+            {products &&
               products.map((product, index) => {
                 return (
                   <Flex
@@ -400,13 +431,23 @@ export default function Tab3(props) {
                         />
                       </Flex>
                       <Flex alignItems="center">
-                        <IconButton onClick={() => removeProduct(product.product.id, product.size, product.model)} icon={<TrashIcon />} bg="transparent" />
+                        <IconButton
+                          onClick={() =>
+                            removeProduct(
+                              product.product.id,
+                              product.size,
+                              product.model
+                            )
+                          }
+                          icon={<TrashIcon />}
+                          bg="transparent"
+                        />
                       </Flex>
                     </Flex>
                   </Flex>
                 );
               })}
-           {/* <Flex justifyContent="space-between" alignItems="center">
+            {/* <Flex justifyContent="space-between" alignItems="center">
               <Flex gap="6">
                 <Image
                   w="87px"
@@ -432,7 +473,7 @@ export default function Tab3(props) {
               <IconButton icon={<TrashIcon />} bg="transparent" />
             </Flex>*/}
 
-           {/* <Spacer h="8" />
+            {/* <Spacer h="8" />
             <Flex justifyContent="end" alignItems="center" gap="2">
               <RefreshIcon />
               <Text>עדכן סל קניות</Text>
@@ -496,7 +537,8 @@ export default function Tab3(props) {
                 {(products.length >= 1 &&
                   Math.round(
                     3.25 +
-                      delivery["priceNum"] - discount +
+                      delivery["priceNum"] -
+                      discount +
                       products.reduce(
                         (a, b) =>
                           parseFloat(a) +
@@ -526,16 +568,34 @@ export default function Tab3(props) {
             <Text fontSize="14px" color="naturalDark">
               האתר מאובטח ומוגן ע״י
             </Text>
-            <Image w="20" src="/assets/Norton Icon.png" />
-            <Image w="20" src="/assets/logo1.png" />
+            <Image
+              w="20"
+              src={process.env.PUBLIC_URL + "/assets/Norton Icon.png"}
+            />
+            <Image w="20" src={process.env.PUBLIC_URL + "/assets/logo1.png"} />
           </Flex>
 
           <Flex gap="4" alignItems="center" justifyContent="center">
-            <Image w="14" src="/assets/International3.png" />
-            <Image w="8" src="/assets/International.png" />
-            <Image w="8" src="/assets/International2.png" />
-            <Image w="10" src="/assets/Mastercard.svg" />
-            <Image w="10" src="/assets/International4.png" />
+            <Image
+              w="14"
+              src={process.env.PUBLIC_URL + "/assets/International3.png"}
+            />
+            <Image
+              w="8"
+              src={process.env.PUBLIC_URL + "/assets/International.png"}
+            />
+            <Image
+              w="8"
+              src={process.env.PUBLIC_URL + "/assets/International2.png"}
+            />
+            <Image
+              w="10"
+              src={process.env.PUBLIC_URL + "/assets/Mastercard.svg"}
+            />
+            <Image
+              w="10"
+              src={process.env.PUBLIC_URL + "/assets/International4.png"}
+            />
           </Flex>
         </Flex>
       </Flex>
