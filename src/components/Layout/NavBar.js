@@ -655,6 +655,7 @@ export default function NavBar({ withSidebar, logo }) {
             <ButtonGroup size="sm">
               <ChakraButton
                 bg="secondaryColor"
+                fontWeight="normal"
                 borderRadius="8px"
                 _hover={{ opacity: "0.9" }}
                 textColor="white"
@@ -666,8 +667,8 @@ export default function NavBar({ withSidebar, logo }) {
               </ChakraButton>
               <ChakraButton
                 textColor="primary"
-                borderRadius="8px"
-                _hover={{ bg: "naturalLight" }}
+                fontWeight="normal"
+                _hover={{ textColor: "secondaryColor" }}
                 bg="transparent"
                 onClick={() => (window.location.href = routes.ContactUs.path)}
               >
@@ -675,8 +676,8 @@ export default function NavBar({ withSidebar, logo }) {
               </ChakraButton>
               <ChakraButton
                 textColor="primary"
-                borderRadius="8px"
-                _hover={{ bg: "naturalLight" }}
+                fontWeight="normal"
+                _hover={{ textColor: "secondaryColor" }}
                 bg="transparent"
                 onClick={() => (window.location.href = routes.FAQ.path)}
               >
@@ -684,8 +685,8 @@ export default function NavBar({ withSidebar, logo }) {
               </ChakraButton>
               <ChakraButton
                 textColor="primary"
-                borderRadius="8px"
-                _hover={{ bg: "naturalLight" }}
+                fontWeight="normal"
+                _hover={{ textColor: "secondaryColor" }}
                 bg="transparent"
                 onClick={() => (window.location.href = routes.HOME.path)}
               >
@@ -693,8 +694,8 @@ export default function NavBar({ withSidebar, logo }) {
               </ChakraButton>
               <ChakraButton
                 textColor="primary"
-                borderRadius="8px"
-                _hover={{ bg: "naturalLight" }}
+                fontWeight="normal"
+                _hover={{ textColor: "secondaryColor" }}
                 bg="transparent"
                 onClick={() => (window.location.href = routes.HOME.path)}
               >
@@ -702,8 +703,8 @@ export default function NavBar({ withSidebar, logo }) {
               </ChakraButton>
               <ChakraButton
                 textColor="primary"
-                borderRadius="8px"
-                _hover={{ bg: "naturalLight" }}
+                fontWeight="normal"
+                _hover={{ textColor: "secondaryColor" }}
                 bg="transparent"
                 onClick={() =>
                   (window.location.href =
@@ -714,8 +715,8 @@ export default function NavBar({ withSidebar, logo }) {
                 מכירות פומביות
               </ChakraButton>
               <Menu placement="auto">
-                <MenuButton _hover={{ bg: "naturalLight" }} borderRadius="8px">
-                  <ChakraButton textColor="primary" bg="transparent">
+                <MenuButton borderRadius="8px">
+                  <ChakraButton textColor="primary" _hover={{ textColor: "secondaryColor" }} fontWeight="normal" bg="transparent">
                     הכל
                   </ChakraButton>
                 </MenuButton>
