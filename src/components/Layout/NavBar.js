@@ -654,6 +654,7 @@ export default function NavBar({ withSidebar, logo }) {
           <Flex justifyContent="center" gap="10">
             <ButtonGroup size="sm">
               <ChakraButton
+                mx="4"
                 bg="secondaryColor"
                 fontWeight="normal"
                 borderRadius="8px"
@@ -666,6 +667,8 @@ export default function NavBar({ withSidebar, logo }) {
                 מכירה חדשה
               </ChakraButton>
               <ChakraButton
+              variant="link"
+              px="4"
                 textColor="primary"
                 fontWeight="normal"
                 _hover={{ textColor: "secondaryColor" }}
@@ -675,6 +678,8 @@ export default function NavBar({ withSidebar, logo }) {
                 יצירת קשר
               </ChakraButton>
               <ChakraButton
+              px="4"
+              variant="link"
                 textColor="primary"
                 fontWeight="normal"
                 _hover={{ textColor: "secondaryColor" }}
@@ -684,6 +689,8 @@ export default function NavBar({ withSidebar, logo }) {
                 איך מוכרים
               </ChakraButton>
               <ChakraButton
+              variant="link"
+              px="4"
                 textColor="primary"
                 fontWeight="normal"
                 _hover={{ textColor: "secondaryColor" }}
@@ -693,6 +700,8 @@ export default function NavBar({ withSidebar, logo }) {
                 מבצעים
               </ChakraButton>
               <ChakraButton
+              variant="link"
+              px="4"
                 textColor="primary"
                 fontWeight="normal"
                 _hover={{ textColor: "secondaryColor" }}
@@ -702,6 +711,8 @@ export default function NavBar({ withSidebar, logo }) {
                 קנייה
               </ChakraButton>
               <ChakraButton
+              variant="link"
+              px="4"
                 textColor="primary"
                 fontWeight="normal"
                 _hover={{ textColor: "secondaryColor" }}
@@ -715,8 +726,8 @@ export default function NavBar({ withSidebar, logo }) {
                 מכירות פומביות
               </ChakraButton>
               <Menu placement="auto">
-                <MenuButton borderRadius="8px">
-                  <ChakraButton textColor="primary" _hover={{ textColor: "secondaryColor" }} fontWeight="normal" bg="transparent">
+                <MenuButton>
+                  <ChakraButton id="ball" px="4" variant="link" color="primary" fontWeight="normal" bg="transparent" >
                     הכל
                   </ChakraButton>
                 </MenuButton>
