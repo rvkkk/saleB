@@ -1,4 +1,14 @@
 # Redirects from what the browser requests to what we serve
 /home                /
-/login          /auth/login
-/sign-up        /auth/sign-up
+/auth/login          /auth/login
+/auth/sign-up        /auth/sign-up
+/auth/login/no_password /auth/login/no_password
+/auth/login/email_authentication /auth/login/email_authentication
+/auth/sign-up        /auth/sign-up
+/cart/:id            /cart/:id
+/category/:category  /category/:category
+/product/:id         /product/:id
+/product-auction/:id /product-auction/:id
+/product/create      /product/create
+/faq                 /faq
+/regulations         /regulations
