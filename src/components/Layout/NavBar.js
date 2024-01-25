@@ -708,8 +708,7 @@ export default function NavBar({ withSidebar, logo }) {
                 onClick={() =>
                   (window.location.href =
                     routes.Category.path.replace(":category", "") +
-                    "food" +
-                    "?type=auctions")
+                    "food")
                 }
               >
                 מכירות פומביות
@@ -1234,8 +1233,7 @@ export default function NavBar({ withSidebar, logo }) {
                           onClick={() =>
                             (window.location.href =
                               routes.Category.path.replace(":category", "") +
-                              "food" +
-                              "?type=auctions")
+                              "food")//?type=auctions"
                           }
                         >
                           מכירות פומביות

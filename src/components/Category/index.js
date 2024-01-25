@@ -82,7 +82,7 @@ export const CategoryItem = ({
         //position="absolute"
         p={{ base: "3px", sm: "8px", lg: "4" }}
         //id="categorySqure"
-        _hover={{ transition: "all .2s linear" }}
+        _hover={{ border: "none" }}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         

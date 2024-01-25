@@ -60,9 +60,9 @@ export default function Footer() {
   
   const theme = extendTheme({ breakpoints });*/
   return (
-    <Box bg="primaryDark" dir="rtl">
+    <Box bg="primaryDark" dir="rtl" px={{lg: "50px", xl: "200px", "2xl":"300px"}}>
       <Container>
-        <Flex py="10" px="3" justifyContent="space-between">
+        <Flex py="10" px={{base: "3", xl: "0"}} justifyContent="space-between">
           <Flex gap="20" pr={{ base: "4.9%", md: "0" }}>
             <Flex gap="20">
               <NavLinks title="מפת האתר" links={link2} />
