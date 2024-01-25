@@ -79,18 +79,23 @@ export const CategoryItem = ({
         borderRadius="full"
         border="1px solid transparent"
         borderColor="naturalLight"
+        //position="absolute"
         p={{ base: "3px", sm: "8px", lg: "4" }}
         //id="categorySqure"
-        _hover={{ border: "none" }}
+        _hover={{ transition: "all .2s linear" }}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        
+        
       >
         {isMouseOver ? (
           <Box
             w="full"
+            //transform="translate(100%,0)"
             border="1px solid #0D2F99"
             borderRadius="full"
             h="full"
+            transition="all .2s linear"
             //transition= "opacity .1s , border-width .4s"
             bg="disabled"
           />
@@ -110,3 +115,40 @@ export const CategoryItem = ({
     </Box>
   );
 };
+
+/*<Box
+        w={{ base: "98px", sm: "120px", md: "150px", lg: "200px", "2xl": "230px" }}
+        h={{ base: "98px", sm:"120px", md: "150px", lg: "200px", "2xl": "230px" }}
+        borderRadius="full"
+        border="1px solid transparent"
+        borderColor="naturalLight"
+        p={{ base: "3px", sm: "8px", lg: "4" }}
+        //id="categorySqure"
+        //_hover={{ border: "none" }}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        
+        
+      >
+        {isMouseOver ? (
+          <Box
+            w="full"
+            //transform="translate(100%,0)"
+            border="1px solid #0D2F99"
+            borderRadius="full"
+            h="full"
+            transition="all .2s linear"
+            //transition= "opacity .1s , border-width .4s"
+            bg="disabled"
+          />
+        ) : (
+          <Box
+            boxShadow="outline 0 0 0 1px #0D2F99"
+            w="full"
+            border="none"
+            borderRadius="full"
+            h="full"
+            bg="disabled"
+          />
+        )}
+      </Box>*/
