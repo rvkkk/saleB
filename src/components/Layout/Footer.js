@@ -11,7 +11,7 @@ import {
   MenuList,
   MenuItem,
 } from "@chakra-ui/react";
-import { extendTheme } from "@chakra-ui/react";
+//import { extendTheme } from "@chakra-ui/react";
 import React, { useState } from "react";
 import Container from "../Container";
 import {
@@ -200,7 +200,7 @@ export default function Footer() {
                       alignItems="center"
                     >
                       <IsraelIcon />
-                      <Text fontSize="16px">Israel</Text>
+                      <Text fontSize="16px">{country}</Text>
                     </Flex>
                   </MenuItem>
                   <MenuItem
@@ -271,7 +271,7 @@ export default function Footer() {
                   dir="rtl"
                 >
                   <Flex alignItems="center" justifyContent="center">
-                    <Text fontWeight="normal">עברית</Text>
+                    <Text fontWeight="normal">{language}</Text>
                   </Flex>
                 </MenuButton>
                 <MenuList
@@ -341,7 +341,7 @@ export default function Footer() {
                   dir="rtl"
                 >
                   <Flex alignItems="center" justifyContent="center">
-                    <Text fontWeight="normal">שקל</Text>
+                    <Text fontWeight="normal">{coin}</Text>
                   </Flex>
                 </MenuButton>
                 <MenuList

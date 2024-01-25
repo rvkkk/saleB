@@ -1,5 +1,5 @@
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
-import React, {useEffect, useRef} from "react";
+import React from "react";
 import Rating from "../Rating";
 
 export default function ProductComment({
@@ -79,7 +79,7 @@ export default function ProductComment({
   );
 }
 
-const ImageComponent = () => {
+/*const ImageComponent = () => {
         const imageRef = useRef("http://localhost:9000/844849a7-4ad8-4588-8");
 
   useEffect(() => {
@@ -107,9 +107,8 @@ const ImageComponent = () => {
     // ניקיון ברגע שהקומפוננטה נסגרת
    /* return () => {
       imageRef.current.removeEventListener('load', exportImageToBase64);
-    };*/
+    };
   }, []); // [] כדי לוודא שהקוד יופעל רק פעם אחת לאחר הרנדר הראשון
-
   return (
     <>
       <Image
@@ -119,4 +118,4 @@ const ImageComponent = () => {
       />
     </>
   );
-};
+};*/

@@ -5,37 +5,13 @@ import Tab4 from "../components/CartTabs/Tab4";
 import { Icon1, Icon2, Icon3, Icon4 } from "../components/Icons";
 import Layout from "../components/Layout";
 import Tabs from "../components/Tabs";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { getCart, removeFromCart, clearCart, addToCart } from "../utils/cart";
-import { getUserCart, deleteFromCart, updateCart } from "../utils/api/carts";
+/*import { getUserCart, deleteFromCart, updateCart } from "../utils/api/carts";
 import { getUser } from "../utils/api/users";
-import { getUserDefaultShippingAddress } from "../utils/api/shippingAddresses";
+import { getUserDefaultShippingAddress } from "../utils/api/shippingAddresses";*/
 import { getProduct } from "../utils/api/api";
-import Checkbox from "../components/CheckBox";
 import Loader from "../components/Loader";
-
-import {
-  Divider,
-  Flex,
-  Image,
-  Spacer,
-  Text,
-  Grid,
-  Box,
-  GridItem,
-  useRadioGroup,
-  VStack,
-  IconButton,
-} from "@chakra-ui/react";
-import Button from "../components/Button";
-import { ArrowLeftIcon, RefreshIcon, TrashIcon } from "../components/Icons";
-import Input from "../components/Input";
-import DetailsHeader from "../components/DetailsHeader";
-import DeliveryCheckbox from "../components/DeliveryCheckbox";
-import TextArea from "../components/TextArea";
-import { ChevronRightIcon } from "@chakra-ui/icons";
-import QuantityInput from "../components/QuantityInput";
-import { routes } from "../routes";
 import Tab2 from "../components/CartTabs/Tab2";
 
 export default function ShoppingCart() {
@@ -45,20 +21,8 @@ export default function ShoppingCart() {
   const [delivery, setDelivery] = useState({});
   const [details, setDetails] = useState({});  
   const [userCC, setUserCC] = useState({});            
-  const [noProducts, setNoProducts] = useState(false);
-  const [cart, setCart] = useState({});
-  const [isLogged, setIsLogged] = useState(false);
   const [tab, setTab] = useState(0);
-  const [checkedAuth, setCheckedAuth] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [ccName, setCcName] = useState("");
-  const [ccNumber, setCcNumber] = useState("");
-  const [ccExpDate, setCCExpDate] = useState("");
-  const [ccCVV, setCCCVV] = useState("");
-  const [ccType, setCcType] = useState("");
-  const [ccMonth, setCCMonth] = useState("");
-  const [ccYear, setCCYear] = useState("");
-  const token = window.localStorage.getItem("token");
 
   const getProductsFromCart = async () => {
     const cart = await getCart();

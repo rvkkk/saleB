@@ -1,5 +1,4 @@
 import { LeftIcon, RightIcon } from "../Icons";
-import { ChevronLeftIcon } from "@chakra-ui/icons";
 import { Flex, IconButton } from "@chakra-ui/react";
 import React from "react";
 

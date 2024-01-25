@@ -1,4 +1,4 @@
-import { Box, Flex, Image, Radio } from "@chakra-ui/react";
+import { Box, Flex, Image } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { RadioButtonChecked2Icon } from "../Icons";
 

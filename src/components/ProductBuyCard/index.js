@@ -1,8 +1,6 @@
 import {
-  Card,
   PopoverCloseButton,
   Flex,
-  Image,
   Input,
   InputGroup,
   InputLeftElement,

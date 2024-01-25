@@ -27,15 +27,13 @@ import {
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { HiOutlineHeart, HiShoppingCart } from "react-icons/hi";
-import { BiHomeAlt } from "react-icons/bi";
 import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import { addToCart, getCart, removeFromCart } from "../../utils/cart";
 import { getUserProfile } from "../../utils/api/users";
 import { getUserCart, deleteFromCart, updateCart } from "../../utils/api/carts";
 import React from "react";
-import { useWebSocket } from "../WebSocketProvider";
-import { ChevronDownIcon, SearchIcon, SettingsIcon } from "@chakra-ui/icons";
+//import { useWebSocket } from "../WebSocketProvider";
+import { SearchIcon, SettingsIcon } from "@chakra-ui/icons";
 import SearchComponent from "../SearchComponent";
 import { Link, useLocation } from "react-router-dom";
 import { routes } from "../../routes";
@@ -43,16 +41,12 @@ import {
   Icon5,
   ArrowBackIcon,
   ArrowIcon,
-  ArrowLeftIcon,
   BillingIcon,
-  CartIcon,
-  FaveIcon,
   HomeIcon,
   LogoutIcon,
   MessengerIcon,
   OrderIcon,
   SettingIcon,
-  WalletIcon,
   MobileList,
   CartIcon2,
   CartIcon3,
@@ -1375,7 +1369,7 @@ const MenuItemComponent = ({ path, name, icon, ...rest }) => {
 };
 
 const MenuItemCategory = () => {
-  const [category, setCategory] = useState("");
+  //const [category, setCategory] = useState("");
   return (
     <MenuItem
       id="category"

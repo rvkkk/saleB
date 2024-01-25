@@ -1,9 +1,7 @@
 import { Card, Flex, Text } from "@chakra-ui/react";
 import React from "react";
-import { BiAlarm } from "react-icons/bi";
 import { getTimeLeft } from "../../utils/date";
 import { useState, useEffect } from "react";
-import { Timelapse } from "@mui/icons-material";
 import { ClockBigIcon, ClockIcon, ClockSmallIcon } from "../Icons";
 
 export default function ProductTimeClock(props) {

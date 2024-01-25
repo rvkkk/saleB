@@ -1,6 +1,5 @@
-import { Box, Button, Card, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Card, Flex, Image, Text } from "@chakra-ui/react";
 import React from "react";
-import { FilterIcon } from "../components/Icons";
 import Layout from "../components/Layout";
 import { getSettings } from "../utils/api/api";
 import { useState, useEffect } from "react";

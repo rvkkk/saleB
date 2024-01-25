@@ -8,11 +8,6 @@ const headers = {
   },
 };
 
-const onTokenBroken = () => {
-  localStorage.removeItem("token");
-  //window.location.href = "/auth/login";
-};
-
 export const getOrdersTracking = () => {
   return new Promise((resolve, reject) => {
     axios

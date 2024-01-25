@@ -1,12 +1,12 @@
-import { Checkbox as ChakraCheckbox, Text, Flex } from "@chakra-ui/react";
+import { Text, Flex } from "@chakra-ui/react";
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
-import { BigCheckedIcon, BigDefaultIcon, BigPartialIcon, MediumCheckedIcon, MediumDefaultIcon, MediumPartialIcon, SmallCheckedIcon, SmallDefaultIcon, SmallDisabledIcon, SmallPartialIcon } from "../CheckboxIcons";
+import { BigCheckedIcon, BigDefaultIcon, BigPartialIcon, MediumCheckedIcon, MediumDefaultIcon, MediumPartialIcon, SmallCheckedIcon, SmallDefaultIcon, SmallPartialIcon } from "../CheckboxIcons";
 
 export default function Checkbox(props) {
   const [defaultC, setDefaultC] = useState(props.default || props.unChecked ? true : false);
   const [checked, setChecked] = useState(props.checked);
-  const [unChecked, setUnChecked] = useState(props.unChecked)
+  //const [unChecked, setUnChecked] = useState(props.unChecked)
   useEffect(() => {setChecked(props.checked)}, [])
   return (
     <Flex mt={props.mt} gap="7px" alignItems="center" justifyContent="start" onClick={() => (defaultC && !props.disabled) ? (setDefaultC(false), setChecked(true), props.onChange()) : (checked || props.checked) && (setDefaultC(true), setChecked(false), props.onChange()) }>

@@ -4,11 +4,8 @@ import {
   Image,
   Spacer,
   Text,
-  Grid,
   Box,
-  GridItem,
   useRadioGroup,
-  VStack,
   IconButton,
   HStack,
   Img,
@@ -18,24 +15,15 @@ import Button from "../Button";
 import {
   ArrowLeftIcon,
   PayPalIcon,
-  RefreshIcon,
   TrashIcon,
   VisaIcon,
 } from "../Icons";
 import Input from "../Input";
 import DetailsHeader from "../DetailsHeader";
-import DeliveryCheckbox from "../DeliveryCheckbox";
-import TextArea from "../TextArea";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import QuantityInput from "../QuantityInput";
 import CustomRadio from "../CustomRadio";
 import CardPayment from "../CardPayment";
-import {
-  getUserCCs,
-  addCC,
-  updateCC,
-  deleteCC,
-} from "../../utils/api/creditCards";
 import Checkbox from "../CheckBox";
 import { addToCart } from "../../utils/cart";
 import { updateCart } from "../../utils/api/carts";
@@ -48,9 +36,9 @@ export default function Tab3(props) {
   const [ccYear, setCCYear] = useState(currentYear);
   const [ccCVV, setCCCVV] = useState("");
   const [ccType, setCCtype] = useState("");
-  const [ccId, setCcId] = useState("0");
+  //const [ccId, setCcId] = useState("0");
   const [holderName, setHolderName] = useState("");
-  const [defaultCC, setDefaultCC] = useState(true);
+  //const [defaultCC, setDefaultCC] = useState(true);
   const [invalidNumber, setInvalidNumber] = useState("");
   const [invalidName, setInvalidName] = useState("");
   const [invalidCvv, setInvalidCvv] = useState("");
@@ -69,7 +57,7 @@ export default function Tab3(props) {
       setCCCVV(userCC.ccCVV);
       setHolderName(userCC.ccName);
     }
-  });
+  }, []);
   const validateCreditCardNumber = (cardNumber) => {
     // הסרת רווחים מהמספר
     cardNumber = cardNumber.replace(/\s/g, "");

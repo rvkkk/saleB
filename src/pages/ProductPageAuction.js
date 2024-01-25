@@ -1,14 +1,9 @@
 import { useState, useEffect } from "react";
-import { ChevronLeftIcon } from "@chakra-ui/icons";
 import ReactStars from "react-rating-stars-component";
-import { BiHeart } from "react-icons/bi";
 import { AiFillExclamationCircle } from "react-icons/ai";
 import { GrLocation } from "react-icons/gr";
 import {
   Box,
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
   Card,
   Divider,
   Flex,
@@ -17,8 +12,6 @@ import {
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   Spacer,
@@ -73,7 +66,6 @@ export default function ProductPageAuction() {
   ];
 
   const [product, setProduct] = useState(null);
-  const [products, setProducts] = useState(null);
   const [productsInCategory, setProductsInCategory] = useState([]);
   const [mostByProducts, setMostByProducts] = useState([]);
   const [loading, setLoading] = useState(false);

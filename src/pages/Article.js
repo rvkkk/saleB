@@ -4,11 +4,8 @@ import Loader from "../components/Loader";
 import Layout from "../components/Layout";
 import {
   Box,
-  Flex,
-  IconButton,
   Spacer,
   Text,
-  Link,
   Heading,
 } from "@chakra-ui/react";
 

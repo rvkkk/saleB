@@ -7,10 +7,10 @@ const headers = {
   },
 };
 
-const onTokenBroken = () => {
+/*const onTokenBroken = () => {
   localStorage.removeItem("token");
   //window.location.href = "/auth/login";
-};
+};*/
 
 export const getUserCCs = () => {
   return new Promise((resolve, reject) => {

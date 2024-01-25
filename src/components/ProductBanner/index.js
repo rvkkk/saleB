@@ -1,7 +1,5 @@
-import { StarIcon } from "@chakra-ui/icons";
 import { Button, Divider, Flex, Image, Text } from "@chakra-ui/react";
 import React from "react";
-import Rating from "../Rating";
 import { StarFullSmallIcon, StarShopIcon } from "../Icons";
 
 export default function ProductBanner() {

@@ -1,5 +1,4 @@
 import React from "react";
-import Banner from "../components/Banner";
 import Layout from "../components/Layout";
 import Category from "../components/Category";
 import Products from "../components/Products";
@@ -11,7 +10,6 @@ import { EmailIcon } from "@chakra-ui/icons";
 import { useState, useEffect } from "react";
 import { routes } from "../routes";
 import { getProducts } from "../utils/api/products";
-import { getAuctionProducts } from "../utils/api/auctionProducts";
 import { addToMailingList } from "../utils/api/mailingList";
 import Loader from "../components/Loader";
 export default function Home() {

@@ -1,21 +1,9 @@
 import {
-  Box,
-  Divider,
   Flex,
   Image,
-  Spacer,
-  Text,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
-  IconButton,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import Button from "../Button";
+/*import Button from "../Button";
 import Checkbox from "../CheckBox";
 import { ArrowLeftIcon, TrashIcon } from "../Icons";
 import Input from "../Input";
@@ -23,7 +11,7 @@ import QuantityInput from "../QuantityInput";
 import { TiArrowForwardOutline } from "react-icons/ti";
 import { addOrder } from "../../utils/api/orders";
 import { routes } from "../../routes";
-
+*/
 export default function Tab4(order) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [images, setImages] = useState([
@@ -36,7 +24,7 @@ export default function Tab4(order) {
     process.env.PUBLIC_URL + "/assets/Linear/Submit/7.png",
     process.env.PUBLIC_URL + "/assets/Linear/Submit/8.png",
   ]);
-  const token = window.localStorage.getItem("token");
+  //const token = window.localStorage.getItem("token");
 
 
  /* const removeProductFromCart = (productId, size, model) => {

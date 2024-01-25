@@ -1,6 +1,5 @@
-import react, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ReactStars from "react-rating-stars-component";
-import { BiCart, BiHeart } from "react-icons/bi";
 import { AiFillExclamationCircle } from "react-icons/ai";
 import { GrLocation } from "react-icons/gr";
 import {
@@ -16,10 +15,6 @@ import {
   Text,
   Link,
 } from "@chakra-ui/react";
-import Checkbox from "@mui/material/Checkbox";
-import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
-import Favorite from "@mui/icons-material/Favorite";
-import React from "react";
 import Container from "../components/Container";
 import Layout from "../components/Layout";
 import ProductBanner from "../components/ProductBanner";
@@ -46,7 +41,7 @@ import {
 } from "../utils/api/wishLists";
 import { routes } from "../routes";
 import Loader from "../components/Loader";
-import { useWebSocket } from "../components/WebSocketProvider";
+//import { useWebSocket } from "../components/WebSocketProvider";
 import { sortMostBuyProducts, sortProductsByCategory } from "../utils/sort";
 import {
   CartBigIcon2,

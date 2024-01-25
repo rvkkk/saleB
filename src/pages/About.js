@@ -16,7 +16,7 @@ import Container from "../components/Container";
 import ArticleCard from "../components/ArticleCard";
 import Layout from "../components/Layout";
 import { routes } from "../routes";
-import { searchArticles, getArticles } from "../utils/api/articles";
+//import { searchArticles, getArticles } from "../utils/api/articles";
 import { addToMailingList } from "../utils/api/mailingList";
 import Loader from "../components/Loader";
 import { EmailIcon } from "@chakra-ui/icons";

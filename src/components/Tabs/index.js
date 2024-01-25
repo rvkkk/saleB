@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Tab as ChakraTab,
   Tabs as ChakraTabs,
@@ -10,7 +10,6 @@ import {
   Text,
 } from "@chakra-ui/react";
 import Container from "../Container";
-import { CheckIcon } from "@chakra-ui/icons";
 import { CartCheckIcon } from "../Icons";
 export default function Tabs({ tabs = [], tabIndex, setTabIndex }) {
   return (

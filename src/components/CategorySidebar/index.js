@@ -11,7 +11,7 @@ import {
   RangeSliderFilledTrack,
   RangeSliderThumb,
   RangeSliderTrack,
-  Tooltip,
+  //Tooltip,
   Spacer,
   Text,
 } from "@chakra-ui/react";
@@ -35,8 +35,8 @@ export default function CategorySidebar(props) {
     props.minPrice,
     props.maxPrice,
   ]);
-  const [showTooltip1, setShowTooltip1] = useState(false);
-  const [showTooltip2, setShowTooltip2] = useState(false);
+  //const [showTooltip1, setShowTooltip1] = useState(false);
+  //const [showTooltip2, setShowTooltip2] = useState(false);
 
   const addTags = (tag) => {
     const tagExists = tags.some(

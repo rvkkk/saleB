@@ -7,11 +7,6 @@ const headers = {
   },
 };
 
-const onTokenBroken = () => {
-  localStorage.removeItem("token");
-  //window.location.href = "/auth/login";
-};
-
 export const getProduct = (id) => {
   return new Promise((resolve, reject) => {
     axios

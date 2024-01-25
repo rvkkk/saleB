@@ -1,4 +1,4 @@
-import { Box, Flex, Radio, Text, useRadio } from "@chakra-ui/react";
+import { Box, Flex, Text, useRadio } from "@chakra-ui/react";
 import { RadioButtonIcon, RadioButtonUncheckedIcon } from "../Icons";
 
 export default function DeliveryCheckbox({

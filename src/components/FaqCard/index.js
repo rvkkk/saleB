@@ -1,6 +1,5 @@
 import { Flex, Box, Image, Text } from "@chakra-ui/react";
 import React from "react";
-import { Picture } from "../Icons";
 
 export default function FaqCard({ imageUrl, text, onClick, icon }) {
   return (

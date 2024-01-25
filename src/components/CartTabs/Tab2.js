@@ -18,7 +18,6 @@ import {
   ArrowLeftIcon,
   PayPalIcon,
   PenIcon,
-  RefreshIcon,
   TrashIcon,
   VisaIcon,
 } from "../Icons";
@@ -65,12 +64,11 @@ export default function Tab2(props) {
   const [invalidBuilding, setInvalidBuilding] = useState("");
   const [invalidFloor, setInvalidFloor] = useState("");
   const [invalidApartment, setInvalidApartment] = useState("");
-  const [invalidZipCode, setInvalidZipCode] = useState("");
+  //const [invalidZipCode, setInvalidZipCode] = useState("");
   const [notes, setNotes] = useState("");
   const [products, setProducts] = useState(props.products);
   const [saveDeafult, setSaveDeafult] = useState(true);
   const [showDetails, setShowDetails] = useState(false);
-  const [userAddress, setUserAdress] = useState({});
   const [userCC, setUserCC] = useState({});
   const token = window.localStorage.getItem("token");
   const discount = props.discount;
@@ -105,12 +103,16 @@ export default function Tab2(props) {
     else setInvalidEmail("");
   };
 
-  const handlePhoneNumberChange = (phoneNumber) => {
+  const handlePhoneNumberChange = (phoneNumber, num = 1) => {
     const phoneRegex = /^05\d{1}-?\d{7}$/;
     const phoneHomeRegex = /^0\d{1}-?\d{7}$/;
-    if (!phoneRegex.test(phoneNumber) && !phoneHomeRegex.test(phoneNumber))
-      setInvalidPhoneNumber("מספר שגוי");
-    else setInvalidPhoneNumber("");
+    if (num === 1)
+      if (!phoneRegex.test(phoneNumber) && !phoneHomeRegex.test(phoneNumber))
+        setInvalidPhoneNumber("מספר שגוי");
+      else setInvalidPhoneNumber("");
+    else if (!phoneRegex.test(phoneNumber) && !phoneHomeRegex.test(phoneNumber))
+      setDInvalidPhoneNumber("מספר שגוי");
+    else setDInvalidPhoneNumber("");
   };
 
   const verifyShippingDetailsAndContinueCheckout = () => {
@@ -118,6 +120,9 @@ export default function Tab2(props) {
     if (lastName === "") setInvalidLastName("שדה חובה");
     if (email === "") setInvalidEmail("שדה חובה");
     if (phoneNumber === "") setInvalidPhoneNumber("שדה חובה");
+    if (deliveryFirstName === "") setDInvalidFirstName("שדה חובה");
+    if (deliveryLastName === "") setDInvalidLastName("שדה חובה");
+    if (deliveryPhone === "") setDInvalidPhoneNumber("שדה חובה");
     if (deliveryCountry === "") setInvalidCountry("שדה חובה");
     if (deliveryCity === "") setInvalidCity("שדה חובה");
     if (deliveryStreet === "") setInvalidStreet("שדה חובה");
@@ -129,6 +134,9 @@ export default function Tab2(props) {
       lastName !== "" &&
       email !== "" &&
       phoneNumber !== "" &&
+      deliveryFirstName !== "" &&
+      deliveryLastName !== "" &&
+      deliveryPhone !== "" &&
       deliveryCountry !== "" &&
       deliveryCity !== "" &&
       deliveryStreet !== "" &&
@@ -139,6 +147,9 @@ export default function Tab2(props) {
       invalidLastName === "" &&
       invalidEmail === "" &&
       invalidPhoneNumber === "" &&
+      invalidDFirstName === "" &&
+      invalidDLastName === "" &&
+      invalidDPhoneNumber === "" &&
       invalidCountry === "" &&
       invalidCity === "" &&
       invalidStreet === "" &&
@@ -281,7 +292,7 @@ export default function Tab2(props) {
           console.log(err);
         });
     }
-  }, []);
+  }, [token]);
 
   const paypal = getRadioProps({ value: "paypal" });
   const visa = getRadioProps({ value: "visa" });
@@ -390,15 +401,25 @@ export default function Tab2(props) {
             <Grid gridTemplateColumns="1fr 1fr" gap="6">
               <Input
                 label="שם פרטי"
+                isInvalid={invalidDFirstName !== ""}
+                isInvalidMessage={invalidDFirstName}
                 required
                 defaultValue={deliveryFirstName}
-                onBlur={(e) => setDeliveryFirstName(e.target.value)}
+                onBlur={(e) => {
+                  setDeliveryFirstName(e.target.value);
+                  setDInvalidFirstName("");
+                }}
               />
               <Input
                 label="שם משפחה"
+                isInvalid={invalidDLastName !== ""}
+                isInvalidMessage={invalidDLastName}
                 required
                 defaultValue={deliveryLastName}
-                onBlur={(e) => setDeliveryLastName(e.target.value)}
+                onBlur={(e) => {
+                  setDeliveryLastName(e.target.value);
+                  setDInvalidLastName("");
+                }}
               />
               <Input
                 label="מדינה"
@@ -416,8 +437,13 @@ export default function Tab2(props) {
                 label="טלפון"
                 placeholder=""
                 required
+                isInvalid={invalidDPhoneNumber !== ""}
+                isInvalidMessage={invalidDPhoneNumber}
                 defaultValue={deliveryPhone}
-                onBlur={(e) => setDeliveryPhone(e.target.value)}
+                onBlur={(e) => {
+                  setDeliveryPhone(e.target.value);
+                  handlePhoneNumberChange(e.target.value, 2);
+                }}
               />
               <Input
                 label="עיר"
@@ -696,28 +722,35 @@ export default function Tab2(props) {
           <Button
             w="max"
             h="64px"
-            onClick={() => token === null ? 
-              props.setTabIndex(2, products, {
-                name: options[deliveryType - 1]["deliveryName"],
-                priceNum: options[deliveryType - 1]["priceNum"] || 0,
-              }) : props.setTabIndex(3, products, {
-                name: options[deliveryType - 1]["deliveryName"],
-                priceNum: options[deliveryType - 1]["priceNum"] || 0,
-              },{
-                delivery: {
-                  deliveryFirstName,
-                  deliveryLastName,
-                  deliveryPhone,
-                  deliveryCountry,
-                  deliveryCity,
-                  deliveryStreet,
-                  deliveryBuilding,
-                  deliveryFloor,
-                  deliveryApartment,
-                  deliveryZipCode,
-                },
-              },
-              userCC)
+            onClick={() =>
+              token === null
+                ? props.setTabIndex(2, products, {
+                    name: options[deliveryType - 1]["deliveryName"],
+                    priceNum: options[deliveryType - 1]["priceNum"] || 0,
+                  })
+                : props.setTabIndex(
+                    3,
+                    products,
+                    {
+                      name: options[deliveryType - 1]["deliveryName"],
+                      priceNum: options[deliveryType - 1]["priceNum"] || 0,
+                    },
+                    {
+                      delivery: {
+                        deliveryFirstName,
+                        deliveryLastName,
+                        deliveryPhone,
+                        deliveryCountry,
+                        deliveryCity,
+                        deliveryStreet,
+                        deliveryBuilding,
+                        deliveryFloor,
+                        deliveryApartment,
+                        deliveryZipCode,
+                      },
+                    },
+                    userCC
+                  )
             } //verifyShippingDetailsAndContinueCheckout()
           >
             המשך לתשלום

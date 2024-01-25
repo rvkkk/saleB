@@ -1,4 +1,4 @@
-import { Box, Flex, IconButton, Image, Text } from "@chakra-ui/react";
+import { Flex, IconButton, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import { TrashIcon } from "../Icons";
 import QuantityInput from "../QuantityInput";

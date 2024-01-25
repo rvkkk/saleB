@@ -17,7 +17,6 @@ import Input from "../components/Input";
 import Layout from "../components/Layout";
 import { useState, useEffect } from "react";
 import Loader from "../components/Loader";
-import { getUser, updateUser } from "../utils/api/users";
 import {
   getUserShippingAddresses,
   addShippingAddress,
@@ -489,7 +488,7 @@ export default function UserSettingsShippingAddress() {
   );
 }
 
-{
+
   /*<Grid gridTemplateColumns="1fr 1fr 1fr 1fr " gap="6">
                       <GridItem colSpan={2}>
                         <Input
@@ -529,4 +528,4 @@ export default function UserSettingsShippingAddress() {
                         onChange={(e) => setApartment(e.target.value)}
                       />
 </Grid>*/
-}
+

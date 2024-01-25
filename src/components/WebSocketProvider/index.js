@@ -1,9 +1,9 @@
 import React, {
   createContext,
   useContext,
-  useEffect,
+  //useEffect,
   useRef,
-  useState,
+  //useState,
 } from "react";
 
 const WebSocketContext = createContext(null);
@@ -18,7 +18,7 @@ export const useWebSocket = () => {
 
 export const WebSocketProvider = ({ children }) => {
   const socketRef = useRef(window.localStorage.getItem("socket") || null);
-  const [isOn, setIsOn] = useState(false);
+  //const [isOn, setIsOn] = useState(false);
 
   /*useEffect(() => {
     console.log(2);

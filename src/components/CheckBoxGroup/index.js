@@ -1,7 +1,6 @@
 import { CheckboxGroup, Stack } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React from "react";
 import Checkbox from "../CheckBox";
-import { TrendingUpRounded } from "@mui/icons-material";
 
 export default function CheckBoxGroup({
   list = [],
@@ -11,7 +10,6 @@ export default function CheckBoxGroup({
   defaultValue,
   addTag,
 }) {
-  const [a, setA] = useState(false);
   return (
     <CheckboxGroup
       colorScheme="green"

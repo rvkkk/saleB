@@ -19,7 +19,7 @@ import Badge from "../Badge";
 import Button from "../Button";
 import ProductBuyCard from "../ProductBuyCard";
 import ProductTimeClock from "../ProductTimeClock";
-import { deleteProduct } from "../../utils/api/products";
+//import { deleteProduct } from "../../utils/api/products";
 import { addToWishList, removeFromWishList } from "../../utils/wishList";
 import { addNewWish, deleteFromWishList } from "../../utils/api/wishLists";
 import { addOffer } from "../../utils/api/offers";
@@ -100,9 +100,9 @@ export default function CartItemGallery(props) {
         });
   };
 
-  const deleteP = () => {
+  /*const deleteP = () => {
     deleteProduct(product._id).then().catch();
-  };
+  };*/
 
   const removeDecimal = (num) => {
     try {

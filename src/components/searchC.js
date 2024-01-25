@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+/*import React, { useState } from 'react';
 
 const SearchComponent = () => {
   const [showLinks, setShowLinks] = useState(false);
@@ -30,16 +30,14 @@ const SearchComponent = () => {
       />
       {showLinks && (
         <div className="links-container">
-          {/* כאן אתה יכול להוסיף את רשימת הקישורים שלך */}
+          כאן אתה יכול להוסיף את רשימת הקישורים שלך 
           <a>קישור 1</a>
           <a>קישור 2</a>
-          {/* ... */}
         </div>
       )}
       <input className="search--submit--2VTbd-T" type="button" fdprocessedid="xokug7" />
-      {/* יתר הקוד שלך */}
     </div>
   );
 };
 
-export default SearchComponent;
+export default SearchComponent;*/

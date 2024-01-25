@@ -7,8 +7,6 @@ import {
   Link,
   Grid,
   Box,
-  Tooltip,
-  Icon,
 } from "@chakra-ui/react";
 import SignUpLayout from "../components/AuthLayout";
 import Button from "../components/Button";
@@ -20,7 +18,7 @@ import { routes } from "../routes";
 import { signup } from "../utils/api/users";
 import { addToMailingList } from "../utils/api/mailingList";
 import Loader from "../components/Loader";
-import { set } from "date-fns";
+//import { set } from "date-fns";
 import Layout from "../components/Layout";
 import Container from "../components/Container";
 import { RightIcon2 } from "../components/Icons";

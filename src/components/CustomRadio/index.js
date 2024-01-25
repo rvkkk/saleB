@@ -1,4 +1,4 @@
-import { Box, Flex, Radio, Text, useRadio } from "@chakra-ui/react";
+import { Box, Flex, useRadio } from "@chakra-ui/react";
 import { RadioButtonIcon, RadioButtonUncheckedIcon } from "../Icons";
 
 export default function CustomRadio({ w="190px", h="68px", checked, onClick, children, ...rest }) {

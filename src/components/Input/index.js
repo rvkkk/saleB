@@ -3,7 +3,6 @@ import {
   Input as ChakraInput,
   FormControl,
   FormLabel,
-  FormHelperText,
   FormErrorMessage,
   InputRightElement,
   InputGroup,

@@ -1,4 +1,4 @@
-import { Box, Flex, Image, Spacer, Text } from '@chakra-ui/react'
+import { Box, Flex, Image, Text } from '@chakra-ui/react'
 import React from 'react'
 
 export default function InfoBox({imgUrl, title, desc, link}) {

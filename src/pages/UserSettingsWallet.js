@@ -2,8 +2,6 @@ import {
   Box,
   Card,
   Flex,
-  Grid,
-  GridItem,
   Image,
   Img,
   Spacer,
@@ -230,14 +228,8 @@ export default function UserSettingsWallet() {
                         ccType={cc.ccType}
                         onChangeD={() => {
                           setCCNumber(cc.ccNumber);
-                          setCCMonth(() => {
-                            const [month, year] = cc.ccExp.split("/");
-                            return Number(month);
-                          });
-                          setCCYear(() => {
-                            const [month, year] = cc.ccExp.split("/");
-                            return Number(year);
-                          });
+                          setCCMonth(() => Number(cc.ccExp.split("/")[0]));
+                          setCCYear(() => Number(cc.ccExp.split("/")[1]));
                           setCCCVV(cc.ccCVV);
                           setHolderName(cc.ccName);
                           setDefaultCC(cc.defaultCC);

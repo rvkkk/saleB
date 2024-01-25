@@ -4,7 +4,6 @@ import {
   Box,
   Flex,
   IconButton,
-  Image,
   Spacer,
   Text,
 } from "@chakra-ui/react";

@@ -1,4 +1,3 @@
-import { StarIcon } from "@chakra-ui/icons";
 import { Flex, Text, Box } from "@chakra-ui/react";
 import React from "react";
 import { StarFullSmallIcon } from "../Icons";

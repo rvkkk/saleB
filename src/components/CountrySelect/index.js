@@ -3,7 +3,6 @@ import {
   Flex,
   Text,
   Button as ChakraButton,
-  Image,
   FormLabel,
   Menu,
   MenuButton,

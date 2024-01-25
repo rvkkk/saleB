@@ -11,11 +11,9 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
 } from "@chakra-ui/react";
 import React from "react";
@@ -31,11 +29,11 @@ import Layout from "../components/Layout";
 import Timeline from "../components/Timeline";
 import TrackerInfo from "../components/TrackerInfo";
 import { useEffect, useState } from "react";
-import { getOrder } from "../utils/api/orders";
+/*import { getOrder } from "../utils/api/orders";
 import {
   getOrderOrdersTracking,
   getOrderTracking,
-} from "../utils/api/orderTrackings";
+} from "../utils/api/orderTrackings";*/
 import { turnLettersToNumbers } from "../utils/serial";
 import Loader from "../components/Loader";
 

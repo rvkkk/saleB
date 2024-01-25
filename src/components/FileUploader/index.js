@@ -1,12 +1,8 @@
-import { CloseIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Button,
   Flex,
   FormLabel,
-  IconButton,
   Image,
-  Spacer,
   Text,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
@@ -83,7 +79,7 @@ export default function FileUploader({ onClick, onDrop, number }) {
   );
 }
 
-const FileComponent = () => {
+/*const FileComponent = () => {
   return (
     <Flex
       dir="ltr"
@@ -112,4 +108,4 @@ const FileComponent = () => {
       />
     </Flex>
   );
-};
+};*/
