@@ -1,4 +1,3 @@
-# Redirects from what the browser requests to what we serve
 /home                /
 /auth/login          /auth/login
 /auth/sign-up        /auth/sign-up
@@ -12,3 +11,18 @@
 /product/create      /product/create
 /faq                 /faq
 /regulations         /regulations
+/shipping-details    /shipping-details
+/payment-info/:id    /payment-info/:id
+/delivery-tracker    /delivery-tracker
+/orders              /orders
+/sales               /sales
+/wishlist            /wishlist
+/shipping-address    /shipping-address
+/wallets             /wallets
+/profile             /profile
+/setting             /setting
+/contact             /contact
+/about               /about
+/article/:id         /article/:id
+/buy-success/:id     /buy-success/:id
+/check/:id           /check/:id
