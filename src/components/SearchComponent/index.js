@@ -1,4 +1,3 @@
-import { SearchIcon } from "@chakra-ui/icons";
 import {
   Flex,
   Link,
@@ -10,7 +9,7 @@ import {
   MenuList,
   Text,
 } from "@chakra-ui/react";
-import { Icon5 } from "../Icons";
+import { Icon5, SearchIcon } from "../Icons";
 import React, { useState, useEffect } from "react";
 import { routes } from "../../routes";
 
@@ -68,7 +67,7 @@ export default function SearchComponent(props) {
         onChange={(e) => setQuery(e.target.value)}
       />
       <IconButton
-        bg="secondaryColor"
+        bgGradient="linear(to-r, #FF66A9, #F53689)"
         textColor="white"
         borderRightRadius="0"
         icon={<SearchIcon />}

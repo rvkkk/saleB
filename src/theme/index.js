@@ -21,6 +21,7 @@ export const theme = extendTheme({
     iconButtonColor: "#9EF4EE",
     secondaryLight: "#9EF4EE",
     secondaryColor: "#FF66A9",
+    searchColor: "linear(to-r, #FF66A9, #F53689)",
     othersLight: "#F3F7FF",
     disabled: "#B7D1F7",
     priceMuted: "#B1B4B7",
@@ -42,7 +43,7 @@ export const theme = extendTheme({
     secendaryDarkest: "#18A2A2",
     secendaryDark: "#34B9AF",
     othersLinear: "#FF66A9",
-    linear: "#FFC9E3"
+    linear: "#FFC9E3",
   },
   direction: 'rtl'
 });

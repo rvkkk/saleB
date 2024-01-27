@@ -262,8 +262,9 @@ export default function NavBar({ withSidebar, logo }) {
             display="-webkit-flex"
           >
             <Flex
-              w={{ lg: "140px", xl: "200px", "2xl": "300px" }}
-              justifyContent={{ lg: "flex-start", xl: "flex-end" }}
+             // w={{ lg: "140px", xl: "200px", "2xl": "300px" }}
+             w="20%"
+              justifyContent="flex-end" 
             >
               <Link to="/">
                 <Image
@@ -272,7 +273,7 @@ export default function NavBar({ withSidebar, logo }) {
                 />
               </Link>
             </Flex>
-            <Box w={{ lg: "530px", xl: "700px" }}>
+            <Box w={{ lg: "530px", xl: "700px", "2xl": "800px" }}>
               <SearchComponent
                 value={query}
                 onChange={(e) => setQuery(e)}
@@ -281,7 +282,7 @@ export default function NavBar({ withSidebar, logo }) {
                 }
               />
             </Box>
-            <Flex gap={{ lg: "10px", xl: "30px", "2xl": "50px" }}>
+            <Flex w="20%" gap={{ lg: "10px", xl: "30px", "2xl": "50px" }}>
               <Flex gap="2">
                 <Link to={routes.UserSettingsWhiteList.path}>
                   <IconButton
@@ -627,8 +628,10 @@ export default function NavBar({ withSidebar, logo }) {
                     <Image
                       src={process.env.PUBLIC_URL + "/assets/israel.svg"}
                     />
+                    <Flex display={{lg: "none", xl: "flex"}} gap="1" alignItems="center">
                     <Text>עברית</Text>
                     <Icon5 />
+                    </Flex>
                   </Flex>
                 </MenuButton>
                 <MenuList
@@ -660,7 +663,8 @@ export default function NavBar({ withSidebar, logo }) {
             <ButtonGroup size="sm">
               <ChakraButton
                 mx="4"
-                bg="secondaryColor"
+                px="20px"
+                bgGradient="linear(to-r, #FF66A9, #F53689)"
                 borderRadius="8px"
                 _hover={{ opacity: "0.9" }}
                 textColor="white"
