@@ -1,4 +1,4 @@
-import { Box, Grid, Spacer, Text } from "@chakra-ui/react";
+import { Box, Grid, Spacer, Flex, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { routes } from "../../routes";
 import Container from "../Container";
@@ -22,12 +22,12 @@ export default function Category(props) {
   ];
   return (
     <Container>
-      <Grid
+      <Grid my="20px"
         w={{ base: "326px", sm: "392px", md: "648px", lg: "860px", xl: "1275px", "2xl": "1455px"}}
         mx="auto"
         gridTemplateColumns={{ base: "repeat(3, 1fr)", md: "repeat(4, 1fr)", xl: "repeat(6, 1fr)" }}
         flexWrap="wrap"
-        rowGap={{ base: "23px", lg: "36px" }}
+        rowGap={{ base: "31px", lg: "44px" }}
         columnGap={{ base: "16px", lg: "20px", xl:"15px" }}     
         py={{ base: "20px", lg: "40px" }}
       >
@@ -36,6 +36,7 @@ export default function Category(props) {
             return (
               <CategoryItem
               key={index}
+              index={index}
                 onClick={() =>
                   (window.location.href =
                     routes.Category.path.replace(":category", "") +
@@ -57,98 +58,25 @@ export const CategoryItem = ({
   onClick,
   index
 }) => {
-  const [isMouseOver, setIsMouseOver] = useState(false);
-  const handleMouseEnter = () => {
-    setIsMouseOver(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsMouseOver(false);
-  };
   return (
-    <Box
-      display={{base: index < 9 ? "block" : "none", md: "block"}}
+   <Flex
+      display={{base: index < 9 ? "flex" : "none", md: "flex"}}
       mx="auto"
       w={{ base: "98px", sm: "120px", md: "150px", lg: "200px", "2xl": "230px" }}
       cursor={"pointer"}
       onClick={() => onClick()}
+      flexDir="column"
+      justifyContent="center"
+      alignItems="center"
+      gap={{base: "18px", md: "28px"}}
     >
-      <Box
-        w={{ base: "98px", sm: "120px", md: "150px", lg: "200px", "2xl": "230px" }}
-        h={{ base: "98px", sm:"120px", md: "150px", lg: "200px", "2xl": "230px" }}
-        borderRadius="full"
-        border="1px solid transparent"
-        borderColor="naturalLight"
-        //position="absolute"
-        p={{ base: "3px", sm: "8px", lg: "4" }}
-        //id="categorySqure"
-        _hover={{ border: "none" }}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        
-        
+      <Box 
+      className="category_img"
+      w={{ base: "90px", sm: "100px", md: "130px", lg: "170px", "2xl": "200px" }}
+      h={{ base: "90px", sm:"100px", md: "130px", lg: "170px", "2xl": "200px" }}
       >
-        {isMouseOver ? (
-          <Box
-            w="full"
-            //transform="translate(100%,0)"
-            border="1px solid #0D2F99"
-            borderRadius="full"
-            h="full"
-            transition="all .2s linear"
-            //transition= "opacity .1s , border-width .4s"
-            bg="disabled"
-          />
-        ) : (
-          <Box
-            boxShadow="outline 0 0 0 1px #0D2F99"
-            w="full"
-            border="none"
-            borderRadius="full"
-            h="full"
-            bg="disabled"
-          />
-        )}
       </Box>
-      <Spacer h="2" />
       <Text textAlign="center">{name}</Text>
-    </Box>
+    </Flex>
   );
 };
-
-/*<Box
-        w={{ base: "98px", sm: "120px", md: "150px", lg: "200px", "2xl": "230px" }}
-        h={{ base: "98px", sm:"120px", md: "150px", lg: "200px", "2xl": "230px" }}
-        borderRadius="full"
-        border="1px solid transparent"
-        borderColor="naturalLight"
-        p={{ base: "3px", sm: "8px", lg: "4" }}
-        //id="categorySqure"
-        //_hover={{ border: "none" }}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        
-        
-      >
-        {isMouseOver ? (
-          <Box
-            w="full"
-            //transform="translate(100%,0)"
-            border="1px solid #0D2F99"
-            borderRadius="full"
-            h="full"
-            transition="all .2s linear"
-            //transition= "opacity .1s , border-width .4s"
-            bg="disabled"
-          />
-        ) : (
-          <Box
-            boxShadow="outline 0 0 0 1px #0D2F99"
-            w="full"
-            border="none"
-            borderRadius="full"
-            h="full"
-            bg="disabled"
-          />
-        )}
-      </Box>*/

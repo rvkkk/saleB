@@ -33,7 +33,8 @@ import { getUserProfile } from "../../utils/api/users";
 import { getUserCart, deleteFromCart, updateCart } from "../../utils/api/carts";
 import React from "react";
 //import { useWebSocket } from "../WebSocketProvider";
-import { SearchIcon, SettingsIcon } from "@chakra-ui/icons";
+import SaleBID, {SmallLOGOIcon} from "../SaleBID";
+import { SettingsIcon } from "@chakra-ui/icons";
 import SearchComponent from "../SearchComponent";
 import { Link, useLocation } from "react-router-dom";
 import { routes } from "../../routes";
@@ -51,6 +52,7 @@ import {
   CartIcon2,
   CartIcon3,
   HeartIcon2,
+  SearchIcon
 } from "../Icons";
 import NavCartListItem from "../NavCartListItem";
 import Button from "../Button";
@@ -254,7 +256,7 @@ export default function NavBar({ withSidebar, logo }) {
   return (
     <>
       <Box display={{ base: "none", lg: "grid" }}>
-        <Box px="10px" bg="primary" h="80px" id="navbar" w="100%">
+        <Box bg="primary" h="80px" id="navbar" w="100%">
           <Flex
             h="full"
             justifyContent="space-between"
@@ -267,13 +269,10 @@ export default function NavBar({ withSidebar, logo }) {
               justifyContent="flex-end" 
             >
               <Link to="/">
-                <Image
-                  w="140px"
-                  src={process.env.PUBLIC_URL + "/assets/logo_full.png"}
-                />
+                <SaleBID/>
               </Link>
             </Flex>
-            <Box w={{ lg: "530px", xl: "700px", "2xl": "800px" }}>
+            <Box w={{ lg: "530px", xl: "700px", "2xl": "900px" }}>
               <SearchComponent
                 value={query}
                 onChange={(e) => setQuery(e)}
@@ -847,10 +846,7 @@ export default function NavBar({ withSidebar, logo }) {
         h="65px"
       >
         <Link to="/">
-          <Image
-            w="122px"
-            src={process.env.PUBLIC_URL + "/assets/logo_full.png"}
-          />
+          <SmallLOGOIcon/>
         </Link>
       </Flex>
 
@@ -866,10 +862,7 @@ export default function NavBar({ withSidebar, logo }) {
       >
         <Flex justifyContent="space-between">
           <Link to="/">
-            <Image
-              w="122px"
-              src={process.env.PUBLIC_URL + "/assets/logo_full.png"}
-            />
+            <SmallLOGOIcon/>
           </Link>
           <Flex gap="15px">
             <Menu placement="bottom">
@@ -1224,7 +1217,7 @@ export default function NavBar({ withSidebar, logo }) {
                       h="40px"
                       fontSize="14px"
                       fontWeight="normal"
-                      bg="secondaryColor"
+                      bgGradient="linear(to-r, #FF66A9, #F53689)"
                       borderRadius="8px"
                       _hover={{ opacity: "0.9" }}
                       textColor="white"
@@ -1330,18 +1323,16 @@ export default function NavBar({ withSidebar, logo }) {
             </Popover>
           </Flex>
         </Flex>
-        <Flex gap="10px" px={{ sm: "70px" }}>
+        <Flex gap="8px" px={{ sm: "70px" }}>
           <IconButton
-            w="50px"
+            minW="50px"
             h="50px"
-            bg="secondaryColor"
-            textColor="white"
-            borderRadius="15px"
-            fontSize="21px"
+            bgGradient="linear(to-r, #FF66A9, #F53689)"
+            _hover={{bgGradient: "linear(to-r, #F53689, #F53689)"}}
+            borderRadius="14px"
             icon={<SearchIcon />}
             onClick={() => (window.location.href = "/category?query=" + query)}
           />
-          <Box w="93.9%">
             <Input
               dir="rtl"
               h="50px"
@@ -1352,7 +1343,6 @@ export default function NavBar({ withSidebar, logo }) {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
-          </Box>
         </Flex>
       </Flex>
     </>

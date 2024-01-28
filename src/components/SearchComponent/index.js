@@ -27,7 +27,7 @@ export default function SearchComponent(props) {
             borderRadius="0px"
             borderRightRadius="8px"
             w="110px"
-            h="40px"
+            h="50px"
             bg="primaryDark"
             color="white"
             fontSize="18px"
@@ -61,14 +61,17 @@ export default function SearchComponent(props) {
       <Input
         placeholder="אני מחפש..."
         border="none"
+        h="50px"
         borderRadius="0"
         bg="white"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
       <IconButton
+        h="50px"
+        minW="50px"
         bgGradient="linear(to-r, #FF66A9, #F53689)"
-        textColor="white"
+        _hover={{bgGradient: "linear(to-r, #F53689, #F53689)"}}
         borderRightRadius="0"
         icon={<SearchIcon />}
         onClick={() => (window.location.href = "/category?query=" + query)}
