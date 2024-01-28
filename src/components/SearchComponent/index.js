@@ -25,7 +25,7 @@ export default function SearchComponent(props) {
         <MenuButton>
           <Flex
             borderRadius="0px"
-            borderRightRadius="8px"
+            borderRightRadius="12px"
             w="110px"
             h="50px"
             bg="primaryDark"
@@ -70,6 +70,7 @@ export default function SearchComponent(props) {
       <IconButton
         h="50px"
         minW="50px"
+        borderRadius="12px"
         bgGradient="linear(to-r, #FF66A9, #F53689)"
         _hover={{bgGradient: "linear(to-r, #F53689, #F53689)"}}
         borderRightRadius="0"

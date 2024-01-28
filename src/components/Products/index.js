@@ -66,31 +66,12 @@ export default function Products({
             <IconButton
               size="sm"
               borderRadius="full"
-              bg={
-                activeIndex === products.length - numberOfSlides
-                  ? "transparent"
-                  : "primary"
-              }
-              border={
-                activeIndex === products.length - numberOfSlides
-                  ? "1px solid transparent"
-                  : "none"
-              }
-              borderColor={
-                activeIndex === products.length - numberOfSlides
-                  ? "naturalLight"
-                  : "none"
-              }
-              textColor={
-                activeIndex === products.length - numberOfSlides
-                  ? "naturalLight"
-                  : "white"
-              }
-              _hover={
-                activeIndex !== products.length - numberOfSlides && {
-                  bg: "primaryHover",
-                }
-              }
+              bg="transparent"
+              border="1px solid transparent"
+              borderColor="naturalLight"
+              textColor="naturalLight"
+              _hover={{ bg: "naturalLightest" }}
+              _active={{border: "none", bg: "primary", textColor: "white"}}
               fontSize="24px"
               width="40px"
               height="40px"
@@ -106,11 +87,12 @@ export default function Products({
             <IconButton
               size="sm"
               borderRadius="full"
-              bg={activeIndex === 0 ? "transparent" : "primary"}
-              border={activeIndex === 0 ? "1px solid transparent" : "none"}
-              borderColor={activeIndex === 0 ? "naturalLight" : "none"}
-              textColor={activeIndex === 0 ? "naturalLight" : "white"}
-              _hover={activeIndex !== 0 && { bg: "primaryHover" }}
+              bg="transparent"
+              border="1px solid transparent"
+              borderColor="naturalLight"
+              textColor="naturalLight"
+              _hover={{ bg: "naturalLightest" }}
+              _active={{border: "none", bg: "primary", textColor: "white"}}
               fontSize="24px"
               width="40px"
               height="40px"
