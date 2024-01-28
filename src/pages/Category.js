@@ -91,32 +91,32 @@ export default function Category() {
   };
 
   useEffect(() => {
-    const category = window.location.href.split("/").pop().split("/")[0]; 
+    const category = window.location.href.split("/").pop().split("/")[0];
     setCategory(category);
     setLoading(true);
     searchProducts(category, tags, 1, 9, minPrice, maxPrice, sortBy)
-    .then((res) => {
-      console.log(res)
-      setProducts(res.products.products);
-      setPages(res.products.pages);
-      setLoading(false);
-    })
-    .catch((err) => console.log(err));
-  }, [sortBy])
+      .then((res) => {
+        console.log(res);
+        setProducts(res.products.products);
+        setPages(res.products.pages);
+        setLoading(false);
+      })
+      .catch((err) => console.log(err));
+  }, [sortBy]);
 
   useEffect(() => {
     const category = window.location.href.split("/").pop().split("/")[0]; //צריך להיות באנגלית
     setCategory(category);
     setLoading(true);
     searchProducts(category, tags, currentPage, 9, minPrice, maxPrice, sortBy)
-    .then((res) => {
-      console.log(res)
-      setProducts(res.products.products);
-      setPages(res.products.pages);
-      setLoading(false);
-    })
-    .catch((err) => console.log(err));
-  }, [currentPage])
+      .then((res) => {
+        console.log(res);
+        setProducts(res.products.products);
+        setPages(res.products.pages);
+        setLoading(false);
+      })
+      .catch((err) => console.log(err));
+  }, [currentPage]);
 
   /*useEffect(() => {
     setLoading(true);
@@ -147,59 +147,286 @@ export default function Category() {
       {loading ? (
         <Loader />
       ) : (
-        <>
-        <Flex display={{base: "none", md: "flex"}} pb="20" mt="30px" gap="10" dir="rtl" mx={["16px", "32px", "50px", "100px", "200px"]}>
-          <Box>
-            <CategorySidebar
-              onChangePriceSlider={(val) => {
-                const min = val[0];
-                const max = val[1];
-                setMinPrice(min);
-                setMaxPrice(max);
-                //filterByPrice(min, max);
-              }}
-              minPrice={minPrice}
-              maxPrice={maxPrice}
-              onChangeTags={(tags) => setTags(tags)}
-            />
-          </Box>
+        <Flex justifyContent="center">
+          <Flex
+            display={{ base: "none", md: "flex" }}
+            pb="20"
+            mt="30px"
+            gap="10"
+            dir="rtl"
+            // mx={["16px", "32px", "50px", "100px", "200px"]}
+          >
+            <Box>
+              <CategorySidebar
+                onChangePriceSlider={(val) => {
+                  const min = val[0];
+                  const max = val[1];
+                  setMinPrice(min);
+                  setMaxPrice(max);
+                  //filterByPrice(min, max);
+                }}
+                minPrice={minPrice}
+                maxPrice={maxPrice}
+                onChangeTags={(tags) => setTags(tags)}
+              />
+            </Box>
 
-          <Box flex="1" style={{ maxWidth: 1000 }}>
-            <Flex justifyContent="space-between">
-              <Flex alignItems="center" gap="6">
-                <Menu>
-                  <MenuButton
-                    as={Button}
-                    bg="white"
-                    _active={{ bg: "white" }}
-                    _focus={{ bg: "white" }}
-                    _hover={{ bg: "white" }}
-                    border="1px solid transparent"
-                    borderRadius="8px"
-                    borderColor="bright"
-                  >
-                    <Flex
-                      gap="4"
-                      py="2"
-                      fontSize="14px"
-                      fontWeight="medium"
-                      color="naturalDarkest"
-                    >
-                      <Image w="18px" src={process.env.PUBLIC_URL + "/assets/filter.svg"} /> מיין לפי
-                    </Flex>
-                  </MenuButton>
-                  <MenuList
-                    dir="rtl"
+            <Box flex="1" style={{ maxWidth: 1154 }}>
+              <Flex justifyContent="space-between">
+                <Flex alignItems="center" gap="14px">
+                  <Text
                     fontSize="14px"
+                    lineHeight="16px"
                     color="naturalDarkest"
-                    border="none"
-                    shadow="lg"
-                    p="2"
-                    py="4"
-                    postion="relative"
-                    zIndex={4}
                   >
-                    <MenuItem
+                    מיין לפי
+                  </Text>
+                  <Menu>
+                    <MenuButton
+                      as={Button}
+                      bg="white"
+                      _active={{ bg: "white" }}
+                      _focus={{ bg: "white" }}
+                      _hover={{ bg: "white" }}
+                      border="1px solid transparent"
+                      borderRadius="8px"
+                      borderColor="bright"
+                    >
+                      <Flex
+                        gap="4"
+                        py="2"
+                        fontSize="14px"
+                        fontWeight="medium"
+                        color="naturalDarkest"
+                      >
+                        <Image
+                          w="18px"
+                          src={process.env.PUBLIC_URL + "/assets/filter.svg"}
+                        />
+                        {sortBy === "priceUp"
+                          ? "מחיר: מהנמוך לגבוה"
+                          : sortBy === "priceDown"
+                          ? "מחיר: מהגבוה לנמוך"
+                          : sortBy === "newest"
+                          ? "מחדש לישן"
+                          : sortBy === "mostBuy"
+                          ? "הנמכרים ביותר"
+                          : "פופולריות"}
+                      </Flex>
+                    </MenuButton>
+                    <MenuList
+                      dir="rtl"
+                      fontSize="14px"
+                      color="naturalDarkest"
+                      border="none"
+                      shadow="lg"
+                      p="2"
+                      py="4"
+                      postion="relative"
+                      zIndex={4}
+                    >
+                      <MenuItem
+                        onClick={() => {
+                          setProducts(sortPriceUp(products));
+                          setSortBy("priceUp");
+                        }}
+                        borderRadius="8px"
+                        bg={sortBy === "priceUp" && "othersLight"}
+                        color={sortBy === "priceUp" && "primary"}
+                        _hover={{ bg: "othersLight", color: "primary" }}
+                      >
+                        מחיר: מהנמוך לגבוה
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          setProducts(sortPriceDown(products));
+                          setSortBy("priceDown");
+                        }}
+                        borderRadius="8px"
+                        bg={sortBy === "priceDown" && "othersLight"}
+                        color={sortBy === "priceDown" && "primary"}
+                        _hover={{ bg: "othersLight", color: "primary" }}
+                      >
+                        מחיר: מהגבוה לנמוך
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          setProducts(sortMostBuyProducts(products));
+                          setSortBy("mostBuy");
+                        }}
+                        borderRadius="8px"
+                        bg={sortBy === "mostBuy" && "othersLight"}
+                        color={sortBy === "mostBuy" && "primary"}
+                        _hover={{ bg: "othersLight", color: "primary" }}
+                      >
+                        הנמכרים ביותר
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          setProducts(sortPopularAuction(products));
+                          setSortBy("popular");
+                        }}
+                        borderRadius="8px"
+                        bg={sortBy === "popular" && "othersLight"}
+                        color={sortBy === "popular" && "primary"}
+                        _hover={{ bg: "othersLight", color: "primary" }}
+                      >
+                        פופולריות
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          setProducts(sortNewest(products));
+                          setSortBy("newest");
+                        }}
+                        borderRadius="8px"
+                        bg={sortBy === "newest" && "othersLight"}
+                        color={sortBy === "newest" && "primary"}
+                        _hover={{ bg: "othersLight", color: "primary" }}
+                      >
+                        מחדש לישן
+                      </MenuItem>
+                    </MenuList>
+                  </Menu>
+                </Flex>
+                <Flex gap="2">
+                  <Popover placement="top" trigger="hover">
+                    <PopoverTrigger>
+                      <IconButton
+                        border="1.5px solid transparent"
+                        bg="othersLight"
+                        borderColor={isList ? "primary" : "transparent"}
+                        borderRadius="8px"
+                        color="primary"
+                        onClick={() => {
+                          setIsList(true);
+                        }}
+                        icon={<FaListUl />}
+                      />
+                    </PopoverTrigger>
+                    <PopoverContent
+                      bg="primary"
+                      borderRadius="6px"
+                      p="2"
+                      border="none"
+                      w="max"
+                    >
+                      <PopoverArrow bg="primary" />
+                      <PopoverBody fontSize="12px" textColor="white" w="max">
+                        הצג בתצוגת רשימה
+                      </PopoverBody>
+                    </PopoverContent>
+                  </Popover>
+                  <Popover placement="top" trigger="hover">
+                    <PopoverTrigger>
+                      <IconButton
+                        border="1.5px solid transparent"
+                        bg="othersLight"
+                        borderColor={!isList ? "primary" : "transparent"}
+                        borderRadius="8px"
+                        color="primary"
+                        onClick={() => {
+                          setIsList(false);
+                        }}
+                        icon={<RxDashboard />}
+                      />
+                    </PopoverTrigger>
+                    <PopoverContent
+                      bg="primary"
+                      borderRadius="6px"
+                      p="2"
+                      border="none"
+                      w="max"
+                    >
+                      <PopoverArrow bg="primary" />
+                      <PopoverBody fontSize="12px" textColor="white" w="max">
+                        הצג בתצוגת גלריה
+                      </PopoverBody>
+                    </PopoverContent>
+                  </Popover>
+                </Flex>
+              </Flex>
+
+              {products.length === 0 && (
+                <Flex justifyContent="center" alignItems="center" h="300px">
+                  <Text fontSize="20px" color="naturalDark">
+                    לא נמצאו מוצרים
+                  </Text>
+                </Flex>
+              )}
+
+              {isList ? (
+                <Flex w="1154px" flexDirection="column" gap="6" mt="8">
+                  {products[0] &&
+                    products.map((item) => {
+                      return <CartListItem data={item} />;
+                    })}
+                </Flex>
+              ) : (
+                <Grid gridTemplateColumns="repeat(3, 1fr)" gap="6" mt="8">
+                  {products[0] &&
+                    products.map((item) => {
+                      return <CartGalleryItem data={item} />;
+                    })}
+                </Grid>
+              )}
+
+              <Spacer h="20" />
+              {products.length > 0 && (
+                <Flex justifyContent="center">
+                  <Pagination
+                    currentPage={currentPage}
+                    pages={pages}
+                    onBack={() => onBackPage()}
+                    onForward={() => onForwardPage()}
+                    onPageChange={(page) => onPageChange(page)}
+                  />
+                </Flex>
+              )}
+            </Box>
+          </Flex>
+          <Flex flexDir="column" display={{ base: "flex", md: "none" }}>
+            <Flex
+              w={{ base: "336px" }}
+              dir="rtl"
+              mx="auto"
+              justifyContent="space-between"
+            >
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  bg="white"
+                  _active={{ bg: "white" }}
+                  _focus={{ bg: "white" }}
+                  _hover={{ bg: "white" }}
+                  border="1px solid transparent"
+                  borderRadius="10px"
+                  px="15px"
+                  borderColor="naturalDarkest"
+                >
+                  <Flex
+                    gap="10px"
+                    py="2"
+                    fontSize="16px"
+                    color="naturalDarkest"
+                    fontWeight="normal"
+                  >
+                    <CategoryIcon />
+                    <Text pt="2px">קטגוריות</Text>
+                  </Flex>
+                </MenuButton>
+                <MenuList
+                  dir="rtl"
+                  fontSize="16px"
+                  color="naturalDarkest"
+                  border="none"
+                  shadow="lg"
+                  p="2"
+                  py="4"
+                  postion="relative"
+                  zIndex={4}
+                  w="360px"
+                >
+                  <MenuItem
                     onClick={() => {
                       setProducts(sortPriceUp(products));
                       setSortBy("priceUp");
@@ -208,143 +435,238 @@ export default function Category() {
                     bg={sortBy === "priceUp" && "othersLight"}
                     color={sortBy === "priceUp" && "primary"}
                     _hover={{ bg: "othersLight", color: "primary" }}
-                    >
-                      מחיר: מהנמוך לגבוה
-                    </MenuItem>
-                    <MenuItem
-                      onClick={() => {
-                        setProducts(sortPriceDown(products));
-                        setSortBy("priceDown");
-                      }}
-                      borderRadius="8px"
-                      bg={sortBy === "priceDown" && "othersLight"}
-                      color={sortBy === "priceDown" && "primary"}
-                      _hover={{ bg: "othersLight", color: "primary" }}
-                    >
-                      מחיר: מהגבוה לנמוך
-                    </MenuItem>
-                    <MenuItem
-                      onClick={() => {
-                        setProducts(sortMostBuyProducts(products));
-                        setSortBy("mostBuy");
-                      }}
-                      borderRadius="8px"
-                      bg={sortBy === "mostBuy" && "othersLight"}
-                      color={sortBy === "mostBuy" && "primary"}
-                      _hover={{ bg: "othersLight", color: "primary" }}
-                    >
-                      הנמכרים ביותר
-                    </MenuItem>
-                    <MenuItem
-                      onClick={() => {
-                        setProducts(sortPopularAuction(products));
-                        setSortBy("popular");
-                      }}
-                      borderRadius="8px"
-                      bg={sortBy === "popular" && "othersLight"}
-                      color={sortBy === "popular" && "primary"}
-                      _hover={{ bg: "othersLight", color: "primary" }}
-                    >
-                      פופולריות
-                    </MenuItem>
-                    <MenuItem
-                      onClick={() => {
-                        setProducts(sortNewest(products));
-                        setSortBy("newest");
-                      }}
-                      borderRadius="8px"
-                      bg={sortBy === "newest" && "othersLight"}
-                      color={sortBy === "newest" && "primary"}
-                      _hover={{ bg: "othersLight", color: "primary" }}
-                    >
-                      מחדש לישן
-                    </MenuItem>
-                  </MenuList>
-                </Menu>
-              </Flex>
-              <Flex gap="2">
-                <Popover placement="top" trigger="hover">
-                  <PopoverTrigger>
-                    <IconButton
-                      border="1.5px solid transparent"
-                      bg="othersLight"
-                      borderColor={isList ? "primary" : "transparent"}
-                      borderRadius="8px"
-                      color="primary"
-                      onClick={() => {
-                        setIsList(true);
-                      }}
-                      icon={<FaListUl />}
-                    />
-                  </PopoverTrigger>
-                  <PopoverContent
-                    bg="primary"
-                    borderRadius="6px"
-                    p="2"
-                    border="none"
-                    w="max"
+                    p="4"
                   >
-                    <PopoverArrow bg="primary" />
-                    <PopoverBody fontSize="12px" textColor="white" w="max">
-                      הצג בתצוגת רשימה
-                    </PopoverBody>
-                  </PopoverContent>
-                </Popover>
-                <Popover placement="top" trigger="hover">
-                  <PopoverTrigger>
-                    <IconButton
-                      border="1.5px solid transparent"
-                      bg="othersLight"
-                      borderColor={!isList ? "primary" : "transparent"}
-                      borderRadius="8px"
-                      color="primary"
-                      onClick={() => {
-                        setIsList(false);
-                      }}
-                      icon={<RxDashboard />}
-                    />
-                  </PopoverTrigger>
-                  <PopoverContent
-                    bg="primary"
-                    borderRadius="6px"
-                    p="2"
-                    border="none"
-                    w="max"
+                    מחיר: מהנמוך לגבוה
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      setProducts(sortPriceDown(products));
+                      setSortBy("priceDown");
+                    }}
+                    borderRadius="8px"
+                    bg={sortBy === "priceDown" && "othersLight"}
+                    color={sortBy === "priceDown" && "primary"}
+                    _hover={{ bg: "othersLight", color: "primary" }}
+                    p="4"
                   >
-                    <PopoverArrow bg="primary" />
-                    <PopoverBody fontSize="12px" textColor="white" w="max">
-                      הצג בתצוגת גלריה
-                    </PopoverBody>
-                  </PopoverContent>
-                </Popover>
-              </Flex>
+                    מחיר: מהגבוה לנמוך
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      setProducts(sortMostBuyProducts(products));
+                      setSortBy("mostBuy");
+                    }}
+                    borderRadius="8px"
+                    bg={sortBy === "mostBuy" && "othersLight"}
+                    color={sortBy === "mostBuy" && "primary"}
+                    _hover={{ bg: "othersLight", color: "primary" }}
+                    p="4"
+                  >
+                    הנמכרים ביותר
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      setProducts(sortPopularAuction(products));
+                      setSortBy("popular");
+                    }}
+                    borderRadius="8px"
+                    bg={sortBy === "popular" && "othersLight"}
+                    color={sortBy === "popular" && "primary"}
+                    _hover={{ bg: "othersLight", color: "primary" }}
+                    p="4"
+                  >
+                    פופולריות
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      setProducts(sortNewest(products));
+                      setSortBy("newest");
+                    }}
+                    borderRadius="8px"
+                    bg={sortBy === "newest" && "othersLight"}
+                    color={sortBy === "newest" && "primary"}
+                    _hover={{ bg: "othersLight", color: "primary" }}
+                    p="4"
+                  >
+                    מחדש לישן
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  bg="white"
+                  _active={{ bg: "white" }}
+                  _focus={{ bg: "white" }}
+                  _hover={{ bg: "white" }}
+                  border="1px solid transparent"
+                  borderRadius="10px"
+                  borderColor="naturalDarkest"
+                  px="15px"
+                >
+                  <Flex
+                    gap="10px"
+                    py="2"
+                    fontSize="16px"
+                    color="naturalDarkest"
+                    fontWeight="normal"
+                  >
+                    <SortIcon />
+                    <Text pt="2px">מיין</Text>
+                  </Flex>
+                </MenuButton>
+                <MenuList
+                  dir="rtl"
+                  fontSize="16px"
+                  color="naturalDarkest"
+                  border="none"
+                  shadow="lg"
+                  p="2"
+                  py="4"
+                  postion="relative"
+                  zIndex={4}
+                >
+                  <MenuItem
+                    onClick={() => {
+                      setProducts(sortPriceUp(products));
+                      setSortBy("priceUp");
+                    }}
+                    borderRadius="8px"
+                    bg={sortBy === "priceUp" && "othersLight"}
+                    color={sortBy === "priceUp" && "primary"}
+                    _hover={{ bg: "othersLight", color: "primary" }}
+                    p="4"
+                  >
+                    מחיר: מהנמוך לגבוה
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      setProducts(sortPriceDown(products));
+                      setSortBy("priceDown");
+                    }}
+                    borderRadius="8px"
+                    bg={sortBy === "priceDown" && "othersLight"}
+                    color={sortBy === "priceDown" && "primary"}
+                    _hover={{ bg: "othersLight", color: "primary" }}
+                    p="4"
+                  >
+                    מחיר: מהגבוה לנמוך
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      setProducts(sortMostBuyProducts(products));
+                      setSortBy("mostBuy");
+                    }}
+                    borderRadius="8px"
+                    bg={sortBy === "mostBuy" && "othersLight"}
+                    color={sortBy === "mostBuy" && "primary"}
+                    _hover={{ bg: "othersLight", color: "primary" }}
+                    p="4"
+                  >
+                    הנמכרים ביותר
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      setProducts(sortPopularAuction(products));
+                      setSortBy("popular");
+                    }}
+                    borderRadius="8px"
+                    bg={sortBy === "popular" && "othersLight"}
+                    color={sortBy === "popular" && "primary"}
+                    _hover={{ bg: "othersLight", color: "primary" }}
+                    p="4"
+                  >
+                    פופולריות
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      setProducts(sortNewest(products));
+                      setSortBy("newest");
+                    }}
+                    borderRadius="8px"
+                    bg={sortBy === "newest" && "othersLight"}
+                    color={sortBy === "newest" && "primary"}
+                    _hover={{ bg: "othersLight", color: "primary" }}
+                    p="4"
+                  >
+                    מחדש לישן
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  bg="white"
+                  _active={{ bg: "white" }}
+                  _focus={{ bg: "white" }}
+                  _hover={{ bg: "white" }}
+                  border="1px solid transparent"
+                  borderRadius="10px"
+                  borderColor="naturalDarkest"
+                  px="15px"
+                >
+                  <Flex
+                    gap="10px"
+                    py="2"
+                    fontSize="16px"
+                    color="naturalDarkest"
+                    fontWeight="normal"
+                  >
+                    <Filter2Icon />
+                    <Text pt="2px">סינון</Text>
+                  </Flex>
+                </MenuButton>
+                <MenuList
+                  dir="rtl"
+                  fontSize="16px"
+                  color="naturalDarkest"
+                  border="none"
+                  shadow="lg"
+                  postion="relative"
+                  zIndex={4}
+                  w="360px"
+                  p="0"
+                >
+                  <MenuItem>
+                    <CategorySidebar
+                      onChangePriceSlider={(val) => {
+                        const min = val[0];
+                        const max = val[1];
+                        setMinPrice(min);
+                        setMaxPrice(max);
+                        //filterByPrice(min, max);
+                      }}
+                      minPrice={minPrice}
+                      maxPrice={maxPrice}
+                      onChangeTags={(tags) => setTags(tags)}
+                    />
+                  </MenuItem>
+                </MenuList>
+              </Menu>
             </Flex>
 
             {products.length === 0 && (
               <Flex justifyContent="center" alignItems="center" h="300px">
-                <Text fontSize="20px" color="naturalDark">
+                <Text fontSize="16px" color="naturalDark">
                   לא נמצאו מוצרים
                 </Text>
               </Flex>
             )}
 
-            {isList ? (
-              <Flex flexDirection="column" gap="6" mt="8">
-                {products[0] &&
-                  products.map((item) => {
-                    return <CartListItem data={item} />;
-                  })}
-              </Flex>
-            ) : (
-              <Grid gridTemplateColumns="repeat(3, 1fr)" gap="6" mt="8">
-                {products[0] &&
-                  products.map((item) => {
-                    return <CartGalleryItem data={item} />;
-                  })}
-              </Grid>
-            )}
+            <Grid
+              gridTemplateColumns="repeat(2, 1fr)"
+              rowGap="30px"
+              columnGap="3"
+              my="8"
+            >
+              {products[0] &&
+                products.map((item) => {
+                  return <CartGalleryItem data={item} />;
+                })}
+            </Grid>
 
-            <Spacer h="20" />
+            {/*<Spacer h="20" />
             {products.length > 0 && (
               <Flex justifyContent="center">
                 <Pagination
@@ -355,266 +677,9 @@ export default function Category() {
                   onPageChange={(page) => onPageChange(page)}
                 />
               </Flex>
-            )}
-          </Box>
-        </Flex>
-        <Flex display={{base: "flex", md: "none"}}>
-          <Flex w={{base: "336px"}} dir="rtl" mx="auto" justifyContent="space-between">
-                <Menu>
-                  <MenuButton
-                    as={Button}
-                    bg="white"
-                    _active={{ bg: "white" }}
-                    _focus={{ bg: "white" }}
-                    _hover={{ bg: "white" }}
-                    border="1px solid transparent"
-                    borderRadius="10px"
-                    px="15px"
-                    borderColor="naturalDarkest"
-                  >
-                    <Flex     
-                      gap="10px"
-                      py="2"
-                      fontSize="16px"
-                      color="naturalDarkest"
-                      fontWeight="normal"
-                    >
-                     <CategoryIcon /><Text pt="2px">קטגוריות</Text>
-                    </Flex>
-                  </MenuButton>
-                  <MenuList
-                    dir="rtl"
-                    fontSize="16px"
-                    color="naturalDarkest"
-                    border="none"
-                    shadow="lg"
-                    p="2"
-                    py="4"
-                    postion="relative"
-                    zIndex={4}
-                    w="360px"
-                  >
-                    <MenuItem
-                    onClick={() => {
-                      setProducts(sortPriceUp(products));
-                      setSortBy("priceUp");
-                    }}
-                    borderRadius="8px"
-                    bg={sortBy === "priceUp" && "othersLight"}
-                    color={sortBy === "priceUp" && "primary"}
-                    _hover={{ bg: "othersLight", color: "primary" }}
-                    p="4"
-                    >
-                      מחיר: מהנמוך לגבוה
-                    </MenuItem>
-                    <MenuItem
-                      onClick={() => {
-                        setProducts(sortPriceDown(products));
-                        setSortBy("priceDown");
-                      }}
-                      borderRadius="8px"
-                      bg={sortBy === "priceDown" && "othersLight"}
-                      color={sortBy === "priceDown" && "primary"}
-                      _hover={{ bg: "othersLight", color: "primary" }}
-                      p="4"
-                    >
-                      מחיר: מהגבוה לנמוך
-                    </MenuItem>
-                    <MenuItem
-                      onClick={() => {
-                        setProducts(sortMostBuyProducts(products));
-                        setSortBy("mostBuy");
-                      }}
-                      borderRadius="8px"
-                      bg={sortBy === "mostBuy" && "othersLight"}
-                      color={sortBy === "mostBuy" && "primary"}
-                      _hover={{ bg: "othersLight", color: "primary" }}
-                      p="4"
-                    >
-                      הנמכרים ביותר
-                    </MenuItem>
-                    <MenuItem
-                      onClick={() => {
-                        setProducts(sortPopularAuction(products));
-                        setSortBy("popular");
-                      }}
-                      borderRadius="8px"
-                      bg={sortBy === "popular" && "othersLight"}
-                      color={sortBy === "popular" && "primary"}
-                      _hover={{ bg: "othersLight", color: "primary" }}
-                      p="4"
-                    >
-                      פופולריות
-                    </MenuItem>
-                    <MenuItem
-                      onClick={() => {
-                        setProducts(sortNewest(products));
-                        setSortBy("newest");
-                      }}
-                      borderRadius="8px"
-                      bg={sortBy === "newest" && "othersLight"}
-                      color={sortBy === "newest" && "primary"}
-                      _hover={{ bg: "othersLight", color: "primary" }}
-                      p="4"
-                    >
-                      מחדש לישן
-                    </MenuItem>
-                  </MenuList>
-                </Menu>
-                <Menu>
-                  <MenuButton
-                    as={Button}
-                    bg="white"
-                    _active={{ bg: "white" }}
-                    _focus={{ bg: "white" }}
-                    _hover={{ bg: "white" }}
-                    border="1px solid transparent"
-                    borderRadius="10px"
-                    borderColor="naturalDarkest"
-                    px="15px"
-                  >
-                    <Flex
-                      gap="10px"
-                      py="2"
-                      fontSize="16px"
-                      color="naturalDarkest"
-                      fontWeight="normal"
-                    >
-                     <SortIcon /><Text pt="2px">מיין</Text>
-                    </Flex>
-                  </MenuButton>
-                  <MenuList
-                    dir="rtl"
-                    fontSize="16px"
-                    color="naturalDarkest"
-                    border="none"
-                    shadow="lg"
-                    p="2"
-                    py="4"
-                    postion="relative"
-                    zIndex={4}
-                  >
-                    <MenuItem
-                    onClick={() => {
-                      setProducts(sortPriceUp(products));
-                      setSortBy("priceUp");
-                    }}
-                    borderRadius="8px"
-                    bg={sortBy === "priceUp" && "othersLight"}
-                    color={sortBy === "priceUp" && "primary"}
-                    _hover={{ bg: "othersLight", color: "primary" }}
-                    p="4"
-                    >
-                      מחיר: מהנמוך לגבוה
-                    </MenuItem>
-                    <MenuItem
-                      onClick={() => {
-                        setProducts(sortPriceDown(products));
-                        setSortBy("priceDown");
-                      }}
-                      borderRadius="8px"
-                      bg={sortBy === "priceDown" && "othersLight"}
-                      color={sortBy === "priceDown" && "primary"}
-                      _hover={{ bg: "othersLight", color: "primary" }}
-                      p="4"
-                    >
-                      מחיר: מהגבוה לנמוך
-                    </MenuItem>
-                    <MenuItem
-                      onClick={() => {
-                        setProducts(sortMostBuyProducts(products));
-                        setSortBy("mostBuy");
-                      }}
-                      borderRadius="8px"
-                      bg={sortBy === "mostBuy" && "othersLight"}
-                      color={sortBy === "mostBuy" && "primary"}
-                      _hover={{ bg: "othersLight", color: "primary" }}
-                      p="4"
-                    >
-                      הנמכרים ביותר
-                    </MenuItem>
-                    <MenuItem
-                      onClick={() => {
-                        setProducts(sortPopularAuction(products));
-                        setSortBy("popular");
-                      }}
-                      borderRadius="8px"
-                      bg={sortBy === "popular" && "othersLight"}
-                      color={sortBy === "popular" && "primary"}
-                      _hover={{ bg: "othersLight", color: "primary" }}
-                      p="4"
-                    >
-                      פופולריות
-                    </MenuItem>
-                    <MenuItem
-                      onClick={() => {
-                        setProducts(sortNewest(products));
-                        setSortBy("newest");
-                      }}
-                      borderRadius="8px"
-                      bg={sortBy === "newest" && "othersLight"}
-                      color={sortBy === "newest" && "primary"}
-                      _hover={{ bg: "othersLight", color: "primary" }}
-                      p="4"
-                    >
-                      מחדש לישן
-                    </MenuItem>
-                  </MenuList>
-                </Menu>
-                <Menu>
-                  <MenuButton
-                    as={Button}
-                    bg="white"
-                    _active={{ bg: "white" }}
-                    _focus={{ bg: "white" }}
-                    _hover={{ bg: "white" }}
-                    border="1px solid transparent"
-                    borderRadius="10px"
-                    borderColor="naturalDarkest"
-                    px="15px"
-                  >
-                    <Flex
-                      gap="10px"
-                      py="2"
-                      fontSize="16px"
-                      color="naturalDarkest"
-                      fontWeight="normal"
-                    >
-                     <Filter2Icon /><Text pt="2px">סינון</Text>
-                    </Flex>
-                  </MenuButton>
-                  <MenuList
-                    dir="rtl"
-                    fontSize="16px"
-                    color="naturalDarkest"
-                    border="none"
-                    shadow="lg"
-                    postion="relative"
-                    zIndex={4}
-                    w="360px"
-                    p="0"
-                  >
-                    <MenuItem
-                    >
-                   <CategorySidebar
-              onChangePriceSlider={(val) => {
-                const min = val[0];
-                const max = val[1];
-                setMinPrice(min);
-                setMaxPrice(max);
-                //filterByPrice(min, max);
-              }}
-              minPrice={minPrice}
-              maxPrice={maxPrice}
-              onChangeTags={(tags) => setTags(tags)}
-            />
-                    </MenuItem>
-                  </MenuList>
-                </Menu>
+            )}*/}
           </Flex>
-
         </Flex>
-        </>
       )}
     </Layout>
   );

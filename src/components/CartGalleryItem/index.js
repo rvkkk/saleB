@@ -115,7 +115,7 @@ export default function CartItemGallery(props) {
   if (product !== undefined) {
     let images = product.images || [];
     if (images.length === 0) {
-      images = ["/assets/placeholder.png"];
+      images = [];
     }
     return (
       <>
@@ -332,7 +332,7 @@ export default function CartItemGallery(props) {
           </Flex>
         )}
       </Card>
-      <Box display={{base: "none", md: "block"}} w="162px">
+      <Box display={{base: "block", md: "none"}} w="162px">
       <Image
           w="full"
           h="168px"
@@ -342,7 +342,7 @@ export default function CartItemGallery(props) {
         />
        
           {product.openingPrice && (
-            <Box pb="3">
+            <Box>
               <Flex justifyContent="center" transform="translateY(-50%)">
                 <ProductTimeClock
                   date={product.startTime}
@@ -351,15 +351,15 @@ export default function CartItemGallery(props) {
               </Flex>
             </Box>
           )}
-          <Flex gap="10px" flexDir="column" justifyContent="center">
-          <Text fontSize="14px" letterSpacing="-0.01em" lineHeight="18px">
+          <Flex mt={!product.openingPrice && "3"} gap="10px" flexDir="column" justifyContent="center" alignItems="center">
+          <Text className="name-text" fontSize="14px" letterSpacing="-0.01em" lineHeight="18px">
             {product.title}
           </Text>
             {product.currentPrice ? (
               <>
                 {product.winningPrice === 0 ? (
                   <Box>
-                    <Text fontSize="14px" lineHeight="18px" color="naturalDark">
+                    <Text textAlign="center" fontSize="14px" lineHeight="18px" color="naturalDark">
                       הצעה מובילה
                     </Text>
                     <Text fontSize="20px" lineHeight="30px">
@@ -368,7 +368,7 @@ export default function CartItemGallery(props) {
                   </Box>
                 ) : (
                   <Box>
-                    <Text fontSize="14px" lineHeight="18px" color="naturalDark">
+                    <Text textAlign="center" fontSize="14px" lineHeight="18px" color="naturalDark">
                       נמכר
                     </Text>
                     <Text
@@ -383,7 +383,7 @@ export default function CartItemGallery(props) {
               </>
             ) : (
               <Box>
-                <Text fontSize="14px" lineHeight="18px" color="naturalDark">
+                <Text textAlign="center" fontSize="14px" lineHeight="18px" color="naturalDark">
                   מחיר
                 </Text>
                 <Text fontSize="20px" lineHeight="30px">
@@ -415,6 +415,7 @@ export default function CartItemGallery(props) {
                             <Button
                               w="162px"
                               h="46px"
+                              borderRadius="8px"
                               fontSize="16px"
                               lineHeight="26px"
                             >
@@ -443,6 +444,7 @@ export default function CartItemGallery(props) {
                         <Button
                           w="162px"
                           h="46px"
+                          borderRadius="8px"
                           fontSize="16px"
                           lineHeight="26px"
                           isDisabled
@@ -457,6 +459,7 @@ export default function CartItemGallery(props) {
                     <Button
                       w="162px"
                       h="46px"
+                      borderRadius="8px"
                       fontSize="16px"
                       lineHeight="26px"
                       onClick={() =>

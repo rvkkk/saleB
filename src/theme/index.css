@@ -146,6 +146,15 @@ input::-webkit-inner-spin-button {
   text-overflow: ellipsis;
 }
 
+.name-text {
+  position: relative;
+  overflow: hidden;
+  max-height: 2.2rem;
+  /*transition: max-height 0.3s ease-out;*/
+  text-overflow: ellipsis;
+}
+
+
 .text-container {
   cursor: pointer;
   white-space: nowrap;
