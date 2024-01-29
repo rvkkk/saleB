@@ -179,7 +179,7 @@ export default function Home() {
               </Flex>
             </Container>
           </Box>
-          <Flex w="full" justifyContent="center">
+        <Flex w="full" justifyContent="center">
             <Flex
               display={{ base: "none", md: "flex" }}
               flexDir="column"
@@ -241,7 +241,7 @@ export default function Home() {
             </Flex>
           </Flex>
 
-          <Flex
+        {/* <Flex
             flexDir="column"
             gap="3"
             w="full"
@@ -294,7 +294,7 @@ export default function Home() {
                 {error}
               </Text>
             </Flex>
-          </Flex>
+      </Flex>*/}
         </>
       )}
     </Layout>

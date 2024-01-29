@@ -229,6 +229,46 @@ input::-webkit-inner-spin-button {
   left: 0;
   margin: auto;
 }
+.footerLinks
+{
+  gap: 80px;
+}
+
+@media screen and (min-width: 485px) and (max-width: 545px) {
+  .footerLinks
+{
+  gap: 50px;
+}
+}
+@media screen and (min-width: 480px) and (max-width: 485px) {
+  .footerLinks
+{
+  gap: 45px;
+}
+}
+
+@media screen and (min-width: 768px) and (max-width: 850px) {
+  .contactLinks
+{
+  gap: 12px;
+}
+}
+
+@media screen and (min-width: 850px){
+  .contactLinks
+{
+  gap: 30px;
+}
+}
+
+@media screen and (min-width: 880px){
+  .contactLinks
+{
+  padding-left: 15px;
+  padding-right: 15px;
+}
+}
+
 
 @keyframes hoverFeelingsAnim {
   from {

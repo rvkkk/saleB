@@ -141,7 +141,7 @@ export default function About() {
             </Box>
             <Spacer h="100px" />
           </Box>
-          <Box py="10" bg="aboutColor2">
+          <Box display={{base: "none", md: "block"}} py="10" bg="aboutColor2">
             <Flex
               flexDir="column"
               alignItems="center"

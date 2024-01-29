@@ -2,6 +2,7 @@ import {
   Box,
   Flex,
   IconButton,
+  Input,
   Button,
   Image,
   Link,
@@ -11,7 +12,7 @@ import {
   MenuList,
   MenuItem,
 } from "@chakra-ui/react";
-//import { extendTheme } from "@chakra-ui/react";
+import { extendTheme } from "@chakra-ui/react";
 import React, { useState } from "react";
 import Container from "../Container";
 import {
@@ -30,6 +31,7 @@ import {
   DolarlIcon,
   EuroIcon,
 } from "../Icons";
+import { EmailIcon } from "@chakra-ui/icons";
 
 export default function Footer() {
   const [country, setCountry] = useState("Israel");
@@ -49,22 +51,87 @@ export default function Footer() {
     { name: "מעקב הזמנות", path: "" },
   ];
 
-  /*const breakpoints = {
-    base: "0px",
-    sm: "320px",
-    md: "768px",
-    lg: "960px",
-    xl: "1200px",
-    "2xl": "1536px",
-  };
-  
-  const theme = extendTheme({ breakpoints });*/
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
   return (
-    <Box bg="primaryDark" dir="rtl" px={{lg: "50px", xl: "200px", "2xl":"300px"}}>
+    <Box
+      bg="primaryDark"
+      dir="rtl"
+      px={{ lg: "50px", xl: "150px", "2xl": "250px" }}
+    >
       <Container>
-        <Flex py="10" px={{base: "3", xl: "0"}} justifyContent="space-between">
-          <Flex gap="20" pr={{ base: "4.9%", md: "0" }}>
-            <Flex gap="20">
+        <Flex
+          flexDir="column"
+          gap="3"
+          w="full"
+          px="3"
+          pt="20px"
+          bg="primaryDark"
+          justifyContent="center"
+          alignItems="center"
+          display={{ base: "flex", md: "none" }}
+        >
+          <Flex dir="rtl" pr={{ base: "4.9%", sm: "0" }}>
+            <Text
+              w={{ base: "80%", sm: "100%" }}
+              color="white"
+              fontSize="16px"
+              lineHeight="21px"
+            >
+              קבל חדשות על מבצעים, קופונים ומתנות מפנקות, ישר לתיבת המייל שלך
+            </Text>
+          </Flex>
+          <Flex
+            w="100%"
+            maxW="460px"
+            px={{ base: "4.9%", sm: "0" }}
+            alignItems="center"
+            flexDir="column"
+            gap="2"
+          >
+            <Flex
+              dir="rtl"
+              w="100%"
+              alignItems="center"
+              bg="white"
+              p="2"
+              borderRadius="2xl"
+            >
+              <Input
+                color="naturalDarkest"
+                border="none"
+                _active={{ border: "none" }}
+                _focus={{ border: "none", ring: "none" }}
+                placeholder="כתובת המייל שלכם"
+                //value={email}
+                //onChange={(e) => setEmail(e.target.value)}
+              />
+              <Box
+                cursor="pointer"
+                bg="primary"
+                h="full"
+                p="1"
+                px="3"
+                borderRadius="xl"
+                color="white"
+                fontSize="20px"
+                // onClick={() => createNewMailingList()}
+              >
+                <EmailIcon />
+              </Box>
+            </Flex>
+            <Text color="white" fontSize="14px" fontWeight="light">
+              {error}
+            </Text>
+          </Flex>
+        </Flex>
+        <Flex
+          py="10"
+          px={{ base: "3", xl: "0" }}
+          justifyContent={{ sm: "center", md: "space-between" }}
+        >
+          <Flex className="footerLinks" pr={{ base: "4.9%", sm: "0" }}>
+            <Flex className="footerLinks">
               <NavLinks title="מפת האתר" links={link2} />
               <NavLinks title="קטגוריות ראשיות" links={link1} />
             </Flex>
@@ -89,11 +156,13 @@ export default function Footer() {
             alignItems="center"
             display={{ base: "none", md: "flex" }}
           >
-            <Flex dir="ltr" alignItems="center" gap="2">
-              <Text fontSize="15px">Follow us:</Text>
-              <Flex>
+            <Flex dir="ltr" alignItems="center" gap="3">
+              <Text fontSize="15px" letterSpacing="-0.015em" lineHeight="24px">
+                Follow us:
+              </Text>
+              <Flex className="contactLinks">
                 <IconButton
-                  w="21px"
+                  minW="16px"
                   bg="transparent"
                   cursor="pointer"
                   onClick=""
@@ -102,7 +171,7 @@ export default function Footer() {
                   icon={<FaWhatsapp color="white" />}
                 />
                 <IconButton
-                  w="20px"
+                  minW="16px"
                   bg="transparent"
                   cursor="pointer"
                   onClick=""
@@ -111,7 +180,7 @@ export default function Footer() {
                   icon={<FaInstagram color="white" />}
                 />
                 <IconButton
-                  w="12px"
+                  minW="16px"
                   bg="transparent"
                   cursor="pointer"
                   onClick=""
@@ -120,7 +189,7 @@ export default function Footer() {
                   icon={<FaFacebookF color="white" />}
                 />
                 <IconButton
-                  w="19px"
+                  minW="16px"
                   bg="transparent"
                   cursor="pointer"
                   onClick=""
@@ -130,35 +199,30 @@ export default function Footer() {
                 />
               </Flex>
             </Flex>
-            <Flex dir="ltr" gap="8">
-              <Image
-                w="30.61px"
-                src={process.env.PUBLIC_URL + "/assets/webmoney.svg"}
-              />
-              <Image
-                w="52px"
-                src={process.env.PUBLIC_URL + "/assets/ApplePay.svg"}
-              />
-              <Image
-                w="40px"
-                src={process.env.PUBLIC_URL + "/assets/Mastercard.svg"}
-              />
-              <Image
-                w="49px"
-                src={process.env.PUBLIC_URL + "/assets/visa-logo.svg"}
-              />
-              <Image
-                w="60.34px"
-                src={process.env.PUBLIC_URL + "/assets/paypal.svg"}
-              />
+            <Flex dir="ltr" gap={{ md: "3", lg: "6", "2xl": "8" }}>
+              <Image src={process.env.PUBLIC_URL + "/assets/webmoney.svg"} />
+              <Image src={process.env.PUBLIC_URL + "/assets/ApplePay.svg"} />
+              <Image src={process.env.PUBLIC_URL + "/assets/Mastercard.svg"} />
+              <Image src={process.env.PUBLIC_URL + "/assets/visa-logo.svg"} />
+              <Image src={process.env.PUBLIC_URL + "/assets/paypal.svg"} />
             </Flex>
-            <Text dir="ltr" fontSize="15px">
-              © SaleBid SoferGroup. Safed, israel 2023
+            <Text
+              dir="ltr"
+              letterSpacing="-0.015em"
+              lineHeight="24px"
+              fontSize="15px"
+            >
+              © SaleBid SoferGroup. Safed, israel 2024
             </Text>
           </Flex>
 
-          <Flex px="20px" flexDir="column" gap="30px" display={{ md: "none" }}>
-            <Flex justifyContent="center" gap="10">
+          <Flex
+            flexDir="column"
+            justifyContent="center"
+            alignItems="center"
+            display={{ md: "none" }}
+          >
+            <Flex justifyContent="space-between" maxW="360px" mx="auto">
               <Menu direction="rtl">
                 <MenuButton
                   as={Button}
@@ -171,7 +235,9 @@ export default function Footer() {
                   _focus={{ bg: "primary" }}
                   textColor="white"
                   w="100px"
+                  minW="100px"
                   dir="rtl"
+                  pl="5px"
                 >
                   <Flex gap="2" alignItems="center">
                     <Text fontWeight="normal">ישראל</Text>
@@ -268,6 +334,7 @@ export default function Footer() {
                   _focus={{ bg: "primary" }}
                   textColor="white"
                   w="100px"
+                  minW="100px"
                   dir="rtl"
                 >
                   <Flex alignItems="center" justifyContent="center">
@@ -338,6 +405,7 @@ export default function Footer() {
                   _focus={{ bg: "primary" }}
                   textColor="white"
                   w="100px"
+                  minW="100px"
                   dir="rtl"
                 >
                   <Flex alignItems="center" justifyContent="center">
@@ -391,75 +459,18 @@ export default function Footer() {
             </Flex>
 
             <Flex
+              px="10px"
               py="40px"
               gap={{ base: "20px", sm: "40px" }}
               justifyContent="center"
             >
-              <Flex gap="3" w="230px" flexDir="column">
-                <Flex dir="ltr" gap="3">
-                  <Image
-                    w="52px"
-                    src={process.env.PUBLIC_URL + "/assets/ApplePay.svg"}
-                  />
-                  <Image
-                    w="40px"
-                    src={process.env.PUBLIC_URL + "/assets/Mastercard.svg"}
-                  />
-                  <Image
-                    w="49px"
-                    src={process.env.PUBLIC_URL + "/assets/visa-logo.svg"}
-                  />
-                  <Image
-                    w="60.34px"
-                    src={process.env.PUBLIC_URL + "/assets/paypal.svg"}
-                  />
-                </Flex>
-                <Flex dir="ltr" justifyContent="center" alignItems="center">
-                  <Box h="1px" bg="white" w="50px"></Box>
-                  <IconButton
-                    w="21px"
-                    bg="transparent"
-                    cursor="pointer"
-                    onClick=""
-                    _hover={{ bg: "transparent" }}
-                    _active={{ bg: "transparent" }}
-                    icon={<FaWhatsapp color="white" />}
-                  />
-                  <IconButton
-                    w="20px"
-                    bg="transparent"
-                    cursor="pointer"
-                    onClick=""
-                    _hover={{ bg: "transparent" }}
-                    _active={{ bg: "transparent" }}
-                    icon={<FaInstagram color="white" />}
-                  />
-                  <IconButton
-                    w="12px"
-                    bg="transparent"
-                    cursor="pointer"
-                    onClick=""
-                    _hover={{ bg: "transparent" }}
-                    _active={{ bg: "transparent" }}
-                    icon={<FaFacebookF color="white" />}
-                  />
-                  <IconButton
-                    w="19px"
-                    bg="transparent"
-                    cursor="pointer"
-                    onClick=""
-                    _hover={{ bg: "transparent" }}
-                    _active={{ bg: "transparent" }}
-                    icon={<FaTelegramPlane color="white" />}
-                  />
-                  <Box h="1px" bg="white" w="50px"></Box>
-                </Flex>
-              </Flex>
-
+              <Image
+                src={process.env.PUBLIC_URL + "/assets/footerMobile.svg"}
+              ></Image>
               <Flex justifyContent="center" alignItems="center">
                 <Image
-                  w="75px"
-                  h="75px"
+                  w="65px"
+                  h="65px"
                   src={process.env.PUBLIC_URL + "/assets/logocube.svg"}
                 />
               </Flex>
@@ -472,8 +483,9 @@ export default function Footer() {
               dir="ltr"
               fontSize="12px"
               lineHeight="15px"
+              letterSpacing="-0.015em"
             >
-              © SaleBid SoferGroup. Safed, israel 2023
+              © SaleBid SoferGroup. Safed, israel 2024
             </Flex>
           </Flex>
         </Box>
@@ -485,7 +497,13 @@ export default function Footer() {
 const NavLinks = ({ links = [], title }) => {
   return (
     <Flex flexDir="column" gap="4" dir="rtl">
-      <Text fontSize="15px" fontWeight="medium" textColor="white">
+      <Text
+        fontSize="15px"
+        letterSpacing="-0.015em"
+        lineHeight="24px"
+        fontWeight="medium"
+        textColor="white"
+      >
         {title}
       </Text>
       <Flex flexDirection="column">
@@ -493,8 +511,10 @@ const NavLinks = ({ links = [], title }) => {
           return (
             <Link
               key={key}
-              textColor="rgba(255,255,255,0.6)"
+              textColor="rgba(255,255,255,1)"
               fontSize="15"
+              letterSpacing="-0.015em"
+              lineHeight="24px"
               fontWeight="light"
               href={link.path}
             >
@@ -521,7 +541,7 @@ const Info = () => {
       </Text>
       <Flex
         flexDirection="column"
-        textColor="rgba(255,255,255,0.6)" //white
+        textColor="rgba(255,255,255,1)" //white
         // maxW="170px"
         fontSize="15"
         fontWeight="light"
