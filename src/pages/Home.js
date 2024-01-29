@@ -115,7 +115,7 @@ export default function Home() {
                 justifyContent="center"
               >
                 <Box flex="1">
-                  <Image w="full" src={process.env.PUBLIC_URL + "/assets/man-stats.png"} />
+                  <Image w="full" src={process.env.PUBLIC_URL + "/assets/man.svg"} />
                 </Box>
                 <Box flex="1">
                   <Flex flexDir="column" gap="4" width="58%">
@@ -158,20 +158,20 @@ export default function Home() {
                 gap={{ base: "30px", sm: "35px", xl: "50px", "2xl": "100px" }}
               >
                 <InfoBox
-                  imgUrl={process.env.PUBLIC_URL + "/assets/49.svg"}
+                  image="returns"
                   title="החזרות עד 30 יום"
                   desc="החזרות על מוצרים פגומים"
                   link={() => (window.location.href = routes.Article.path)}
                 />
 
                 <InfoBox
-                  imgUrl={process.env.PUBLIC_URL + "/assets/34.png"}
+                  image="payment"
                   title="100% תשלום מאובטח"
                   desc="האתר שלנו מאובטח עם אמצעי הגנה הטובים"
                   link={() => (window.location.href = routes.Article.path)}
                 />
                 <InfoBox
-                  imgUrl={process.env.PUBLIC_URL + "/assets/45.svg"}
+                  image="deliveries"
                   title="משלוח חינם ברחבי העולם"
                   desc="בכל הזמנה מעל 100$"
                   link={() => (window.location.href = routes.Article.path)}

@@ -34,7 +34,8 @@ export default function Products({
       const newNumberOfSlides =
         window.innerWidth < 480
           ? 2
-          : window.innerWidth < 768 || (window.innerWidth < 1280 && h === "413px")
+          : window.innerWidth < 768 ||
+            (window.innerWidth < 1280 && h === "413px")
           ? 3
           : window.innerWidth < 1280
           ? 4
@@ -53,100 +54,107 @@ export default function Products({
   }, [numberOfSlides, swiperRef]);
 
   return (
-    <Box w={{base: "330px", sm: "460px", md: "740px", lg: "970px", xl: "1200px", "2xl": "1514px"}} mx="auto" py="24px">
-      <Flex
-        dir="rtl"
-        justifyContent="space-between"
-        alignItems="center"
-      >
+    <Box
+      w={{
+        base: "330px",
+        sm: "460px",
+        md: "740px",
+        lg: "970px",
+        xl: "1200px",
+        "2xl": "1514px",
+      }}
+      mx="auto"
+      py="24px"
+    >
+      <Flex dir="rtl" justifyContent="space-between" alignItems="center">
         <Text fontWeight="semibold" fontSize={{ base: "18px", md: "24px" }}>
           {title}
         </Text>
-          <Flex gap="2" dir="ltr" display={{base: "none", md:"flex"}}>
-            <IconButton
-              size="sm"
-              borderRadius="full"
-              bg="transparent"
-              border="1px solid transparent"
-              borderColor="naturalLight"
-              textColor="naturalLight"
-              _hover={{ bg: "naturalLightest" }}
-              _active={{border: "none", bg: "primary", textColor: "white"}}
-              fontSize="24px"
-              width="40px"
-              height="40px"
-              icon={<ChevronLeftIcon />}
-              onClick={() => {
-                if (swiperRef.current) {
-                  swiperRef.current.swiper.navigation.nextEl.click();
-                  activeIndex < products.length - numberOfSlides &&
-                    setActiveIndex(activeIndex + 1);
-                }
-              }}
-            />
-            <IconButton
-              size="sm"
-              borderRadius="full"
-              bg="transparent"
-              border="1px solid transparent"
-              borderColor="naturalLight"
-              textColor="naturalLight"
-              _hover={{ bg: "naturalLightest" }}
-              _active={{border: "none", bg: "primary", textColor: "white"}}
-              fontSize="24px"
-              width="40px"
-              height="40px"
-              icon={<ChevronRightIcon />}
-              onClick={() => {
-                if (swiperRef.current) {
-                  swiperRef.current.swiper.navigation.prevEl.click();
-                  activeIndex >= 1 && setActiveIndex(activeIndex - 1);
-                }
-              }}
-            />
-          </Flex>
-          <Button
-            w="72px"
-            h="36px"
-            color="primaryLight"
-            bg="primaryLightest"
-            fontSize="12px"
-            fontWeight="semibold"
-            display={{base: "flex", md:"none"}}
-          >
-            הצג הכל
-          </Button>
+        <Flex gap="2" dir="ltr" display={{ base: "none", md: "flex" }}>
+          <IconButton
+            size="sm"
+            borderRadius="full"
+            bg="transparent"
+            border="1px solid transparent"
+            borderColor="naturalLight"
+            textColor="naturalLight"
+            _hover={{ bg: "naturalLightest" }}
+            _active={{ border: "none", bg: "primary", textColor: "white" }}
+            fontSize="24px"
+            width="40px"
+            height="40px"
+            icon={<ChevronLeftIcon />}
+            onClick={() => {
+              if (swiperRef.current) {
+                swiperRef.current.swiper.navigation.nextEl.click();
+                activeIndex < products.length - numberOfSlides &&
+                  setActiveIndex(activeIndex + 1);
+              }
+            }}
+          />
+          <IconButton
+            size="sm"
+            borderRadius="full"
+            bg="transparent"
+            border="1px solid transparent"
+            borderColor="naturalLight"
+            textColor="naturalLight"
+            _hover={{ bg: "naturalLightest" }}
+            _active={{ border: "none", bg: "primary", textColor: "white" }}
+            fontSize="24px"
+            width="40px"
+            height="40px"
+            icon={<ChevronRightIcon />}
+            onClick={() => {
+              if (swiperRef.current) {
+                swiperRef.current.swiper.navigation.prevEl.click();
+                activeIndex >= 1 && setActiveIndex(activeIndex - 1);
+              }
+            }}
+          />
+        </Flex>
+        <Button
+          w="72px"
+          h="36px"
+          color="primaryLight"
+          bg="primaryLightest"
+          fontSize="12px"
+          fontWeight="semibold"
+          display={{ base: "flex", md: "none" }}
+        >
+          הצג הכל
+        </Button>
       </Flex>
-      <Spacer h={{base: "18px", md: "24px"}} />
+      <Spacer h={{ base: "18px", md: "24px" }} />
       <Flex mx="auto" justifyContent="center" alignItems="center">
-      <Swiper
-        dir="rtl"
-        slidesPerView={numberToShow}
-        ref={swiperRef}
-        navigation
-        className="hide-navigation-buttons"
-        spaceBetween={14}
-      >
-        {products &&
-          products.map((product) => {
-            return (
-              <SwiperSlide key={product._id}>
-                <ProductItem
-                  _id={product._id}
-                  name={product.title}
-                  imgUrl={product.images[0]}
-                  price={(product.price * (100 - product.discount)) / 100}
-                  beforePrice={product.discount !== 0 && product.price}
-                  discount={product.discount}
-                  offers={product.offers}
-                  h={h}
-                  w={w}
-                  p={p}
-                />
-              </SwiperSlide>
-            );
-          })}
-      </Swiper>
+        <Swiper
+          dir="rtl"
+          slidesPerView={numberToShow}
+          ref={swiperRef}
+          navigation
+          className="hide-navigation-buttons"
+          spaceBetween={14}
+        >
+          {products &&
+            products.map((product) => {
+              return (
+                <SwiperSlide key={product._id}>
+                  <ProductItem
+                    _id={product._id}
+                    name={product.title}
+                    imgUrl={product.images[0]}
+                    price={(product.price * (100 - product.discount)) / 100}
+                    beforePrice={product.discount !== 0 && product.price}
+                    discount={product.discount}
+                    offers={product.offers}
+                    h={h}
+                    w={w}
+                    p={p}
+                  />
+                </SwiperSlide>
+              );
+            })}
+        </Swiper>
       </Flex>
     </Box>
   );
@@ -169,7 +177,6 @@ const ProductItem = ({
       dir="rtl"
       borderRadius="28px"
       overflow="hidden"
-      shadow="none"
       border="2px solid"
       borderColor="naturalLightest"
       position="relative"
@@ -190,7 +197,8 @@ const ProductItem = ({
         "2xl": w,
       }}
       cursor={"pointer"}
-      _hover={{ shadow: "xl" }}
+      boxShadow="none"
+      _hover={{ boxShadow: "2px 6px 25px 0 rgba(40, 53, 106, 0.2)" }}
       onClick={() =>
         (window.location.href = props.openingPrice
           ? routes.ProductPageAuction.path.replace(":id", "") + props.data._id
@@ -216,12 +224,16 @@ const ProductItem = ({
           fontSize={{ base: "12px", md: "14px" }}
           lineHeight={{ base: "12px", md: "18px" }}
           w="80%"
-          color={{base: "naturalDarkest", md: "black"}} 
+          color={{ base: "naturalDarkest", md: "black" }}
         >
           {name}
         </Text>
-        <Flex color={{base: "naturalDarkest", md: "black"}} justifyContent="space-between" alignItems="center">
-          <Flex alignItems={{md:"center", lg: "end"}} gap="4">
+        <Flex
+          color={{ base: "naturalDarkest", md: "black" }}
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <Flex alignItems={{ md: "center", lg: "end" }} gap="4">
             <Text
               fontWeight="medium"
               fontSize={{ base: "14px", md: "18px", lg: "22px" }}
@@ -237,8 +249,8 @@ const ProductItem = ({
                 fontWeight="light"
                 textDecoration="line-through"
                 color="priceMuted"
-                pt={{md: "2px", lg: "0"}}
-                pb={{md:"0", lg: "1px"}}
+                pt={{ md: "2px", lg: "0" }}
+                pb={{ md: "0", lg: "1px" }}
               >
                 ₪{beforePrice}
               </Text>
@@ -262,7 +274,7 @@ const ProductItem = ({
           textAlign="center"
           textColor="white"
           borderRadius="16px"
-          py={{base: "0", md: "1.5"}}
+          py={{ base: "0", md: "1.5" }}
         >
           <Text>{discount}%</Text>
         </Box>

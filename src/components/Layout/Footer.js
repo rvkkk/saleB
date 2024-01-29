@@ -460,7 +460,7 @@ export default function Footer() {
                 <Image
                   w="75px"
                   h="75px"
-                  src={process.env.PUBLIC_URL + "/assets/LOGO CUBE.png"}
+                  src={process.env.PUBLIC_URL + "/assets/logocube.svg"}
                 />
               </Flex>
             </Flex>
