@@ -102,7 +102,7 @@ export default function About() {
           <Flex justifyContent="center" pb="10" alignItems="center" flexDir="column" dir="rtl" px={{base: "5", md: "10"}}>
           <Heading dir="rtl" pb="10" color="primary">אודותינו</Heading>
 <Box>
-חברת "SaleBid בע"מ מפעילה את אתר המכירות https://salebid.netlify.app/ אתר למכירת מוצרים במכירה רגילה או מכירה פומבית
+חברת "SaleBid בע"מ מפעילה את אתר המכירות https://salebid.netlify.app אתר למכירת מוצרים במכירה רגילה או מכירה פומבית
 <br/>
 האתר הוקם בשנת 2024 על מנת לאפשר למשתמשים פרטיים למכור מוצרים גם בדרך רגילה וגם בדרך של מכירה פומבית מקוונת. 
 <br/>

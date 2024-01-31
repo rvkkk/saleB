@@ -12,6 +12,7 @@ import { routes } from "../routes";
 import { getProducts } from "../utils/api/products";
 import { addToMailingList } from "../utils/api/mailingList";
 import Loader from "../components/Loader";
+import Banner from "../components/Banner";
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -64,6 +65,7 @@ export default function Home() {
             flexDir="column"
           >
             <Category categories={categories} number={{ base: 9, lg: 12 }} />
+            <Banner/>
             <Products products={products.slice(0, 20)} />
             <Products
               title="מוצרים מובילים"

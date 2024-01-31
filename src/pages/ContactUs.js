@@ -79,9 +79,9 @@ export default function ContactUs() {
       ) : (
         <>
           <Box
-            h="274px"
-            borderRadius="30px"
-            w="98%"
+            h={{base: "200px", md:"274px"}}
+            borderRadius={{base: "0", md: "30px"}}
+            w={{base:"full", md:"98%"}}
             bg="contactBannerBg"
             mx="auto"
             maxW="1808px"
@@ -90,8 +90,10 @@ export default function ContactUs() {
             <Image
               position="absolute"
               maxW="1143.76px"
+              w="full"
               h="full"
-              borderRightRadius="30px"
+              borderRightRadius={{base: "0", md: "30px"}}
+              borderLeftRadius={{base: "0", md: "30px"}}
               right="0"
               src={process.env.PUBLIC_URL + "/assets/contact_banner_bg.png"}
             />
@@ -115,29 +117,44 @@ export default function ContactUs() {
             </Flex>
 
             <Flex
+            display={{base: "none", md: "flex"}}
               borderRadius="8px"
               gap="8"
               h="64px"
               w="full"
               justifyContent="center"
-              position="absolute"
+              position={{base: "relative", md:"absolute"}}
               bottom="0px"
               dir="rtl"
               left="50%"
               transform="translate(-50%, -50%)"
             >
-              <ContactCard phone="972509409200+" imageUrl={process.env.PUBLIC_URL + "/assets/19.png"} />
+              <ContactCard phone="972509409200+" imageUrl={process.env.PUBLIC_URL + "/assets/contact.svg"} />
               <ContactCard
                 email="salebid@salebid.com"
-                imageUrl={process.env.PUBLIC_URL + "/assets/39.png"}
+                imageUrl={process.env.PUBLIC_URL + "/assets/email.svg"}
               />
-              <ContactCard text="Tel-Aviv, Israel" imageUrl={process.env.PUBLIC_URL + "/assets/38.png"} />
+              <ContactCard text="Tel-Aviv, Israel" imageUrl={process.env.PUBLIC_URL + "/assets/place.svg"} />
             </Flex>
           </Box>
+          <Flex display={{base: "flex", md: "none"}}
+          flexDir="column"
+          mt="50px"
+              gap="8"
+              justifyContent="center"
+              alignItems="center"
+              dir="rtl">
+<ContactCard phone="972509409200+" imageUrl={process.env.PUBLIC_URL + "/assets/contact.svg"} />
+              <ContactCard
+                email="salebid@salebid.com"
+                imageUrl={process.env.PUBLIC_URL + "/assets/email.svg"}
+              />
+              <ContactCard text="Tel-Aviv, Israel" imageUrl={process.env.PUBLIC_URL + "/assets/place.svg"} />
+          </Flex>
 
-          <Spacer h="180px" />
+          <Spacer h={{base: "100px", md: "180px"}} />
           <Container>
-            <Flex flexDir="column" gap="6" dir="rtl" w="622px" mx="auto">
+            <Flex flexDir="column" gap="6" dir="rtl" w={{base: "320px", sm: "460px", md:"622px"}} mx="auto">
               <Input
                 placeholder="שם מלא"
                 required

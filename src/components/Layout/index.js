@@ -20,7 +20,6 @@ export default function Layout({
   withSidebar,
   breadcrumb = [],
   hideBreadcrumb,
-  home = false,
   logo = false,
   noFooter = false,
 }) {
@@ -56,7 +55,6 @@ export default function Layout({
                 <Text>שטח לתמונה הכי יפה מהקטגוריה הרלוונטית</Text>
               </Flex>
             )}
-            {home && <Banner />}
             <Box>
               <Flex px={["0px", "32px", "50px", "100px", "200px"]}>
                 {breadcrumb.length > 0 && (
