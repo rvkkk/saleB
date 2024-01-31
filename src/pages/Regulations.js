@@ -5,8 +5,8 @@ import Layout from "../components/Layout";
 export default function Regulations() {
   return (
     <Layout>
-      <Box dir="rtl" py="10" px="100px">
-        <Flex justifyContent="center">
+      <Box dir="rtl" py={{base: "5", md: "10"}} px={{base: "5", sm: "10", md: "100px"}}>
+        <Flex justifyContent="center" mb="4">
           <Heading color="primary">תקנון אתר SaleBid</Heading>
         </Flex>
 

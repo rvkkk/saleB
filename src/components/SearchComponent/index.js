@@ -12,6 +12,7 @@ import {
 import { Icon5, SearchIcon } from "../Icons";
 import React, { useState, useEffect } from "react";
 import { routes } from "../../routes";
+import { ChevronDownIcon } from "@chakra-ui/icons";
 
 export default function SearchComponent(props) {
   const [query, setQuery] = useState("");
@@ -26,11 +27,11 @@ export default function SearchComponent(props) {
           <Flex
             borderRadius="0px"
             borderRightRadius="12px"
-            w="110px"
+            w="50px"
             h="50px"
             bg="primaryDark"
             color="white"
-            fontSize="18px"
+            fontSize="30px"
             alignItems="center"
             justifyContent="center"
             _hover={{ bg: "primaryDark" }}
@@ -38,8 +39,7 @@ export default function SearchComponent(props) {
             _focus={{ bg: "primaryDark" }}
             gap="1"
           >
-            <Text>מחלקות</Text>
-            <Icon5 />
+            <ChevronDownIcon/>
           </Flex>
         </MenuButton>
         <MenuList
@@ -50,11 +50,8 @@ export default function SearchComponent(props) {
           borderRadius="12px"
           shadow="0px 1px 54px rgba(35, 38, 59, 0.2)"
         >
-          <MenuItemComponent path={routes.LOGIN.path} name="יודאיקה" />
-          <MenuItemComponent path={routes.LOGIN.path} name="אומנות" />
-          <MenuItemComponent path={routes.LOGIN.path} name="צילום" />
-          <MenuItemComponent path={routes.LOGIN.path} name="ספורט" />
-          <MenuItemComponent path={routes.LOGIN.path} name="תכשיטים" />
+          <MenuItemComponent path={routes.LOGIN.path} name="מוצרי מכירה פומבית" />
+          <MenuItemComponent path={routes.LOGIN.path} name="מוצרים רגילים" />
         </MenuList>
       </Menu>
 

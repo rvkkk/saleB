@@ -272,7 +272,7 @@ export default function NavBar({ withSidebar, logo }) {
                 <SaleBID/>
               </Link>
             </Flex>
-            <Box w={{ lg: "530px", xl: "700px", "2xl": "900px" }}>
+            <Box w={{ lg: "530px", xl: "700px", "2xl": "800px" }}>
               <SearchComponent
                 value={query}
                 onChange={(e) => setQuery(e)}
@@ -488,16 +488,21 @@ export default function NavBar({ withSidebar, logo }) {
                     </PopoverBody>
                   </PopoverContent>
                 </Popover>
-
                 <Menu placement="bottom">
                   <MenuButton>
-                    <Avatar
+                  <IconButton
+                        bgColor="#1D5FE8" //rgba(255,255,255,0.2)
+                        _hover={{ bg: "rgba(255,255,255,0.3)" }}
+                      />
+                  
+                  {/*  <Avatar
                       w="40px"
                       h="40px"
                       //name={user.userName}
+                    
                       src={user.profileImage}
                       borderRadius="8px"
-                    />
+                          />*/}
                   </MenuButton>
                   {token !== null ? (
                     <MenuList
