@@ -115,7 +115,7 @@ export default function Home() {
                 justifyContent="center"
               >
                 <Box flex="1">
-                  <Image w="full" src={process.env.PUBLIC_URL + "/assets/man.svg"} />
+                  <Image src={process.env.PUBLIC_URL + "/assets/man.svg"} />
                 </Box>
                 <Box flex="1">
                   <Flex flexDir="column" gap="4" width="58%">

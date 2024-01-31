@@ -2584,3 +2584,11 @@ export const SearchIcon = () => {
     </svg>
   );
 };
+export const PlayIcon = () => {
+  return (
+    <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" width="24" height="24" rx="12" fill="#69D6CF"/>
+<path d="M18 11.134C18.6667 11.5189 18.6667 12.4811 18 12.866L10.5 17.1962C9.83333 17.5811 9 17.0999 9 16.3301L9 7.66987C9 6.90007 9.83333 6.41895 10.5 6.80385L18 11.134Z" fill="white"/>
+</svg>
+  );
+};

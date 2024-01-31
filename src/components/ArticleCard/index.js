@@ -1,25 +1,22 @@
-import { Flex, Image, Text, Box } from "@chakra-ui/react";
+import { Flex, Image, Text} from "@chakra-ui/react";
 import React from "react";
 
 export default function ArticleCard({ imageUrl, text, onClick }) {
   return (
     <Flex
-      w="410px" //350
+      w={{base: "320px", sm: "410px", md: "360px", lg: "410px", xl: "380px", "2xl": "410px"}}
       borderRadius="16px"
-      p="50px 20px"
       dir="rtl"
-      h="260px" //220
-      _hover={{ boxShadow: "4px 8px 53px rgba(13, 47, 153, 0.09)" }}
-      gap="30px"
+      h={{base: "240px",lg: "260px"}}
+      pt={{lg: "15px"}}
+      _hover={{ boxShadow: "4px 8px 40px 0 rgba(13, 47, 153, 0.15)" }}
       bg="white"
       flexDirection="column"
       alignItems="center"
       onClick={onClick}
       cursor="pointer"
     >
-      <Box h="120px">
-        <Image h="120px" src={imageUrl} />
-      </Box>
+      <Image src={imageUrl} />
       <Text
         color="primary"
         fontSize="18px"

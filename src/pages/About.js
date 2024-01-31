@@ -20,6 +20,7 @@ import { routes } from "../routes";
 import { addToMailingList } from "../utils/api/mailingList";
 import Loader from "../components/Loader";
 import { EmailIcon } from "@chakra-ui/icons";
+import { PlayIcon } from "../components/Icons";
 
 export default function About() {
   const [isLoading, setIsLoading] = useState(false);
@@ -45,27 +46,28 @@ export default function About() {
         <Loader />
       ) : (
         <>
-          <Box dir="rtl" bg="white" py="10">
+          <Box dir="rtl" bg="white" py="10" mx="auto">
             <Container>
               <Flex
                 w="full"
                 alignItems="center"
                 gap="10"
                 justifyContent="center"
+                flexDir={{base: "column", md: "row"}}
               >
                 <Box flex="1">
-                  <Image w="full" src={process.env.PUBLIC_URL + "/assets/man-stats.png"} />
+                  <Image src={process.env.PUBLIC_URL + "/assets/man-stats.png"} />
                 </Box>
-                <Box flex="1">
-                  <Flex flexDir="column" gap="4" width="58%">
+                <Box flex="1" >
+                  <Flex flexDir="column" gap="4" w={{base: "320px", sm: "460px", md:"360px", lg: "460px", xl: "504px"}}>
                     <Text color="primary" fontSize="14px" fontWeight="bold">
                       {" "}
                       הבידול שלנו{" "}
                     </Text>
-                    <Text color="primaryDark" fontSize="36px" fontWeight="bold">
+                    <Text color="primaryDark" fontSize={{base: "20px",md: "26px", lg: "30px", xl: "36px"}} fontWeight="bold">
                       שוק עולמי מקוון המאפשר מסחר מקומי ובינלאומי
                     </Text>
-                    <Text color="naturalDarkest" fontSize="18px">
+                    <Text color="naturalDarkest" fontSize={{base: "14px", md: "18px"}}>
                       שוק המסחר לעסקים קטנים עד גדולים המציע מיליוני פריטים
                       ומכירות פומביות שוק המסחר לעסקים קטנים עד גדולים המציע
                       מיליוני פריטים ומכירות פומביות
@@ -75,10 +77,10 @@ export default function About() {
                         בוא נתחיל
                       </Button2>
                       <Button
-                        w="200px"
+                        w={{base: "180px", sm:"200px"}}
                         display="flex"
-                        gap="6"
-                        p="20px 40px"
+                        gap="3"
+                        p="10px 10px"
                         minH="52px"
                         borderRadius="12px"
                         borderColor="primary"
@@ -89,7 +91,7 @@ export default function About() {
                           (window.location.href = "/article/howToStartASale")
                         }
                       >
-                        איך לפתוח מכירה
+                        <PlayIcon/>  איך לפתוח מכירה
                       </Button>
                     </Flex>
                   </Flex>
@@ -99,47 +101,50 @@ export default function About() {
           </Box>
           <Box bg="aboutColor">
             <Spacer h="100px" />
-            <Box mx="10%">
-              <Heading dir="rtl" fontSize="32px" fontWeight="medium">
+            <Flex alignItems="center" flexDir="column">
+              <Flex alignItems="flex-start">
+              <Heading dir="rtl" fontSize={{base: "22px", md: "28px", xl:"32px"}} lineHeight="18.6px"
+        letterSpacing="0.02em" fontWeight="medium">
                 עיין במאמרי עזרה
               </Heading>
+              </Flex>
               <br />
-              <Grid gridTemplateColumns="1fr 1fr 1fr" gap="4" dir="rtl">
+              <Grid gridTemplateColumns={{base: "1fr", md:"1fr 1fr", xl: "1fr 1fr 1fr"}} gap="4" dir="rtl">
                 <ArticleCard
                   text="חשבון"
-                  imageUrl={process.env.PUBLIC_URL + "/assets/19.png"}
+                  imageUrl={process.env.PUBLIC_URL + "/assets/profile.svg"}
                   onClick={() =>
                     (window.location.href = "/article/6549020abdebf997ba25fb4d")
                   }
                 ></ArticleCard>
                 <ArticleCard
                   text="מכירות"
-                  imageUrl={process.env.PUBLIC_URL + "/assets/12.png"}
+                  imageUrl={process.env.PUBLIC_URL + "/assets/sales.svg"}
                   onClick={() => (window.location.href = "/article/sales")}
                 ></ArticleCard>
                 <ArticleCard
                   text="קנייה"
-                  imageUrl={process.env.PUBLIC_URL + "/assets/2.png"}
+                  imageUrl={process.env.PUBLIC_URL + "/assets/buying.svg"}
                   onClick={() => (window.location.href = "/article/buy")}
                 ></ArticleCard>
                 <ArticleCard
                   text="עמלות וחיובים"
-                  imageUrl={process.env.PUBLIC_URL + "/assets/35.png"}
+                  imageUrl={process.env.PUBLIC_URL + "/assets/payment.svg"}
                   onClick={() => (window.location.href = "/article/")}
                 ></ArticleCard>
                 <ArticleCard
                   text="משלוחים"
-                  imageUrl={process.env.PUBLIC_URL + "/assets/11.png"}
+                  imageUrl={process.env.PUBLIC_URL + "/assets/deliveries.svg"}
                   onClick={() => (window.location.href = "/article/shipping")}
                 ></ArticleCard>
                 <ArticleCard
                   text="החזרות"
-                  imageUrl={process.env.PUBLIC_URL + "/assets/49.png"}
+                  imageUrl={process.env.PUBLIC_URL + "/assets/returns.svg"}
                   onClick={() => (window.location.href = "/article/returns")}
                 ></ArticleCard>
               </Grid>
-            </Box>
-            <Spacer h="100px" />
+            </Flex>
+            <Spacer h={{base: "50px", md:"100px"}} />
           </Box>
           <Box display={{base: "none", md: "block"}} py="10" bg="aboutColor2">
             <Flex
@@ -149,15 +154,15 @@ export default function About() {
               gap="10"
               py="10"
               bg="primary"
-              w="820px"
+              w={{ md: "720px", lg: "820px" }}
               mx="auto"
               borderRadius="3xl"
             >
               <Flex flexDir="column">
-                <Heading fontSize="44px" color="white">
+                <Heading fontSize="48px" color="white">
                   !להישאר מעודכן
                 </Heading>
-                <Text color="white" fontSize="22px">
+                <Text color="white" fontSize="24px">
                   קבל חדשות על מבצעים, קופונים ומתנות מפנקות, ישר לתיבת המייל
                   שלך
                 </Text>
