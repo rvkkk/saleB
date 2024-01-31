@@ -23,12 +23,12 @@ export default function Category(props) {
   return (
     <Container>
       <Grid my="20px"
-        w={{ base: "326px", sm: "392px", md: "648px", lg: "860px", xl: "1275px", "2xl": "1455px"}}
+        w={{ base: "326px", sm: "392px", md: "648px", lg: "860px", xl: "1180px", "2xl": "1300px"}}
         mx="auto"
         gridTemplateColumns={{ base: "repeat(3, 1fr)", md: "repeat(4, 1fr)", xl: "repeat(6, 1fr)" }}
         flexWrap="wrap"
         rowGap={{ base: "31px", lg: "44px" }}
-        columnGap={{ base: "16px", lg: "20px", xl:"15px" }}     
+        columnGap={{ base: "16px", lg: "20px" }}     
         py={{ base: "20px", lg: "40px" }}
       >
         {props.categories &&
@@ -62,7 +62,7 @@ export const CategoryItem = ({
    <Flex
       display={{base: index < 9 ? "flex" : "none", md: "flex"}}
       mx="auto"
-      w={{ base: "98px", sm: "120px", md: "150px", lg: "200px", "2xl": "230px" }}
+      w={{ base: "98px", sm: "120px", md: "150px", lg: "180px", "2xl": "200px" }}
       cursor={"pointer"}
       onClick={() => onClick()}
       flexDir="column"
@@ -72,8 +72,8 @@ export const CategoryItem = ({
     >
       <Box 
       className="category_img"
-      w={{ base: "90px", sm: "100px", md: "130px", lg: "170px", "2xl": "200px" }}
-      h={{ base: "90px", sm:"100px", md: "130px", lg: "170px", "2xl": "200px" }}
+      w={{ base: "90px", sm: "100px", md: "130px", lg: "150px", "2xl": "170px" }}
+      h={{ base: "90px", sm:"100px", md: "130px", lg: "150px", "2xl": "170px" }}
       >
       </Box>
       <Text textAlign="center">{name}</Text>

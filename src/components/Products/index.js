@@ -20,9 +20,9 @@ export default function Products({
   numberOfSlides = 4,
   title = "מוצרים חדשים",
   products = [],
-  h = "413px",
-  w = "364.25px",
-  p = "317px",
+  h = "360px",
+  w = "300px",
+  p = "280px",
 }) {
   SwiperCore.use([Navigation]);
   const swiperRef = useRef(null);
@@ -35,7 +35,7 @@ export default function Products({
         window.innerWidth < 480
           ? 2
           : window.innerWidth < 768 ||
-            (window.innerWidth < 1280 && h === "413px")
+            (window.innerWidth < 1280 && h === "360px")
           ? 3
           : window.innerWidth < 1280
           ? 4
@@ -61,9 +61,9 @@ export default function Products({
         md: "740px",
         lg: "970px",
         xl: "1200px",
-        "2xl": "1514px",
+        "2xl": "1242px",
       }}
-      mx="auto"
+      //mx="auto"
       py="24px"
     >
       <Flex dir="rtl" justifyContent="space-between" alignItems="center">
@@ -126,7 +126,7 @@ export default function Products({
         </Button>
       </Flex>
       <Spacer h={{ base: "18px", md: "24px" }} />
-      <Flex mx="auto" justifyContent="center" alignItems="center">
+      <Flex justifyContent="center" alignItems="center">
         <Swiper
           dir="rtl"
           slidesPerView={numberToShow}
@@ -174,6 +174,8 @@ const ProductItem = ({
 }) => {
   return (
     <Card
+    my="30px"
+ // mx="30px"
       dir="rtl"
       borderRadius="28px"
       overflow="hidden"
@@ -181,19 +183,19 @@ const ProductItem = ({
       borderColor="naturalLightest"
       position="relative"
       h={{
-        base: h === "413px" ? "230px" : "220px",
-        sm: h === "413px" ? "230px" : "210px",
-        md: h === "413px" ? "300px" : "240px",
-        lg: h === "413px" ? "380px" : "300px",
-        xl: h === "413px" ? "360px" : "300px",
+        base: h === "360px" ? "230px" : "220px",
+        sm: h === "360px" ? "230px" : "210px",
+        md: h === "360px" ? "300px" : "240px",
+        lg: h === "360px" ? "360px" : "300px",
+        xl: h === "360px" ? "320px" : "300px",
         "2xl": h,
       }}
       w={{
-        base: w === "364.25px" ? "160px" : "158px",
-        sm: w === "364.25px" ? "160px" : "144px",
-        md: w === "364.25px" ? "235px" : "170px",
-        lg: w === "364.25px" ? "300px" : "230px",
-        xl: w === "364.25px" ? "285px" : "230px",
+        base: w === "300px" ? "160px" : "158px",
+        sm: w === "300px" ? "160px" : "144px",
+        md: w === "300px" ? "235px" : "170px",
+        lg: w === "300px" ? "300px" : "230px",
+        xl: w === "300px" ? "285px" : "230px",
         "2xl": w,
       }}
       cursor={"pointer"}
@@ -209,11 +211,11 @@ const ProductItem = ({
         <Image
           w="full"
           h={{
-            base: p === "317px" ? "160px" : "155px",
-            sm: p === "317px" ? "160px" : "140px",
-            md: p === "317px" ? "220px" : "170px",
-            lg: p === "317px" ? "300px" : "230px",
-            xl: p === "317px" ? "285px" : "230px",
+            base: p === "280px" ? "160px" : "155px",
+            sm: p === "280px" ? "160px" : "140px",
+            md: p === "280px" ? "220px" : "170px",
+            lg: p === "280px" ? "280px" : "230px",
+            xl: p === "280px" ? "280px" : "230px",
             "2xl": p,
           }}
           src={imgUrl}

@@ -27,6 +27,7 @@ export default function Banner() {
   }, []);
   return (
     <Box
+    cursor="pointer"
       w="full"
       h={{ base: "203px", sm: "250px", md: "350px", lg: "420px" }}
     >

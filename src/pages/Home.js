@@ -70,9 +70,9 @@ export default function Home() {
             <Products
               title="מוצרים מובילים"
               numberOfSlides={5}
-              h="354px"
-              w="287.6px"
-              p="258px"
+              h="300px"
+              w="237px"
+              p="220px"
               products={products.slice(20, 30)}
             />
           </Flex>
@@ -157,7 +157,7 @@ export default function Home() {
                 flexWrap="wrap"
                 w="full"
                 justifyContent="center"
-                gap={{ base: "30px", sm: "35px", xl: "50px", "2xl": "100px" }}
+                gap={{ base: "30px", sm: "35px", xl: "50px", "2xl": "80px" }}
               >
                 <InfoBox
                   image="returns"
