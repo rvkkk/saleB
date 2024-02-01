@@ -26,6 +26,7 @@ import UserSettingsShippingAddress from "../pages/UserSettingsShippingAddress";
 import UserSettingsWallet from "../pages/UserSettingsWallet";
 import UserSettingsWishList from "../pages/UserSettingsWishList";
 import CreatePArticle from "../pages/createPArticle";
+import AddCategory from "../pages/AddCategory";
 
 export const routes = {
     LOGIN: {
@@ -140,5 +141,9 @@ export const routes = {
         path: "/check/:id",
         component: CheckOut
     },
+    AddCategory: {
+        path: "/category-add",
+        component: AddCategory
+    }
 
 }
