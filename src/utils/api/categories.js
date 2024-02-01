@@ -28,7 +28,7 @@ export const getCategory = (title) => {
   });
 };
 
-export const addCategory = ({ title, name, image, number }) => {
+export const addCategory = (title, name, image, number) => {
   return new Promise((resolve, reject) => {
     axios
       .post(`${baseURL}category`, { title, name, image, number })

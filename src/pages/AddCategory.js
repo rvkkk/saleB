@@ -1,11 +1,12 @@
 import {
-  Button,
   Input as ChakraInput,
+  Box
 } from "@chakra-ui/react";
 import React from "react";
 import Input from "../components/Input";
 import { useState } from "react";
 import { addCategory } from "../utils/api/categories";
+import Button from "../components/Button";
 
 export default function AddCategory() {
   const [title, setTitle] = useState("");
@@ -14,13 +15,13 @@ export default function AddCategory() {
   const [number, setNumber] = useState(1);
 
   const addC = () => {
-    addCategory({ title, name, image, number })
+    addCategory(title, name, image, number)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
 
   return (
-    <>
+    <Box dir="rtl" mx="100px" my="50px">
       <Input
         value={title}
         label="שם באנגלית"
@@ -49,13 +50,13 @@ export default function AddCategory() {
           const files = e.target.files;
           console.log(files);
           if (files) {
-            setImage(files);
+            setImage(files[0]);
           }
         }}
       ></ChakraInput>
       <Button onClick={() => addC()}>
         הוסף קטגוריה
       </Button>
-    </>
+    </Box>
   );
 }

@@ -159,7 +159,7 @@ export default function SignUp() {
           .catch((err) => {
             console.log(err);
             setLoading(false);
-            setError('כתובת דוא"ל זו או שם משתמש זה כבק קיימים במערכת');
+            setError('כתובת דוא"ל זו או שם משתמש זה כבר קיימים במערכת');
           });
       }
   };
