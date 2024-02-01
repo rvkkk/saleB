@@ -25,6 +25,7 @@ import UserSettingsMySales from "../pages/UserSettingsMySales";
 import UserSettingsShippingAddress from "../pages/UserSettingsShippingAddress";
 import UserSettingsWallet from "../pages/UserSettingsWallet";
 import UserSettingsWishList from "../pages/UserSettingsWishList";
+import CreatePArticle from "../pages/createPArticle";
 
 export const routes = {
     LOGIN: {
@@ -126,6 +127,10 @@ export const routes = {
     Article: {
         path: "/article/:id",
         component: Article
+    },
+    CreatePArticle: {
+        path: "/article/create-product/:id",
+        component: CreatePArticle
     },
     BuySuccess: {
         path: "/buy-success/:id",

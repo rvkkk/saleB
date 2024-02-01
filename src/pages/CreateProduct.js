@@ -57,8 +57,8 @@ import { getSubcategoriesOfCategory } from "../utils/api/subcategories";
 
 export default function CreateProduct() {
   const [loading, setLoading] = useState(false);
-  const [auction, setAuction] = useState(false);
-  const [shadow, setShadow] = useState(0);
+  const [auction, setAuction] = useState(true);
+  const [shadow, setShadow] = useState(1);
   const [category, setCategory] = useState("");
   const [categories, setCategories] = useState([]);
   const [subcategory, setSubcategory] = useState("");
@@ -238,7 +238,7 @@ export default function CreateProduct() {
               dir="rtl"
               w="full"
               maxW="780px"
-              m="auto"
+              mx="auto"
             >
               <Flex
                 alignItems="center"
@@ -285,72 +285,113 @@ export default function CreateProduct() {
                   gap={{ base: "12px", sm: "20px", md: "40px" }}
                   justifyContent="center"
                 >
-                  <Button
-                    w="290px"
-                    h={{ base: "110px", sm: "160px", md: "210px" }}
-                    bg="white"
-                    _hover={{ bg: "white" }}
-                    shadow={shadow === 1 ? "xl" : "none"}
-                    alignItems="center"
-                    border="2px solid transparent"
-                    borderColor={shadow === 1 ? "transparent" : "borderBg"}
-                    justifyContent="center"
-                    gap={{ base: "7px", sm: "8px" }}
-                    borderRadius="20px"
-                    flexDir="column"
-                    px={{ base: "30px", md: "60px" }}
-                    py={{ base: "20px", md: "30px" }}
-                    onClick={() => {
-                      setAuction(true);
-                      setShadow(1);
-                    }}
-                  >
-                    <Image
-                      w={{ base: "80px", sm: "110px", md: "140px" }}
-                      h={{ base: "60px", sm: "95px", md: "115px" }}
-                      src={process.env.PUBLIC_URL + "/assets/25.svg"}
-                    />
-                    <Text
-                      fontSize={{ base: "16px", sm: "18px", md: "20px" }}
-                      fontWeight="semibold"
-                      color="primary"
+                  <Flex flexDir="column" gap="2" alighItems="center">
+                    <Button
+                      w={{base: "154px", sm: "220px", md: "290px"}}
+                      h={{ base: "110px", sm: "160px", md: "210px" }}
+                      bg="white"
+                      _hover={{ bg: "white" }}
+                      boxShadow={
+                        shadow === 1
+                          ? "4px 8px 40px 0 rgba(13, 47, 153, 0.15)"
+                          : "none"
+                      }
+                      alignItems="center"
+                      border="2px solid transparent"
+                      borderColor={shadow === 1 ? "transparent" : "borderBg"}
+                      justifyContent="center"
+                      gap={{ base: "7px", sm: "8px" }}
+                      borderRadius="20px"
+                      flexDir="column"
+                      px={{ base: "30px", md: "60px" }}
+                      py={{ base: "20px", md: "30px" }}
+                      onClick={() => {
+                        setAuction(true);
+                        setShadow(1);
+                      }}
                     >
-                      מכירה פומבית
-                    </Text>
-                  </Button>
-                  <Button
-                    border="2px solid transparent"
-                    borderColor={shadow === 2 ? "transparent" : "borderBg"}
-                    bg="white"
-                    _hover={{ bg: "white" }}
-                    w="290px"
-                    h={{ base: "110px", sm: "160px", md: "210px" }}
-                    shadow={shadow === 2 ? "xl" : "none"}
-                    alignItems="center"
-                    justifyContent="center"
-                    gap={{ base: "10px", md: "18px" }}
-                    borderRadius="20px"
-                    flexDir="column"
-                    px={{ base: "30px", md: "60px" }}
-                    py={{ base: "20px", md: "30px" }}
-                    onClick={() => {
-                      setAuction(false);
-                      setShadow(2);
-                    }}
-                  >
-                    <Image
-                      w={{ base: "70px", sm: "100px", md: "120px" }}
-                      h={{ base: "55px", sm: "85px", md: "105px" }}
-                      src={process.env.PUBLIC_URL + "/assets/5.svg"}
-                    />
+                      <Image
+                        w={{ base: "80px", sm: "110px", md: "140px" }}
+                        h={{ base: "60px", sm: "95px", md: "115px" }}
+                        src={process.env.PUBLIC_URL + "/assets/25.svg"}
+                      />
+                      <Text
+                        fontSize={{ base: "16px", sm: "18px", md: "20px" }}
+                        fontWeight="semibold"
+                        color="primary"
+                      >
+                        מכירה פומבית
+                      </Text>
+                    </Button>
                     <Text
-                      fontSize={{ base: "16px", sm: "18px", md: "20px" }}
-                      fontWeight="semibold"
-                      color="primary"
+                      textAlign="center"
+                      fontSize={{base: "12px", sm: "14px", md: "16px"}}
+                      color="primaryDark"
+                      cursor="pointer"
+                      onClick={() =>
+                        (window.location.href =
+                          routes.CreatePArticle.path.replace(
+                            ":id",
+                            ""
+                          ) + 0)
+                      }
                     >
-                      מכירה רגילה
+                      *מדריך בנושא מכירה פומבית
                     </Text>
-                  </Button>
+                  </Flex>
+                  <Flex flexDir="column" gap="2">
+                    <Button
+                      border="2px solid transparent"
+                      borderColor={shadow === 2 ? "transparent" : "borderBg"}
+                      bg="white"
+                      _hover={{ bg: "white" }}
+                      w={{base: "154px", sm: "220px", md: "290px"}}
+                      h={{ base: "110px", sm: "160px", md: "210px" }}
+                      boxShadow={
+                        shadow === 2
+                          ? "4px 8px 40px 0 rgba(13, 47, 153, 0.15)"
+                          : "none"
+                      }
+                      alignItems="center"
+                      justifyContent="center"
+                      gap={{ base: "10px", md: "18px" }}
+                      borderRadius="20px"
+                      flexDir="column"
+                      px={{ base: "30px", md: "60px" }}
+                      py={{ base: "20px", md: "30px" }}
+                      onClick={() => {
+                        setAuction(false);
+                        setShadow(2);
+                      }}
+                    >
+                      <Image
+                        w={{ base: "70px", sm: "100px", md: "120px" }}
+                        h={{ base: "55px", sm: "85px", md: "105px" }}
+                        src={process.env.PUBLIC_URL + "/assets/5.svg"}
+                      />
+                      <Text
+                        fontSize={{ base: "16px", sm: "18px", md: "20px" }}
+                        fontWeight="semibold"
+                        color="primary"
+                      >
+                        מכירה רגילה
+                      </Text>
+                    </Button>
+                    <Text
+                      textAlign="center"
+                      fontSize={{base: "12px", sm: "14px", md: "16px"}}
+                      color="primaryDark"
+                      cursor="pointer"
+                      onClick={() =>
+                        (window.location.href = routes.CreatePArticle.path.replace(
+                          ":id",
+                          ""
+                        ) + 1)
+                      }
+                    >
+                      *מדריך בנושא מכירה רגילה
+                    </Text>
+                  </Flex>
                 </Flex>
                 <Title name="פרטי מוצר" />
                 <Flex flexDir="column" gap="4">
@@ -1099,9 +1140,21 @@ export default function CreateProduct() {
                               </Text>
                             </Flex>
                             {image.name.split(".")[1] === "png" ? (
-                              <Image h="28px" src={process.env.PUBLIC_URL + "/assets/FILE PNG.svg"} />
+                              <Image
+                                h="28px"
+                                src={
+                                  process.env.PUBLIC_URL +
+                                  "/assets/FILE PNG.svg"
+                                }
+                              />
                             ) : (
-                              <Image h="28px" src={process.env.PUBLIC_URL + "/assets/FILE JPG.svg"} />
+                              <Image
+                                h="28px"
+                                src={
+                                  process.env.PUBLIC_URL +
+                                  "/assets/FILE JPG.svg"
+                                }
+                              />
                             )}
                           </Flex>
                         </Flex>

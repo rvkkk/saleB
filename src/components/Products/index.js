@@ -63,7 +63,7 @@ export default function Products({
         xl: "1200px",
         "2xl": "1242px",
       }}
-      //mx="auto"
+      mx="auto"
       py="24px"
     >
       <Flex dir="rtl" justifyContent="space-between" alignItems="center">
