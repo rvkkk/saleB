@@ -1,4 +1,4 @@
-import { Box, Grid, Spacer, Flex, Text } from "@chakra-ui/react";
+import { Box, Grid, Spacer, Image, Flex, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { routes } from "../../routes";
 import Container from "../Container";
@@ -32,7 +32,7 @@ export default function Category(props) {
         py={{ base: "20px", lg: "40px" }}
       >
         {props.categories &&
-          c.slice(0, 12).map((category, index) => {
+          props.categories.slice(0, 12).map((category, index) => {
             return (
               <CategoryItem
               key={index}
@@ -43,7 +43,7 @@ export default function Category(props) {
                     category.title)
                 }
                 name={category.name}
-                //imgUrl={category.image}
+                imgUrl={category.image}
               />
             );
           })}
@@ -54,7 +54,7 @@ export default function Category(props) {
 
 export const CategoryItem = ({
   name = "ארכיאולוגיה",
-  //imgUrl = "",
+  imgUrl = {},
   onClick,
   index
 }) => {
@@ -75,6 +75,7 @@ export const CategoryItem = ({
       w={{ base: "90px", sm: "100px", md: "130px", lg: "150px", "2xl": "170px" }}
       h={{ base: "90px", sm:"100px", md: "130px", lg: "150px", "2xl": "170px" }}
       >
+        <Image className="img" src={`data:${imgUrl.contentType};base64,${imgUrl.data}`}></Image>
       </Box>
       <Text textAlign="center">{name}</Text>
     </Flex>

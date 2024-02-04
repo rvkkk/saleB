@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "https://sale-bid.df.r.appspot.com/";
+const baseURL = "http://localhost:3001/";
 
 export const getCategories = () => {
   return new Promise((resolve, reject) => {
@@ -28,10 +28,30 @@ export const getCategory = (title) => {
   });
 };
 
-export const addCategory = (title, name, image, number) => {
-  return new Promise((resolve, reject) => {
+/*const fileReader = new FileReader();
+    fileReader.onload = function(event) {
+      const imageData = event.target.result;
     axios
-      .post(`${baseURL}category`, { title, name, image, number })
+      .post(`${baseURL}category`, {title, name,  image: imageData, number}, {
+        headers: {
+          'Content-Type': image.type,
+           "Authorization": `Bearer ${localStorage.getItem("token")}`,
+        },
+      })*/
+
+export const addCategory = (title, name, image) => {
+  return new Promise((resolve, reject) => {
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("name", name);
+    formData.append("image", image)
+    axios
+      .post(`${baseURL}category`, formData, {
+        headers: {
+           "Content-Type": 'multipart/form-data',
+           "Authorization": `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
       .then((res) => {
         resolve(res.data);
       })

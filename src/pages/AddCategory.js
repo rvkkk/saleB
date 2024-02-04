@@ -1,6 +1,7 @@
 import {
   Input as ChakraInput,
-  Box
+  Box,
+  Image
 } from "@chakra-ui/react";
 import React from "react";
 import Input from "../components/Input";
@@ -12,10 +13,10 @@ export default function AddCategory() {
   const [title, setTitle] = useState("");
   const [name, setNmae] = useState("");
   const [image, setImage] = useState({});
-  const [number, setNumber] = useState(1);
+  const [imageURL, setImageURL] = useState("");
 
   const addC = () => {
-    addCategory(title, name, image, number)
+    addCategory(title, name, image)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
@@ -34,13 +35,6 @@ export default function AddCategory() {
         labelFontSize="14px"
         onChange={(e) => setNmae(e.target.value)}
       />
-      <Input
-        value={number}
-        label="מספר"
-        labelFontSize="14px"
-        type="number"
-        onChange={(e) => setNumber(e.target.value)}
-      />
       <ChakraInput
         id="fileInput"
         type="file"
@@ -49,11 +43,13 @@ export default function AddCategory() {
         onChange={(e) => {
           const files = e.target.files;
           console.log(files);
-          if (files) {
+          if (files[0]) {
             setImage(files[0]);
+            setImageURL(URL.createObjectURL(files[0]))
           }
         }}
       ></ChakraInput>
+      <Image w="200px" h="200px" src={imageURL}></Image>
       <Button onClick={() => addC()}>
         הוסף קטגוריה
       </Button>

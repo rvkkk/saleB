@@ -135,6 +135,12 @@ export default function CartItemGallery(props) {
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
         display={{base: "none", md: "block"}}
+        onClick={()=> (window.location.href = product.openingPrice
+          ? routes.ProductPageAuction.path.replace(":id", "") +
+            product._id
+          : routes.ProductPage.path.replace(":id", "") +
+            product._id)
+      }
       >
         <Image
           w="350px"

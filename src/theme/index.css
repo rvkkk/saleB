@@ -177,7 +177,7 @@ input::-webkit-inner-spin-button {
 }
 
 .category_img{ 
-  background-color: #B7D1F7;
+  /*background-color: #B7D1F7;*/
   border-radius:50%;
   position:relative
 }
@@ -190,7 +190,7 @@ input::-webkit-inner-spin-button {
   right: -15px;
   bottom: -15px;
   border-radius: 50%;
-  border: 1px solid #D3D4D8;
+  border: 2px solid #D3D4D8;
 }
 
 @media screen and (min-width: 768px) and (max-width: 992px) {
@@ -219,12 +219,12 @@ input::-webkit-inner-spin-button {
   border-color: #0D2F99;
   
 }
- .category_img img {
+ .category_img .img {
   overflow: hidden;
   border-radius: 50%;
   width: 100%;
   height: 100%;
-  position: absolute;
+  /*position: absolute;*/
   top: 0;
   left: 0;
   margin: auto;

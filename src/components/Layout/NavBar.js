@@ -52,7 +52,8 @@ import {
   CartIcon2,
   CartIcon3,
   HeartIcon2,
-  SearchIcon
+  SearchIcon,
+  UserIcon
 } from "../Icons";
 import NavCartListItem from "../NavCartListItem";
 import Button from "../Button";
@@ -491,6 +492,7 @@ export default function NavBar({ withSidebar, logo }) {
                 <Menu placement="bottom">
                   <MenuButton>
                   <IconButton
+                  icon={<UserIcon/>}
                         bgColor="#1D5FE8" //rgba(255,255,255,0.2)
                         _hover={{ bg: "rgba(255,255,255,0.3)" }}
                       />

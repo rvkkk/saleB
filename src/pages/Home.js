@@ -13,6 +13,7 @@ import { getProducts } from "../utils/api/products";
 import { addToMailingList } from "../utils/api/mailingList";
 import Loader from "../components/Loader";
 import Banner from "../components/Banner";
+import { getCategories } from "../utils/api/categories";
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -38,9 +39,9 @@ export default function Home() {
     if (!fetchedData) {
       getProducts()
         .then((res) => {
+          getCategories().then((res)=> setCategories(res.categories))
           setProducts(res.products.products);
           console.log(res);
-          setCategories(res.products.categories);
           setLoading(false);
           setFetchedData(true);
         })
