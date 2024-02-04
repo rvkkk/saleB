@@ -31,7 +31,7 @@ export default function Category(props) {
         columnGap={{ base: "16px", lg: "20px" }}     
         py={{ base: "20px", lg: "40px" }}
       >
-        {props.categories &&
+        {props.categories[0] &&
           props.categories.slice(0, 12).map((category, index) => {
             return (
               <CategoryItem
@@ -58,6 +58,7 @@ export const CategoryItem = ({
   onClick,
   index
 }) => {
+  console.log(imgUrl)
   return (
    <Flex
       display={{base: index < 9 ? "flex" : "none", md: "flex"}}
@@ -75,7 +76,7 @@ export const CategoryItem = ({
       w={{ base: "90px", sm: "100px", md: "130px", lg: "150px", "2xl": "170px" }}
       h={{ base: "90px", sm:"100px", md: "130px", lg: "150px", "2xl": "170px" }}
       >
-        <Image className="img" src={`data:${imgUrl.contentType};base64,${imgUrl.data}`}></Image>
+        <Image className="img" src={imgUrl}></Image>
       </Box>
       <Text textAlign="center">{name}</Text>
     </Flex>

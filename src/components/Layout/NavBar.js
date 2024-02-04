@@ -33,7 +33,7 @@ import { getUserProfile } from "../../utils/api/users";
 import { getUserCart, deleteFromCart, updateCart } from "../../utils/api/carts";
 import React from "react";
 //import { useWebSocket } from "../WebSocketProvider";
-import SaleBID, {SmallLOGOIcon} from "../SaleBID";
+import SaleBID, { SmallLOGOIcon } from "../SaleBID";
 import { SettingsIcon } from "@chakra-ui/icons";
 import SearchComponent from "../SearchComponent";
 import { Link, useLocation } from "react-router-dom";
@@ -53,7 +53,8 @@ import {
   CartIcon3,
   HeartIcon2,
   SearchIcon,
-  UserIcon
+  UserIcon,
+  UserMobileIcon,
 } from "../Icons";
 import NavCartListItem from "../NavCartListItem";
 import Button from "../Button";
@@ -71,7 +72,7 @@ export default function NavBar({ withSidebar, logo }) {
 
   const [user, setUser] = useState({
     userName: "Sale Bid",
-    profileImage: process.env.PUBLIC_URL + "/assets/LOGO CUBE 2.png",
+    profileImage: "",
   });
 
   const getUser = () => {
@@ -265,12 +266,12 @@ export default function NavBar({ withSidebar, logo }) {
             display="-webkit-flex"
           >
             <Flex
-             // w={{ lg: "140px", xl: "200px", "2xl": "300px" }}
-             w="20%"
-              justifyContent="flex-end" 
+              // w={{ lg: "140px", xl: "200px", "2xl": "300px" }}
+              w="20%"
+              justifyContent="flex-end"
             >
               <Link to="/">
-                <SaleBID/>
+                <SaleBID />
               </Link>
             </Flex>
             <Box w={{ lg: "530px", xl: "700px", "2xl": "800px" }}>
@@ -491,13 +492,13 @@ export default function NavBar({ withSidebar, logo }) {
                 </Popover>
                 <Menu placement="bottom">
                   <MenuButton>
-                  <IconButton
-                  icon={<UserIcon/>}
-                        bgColor="#1D5FE8" //rgba(255,255,255,0.2)
-                        _hover={{ bg: "rgba(255,255,255,0.3)" }}
-                      />
-                  
-                  {/*  <Avatar
+                    <IconButton
+                      icon={<UserIcon />}
+                      bgColor="#1D5FE8" //rgba(255,255,255,0.2)
+                      _hover={{ bg: "rgba(255,255,255,0.3)" }}
+                    />
+
+                    {/*  <Avatar
                       w="40px"
                       h="40px"
                       //name={user.userName}
@@ -634,9 +635,13 @@ export default function NavBar({ withSidebar, logo }) {
                     <Image
                       src={process.env.PUBLIC_URL + "/assets/israel.svg"}
                     />
-                    <Flex display={{lg: "none", xl: "flex"}} gap="1" alignItems="center">
-                    <Text>עברית</Text>
-                    <Icon5 />
+                    <Flex
+                      display={{ lg: "none", xl: "flex" }}
+                      gap="1"
+                      alignItems="center"
+                    >
+                      <Text>עברית</Text>
+                      <Icon5 />
                     </Flex>
                   </Flex>
                 </MenuButton>
@@ -853,7 +858,7 @@ export default function NavBar({ withSidebar, logo }) {
         h="65px"
       >
         <Link to="/">
-          <SmallLOGOIcon/>
+          <SmallLOGOIcon />
         </Link>
       </Flex>
 
@@ -869,18 +874,22 @@ export default function NavBar({ withSidebar, logo }) {
       >
         <Flex justifyContent="space-between">
           <Link to="/">
-            <SmallLOGOIcon/>
+            <SmallLOGOIcon />
           </Link>
           <Flex gap="15px">
             <Menu placement="bottom">
               <MenuButton>
-                <Avatar
-                  w="22px"
-                  h="22px"
-                  //name={user.userName}
-                  src={user.profileImage}
-                  borderRadius="8px"
-                />
+                {user.profileImage !== "" ? (
+                  <Avatar
+                    w="22px"
+                    h="22px"
+                    //name={user.userName}
+                    src={user.profileImage}
+                    borderRadius="8px"
+                  />
+                ) : (
+                  <UserMobileIcon />
+                )}
               </MenuButton>
               {token !== null ? (
                 <MenuList
@@ -1335,21 +1344,21 @@ export default function NavBar({ withSidebar, logo }) {
             minW="50px"
             h="50px"
             bgGradient="linear(to-r, #FF66A9, #F53689)"
-            _hover={{bgGradient: "linear(to-r, #F53689, #F53689)"}}
+            _hover={{ bgGradient: "linear(to-r, #F53689, #F53689)" }}
             borderRadius="14px"
             icon={<SearchIcon />}
             onClick={() => (window.location.href = "/category?query=" + query)}
           />
-            <Input
-              dir="rtl"
-              h="50px"
-              placeholder="אני מחפש..."
-              border="none"
-              borderRadius="14px"
-              bg="white"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
+          <Input
+            dir="rtl"
+            h="50px"
+            placeholder="אני מחפש..."
+            border="none"
+            borderRadius="14px"
+            bg="white"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
         </Flex>
       </Flex>
     </>
