@@ -74,6 +74,7 @@ export default function ProductPage() {
   const [showFullText, setShowFullText] = useState(false);
   const token = window.localStorage.getItem("token");
   const [isTextShort, setIsTextShort] = useState(true);
+  const [change, setChange] = useState("");
 
   useEffect(() => {
     const textElement = document.getElementById("text-element");
@@ -128,6 +129,7 @@ export default function ProductPage() {
         .then((res) => {
           console.log("added:", res);
           setDidAddedToCart(true);
+          setChange("נוסף מוצר לסל");
         })
         .catch((err) => {
           console.log(err);
@@ -138,10 +140,12 @@ export default function ProductPage() {
           handleAddToCart();
           setDidAddedToCart(true);
           console.log(res);
+          setChange("נוסף מוצר לסל");
         })
         .catch((err) => {
           console.log(err);
         });
+    
   };
 
   const removeProductFromCart = () => {
@@ -150,6 +154,7 @@ export default function ProductPage() {
         .then((res) => {
           console.log(res);
           setDidAddedToCart(false);
+          setChange("הוסר מוצר מהסל");
         })
         .catch((err) => {
           console.log(err);
@@ -160,6 +165,7 @@ export default function ProductPage() {
           handleRemoveFromCart();
           console.log(res);
           setDidAddedToCart(false);
+          setChange("הוסר מוצר מהסל");
         })
         .catch((err) => {
           console.log(err);
@@ -279,7 +285,7 @@ export default function ProductPage() {
   ];
 
   return (
-    <Layout breadcrumb={breadcrumb} z-index="1">
+    <Layout breadcrumb={breadcrumb} z-index="1" change={change}>
       {loading ? (
         <Loader />
       ) : (
@@ -519,7 +525,9 @@ export default function ProductPage() {
                                   h={{ md: "60px", lg: "80px" }}
                                   objectFit="cover"
                                   borderRadius="16px"
-                                  src={process.env.PUBLIC_URL + "/assets/Image.png"}
+                                  src={
+                                    process.env.PUBLIC_URL + "/assets/Image.png"
+                                  }
                                 />
                               }
                             />
@@ -537,7 +545,9 @@ export default function ProductPage() {
                                   h={{ md: "60px", lg: "80px" }}
                                   objectFit="cover"
                                   borderRadius="16px"
-                                  src={process.env.PUBLIC_URL + "/assets/Image.png"}
+                                  src={
+                                    process.env.PUBLIC_URL + "/assets/Image.png"
+                                  }
                                 />
                               }
                             />
@@ -555,7 +565,9 @@ export default function ProductPage() {
                                   h={{ md: "60px", lg: "80px" }}
                                   objectFit="cover"
                                   borderRadius="16px"
-                                  src={process.env.PUBLIC_URL + "/assets/Image.png"}
+                                  src={
+                                    process.env.PUBLIC_URL + "/assets/Image.png"
+                                  }
                                 />
                               }
                             />
@@ -704,7 +716,13 @@ export default function ProductPage() {
                             p="4"
                             justifyContent="center"
                           >
-                            <Image w="30px" src={process.env.PUBLIC_URL + "/assets/Shield Check.png"} />
+                            <Image
+                              w="30px"
+                              src={
+                                process.env.PUBLIC_URL +
+                                "/assets/Shield Check.png"
+                              }
+                            />
                             <Text
                               fontSize="13px"
                               lineHeight="14.5px"
@@ -734,8 +752,17 @@ export default function ProductPage() {
                             >
                               תשלום מאובטח ומוגן
                             </Text>
-                            <Image h="24px" src={process.env.PUBLIC_URL + "/assets/Norton Icon.png"} />
-                            <Image h="17.19px" src={process.env.PUBLIC_URL + "/assets/logo1.png"} />
+                            <Image
+                              h="24px"
+                              src={
+                                process.env.PUBLIC_URL +
+                                "/assets/Norton Icon.png"
+                              }
+                            />
+                            <Image
+                              h="17.19px"
+                              src={process.env.PUBLIC_URL + "/assets/logo1.png"}
+                            />
                           </Flex>
                         </Box>
 
@@ -754,7 +781,9 @@ export default function ProductPage() {
                             נתקלתם בבעיה עם מוצר זה?
                           </Text>
                           <Flex gap="1" w="max" alignItems="center">
-                            <Image src={process.env.PUBLIC_URL + "/assets/flag.png"} />
+                            <Image
+                              src={process.env.PUBLIC_URL + "/assets/flag.png"}
+                            />
                             <Link
                               fontSize="14px"
                               lineHeight="22px"
@@ -832,7 +861,7 @@ export default function ProductPage() {
                       <ProductBanner />
                       <Box
                         onClick={() => setShowFullText(!showFullText)}
-                        className='text-container'
+                        className="text-container"
                       >
                         <Text
                           id="text-element"
@@ -1115,7 +1144,13 @@ export default function ProductPage() {
                           borderRadius="8px"
                           bg="borderBg"
                         >
-                          <Image w="24px" src={process.env.PUBLIC_URL + "/assets/Shield Check.png"} />
+                          <Image
+                            w="24px"
+                            src={
+                              process.env.PUBLIC_URL +
+                              "/assets/Shield Check.png"
+                            }
+                          />
                           <Text
                             fontSize="12px"
                             lineHeight="14.5px"
@@ -1143,8 +1178,16 @@ export default function ProductPage() {
                           >
                             תשלום מאובטח ומוגן
                           </Text>
-                          <Image h="24px" src={process.env.PUBLIC_URL + "/assets/Norton Icon.png"} />
-                          <Image h="17.19px" src={process.env.PUBLIC_URL + "/assets/logo1.png"} />
+                          <Image
+                            h="24px"
+                            src={
+                              process.env.PUBLIC_URL + "/assets/Norton Icon.png"
+                            }
+                          />
+                          <Image
+                            h="17.19px"
+                            src={process.env.PUBLIC_URL + "/assets/logo1.png"}
+                          />
                         </Flex>
                       </Flex>
                     </Flex>

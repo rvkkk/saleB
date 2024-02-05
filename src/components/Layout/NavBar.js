@@ -61,7 +61,7 @@ import Button from "../Button";
 import { useState, useEffect } from "react";
 import CountrySelect from "../CountrySelect";
 
-export default function NavBar({ withSidebar, logo }) {
+export default function NavBar({ withSidebar, logo, change }) {
   const [query, setQuery] = useState("");
   const [cart, setCart] = useState({});
   const [products, setProducts] = useState([]);
@@ -69,6 +69,7 @@ export default function NavBar({ withSidebar, logo }) {
   const [userLogged, setUserLogged] = useState(false);
   const token = window.localStorage.getItem("token");
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {changeCart, SetChangeCart} = useState("");
 
   const [user, setUser] = useState({
     userName: "Sale Bid",
@@ -79,7 +80,7 @@ export default function NavBar({ withSidebar, logo }) {
     if (!fetchedUser) {
       return getUserProfile()
         .then((res) => {
-          setUser(res.user);
+          //setUser(res.user);
           setFetchedUser(true);
           setUserLogged(true);
         })
@@ -95,6 +96,10 @@ export default function NavBar({ withSidebar, logo }) {
     setUserLogged(false);
     window.location.href = "/";
   };
+  useEffect(() => {
+    console.log(change)
+ getMyCart();
+  }, [change])
 
   /* const socket = new WebSocket("ws://localhost:3001");
   socket.onmessage = (event) => {
@@ -238,13 +243,16 @@ export default function NavBar({ withSidebar, logo }) {
 
   useEffect(() => {
     setQuery(query);
+    getMyCart();
+    if (token !== null) getUser();
+  }, [query, token]);
+
+  const getMyCart = () => {
     if (token !== null) {
-      getUser();
       getUserCart()
         .then((res) => {
           setCart(res.cart);
           setProducts(res.cart.products);
-          console.log(res.cart);
         })
         .catch((err) => console.log(err));
     } else {
@@ -253,7 +261,7 @@ export default function NavBar({ withSidebar, logo }) {
         setProducts(cart.products);
       });
     }
-  }, [query, token]);
+  };
 
   return (
     <>
@@ -1024,7 +1032,7 @@ export default function NavBar({ withSidebar, logo }) {
                       border="2px solid transparent"
                       borderColor="primary"
                     >
-                      <Text fontSize="8px" lineHeight="10px" textColor="white">
+                      <Text fontSize="8px" mt="1px" lineHeight="8px" textColor="white">
                         {cart.products && cart.products.length}
                       </Text>
                     </Flex>

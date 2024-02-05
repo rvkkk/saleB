@@ -22,10 +22,11 @@ export default function Layout({
   hideBreadcrumb,
   logo = false,
   noFooter = false,
+  change = ""
 }) {
   return (
     <Flex flexDir="column" minH="100vh" bg={withSidebar ? "cartBack" : "white"}>
-      <NavBar withSidebar={withSidebar} logo={logo} />
+      <NavBar withSidebar={withSidebar} logo={logo} change={change}/>
       <Box flex="1" id="all" mt={{ base: logo ? "65px" : "131px", lg: "0" }}>
         {withSidebar ? (
           <Flex dir="rtl">
