@@ -69,6 +69,7 @@ export default function Home() {
             <Banner/>
             <Products products={products.slice(0, 20)} />
             <Products
+            
               title="מוצרים מובילים"
               numberOfSlides={5}
               h="300px"

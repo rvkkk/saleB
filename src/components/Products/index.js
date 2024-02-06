@@ -9,7 +9,8 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation } from "swiper";
+import SwiperCore from "swiper";
+import { Navigation } from "swiper"
 import "swiper/swiper-bundle.css";
 import { routes } from "../../routes";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
@@ -113,7 +114,7 @@ export default function Products({
             }}
           />
         </Flex>
-        <Button
+       {/*} <Button
           w="72px"
           h="36px"
           color="primaryLight"
@@ -123,7 +124,7 @@ export default function Products({
           display={{ base: "flex", md: "none" }}
         >
           הצג הכל
-        </Button>
+          </Button>*/}
       </Flex>
       <Spacer h={{ base: "18px", md: "24px" }} />
       <Flex justifyContent="center" alignItems="center">

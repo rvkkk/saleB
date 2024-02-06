@@ -11,7 +11,6 @@ import "swiper/css/thumbs";
 
 export default function ImageGallery({ images = [] }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
   return (
     <Box>
       <Box w={{md: "320px", lg: "400px", xl:"500px"}}>

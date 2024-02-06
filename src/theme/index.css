@@ -210,6 +210,10 @@ input::-webkit-inner-spin-button {
     bottom: -4px;
   }
 }
+.slider-wrapper {
+  margin-top: 30px; /* רווח למעלה */
+  margin-bottom: 30px; /* רווח למטה */
+}
 
 .category_img:hover::before {
   top: 0px;
