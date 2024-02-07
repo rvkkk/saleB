@@ -205,11 +205,11 @@ export default function Footer() {
               </Flex>
             </Flex>
             <Flex dir="ltr" gap={{ md: "3", lg: "6", "2xl": "8" }}>
-              <Image src={process.env.PUBLIC_URL + "/assets/webmoney.svg"} />
-              <Image src={process.env.PUBLIC_URL + "/assets/ApplePay.svg"} />
-              <Image src={process.env.PUBLIC_URL + "/assets/Mastercard.svg"} />
-              <Image src={process.env.PUBLIC_URL + "/assets/visa-logo.svg"} />
-              <Image src={process.env.PUBLIC_URL + "/assets/paypal.svg"} />
+              <Image alt="webmoney icon" src={process.env.PUBLIC_URL + "/assets/webmoney.svg"} />
+              <Image alt="apple pay icon" src={process.env.PUBLIC_URL + "/assets/ApplePay.svg"} />
+              <Image alt="master card icon" src={process.env.PUBLIC_URL + "/assets/Mastercard.svg"} />
+              <Image alt="visa icon" src={process.env.PUBLIC_URL + "/assets/visa-logo.svg"} />
+              <Image alt="paypal icon" src={process.env.PUBLIC_URL + "/assets/paypal.svg"} />
             </Flex>
             <Text
               dir="ltr"
@@ -473,6 +473,7 @@ export default function Footer() {
               justifyContent="center"
             >
               <Image
+              alt="footer links"
                 src={process.env.PUBLIC_URL + "/assets/footerMobile.svg"}
               ></Image>
               <Flex justifyContent="center" alignItems="center">

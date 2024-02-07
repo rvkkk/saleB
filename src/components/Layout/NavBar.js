@@ -308,7 +308,7 @@ export default function NavBar({ withSidebar, logo, change }) {
 
                 <Popover>
                   <PopoverTrigger>
-                    <Flex position="relative">
+                    <Flex position="relative" role="button">
                       <IconButton
                         role="button"
                         aria-label="show my cart"
