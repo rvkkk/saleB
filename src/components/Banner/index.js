@@ -36,22 +36,23 @@ export default function Banner() {
         color="white"
         textAlign="center"
         mx="10%"
-        py="8"
-        px="6"
+        p="8"
         my="10"
         borderRadius="3xl"
         h="440px"
       >
-        <Flex h="full" justifyContent="space-between" flexDir="column">
-          <Flex flexDir="column" alignItems="center">
-            <Heading as="h1" size="xl" mt="2">
-              דקה 90
+        <Flex h="full" alignItems="end" justifyContent="space-between" dir="ltr">
+          <Flex h="full"  flexDir="column" justifyContent="space-between">
+            <Box>
+            <Heading textAlign="start" as="h1" size="2xl" pt="10">
+              בדקה ה90
             </Heading>
             <Text fontSize="36px" my="2">
               המכירות שעומדות להסתיים
             </Text>
-            <Button my="20px" w="180px" href={routes.Category.path.replace(":category", "")}>
-              מעבר לעמוד
+            </Box>
+            <Button fontSize="24px" w="180px" href={routes.Category.path.replace(":category", "")}>
+              המשך
             </Button>
           </Flex>
           <Image

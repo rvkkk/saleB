@@ -1,55 +1,26 @@
 import {
   Box,
-  //Grid,
-  Spacer,
   Image,
   Flex,
   Text,
   Heading,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { routes } from "../../routes";
 import Container from "../Container";
-import { Navigation, Pagination, Autoplay, Grid } from 'swiper/modules';
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
-/*import SwiperCore, { Navigation, Pagination, Scrollbar, A11y, Grid } from 'swiper/modules';
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
-import "swiper/swiper-bundle.css";
-import 'swiper/css';
-import 'swiper/css/grid';
-import 'swiper/css/pagination';*/
+import { Autoplay, Grid } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 import Button from "../Button";
-import { getCategories } from "../../utils/api/categories"
-import 'swiper/css/grid';
+import "swiper/css/grid";
 
 export default function Category(props) {
-  const [categories, setCategories] = useState([]);
-  const c = [
-    { title: "food", name: "אוכל" },
-    { title: "food", name: "אספנות" },
-    { title: "food", name: "תכשיטים" },
-    { title: "food", name: "ציורי שמן" },
-    { title: "food", name: "משחקים" },
-    { title: "food", name: "ספורט" },
-    { title: "food", name: "ספרים" },
-    { title: "food", name: "בגדים" },
-    { title: "food", name: "נעליים" },
-    { title: "food", name: "תשמישי קדושה" },
-    { title: "food", name: "עתיקות" },
-    { title: "food", name: "ריהוט" },
-    { title: "food", name: "שעונים" },
-    { title: "food", name: "שבת" },
-  ];
-  const swiper = useSwiper();
- 
-  useEffect(() => {
-    console.log(swiper);
-    getCategories().then((res)=> setCategories(res.categories))
-  }, [])
-
   return (
     <Container>
-      <Heading my={{base: "30px", md: "40px"}} textAlign="center" color="primaryLight">
+      <Heading
+        my={{ base: "30px", md: "40px" }}
+        textAlign="center"
+        color="primaryLight"
+      >
         הקטגוריות המובילות
       </Heading>
       <Box
@@ -62,29 +33,23 @@ export default function Category(props) {
           "2xl": "1300px",
         }}
         mx="auto"
-        //h="500px"
       >
         <Swiper
-        //height={"220px"}
-        //className="categoriesS"
-        dir="rtl"
+          dir="rtl"
           spaceBetween={16} // רווח בין פריטי הסליידר
-          slidesPerView={3} 
- //slidesPerColumn={2} 
-  //slidesPerGroup={2}
-        //  slidesPerColumnFill="row" 
-         grid={{
-          rows: 3,
-          fill: "row"
-        }}
-        loop={false}
-        pagination={{
-          clickable: true,
-        }}
-        modules={[Grid, Autoplay]}
-          //slidesPerColumnFill="row"
-          //grabCursor={true}
-          //modules={[Grid, Pagination]}
+          slidesPerView={3}
+          //slidesPerColumn={2}
+          //slidesPerGroup={2}
+          //  slidesPerColumnFill="row"
+          grid={{
+            rows: 3,
+            fill: "row",
+          }}
+          loop={false}
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Grid, Autoplay]}
           breakpoints={{
             // התאמת התצוגה למסכים שונים
             1280: {
@@ -92,16 +57,16 @@ export default function Category(props) {
               spaceBetween: 20,
               grid: {
                 rows: 2,
-                fill: "row"
-              }
+                fill: "row",
+              },
             },
             768: {
               slidesPerView: 4,
               spaceBetween: 16,
               grid: {
                 rows: 2,
-                fill: "row"
-              }
+                fill: "row",
+              },
             },
           }}
           keyboard={{
@@ -109,26 +74,26 @@ export default function Category(props) {
           }}
           mousewheel={true}
           //navigation // הפעלת כפתורי הניווט
-          autoplay={{ delay: 2500,  disableOnInteraction: false }}
+          autoplay={{ delay: 2500, disableOnInteraction: false }}
         >
-          {categories[0] && categories.map((category, index) => (
-            <SwiperSlide dir="ltr" key={index}>
-              <CategoryItem
-                index={index}
-                onClick={() => {
-                  window.location.href = `${routes.Category.path.replace(
-                    ":category",
-                    ""
-                  )}${category.title}`;
-                }}
-                name={category.name}
-                imgUrl={category.image}
-              />
-            </SwiperSlide>
-          ))}
+          {props.categories[0] &&
+            props.categories.map((category, index) => (
+              <SwiperSlide dir="ltr" key={index}>
+                <CategoryItem
+                  index={index}
+                  onClick={() => {
+                    window.location.href = `${routes.Category.path.replace(
+                      ":category",
+                      ""
+                    )}${category.title}`;
+                  }}
+                  name={category.name}
+                  imgUrl={category.image}
+                />
+              </SwiperSlide>
+            ))}
         </Swiper>
       </Box>
-     {/* <Button onClick={() => swiper.slideNext()}></Button>*/}
     </Container>
   );
 }
@@ -141,7 +106,6 @@ export const CategoryItem = ({
 }) => {
   return (
     <Flex
-      display={{ base: index < 9 ? "flex" : "none", md: "flex" }}
       mx="auto"
       w={{
         base: "98px",
@@ -150,7 +114,13 @@ export const CategoryItem = ({
         lg: "180px",
         "2xl": "200px",
       }}
-      h={{base: "140px", sm: "150px", md: "202px", lg: "235.5px", "2xl": "255.5px"}}
+      h={{
+        base: "140px",
+        sm: "150px",
+        md: "202px",
+        lg: "235.5px",
+        "2xl": "255.5px",
+      }}
       cursor={"pointer"}
       onClick={() => onClick()}
       flexDir="column"
@@ -178,7 +148,9 @@ export const CategoryItem = ({
       >
         <Image className="img" src={imgUrl}></Image>
       </Box>
-      <Text fontSize={{base: "16px", lg: "18.5px"}} textAlign="center">{name}</Text>
+      <Text fontSize={{ base: "16px", lg: "18.5px" }} textAlign="center">
+        {name}
+      </Text>
     </Flex>
   );
 };
@@ -251,4 +223,3 @@ export const CategoryItem = ({
           })}
       </Grid>
         </Container>*/
-      

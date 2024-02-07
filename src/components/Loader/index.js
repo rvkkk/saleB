@@ -11,7 +11,7 @@ export default function Loader(props) {
           justifyContent: "center",
           alignItems: "center",
           flexDirection: "column",
-          height: "100%",
+          height: window.innerHeight - 70,
         }}
       >
         <CircularProgress isIndeterminate color="primary" />
