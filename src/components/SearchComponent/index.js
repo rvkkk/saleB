@@ -25,6 +25,7 @@ export default function SearchComponent(props) {
       <Menu>
         <MenuButton>
           <Flex
+            role="menu"
             borderRadius="0px"
             borderRightRadius="12px"
             w="50px"
@@ -39,7 +40,7 @@ export default function SearchComponent(props) {
             _focus={{ bg: "primaryDark" }}
             gap="1"
           >
-            <ChevronDownIcon/>
+            <ChevronDownIcon />
           </Flex>
         </MenuButton>
         <MenuList
@@ -50,7 +51,10 @@ export default function SearchComponent(props) {
           borderRadius="12px"
           shadow="0px 1px 54px rgba(35, 38, 59, 0.2)"
         >
-          <MenuItemComponent path={routes.LOGIN.path} name="מוצרי מכירה פומבית" />
+          <MenuItemComponent
+            path={routes.LOGIN.path}
+            name="מוצרי מכירה פומבית"
+          />
           <MenuItemComponent path={routes.LOGIN.path} name="מוצרים רגילים" />
         </MenuList>
       </Menu>
@@ -65,11 +69,13 @@ export default function SearchComponent(props) {
         onChange={(e) => setQuery(e.target.value)}
       />
       <IconButton
+        aria-label="search"
+        role="button"
         h="50px"
         minW="50px"
         borderRadius="12px"
         bgGradient="linear(to-r, #FF66A9, #F53689)"
-        _hover={{bgGradient: "linear(to-r, #F53689, #F53689)"}}
+        _hover={{ bgGradient: "linear(to-r, #F53689, #F53689)" }}
         borderRightRadius="0"
         icon={<SearchIcon />}
         onClick={() => (window.location.href = "/category?query=" + query)}
@@ -82,7 +88,7 @@ const MenuItemComponent = ({ path, name }) => {
   const [active, setActive] = useState(false);
 
   return (
-    <Link to={path} style={{ textDecoration: "none" }}>
+    <Link to={path} aria-label="link to products" role="link" style={{ textDecoration: "none" }}>
       <MenuItem
         borderRadius="8px"
         bg={active ? "othersLight" : "white"}

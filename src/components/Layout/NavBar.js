@@ -69,7 +69,7 @@ export default function NavBar({ withSidebar, logo, change }) {
   const [userLogged, setUserLogged] = useState(false);
   const token = window.localStorage.getItem("token");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const {changeCart, SetChangeCart} = useState("");
+  const { changeCart, SetChangeCart } = useState("");
 
   const [user, setUser] = useState({
     userName: "Sale Bid",
@@ -97,9 +97,9 @@ export default function NavBar({ withSidebar, logo, change }) {
     window.location.href = "/";
   };
   useEffect(() => {
-    console.log(change)
- getMyCart();
-  }, [change])
+    console.log(change);
+    getMyCart();
+  }, [change]);
 
   /* const socket = new WebSocket("ws://localhost:3001");
   socket.onmessage = (event) => {
@@ -278,7 +278,7 @@ export default function NavBar({ withSidebar, logo, change }) {
               w="20%"
               justifyContent="flex-end"
             >
-              <Link aria-label="link to website" to="/">
+              <Link aria-label="link to website" role="link" to="/">
                 <SaleBID />
               </Link>
             </Flex>
@@ -293,8 +293,13 @@ export default function NavBar({ withSidebar, logo, change }) {
             </Box>
             <Flex w="20%" gap={{ lg: "10px", xl: "30px", "2xl": "50px" }}>
               <Flex gap="2">
-                <Link aria-label="link to my wish list" to={routes.UserSettingsWhiteList.path}>
+                <Link
+                  aria-label="link to my wish list"
+                  role="link"
+                  to={routes.UserSettingsWhiteList.path}
+                >
                   <IconButton
+                    role="button"
                     bgColor="#1D5FE8"
                     _hover={{ bg: "rgba(255,255,255,0.3)" }}
                     icon={<HeartIcon2 />}
@@ -303,8 +308,9 @@ export default function NavBar({ withSidebar, logo, change }) {
 
                 <Popover>
                   <PopoverTrigger>
-                    <Flex position="relative" aria-label="show my cart">
+                    <Flex position="relative" role="list">
                       <IconButton
+                        role="button"
                         bgColor="#1D5FE8" //rgba(255,255,255,0.2)
                         _hover={{ bg: "rgba(255,255,255,0.3)" }}
                         icon={<CartIcon3 />}
@@ -373,6 +379,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                           color="primaryLight"
                           fontSize="13px"
                           aria-label="link to show my cart"
+                          role="button"
                         >
                           לצפייה בסל
                         </ChakraButton>
@@ -470,10 +477,11 @@ export default function NavBar({ withSidebar, logo, change }) {
                       </Flex>
                       <Box mt="38px">
                         <Button.Secondary
-                        aria-label="link to show my cart"
+                          aria-label="link to show my cart"
                           borderColor="primary"
                           color="primary"
                           fontSize="20px"
+                          role="button"
                           onClick={() =>
                             (window.location.href =
                               routes.ShoppingCart.path.replace(":id", "") +
@@ -485,7 +493,8 @@ export default function NavBar({ withSidebar, logo, change }) {
                         <Spacer h="4" />
                         <Button>
                           <Flex
-                          aria-label="link to pay my cart"
+                            aria-label="link to pay my cart"
+                            role="button"
                             alignItems="center"
                             gap="4"
                             onClick={() =>
@@ -502,9 +511,10 @@ export default function NavBar({ withSidebar, logo, change }) {
                   </PopoverContent>
                 </Popover>
                 <Menu placement="bottom">
-                  <MenuButton>
+                  <MenuButton role="menu">
                     <IconButton
-                    aria-label="open user links"
+                      aria-label="open user links"
+                      role="button"
                       icon={<UserIcon />}
                       bgColor="#1D5FE8" //rgba(255,255,255,0.2)
                       _hover={{ bg: "rgba(255,255,255,0.3)" }}
@@ -635,6 +645,7 @@ export default function NavBar({ withSidebar, logo, change }) {
 
               <Menu direction="rtl">
                 <MenuButton
+                  role="menu"
                   as={ChakraButton}
                   bg="transparent"
                   _hover={{ bg: "transparent", color: "secondaryLight" }}
@@ -643,7 +654,11 @@ export default function NavBar({ withSidebar, logo, change }) {
                   textColor="white"
                   dir="rtl"
                 >
-                  <Flex gap="2" alignItems="center" aria-label="open website format">
+                  <Flex
+                    gap="2"
+                    alignItems="center"
+                    aria-label="open website format"
+                  >
                     <Image
                       src={process.env.PUBLIC_URL + "/assets/israel.svg"}
                     />
@@ -695,6 +710,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                   (window.location.href = routes.CreateProduct.path)
                 }
                 aria-label="link to create new sale"
+                role="button"
               >
                 מכירה חדשה
               </ChakraButton>
@@ -708,6 +724,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                 bg="transparent"
                 onClick={() => (window.location.href = routes.ContactUs.path)}
                 aria-label="link to contact us"
+                role="button"
               >
                 יצירת קשר
               </ChakraButton>
@@ -721,6 +738,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                 bg="transparent"
                 onClick={() => (window.location.href = routes.FAQ.path)}
                 aria-label="link to learn how to sale"
+                role="button"
               >
                 איך מוכרים
               </ChakraButton>
@@ -734,6 +752,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                 bg="transparent"
                 onClick={() => (window.location.href = routes.HOME.path)}
                 aria-label="link to sales"
+                role="button"
               >
                 מבצעים
               </ChakraButton>
@@ -747,6 +766,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                 bg="transparent"
                 onClick={() => (window.location.href = routes.HOME.path)}
                 aria-label="link to start bying"
+                role="button"
               >
                 קנייה
               </ChakraButton>
@@ -763,6 +783,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                   (window.location.href =
                     routes.Category.path.replace(":category", "") + "food")
                 }
+                role="button"
               >
                 מכירות פומביות
               </ChakraButton>
@@ -776,6 +797,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                   fontWeight="normal"
                   bg="transparent"
                   aria-label="show all categories"
+                  role="menu"
                 >
                   הכל
                 </MenuButton>
@@ -844,6 +866,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                   h="52px"
                   fontSize="18px"
                   lineHeight="20px"
+                  role="button"
                   onClick={() => {
                     return onClose();
                   }}
@@ -857,6 +880,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                   lineHeight="20px"
                   borderColor="primary"
                   border="2px solid"
+                  role="button"
                   onClick={onClose}
                 >
                   ביטול
@@ -876,7 +900,7 @@ export default function NavBar({ withSidebar, logo, change }) {
         bg="primary"
         h="65px"
       >
-        <Link to="/" aria-label="link to website">
+        <Link to="/" role="link" aria-label="link to website">
           <SmallLOGOIcon />
         </Link>
       </Flex>
@@ -892,12 +916,12 @@ export default function NavBar({ withSidebar, logo, change }) {
         h="131px"
       >
         <Flex justifyContent="space-between">
-          <Link to="/" aria-label="link to website">
+          <Link to="/" role="link" aria-label="link to website">
             <SmallLOGOIcon />
           </Link>
           <Flex gap="15px">
             <Menu placement="bottom">
-              <MenuButton aria-label="open user links">
+              <MenuButton role="menu" aria-label="open user links">
                 {user.profileImage !== "" ? (
                   <Avatar
                     w="22px"
@@ -907,7 +931,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                     borderRadius="8px"
                   />
                 ) : (
-                  <UserMobileIcon/>
+                  <UserMobileIcon />
                 )}
               </MenuButton>
               {token !== null ? (
@@ -1005,6 +1029,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                         h="40px"
                         fontSize="18px"
                         href={routes.LOGIN.path}
+                        role="button"
                       >
                         התחבר
                       </Button>
@@ -1014,6 +1039,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                         fontSize="18px"
                         borderColor="primary"
                         href={routes.SIGNUP.path}
+                        role="button"
                       >
                         הירשם
                       </Button.Secondary>
@@ -1024,7 +1050,7 @@ export default function NavBar({ withSidebar, logo, change }) {
             </Menu>
             <Popover>
               <PopoverTrigger>
-                <Flex justifyContent="center" alignItems="center" aria-label="show my cart">
+                <Flex justifyContent="center" alignItems="center" role="list">
                   <CartIcon2 />
                   {cart.products && cart.products.length > 0 && (
                     <Flex
@@ -1043,7 +1069,12 @@ export default function NavBar({ withSidebar, logo, change }) {
                       border="2px solid transparent"
                       borderColor="primary"
                     >
-                      <Text fontSize="8px" mt="1px" lineHeight="8px" textColor="white">
+                      <Text
+                        fontSize="8px"
+                        mt="1px"
+                        lineHeight="8px"
+                        textColor="white"
+                      >
                         {cart.products && cart.products.length}
                       </Text>
                     </Flex>
@@ -1091,6 +1122,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                       color="primaryLight"
                       fontSize="13px"
                       aria-label="link to show my cart"
+                      role="button"
                     >
                       לצפייה בסל
                     </ChakraButton>
@@ -1192,6 +1224,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                       color="primary"
                       fontSize="20px"
                       aria-label="link to show my cart"
+                      role="button"
                       onClick={() =>
                         (window.location.href =
                           routes.ShoppingCart.path.replace(":id", "") + cart.id)
@@ -1205,6 +1238,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                         alignItems="center"
                         gap="4"
                         aria-label="link to pay my cart"
+                        role="button"
                         onClick={() =>
                           (window.location.href =
                             routes.ShoppingCart.path.replace(":id", "") +
@@ -1221,7 +1255,7 @@ export default function NavBar({ withSidebar, logo, change }) {
 
             <Popover>
               <PopoverTrigger>
-                <Flex justifyContent="center" alignItems="center"  aria-label="show links">
+                <Flex justifyContent="center" alignItems="center" role="list">
                   <MobileList />
                 </Flex>
               </PopoverTrigger>
@@ -1260,6 +1294,8 @@ export default function NavBar({ withSidebar, logo, change }) {
                       _hover={{ opacity: "0.9" }}
                       textColor="white"
                       shadow="inherit"
+                      aria-label="link to create new sale"
+                      role="button"
                       onClick={() =>
                         (window.location.href = routes.CreateProduct.path)
                       }
@@ -1275,6 +1311,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                         borderRadius="8px"
                         _hover={{ bg: "primaryLight", textColor: "white" }}
                         bg="naturalLightest"
+                        role="button"
                         onClick={() =>
                           (window.location.href =
                             routes.Category.path.replace(":category", "") +
@@ -1291,6 +1328,8 @@ export default function NavBar({ withSidebar, logo, change }) {
                         borderRadius="8px"
                         _hover={{ bg: "primaryLight", textColor: "white" }}
                         bg="naturalLightest"
+                        aria-label="link to sale bids"
+                        role="button"
                         onClick={
                           () =>
                             (window.location.href =
@@ -1308,6 +1347,8 @@ export default function NavBar({ withSidebar, logo, change }) {
                         borderRadius="8px"
                         _hover={{ bg: "primaryLight", textColor: "white" }}
                         bg="naturalLightest"
+                        aria-label="link to start buying"
+                        role="button"
                         onClick={() =>
                           (window.location.href = routes.HOME.path)
                         }
@@ -1322,6 +1363,8 @@ export default function NavBar({ withSidebar, logo, change }) {
                         borderRadius="8px"
                         _hover={{ bg: "primaryLight", textColor: "white" }}
                         bg="naturalLightest"
+                        aria-label="link to sales"
+                        role="button"
                         onClick={() =>
                           (window.location.href = routes.HOME.path)
                         }
@@ -1336,6 +1379,8 @@ export default function NavBar({ withSidebar, logo, change }) {
                         borderRadius="8px"
                         _hover={{ bg: "primaryLight", textColor: "white" }}
                         bg="naturalLightest"
+                        aria-label="link to learn how to sale"
+                        role="button"
                         onClick={() => (window.location.href = routes.FAQ.path)}
                       >
                         איך מוכרים?
@@ -1348,6 +1393,8 @@ export default function NavBar({ withSidebar, logo, change }) {
                         borderRadius="8px"
                         _hover={{ bg: "primaryLight", textColor: "white" }}
                         bg="naturalLightest"
+                        aria-label="link to contact us"
+                        role="button"
                         onClick={() =>
                           (window.location.href = routes.ContactUs.path)
                         }
@@ -1363,6 +1410,8 @@ export default function NavBar({ withSidebar, logo, change }) {
         </Flex>
         <Flex gap="8px" px={{ sm: "70px" }}>
           <IconButton
+            aria-label="search"
+            role="button"
             minW="50px"
             h="50px"
             bgGradient="linear(to-r, #FF66A9, #F53689)"
@@ -1405,6 +1454,7 @@ const MenuItemComponent = ({ path, name, icon, ...rest }) => {
         onMouseLeave={() => setActive(false)}
         color="naturalDark"
         h="44px"
+        role="button"
       >
         <Flex alignItems="center" gap="16px">
           <Icon fill={active ? "#0738D2" : "#91929D"} />
@@ -1431,6 +1481,7 @@ const MenuItemCategory = () => {
       color="naturalBlack"
       h="344px"
       w="max"
+      role="button"
     >
       <Box pt="8px">
         <Flex alignItems="center" gap="16px">
