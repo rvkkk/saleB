@@ -141,6 +141,7 @@ export default function Footer() {
             <Image
               w="100px"
               h="100px"
+              alt="logo"
               src={process.env.PUBLIC_URL + "/assets/logocube.svg"}
             />
           </Box>
@@ -162,6 +163,7 @@ export default function Footer() {
               </Text>
               <Flex className="contactLinks">
                 <IconButton
+                  aria-label="link to our whatsapp"
                   minW="16px"
                   bg="transparent"
                   cursor="pointer"
@@ -171,6 +173,7 @@ export default function Footer() {
                   icon={<FaWhatsapp color="white" />}
                 />
                 <IconButton
+                  aria-label="link to our instagram"
                   minW="16px"
                   bg="transparent"
                   cursor="pointer"
@@ -180,6 +183,7 @@ export default function Footer() {
                   icon={<FaInstagram color="white" />}
                 />
                 <IconButton
+                  aria-label="link to our facebook"
                   minW="16px"
                   bg="transparent"
                   cursor="pointer"
@@ -189,6 +193,7 @@ export default function Footer() {
                   icon={<FaFacebookF color="white" />}
                 />
                 <IconButton
+                  aria-label="link to our telegram"
                   minW="16px"
                   bg="transparent"
                   cursor="pointer"
@@ -226,6 +231,7 @@ export default function Footer() {
               <Menu direction="rtl">
                 <MenuButton
                   as={Button}
+                  aria-label="website country"
                   borderRadius="28px"
                   border="1px solid"
                   borderColor="naturalLight"
@@ -325,6 +331,7 @@ export default function Footer() {
               <Menu direction="rtl">
                 <MenuButton
                   as={Button}
+                  aria-label="website language"
                   borderRadius="28px"
                   border="1px solid"
                   borderColor="naturalLight"
@@ -396,6 +403,7 @@ export default function Footer() {
               <Menu direction="rtl">
                 <MenuButton
                   as={Button}
+                  aria-label="website coin"
                   borderRadius="28px"
                   border="1px solid"
                   borderColor="naturalLight"
@@ -471,6 +479,7 @@ export default function Footer() {
                 <Image
                   w="65px"
                   h="65px"
+                  alt="logo"
                   src={process.env.PUBLIC_URL + "/assets/logocube.svg"}
                 />
               </Flex>

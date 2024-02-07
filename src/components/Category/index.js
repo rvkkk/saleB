@@ -80,7 +80,6 @@ export default function Category(props) {
             props.categories.map((category, index) => (
               <SwiperSlide dir="ltr" key={index}>
                 <CategoryItem
-                  index={index}
                   onClick={() => {
                     window.location.href = `${routes.Category.path.replace(
                       ":category",
@@ -99,10 +98,9 @@ export default function Category(props) {
 }
 
 export const CategoryItem = ({
-  name = "ארכיאולוגיה",
+  name = "",
   imgUrl = {},
-  onClick,
-  index,
+  onClick
 }) => {
   return (
     <Flex
@@ -127,7 +125,6 @@ export const CategoryItem = ({
       justifyContent="center"
       alignItems="center"
       gap={{ base: "18px", md: "28px" }}
-      //my="20px"
     >
       <Box
         className="category_img"
@@ -146,7 +143,7 @@ export const CategoryItem = ({
           "2xl": "170px",
         }}
       >
-        <Image className="img" src={imgUrl}></Image>
+        <Image className="img" alt={name} src={imgUrl}></Image>
       </Box>
       <Text fontSize={{ base: "16px", lg: "18.5px" }} textAlign="center">
         {name}

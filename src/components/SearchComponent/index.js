@@ -26,6 +26,7 @@ export default function SearchComponent(props) {
         <MenuButton>
           <Flex
             role="menu"
+            aria-label="see links to products"
             borderRadius="0px"
             borderRightRadius="12px"
             w="50px"

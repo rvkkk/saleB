@@ -72,6 +72,8 @@ export default function Products({
         </Text>
         <Flex gap="2" dir="ltr" display={{ base: "none", md: "flex" }}>
           <IconButton
+          role="button"
+          aria-label="slide next"
             size="sm"
             borderRadius="full"
             bg="transparent"
@@ -93,6 +95,8 @@ export default function Products({
             }}
           />
           <IconButton
+          role="button"
+          aria-label="slide prev"
             size="sm"
             borderRadius="full"
             bg="transparent"

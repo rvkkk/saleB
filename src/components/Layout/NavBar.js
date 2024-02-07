@@ -294,12 +294,12 @@ export default function NavBar({ withSidebar, logo, change }) {
             <Flex w="20%" gap={{ lg: "10px", xl: "30px", "2xl": "50px" }}>
               <Flex gap="2">
                 <Link
-                  aria-label="link to my wish list"
                   role="link"
                   to={routes.UserSettingsWhiteList.path}
                 >
                   <IconButton
                     role="button"
+                    aria-label="link to my wish list"
                     bgColor="#1D5FE8"
                     _hover={{ bg: "rgba(255,255,255,0.3)" }}
                     icon={<HeartIcon2 />}
@@ -311,6 +311,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                     <Flex position="relative" role="list">
                       <IconButton
                         role="button"
+                        aria-label="show my cart"
                         bgColor="#1D5FE8" //rgba(255,255,255,0.2)
                         _hover={{ bg: "rgba(255,255,255,0.3)" }}
                         icon={<CartIcon3 />}
@@ -511,7 +512,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                   </PopoverContent>
                 </Popover>
                 <Menu placement="bottom">
-                  <MenuButton role="menu">
+                  <MenuButton>
                     <IconButton
                       aria-label="open user links"
                       role="button"
@@ -646,6 +647,7 @@ export default function NavBar({ withSidebar, logo, change }) {
               <Menu direction="rtl">
                 <MenuButton
                   role="menu"
+                  aria-label="show website details"
                   as={ChakraButton}
                   bg="transparent"
                   _hover={{ bg: "transparent", color: "secondaryLight" }}
@@ -659,7 +661,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                     alignItems="center"
                     aria-label="open website format"
                   >
-                    <Image
+                    <Image alt="israel flag"
                       src={process.env.PUBLIC_URL + "/assets/israel.svg"}
                     />
                     <Flex
@@ -797,7 +799,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                   fontWeight="normal"
                   bg="transparent"
                   aria-label="show all categories"
-                  role="menu"
+                  role="button"
                 >
                   הכל
                 </MenuButton>
@@ -920,8 +922,8 @@ export default function NavBar({ withSidebar, logo, change }) {
             <SmallLOGOIcon />
           </Link>
           <Flex gap="15px">
-            <Menu placement="bottom">
-              <MenuButton role="menu" aria-label="open user links">
+            <Menu placement="bottom" role="menu">
+              <MenuButton aria-label="open user links">
                 {user.profileImage !== "" ? (
                   <Avatar
                     w="22px"
