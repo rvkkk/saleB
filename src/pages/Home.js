@@ -13,11 +13,10 @@ import { getProducts } from "../utils/api/products";
 import { addToMailingList } from "../utils/api/mailingList";
 import Loader from "../components/Loader";
 import Banner from "../components/Banner";
-import { getCategories } from "../utils/api/categories";
+
 export default function Home() {
   const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [fetchedData, setFetchedData] = useState(false);
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
@@ -35,11 +34,10 @@ export default function Home() {
   };
 
   useEffect(() => {
-    setLoading(true);
+    //setLoading(true);
     if (!fetchedData) {
       getProducts()
         .then((res) => {
-          getCategories().then((res)=> setCategories(res.categories))
           setProducts(res.products.products);
           console.log(res);
           setLoading(false);
@@ -65,11 +63,10 @@ export default function Home() {
             justifyContent="space-between"
             flexDir="column"
           >
-            <Category categories={categories} number={{ base: 9, lg: 12 }} />
+            <Category number={{ base: 9, lg: 12 }} />
             <Banner/>
             <Products products={products.slice(0, 20)} />
             <Products
-            
               title="מוצרים מובילים"
               numberOfSlides={5}
               h="300px"

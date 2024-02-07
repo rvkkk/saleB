@@ -17,14 +17,14 @@ export default function Banner() {
     setIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prevIndex) =>
         prevIndex === images.length - 1 ? 0 : prevIndex + 1
       );
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, []);*/
   return (
     <Container>
       <Box

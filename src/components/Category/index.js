@@ -7,11 +7,11 @@ import {
   Text,
   Heading,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { routes } from "../../routes";
 import Container from "../Container";
-import { Navigation, Pagination, Grid } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay, Grid } from 'swiper/modules';
+import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 /*import SwiperCore, { Navigation, Pagination, Scrollbar, A11y, Grid } from 'swiper/modules';
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import "swiper/swiper-bundle.css";
@@ -19,8 +19,11 @@ import 'swiper/css';
 import 'swiper/css/grid';
 import 'swiper/css/pagination';*/
 import Button from "../Button";
+import { getCategories } from "../../utils/api/categories"
+import 'swiper/css/grid';
 
 export default function Category(props) {
+  const [categories, setCategories] = useState([]);
   const c = [
     { title: "food", name: "אוכל" },
     { title: "food", name: "אספנות" },
@@ -37,45 +40,150 @@ export default function Category(props) {
     { title: "food", name: "שעונים" },
     { title: "food", name: "שבת" },
   ];
-  //const swiper = useSwiper();
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 6,
-    slidesToScroll: 2,
-    rows: 2,
-    swipeToSlide: true,
-    responsive: [
-      {
-        breakpoint: 850,
-        settings: {
-          slidesToShow: 4,
-          rows: 3,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-          rows: 3,
-          initialSlide: 2,
-        },
-      },
-    ],
-  };
-  //SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Grid]);
+  const swiper = useSwiper();
+ 
+  useEffect(() => {
+    console.log(swiper);
+    getCategories().then((res)=> setCategories(res.categories))
+  }, [])
 
   return (
     <Container>
-      <Heading mt="30px" textAlign="center" color="primaryLight">
+      <Heading my={{base: "30px", md: "40px"}} textAlign="center" color="primaryLight">
         הקטגוריות המובילות
       </Heading>
-      {/*<Carousel
+      <Box
+        w={{
+          base: "326px",
+          sm: "392px",
+          md: "648px",
+          lg: "860px",
+          xl: "1200px",
+          "2xl": "1300px",
+        }}
+        mx="auto"
+        //h="500px"
+      >
+        <Swiper
+        //height={"220px"}
+        //className="categoriesS"
+        dir="rtl"
+          spaceBetween={16} // רווח בין פריטי הסליידר
+          slidesPerView={3} 
+ //slidesPerColumn={2} 
+  //slidesPerGroup={2}
+        //  slidesPerColumnFill="row" 
+         grid={{
+          rows: 3,
+          fill: "row"
+        }}
+        loop={false}
+        pagination={{
+          clickable: true,
+        }}
+        modules={[Grid, Autoplay]}
+          //slidesPerColumnFill="row"
+          //grabCursor={true}
+          //modules={[Grid, Pagination]}
+          breakpoints={{
+            // התאמת התצוגה למסכים שונים
+            1280: {
+              slidesPerView: 6,
+              spaceBetween: 20,
+              grid: {
+                rows: 2,
+                fill: "row"
+              }
+            },
+            768: {
+              slidesPerView: 4,
+              spaceBetween: 16,
+              grid: {
+                rows: 2,
+                fill: "row"
+              }
+            },
+          }}
+          keyboard={{
+            enabled: true,
+          }}
+          mousewheel={true}
+          //navigation // הפעלת כפתורי הניווט
+          autoplay={{ delay: 2500,  disableOnInteraction: false }}
+        >
+          {categories[0] && categories.map((category, index) => (
+            <SwiperSlide dir="ltr" key={index}>
+              <CategoryItem
+                index={index}
+                onClick={() => {
+                  window.location.href = `${routes.Category.path.replace(
+                    ":category",
+                    ""
+                  )}${category.title}`;
+                }}
+                name={category.name}
+                imgUrl={category.image}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </Box>
+     {/* <Button onClick={() => swiper.slideNext()}></Button>*/}
+    </Container>
+  );
+}
+
+export const CategoryItem = ({
+  name = "ארכיאולוגיה",
+  imgUrl = {},
+  onClick,
+  index,
+}) => {
+  return (
+    <Flex
+      display={{ base: index < 9 ? "flex" : "none", md: "flex" }}
+      mx="auto"
+      w={{
+        base: "98px",
+        sm: "120px",
+        md: "150px",
+        lg: "180px",
+        "2xl": "200px",
+      }}
+      h={{base: "140px", sm: "150px", md: "202px", lg: "235.5px", "2xl": "255.5px"}}
+      cursor={"pointer"}
+      onClick={() => onClick()}
+      flexDir="column"
+      justifyContent="center"
+      alignItems="center"
+      gap={{ base: "18px", md: "28px" }}
+      //my="20px"
+    >
+      <Box
+        className="category_img"
+        w={{
+          base: "90px",
+          sm: "100px",
+          md: "130px",
+          lg: "150px",
+          "2xl": "170px",
+        }}
+        h={{
+          base: "90px",
+          sm: "100px",
+          md: "130px",
+          lg: "150px",
+          "2xl": "170px",
+        }}
+      >
+        <Image className="img" src={imgUrl}></Image>
+      </Box>
+      <Text fontSize={{base: "16px", lg: "18.5px"}} textAlign="center">{name}</Text>
+    </Flex>
+  );
+};
+
+/*<Carousel
         showThumbs={false}
         showStatus={false}
         showIndicators={false}
@@ -142,122 +250,5 @@ export default function Category(props) {
             );
           })}
       </Grid>
-        </Container>*/}
-      */
-      <Box
-        w={{
-          base: "326px",
-          sm: "392px",
-          md: "648px",
-          lg: "860px",
-          xl: "1200px",
-          "2xl": "1300px",
-        }}
-        mx="auto"
-      >
-        <Swiper
-        //height={"220px"}
-        dir="rtl"
-          spaceBetween={16} // רווח בין פריטי הסליידר
-          slidesPerView={3} 
- // slidesPerColumn={2} 
-  //slidesPerGroup={2}
-        //  slidesPerColumnFill="row" 
-         /* grid={{
-          rows: 2,
-           fill: "row",
-        }}*/
-        loop={false}
-          //slidesPerColumnFill="row"
-          //grabCursor={true}
-          //modules={[Grid, Pagination]}
-          breakpoints={{
-            // התאמת התצוגה למסכים שונים
-            1280: {
-              slidesPerView: 6,
-              spaceBetween: 20,
-            },
-            768: {
-              slidesPerView: 4,
-              spaceBetween: 16,
-            },
-          }}
-          keyboard={{
-            enabled: true,
-          }}
-          mousewheel={true}
-          navigation // הפעלת כפתורי הניווט
-          //pagination={{ clickable: true }} // הפעלת מפרידי העמודות
-          autoplay={{ delay: 2500,  disableOnInteraction: false }}
-        >
-          {props.categories[0] && props.categories.map((category, index) => (
-            <SwiperSlide key={index}>
-              <CategoryItem
-                index={index}
-                onClick={() => {
-                  window.location.href = `${routes.Category.path.replace(
-                    ":category",
-                    ""
-                  )}${category.title}`;
-                }}
-                name={category.name}
-                imgUrl={category.image}
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </Box>
-      {/*<Button onClick={() => swiper.slideNext()}></Button>*/}
-    </Container>
-  );
-}
-
-export const CategoryItem = ({
-  name = "ארכיאולוגיה",
-  imgUrl = {},
-  onClick,
-  index,
-}) => {
-  console.log(imgUrl);
-  return (
-    <Flex
-      display={{ base: index < 9 ? "flex" : "none", md: "flex" }}
-      mx="auto"
-      w={{
-        base: "98px",
-        sm: "120px",
-        md: "150px",
-        lg: "180px",
-        "2xl": "200px",
-      }}
-      cursor={"pointer"}
-      onClick={() => onClick()}
-      flexDir="column"
-      justifyContent="center"
-      alignItems="center"
-      gap={{ base: "18px", md: "28px" }}
-      my="20px"
-    >
-      <Box
-        className="category_img"
-        w={{
-          base: "90px",
-          sm: "100px",
-          md: "130px",
-          lg: "150px",
-          "2xl": "170px",
-        }}
-        h={{
-          base: "90px",
-          sm: "100px",
-          md: "130px",
-          lg: "150px",
-          "2xl": "170px",
-        }}
-      >
-        <Image className="img" src={imgUrl}></Image>
-      </Box>
-      <Text textAlign="center">{name}</Text>
-    </Flex>
-  );
-};
+        </Container>*/
+      

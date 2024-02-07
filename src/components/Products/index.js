@@ -10,8 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
-import { Navigation } from "swiper"
-import "swiper/swiper-bundle.css";
+import { Navigation } from "swiper/modules"
 import { routes } from "../../routes";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import Badge from "../Badge";

@@ -8,10 +8,11 @@ import Input from "../components/Input";
 import { useState } from "react";
 import { addCategory } from "../utils/api/categories";
 import Button from "../components/Button";
+import { transliterate } from 'transliteration';
 
 export default function AddCategory() {
   const [title, setTitle] = useState("");
-  const [name, setNmae] = useState("");
+  const [name, setName] = useState("");
   const [image, setImage] = useState({});
   const [imageURL, setImageURL] = useState("");
 
@@ -33,7 +34,7 @@ export default function AddCategory() {
         value={name}
         label="שם"
         labelFontSize="14px"
-        onChange={(e) => setNmae(e.target.value)}
+        onChange={(e) => setName(e.target.value)}
       />
       <ChakraInput
         id="fileInput"
@@ -45,6 +46,9 @@ export default function AddCategory() {
           console.log(files);
           if (files[0]) {
             setImage(files[0]);
+            console.log(files[0])
+            setName(files[0].name.split(".")[0])
+           // setTitle(transliterate(files[0].name.split(".")[0]))
             setImageURL(URL.createObjectURL(files[0]))
           }
         }}

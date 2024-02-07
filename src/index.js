@@ -13,7 +13,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { theme } from './theme';
 import './theme/index.css'
-import "swiper/swiper.min.css";
+import "swiper/css";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
