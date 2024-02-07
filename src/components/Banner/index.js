@@ -57,6 +57,7 @@ export default function Banner() {
           </Flex>
           <Image
             w="78px"
+            alt="logo"
             src={process.env.PUBLIC_URL + "/assets/logocube2.svg"}
           />
         </Flex>

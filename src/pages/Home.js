@@ -102,7 +102,7 @@ export default function Home() {
                     לרכישה
                   </Button>
                 </Box>
-                <Image w="78px" src={process.env.PUBLIC_URL +"/assets/logocube2.svg"} />
+                <Image alt="logo" w="78px" src={process.env.PUBLIC_URL +"/assets/logocube2.svg"} />
               </Flex>
             </Box>
           </Container>
@@ -121,7 +121,7 @@ export default function Home() {
                 justifyContent="center"
               >
                 <Box flex="1">
-                  <Image src={process.env.PUBLIC_URL + "/assets/man.svg"} />
+                  <Image alt="logo" src={process.env.PUBLIC_URL + "/assets/man.svg"} />
                 </Box>
                 <Box flex="1">
                   <Flex flexDir="column" gap="4" width="58%">

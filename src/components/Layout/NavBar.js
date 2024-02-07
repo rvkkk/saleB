@@ -308,7 +308,7 @@ export default function NavBar({ withSidebar, logo, change }) {
 
                 <Popover>
                   <PopoverTrigger>
-                    <Flex position="relative" role="list">
+                    <Flex position="relative">
                       <IconButton
                         role="button"
                         aria-label="show my cart"
@@ -646,7 +646,7 @@ export default function NavBar({ withSidebar, logo, change }) {
 
               <Menu direction="rtl">
                 <MenuButton
-                  role="menu"
+                  role="button"
                   aria-label="show website details"
                   as={ChakraButton}
                   bg="transparent"
@@ -659,7 +659,6 @@ export default function NavBar({ withSidebar, logo, change }) {
                   <Flex
                     gap="2"
                     alignItems="center"
-                    aria-label="open website format"
                   >
                     <Image alt="israel flag"
                       src={process.env.PUBLIC_URL + "/assets/israel.svg"}

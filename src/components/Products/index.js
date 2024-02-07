@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
-import { Navigation } from "swiper/modules"
+import { Navigation } from "swiper/modules";
 import { routes } from "../../routes";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import Badge from "../Badge";
@@ -72,8 +72,8 @@ export default function Products({
         </Text>
         <Flex gap="2" dir="ltr" display={{ base: "none", md: "flex" }}>
           <IconButton
-          role="button"
-          aria-label="slide next"
+            role="button"
+            aria-label="slide next"
             size="sm"
             borderRadius="full"
             bg="transparent"
@@ -95,8 +95,8 @@ export default function Products({
             }}
           />
           <IconButton
-          role="button"
-          aria-label="slide prev"
+            role="button"
+            aria-label="slide prev"
             size="sm"
             borderRadius="full"
             bg="transparent"
@@ -117,7 +117,7 @@ export default function Products({
             }}
           />
         </Flex>
-       {/*} <Button
+        {/*} <Button
           w="72px"
           h="36px"
           color="primaryLight"
@@ -178,8 +178,8 @@ const ProductItem = ({
 }) => {
   return (
     <Card
-    my="30px"
- // mx="30px"
+      my="30px"
+      // mx="30px"
       dir="rtl"
       borderRadius="28px"
       overflow="hidden"
@@ -213,6 +213,7 @@ const ProductItem = ({
     >
       <Box>
         <Image
+          alt={name}
           w="full"
           h={{
             base: p === "280px" ? "160px" : "155px",
