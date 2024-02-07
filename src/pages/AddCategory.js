@@ -8,7 +8,6 @@ import Input from "../components/Input";
 import { useState } from "react";
 import { addCategory } from "../utils/api/categories";
 import Button from "../components/Button";
-import { transliterate } from 'transliteration';
 
 export default function AddCategory() {
   const [title, setTitle] = useState("");
@@ -48,7 +47,6 @@ export default function AddCategory() {
             setImage(files[0]);
             console.log(files[0])
             setName(files[0].name.split(".")[0])
-           // setTitle(transliterate(files[0].name.split(".")[0]))
             setImageURL(URL.createObjectURL(files[0]))
           }
         }}
