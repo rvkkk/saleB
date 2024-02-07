@@ -278,7 +278,7 @@ export default function NavBar({ withSidebar, logo, change }) {
               w="20%"
               justifyContent="flex-end"
             >
-              <Link to="/">
+              <Link aria-label="link to website" to="/">
                 <SaleBID />
               </Link>
             </Flex>
@@ -293,7 +293,7 @@ export default function NavBar({ withSidebar, logo, change }) {
             </Box>
             <Flex w="20%" gap={{ lg: "10px", xl: "30px", "2xl": "50px" }}>
               <Flex gap="2">
-                <Link to={routes.UserSettingsWhiteList.path}>
+                <Link aria-label="link to my wish list" to={routes.UserSettingsWhiteList.path}>
                   <IconButton
                     bgColor="#1D5FE8"
                     _hover={{ bg: "rgba(255,255,255,0.3)" }}
@@ -303,7 +303,7 @@ export default function NavBar({ withSidebar, logo, change }) {
 
                 <Popover>
                   <PopoverTrigger>
-                    <Flex position="relative">
+                    <Flex position="relative" aria-label="show my cart">
                       <IconButton
                         bgColor="#1D5FE8" //rgba(255,255,255,0.2)
                         _hover={{ bg: "rgba(255,255,255,0.3)" }}
@@ -372,6 +372,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                           style={{ textDecoration: "none" }}
                           color="primaryLight"
                           fontSize="13px"
+                          aria-label="link to show my cart"
                         >
                           לצפייה בסל
                         </ChakraButton>
@@ -469,6 +470,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                       </Flex>
                       <Box mt="38px">
                         <Button.Secondary
+                        aria-label="link to show my cart"
                           borderColor="primary"
                           color="primary"
                           fontSize="20px"
@@ -483,6 +485,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                         <Spacer h="4" />
                         <Button>
                           <Flex
+                          aria-label="link to pay my cart"
                             alignItems="center"
                             gap="4"
                             onClick={() =>
@@ -501,6 +504,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                 <Menu placement="bottom">
                   <MenuButton>
                     <IconButton
+                    aria-label="open user links"
                       icon={<UserIcon />}
                       bgColor="#1D5FE8" //rgba(255,255,255,0.2)
                       _hover={{ bg: "rgba(255,255,255,0.3)" }}
@@ -639,7 +643,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                   textColor="white"
                   dir="rtl"
                 >
-                  <Flex gap="2" alignItems="center">
+                  <Flex gap="2" alignItems="center" aria-label="open website format">
                     <Image
                       src={process.env.PUBLIC_URL + "/assets/israel.svg"}
                     />
@@ -690,6 +694,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                 onClick={() =>
                   (window.location.href = routes.CreateProduct.path)
                 }
+                aria-label="link to create new sale"
               >
                 מכירה חדשה
               </ChakraButton>
@@ -702,6 +707,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                 _hover={{ textColor: "secondaryColor" }}
                 bg="transparent"
                 onClick={() => (window.location.href = routes.ContactUs.path)}
+                aria-label="link to contact us"
               >
                 יצירת קשר
               </ChakraButton>
@@ -714,6 +720,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                 _hover={{ textColor: "secondaryColor" }}
                 bg="transparent"
                 onClick={() => (window.location.href = routes.FAQ.path)}
+                aria-label="link to learn how to sale"
               >
                 איך מוכרים
               </ChakraButton>
@@ -726,6 +733,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                 _hover={{ textColor: "secondaryColor" }}
                 bg="transparent"
                 onClick={() => (window.location.href = routes.HOME.path)}
+                aria-label="link to sales"
               >
                 מבצעים
               </ChakraButton>
@@ -738,6 +746,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                 _hover={{ textColor: "secondaryColor" }}
                 bg="transparent"
                 onClick={() => (window.location.href = routes.HOME.path)}
+                aria-label="link to start bying"
               >
                 קנייה
               </ChakraButton>
@@ -749,6 +758,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                 fontWeight="normal"
                 _hover={{ textColor: "secondaryColor" }}
                 bg="transparent"
+                aria-label="link to sale bid"
                 onClick={() =>
                   (window.location.href =
                     routes.Category.path.replace(":category", "") + "food")
@@ -765,6 +775,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                   fontSize="16px"
                   fontWeight="normal"
                   bg="transparent"
+                  aria-label="show all categories"
                 >
                   הכל
                 </MenuButton>
@@ -865,7 +876,7 @@ export default function NavBar({ withSidebar, logo, change }) {
         bg="primary"
         h="65px"
       >
-        <Link to="/">
+        <Link to="/" aria-label="link to website">
           <SmallLOGOIcon />
         </Link>
       </Flex>
@@ -881,12 +892,12 @@ export default function NavBar({ withSidebar, logo, change }) {
         h="131px"
       >
         <Flex justifyContent="space-between">
-          <Link to="/">
+          <Link to="/" aria-label="link to website">
             <SmallLOGOIcon />
           </Link>
           <Flex gap="15px">
             <Menu placement="bottom">
-              <MenuButton>
+              <MenuButton aria-label="open user links">
                 {user.profileImage !== "" ? (
                   <Avatar
                     w="22px"
@@ -896,7 +907,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                     borderRadius="8px"
                   />
                 ) : (
-                  <UserMobileIcon />
+                  <UserMobileIcon/>
                 )}
               </MenuButton>
               {token !== null ? (
@@ -1013,7 +1024,7 @@ export default function NavBar({ withSidebar, logo, change }) {
             </Menu>
             <Popover>
               <PopoverTrigger>
-                <Flex justifyContent="center" alignItems="center">
+                <Flex justifyContent="center" alignItems="center" aria-label="show my cart">
                   <CartIcon2 />
                   {cart.products && cart.products.length > 0 && (
                     <Flex
@@ -1079,6 +1090,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                       style={{ textDecoration: "none" }}
                       color="primaryLight"
                       fontSize="13px"
+                      aria-label="link to show my cart"
                     >
                       לצפייה בסל
                     </ChakraButton>
@@ -1179,6 +1191,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                       borderColor="primary"
                       color="primary"
                       fontSize="20px"
+                      aria-label="link to show my cart"
                       onClick={() =>
                         (window.location.href =
                           routes.ShoppingCart.path.replace(":id", "") + cart.id)
@@ -1191,6 +1204,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                       <Flex
                         alignItems="center"
                         gap="4"
+                        aria-label="link to pay my cart"
                         onClick={() =>
                           (window.location.href =
                             routes.ShoppingCart.path.replace(":id", "") +
@@ -1207,7 +1221,7 @@ export default function NavBar({ withSidebar, logo, change }) {
 
             <Popover>
               <PopoverTrigger>
-                <Flex justifyContent="center" alignItems="center">
+                <Flex justifyContent="center" alignItems="center"  aria-label="show links">
                   <MobileList />
                 </Flex>
               </PopoverTrigger>

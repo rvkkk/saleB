@@ -51,7 +51,7 @@ export default function AddCategory() {
           }
         }}
       ></ChakraInput>
-      <Image w="200px" h="200px" src={imageURL}></Image>
+      <Image w="200px" h="200px" alt={name} src={imageURL}></Image>
       <Button onClick={() => addC()}>
         הוסף קטגוריה
       </Button>
