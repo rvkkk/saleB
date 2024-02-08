@@ -20,6 +20,7 @@ export default function Category(props) {
         my={{ base: "30px", md: "40px" }}
         textAlign="center"
         color="primaryLight"
+        fontSize={{base: "26px", md: "30px", lg: "36px"}}
       >
         הקטגוריות המובילות
       </Heading>
@@ -94,7 +95,7 @@ export default function Category(props) {
         </Swiper>
       </Box>
       <Flex justifyContent="center" mt="30px">
-      <Button w="200px" onClick={() => window.location.href = routes.Categories.path.replace(":category", "") + "main-categories"}>לכל הקטגוריות</Button>
+      <Button w={{base: "160px", md: "200px"}} fontSize={{base: "18px", md: "20px"}} onClick={() => window.location.href = routes.Categories.path.replace(":category", "") + "main-categories"}>לכל הקטגוריות</Button>
       </Flex>
     </Container>
   );

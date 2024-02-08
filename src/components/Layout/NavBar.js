@@ -69,9 +69,9 @@ export default function NavBar({ withSidebar, logo, change }) {
   const [userLogged, setUserLogged] = useState(false);
   const token = window.localStorage.getItem("token");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { changeCart, SetChangeCart } = useState("");
   const [hideOnScroll, setHideOnScroll] = useState(false);
   const [fixedLinks, setFixedLinks] = useState(false);
+  const [openCategories, setOpenCategories] = useState(false);
 
   const [user, setUser] = useState({
     userName: "Sale Bid",
@@ -822,8 +822,11 @@ export default function NavBar({ withSidebar, logo, change }) {
               >
                 מכירות פומביות
               </ChakraButton>
-              <Menu placement="auto">
+              <Menu placement="auto" isOpen={openCategories}>
                 <MenuButton
+                  onMouseEnter={() =>{ setOpenCategories(true)}}
+                  onClick={() =>  (window.location.href =
+                    routes.Categories.path.replace(":category", "main-categories"))}  
                   _hover={{ color: "secondaryColor" }}
                   px="4"
                   variant="link"
@@ -834,7 +837,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                   aria-label="show all categories"
                   role="button"
                 >
-                  הכל
+                  כל הקטגוריות
                 </MenuButton>
                 <MenuList
                   dir="rtl"
@@ -842,6 +845,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                   bg="white"
                   borderRadius="12px"
                   shadow="0px 1px 54px rgba(35, 38, 59, 0.2)"
+                  onMouseLeave={() => setOpenCategories(false)}
                 >
                   <MenuItemCategory />
                 </MenuList>
@@ -1349,11 +1353,10 @@ export default function NavBar({ withSidebar, logo, change }) {
                         role="button"
                         onClick={() =>
                           (window.location.href =
-                            routes.Category.path.replace(":category", "") +
-                            "food")
+                            routes.Categories.path.replace(":category", "main-categories"))
                         }
                       >
-                        קטגוריות
+                        כל הקטגוריות
                       </ChakraButton>
                       <ChakraButton
                         h="50px"
@@ -1852,6 +1855,7 @@ const MenuItemCategory = () => {
             fontSize="14px"
             color="naturalDarkest"
             _hover={{ color: "primary" }}
+            href={routes.Categories.path.replace(":category", "main-categories")}
           >
             לכל הקטגוריות
           </Button.TextButton>

@@ -62,7 +62,7 @@ export default function Categories() {
             "2xl": "1400px",
           }}
         >
-           <Heading my="30px" textAlign="center" color="primaryLight">הקטגוריות הראשיות</Heading>
+           <Heading my="30px" fontSize={{base: "26px", md: "30px", lg: "36px"}} textAlign="center" color="primaryLight">הקטגוריות הראשיות</Heading>
           <Flex justifyContent="start">
             <Flex alignItems="center" gap="14px">
               <Text fontSize="14px" lineHeight="16px" color="naturalDarkest">
