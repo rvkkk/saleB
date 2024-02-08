@@ -7,7 +7,10 @@ import { routes } from "../../routes";
 export default function Banner() {
   const [index, setIndex] = useState(0);
   const images = ["image1.jpg", "image2.jpg", "image3.jpg"];
-  const imageUrl = process.env.PUBLIC_URL + "/assets/בדקה ה90.jpg";
+  const imageUrl = [process.env.PUBLIC_URL + "/assets/Banner/בדקה_ה905.jpg",
+  process.env.PUBLIC_URL + "/assets/Banner/בדקה_ה904.jpg", process.env.PUBLIC_URL + "/assets/Banner/בדקה_ה903.jpg",
+  process.env.PUBLIC_URL + "/assets/Banner/בדקה_ה902.jpg", process.env.PUBLIC_URL + "/assets/Banner/בדקה_ה901.jpg",
+  process.env.PUBLIC_URL + "/assets/Banner/בדקה_ה90.jpg" ]
 
   const previous = () => {
     setIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
@@ -28,9 +31,11 @@ export default function Banner() {
   return (
     <Container>
       <Box
+        onClick={() => window.location.href = routes.Category.path.replace(":category", "")+ "?type=auctions"}
         display={{ base: "none", md: "block" }}
         dir="rtl"
-        bgImage={`url('${imageUrl}')`}
+        cursor="pointer"
+        bgImage={`url('${imageUrl[5]}')`}
         bgSize="cover"
         bgPosition="center"
         color="white"
@@ -62,7 +67,42 @@ export default function Banner() {
           />
         </Flex>
       </Box>
-    </Container>
+    <Box
+      onClick={() => window.location.href = routes.Category.path.replace(":category", "") + "?type=auctions"}
+      display={{ base: "block", md: "none" }}
+      dir="rtl"
+      cursor="pointer"
+      bgImage={{base: `url('${imageUrl[0]}')`, sm: `url('${imageUrl[1]}')`}}
+      bgSize="cover"
+      bgPosition="center"
+      color="white"
+      textAlign="center"
+      p="6"
+      my="10"
+      h="440px"
+    >
+      <Flex h="full" alignItems="end" justifyContent="space-between" dir="ltr">
+        <Flex h="full"  flexDir="column" justifyContent="space-between">
+          <Box>
+          <Heading textAlign="start" as="h1" size="xl" pt="10">
+            בדקה ה90
+          </Heading>
+          <Text fontSize={{base: "20px", sm: "24px"}} my="2">
+            המכירות שעומדות להסתיים
+          </Text>
+          </Box>
+          <Button w={{base: "120px", sm: "140px"}} h="48px" href={routes.Category.path.replace(":category", "")}>
+            המשך
+          </Button>
+        </Flex>
+        <Image
+          w="78px"
+          alt="logo"
+          src={process.env.PUBLIC_URL + "/assets/logocube2.svg"}
+        />
+      </Flex>
+    </Box>
+  </Container>
     /* <Box
     cursor="pointer"
       w="full"

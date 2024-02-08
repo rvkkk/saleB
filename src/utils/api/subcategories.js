@@ -28,10 +28,10 @@ export const getSubcategoriesOfSubcategory = (title) => {
   });
 };
 
-export const addSubcategory = ({ categoryId, title, name, image }) => {
+export const addSubcategory = (categoryName, title, name, image) => {
   return new Promise((resolve, reject) => {
     axios
-      .post(`${baseURL}subcategory/${categoryId}`, { title, name, image })
+      .post(`${baseURL}subcategory/${categoryName}`, { title, name, image })
       .then((res) => {
         resolve(res.data);
       })
@@ -41,7 +41,7 @@ export const addSubcategory = ({ categoryId, title, name, image }) => {
   });
 };
 
-export const updateCategory = ({ title, name, image }) => {
+export const updateCategory = (title, name, image) => {
   return new Promise((resolve, reject) => {
     axios
       .patch(`${baseURL}subcategory/${title}`, { name, image })
