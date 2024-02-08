@@ -68,7 +68,7 @@ export default function Home() {
             justifyContent="space-between"
             flexDir="column"
           >
-            <Category categories={categories} number={{ base: 9, lg: 12 }} />
+            <Category categories={categories} />
             <Banner/>
             <Products products={products.slice(0, 20)} />
             <Products
@@ -80,7 +80,8 @@ export default function Home() {
               products={products.slice(20, 30)}
             />
           </Flex>
-          <Container>
+
+      {/* <Container>
             <Box
               display={{ base: "none", md: "block" }}
               dir="rtl"
@@ -105,7 +106,7 @@ export default function Home() {
                 <Image alt="logo" w="78px" src={process.env.PUBLIC_URL +"/assets/logocube2.svg"} />
               </Flex>
             </Box>
-          </Container>
+      </Container>*/}
 
           <Box
             dir="rtl"

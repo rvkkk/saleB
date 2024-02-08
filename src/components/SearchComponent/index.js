@@ -53,10 +53,11 @@ export default function SearchComponent(props) {
           shadow="0px 1px 54px rgba(35, 38, 59, 0.2)"
         >
           <MenuItemComponent
-            path={routes.LOGIN.path}
+            path={routes.LOGIN.path}//דף מכירות פומביות
             name="מוצרי מכירה פומבית"
           />
           <MenuItemComponent path={routes.LOGIN.path} name="מוצרים רגילים" />
+          <MenuItemComponent path={routes.LOGIN.path} name="לכל סוגי המוצרים" />
         </MenuList>
       </Menu>
 

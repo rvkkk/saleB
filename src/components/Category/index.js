@@ -81,7 +81,7 @@ export default function Category(props) {
               <SwiperSlide dir="ltr" key={index}>
                 <CategoryItem
                   onClick={() => {
-                    window.location.href = `${routes.Category.path.replace(
+                    window.location.href = `${routes.categories.path.replace(
                       ":category",
                       ""
                     )}${category.title}`;
@@ -93,6 +93,9 @@ export default function Category(props) {
             ))}
         </Swiper>
       </Box>
+      <Flex justifyContent="center" mt="30px">
+      <Button w="200px" onClick={() => window.location.href = routes.Categories.path.replace(":category", "") + "main-categories"}>לכל הקטגוריות</Button>
+      </Flex>
     </Container>
   );
 }

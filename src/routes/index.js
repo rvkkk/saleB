@@ -27,6 +27,7 @@ import UserSettingsWallet from "../pages/UserSettingsWallet";
 import UserSettingsWishList from "../pages/UserSettingsWishList";
 import CreatePArticle from "../pages/createPArticle";
 import AddCategory from "../pages/AddCategory";
+import Categories from "../pages/Categories";
 
 export const routes = {
     LOGIN: {
@@ -56,6 +57,10 @@ export const routes = {
     Category: {
         path: "/category/:category",
         component: Category
+    },
+    Categories: {
+        path: "/:category",
+        component: Categories
     },
     ProductPage: {
         path: "/product/:id",

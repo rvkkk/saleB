@@ -70,6 +70,8 @@ export default function NavBar({ withSidebar, logo, change }) {
   const token = window.localStorage.getItem("token");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { changeCart, SetChangeCart } = useState("");
+  const [hideOnScroll, setHideOnScroll] = useState(false);
+  const [fixedLinks, setFixedLinks] = useState(false);
 
   const [user, setUser] = useState({
     userName: "Sale Bid",
@@ -247,6 +249,36 @@ export default function NavBar({ withSidebar, logo, change }) {
     if (token !== null) getUser();
   }, [query, token]);
 
+
+  useEffect(() => {
+    let prevScrollY = window.pageYOffset;
+    const threshold = 50;
+
+    const handleScroll = () => {
+      const currScrollY = window.pageYOffset;
+      if(currScrollY < threshold) {
+        setHideOnScroll(false); 
+        setFixedLinks(false);
+      }
+      else if (prevScrollY > currScrollY) {
+        setHideOnScroll(false);  
+        setFixedLinks(true);
+      }
+      else {
+        setHideOnScroll(true);  
+        setFixedLinks(false);
+      }
+      prevScrollY = currScrollY;
+    }
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    }
+
+  }, []);
+
   const getMyCart = () => {
     if (token !== null) {
       getUserCart()
@@ -265,8 +297,8 @@ export default function NavBar({ withSidebar, logo, change }) {
 
   return (
     <>
-      <Box display={{ base: "none", lg: "grid" }}>
-        <Box bg="primary" h="80px" id="navbar" w="100%">
+      <Box w="100%"  display={{ base: "none", lg: "grid" }}>
+        <Box bg="primary" id="navbar" h="80px" w="100%">
           <Flex
             h="full"
             justifyContent="space-between"
@@ -691,12 +723,14 @@ export default function NavBar({ withSidebar, logo, change }) {
         </Box>
 
         <Box
+        w="100%"
+          className={hideOnScroll ? 'hide' : ''}
           bg={withSidebar ? "white" : "othersLight"}
           p="2"
-          id="category"
+          id={!fixedLinks ? "category" : "category-stick"}
           borderBottom="1px solid transparent"
-          borderColor={withSidebar ? "naturalLight" : "transparent"}
-          marginTop="80px"
+          borderColor={withSidebar ? "naturalLight" : "othersLight"}
+          mt="80px"
         >
           <Flex justifyContent="center" gap="10">
             <ButtonGroup size="sm">
@@ -765,7 +799,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                 fontWeight="normal"
                 _hover={{ textColor: "secondaryColor" }}
                 bg="transparent"
-                onClick={() => (window.location.href = routes.HOME.path)}
+                onClick={() => (window.location.href = routes.Categories.path.replace(":category", "main-categories"))}
                 aria-label="link to start bying"
                 role="button"
               >

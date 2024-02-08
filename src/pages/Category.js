@@ -201,6 +201,7 @@ export default function Category() {
                       >
                         <Image
                           w="18px"
+                          alt="filter icon"
                           src={process.env.PUBLIC_URL + "/assets/filter.svg"}
                         />
                         {sortBy === "priceUp"

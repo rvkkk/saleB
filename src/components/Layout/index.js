@@ -7,7 +7,7 @@ import {
   Flex,
   Text,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Container from "../Container";
 import Sidebar from "../Sidebar";
 import Footer from "./Footer";
@@ -22,12 +22,38 @@ export default function Layout({
   hideBreadcrumb,
   logo = false,
   noFooter = false,
-  change = ""
+  change = "",
 }) {
+  const [marginTop, setMarginTop] = useState("0");
+  useEffect(() => {
+    let prevScrollY = window.pageYOffset;
+    const threshold = 50;
+
+    const handleScroll = () => {
+      const currScrollY = window.pageYOffset;
+      if (currScrollY < threshold) {
+        setMarginTop("0");
+      } else {
+        setMarginTop("128.8px");
+      }
+      prevScrollY = currScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <Flex flexDir="column" minH="100vh" bg={withSidebar ? "cartBack" : "white"}>
-      <NavBar withSidebar={withSidebar} logo={logo} change={change}/>
-      <Box flex="1" id="all" mt={{ base: logo ? "65px" : "131px", lg: "0" }}>
+      <NavBar withSidebar={withSidebar} logo={logo} change={change} />
+      <Box
+        flex="1"
+        id="all"
+        mt={{ base: logo ? "65px" : "131px", lg: marginTop }}
+      >
         {withSidebar ? (
           <Flex dir="rtl">
             <Sidebar />
