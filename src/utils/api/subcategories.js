@@ -38,7 +38,6 @@ export const addSubcategory = (categoryName, title, name, image) => {
       .post(`${baseURL}subcategory/${categoryName}`, formData, {
         headers: {
            "Content-Type": 'multipart/form-data',
-           "Authorization": `Bearer ${localStorage.getItem("token")}`,
         }})
       .then((res) => {
         resolve(res.data);
