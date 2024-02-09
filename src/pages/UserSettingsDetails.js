@@ -308,7 +308,7 @@ export default function UserSettingsDetails() {
                         const file = e.target.files[0];
                         if (file) {
                           setPicture(URL.createObjectURL(file));
-                          handlePicture(URL.createObjectURL(file));
+                          handlePicture(file);
                         }
                       }}
                     />

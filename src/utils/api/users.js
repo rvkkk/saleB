@@ -32,7 +32,7 @@ export const login = (email, userName, password) => {
 export const checkIfUserExists = (input) => {
   return new Promise((resolve, reject) => {
     axios
-      .patch(`${baseURL}login-no-password`, {input})
+      .patch(`${baseURL}login-no-password`, { input })
       .then((res) => {
         resolve(res.data);
       })
@@ -46,7 +46,7 @@ export const checkIfUserExists = (input) => {
 export const sendEmailAuth = (email) => {
   return new Promise((resolve, reject) => {
     axios
-      .patch(`${baseURL}send_code`, {email})
+      .patch(`${baseURL}send_code`, { email })
       .then((res) => {
         resolve(res.data);
       })
@@ -60,7 +60,7 @@ export const sendEmailAuth = (email) => {
 export const checkEmailAuth = (email, code) => {
   return new Promise((resolve, reject) => {
     axios
-      .patch(`${baseURL}valid_code`, {email, code})
+      .patch(`${baseURL}valid_code`, { email, code })
       .then((res) => {
         resolve(res.data);
       })
@@ -74,7 +74,7 @@ export const checkEmailAuth = (email, code) => {
 export const updatePasswordByEmail = (email, newPassword) => {
   return new Promise((resolve, reject) => {
     axios
-      .patch(`${baseURL}update-password/email`, {email, newPassword})
+      .patch(`${baseURL}update-password/email`, { email, newPassword })
       .then((res) => {
         resolve(res.data);
       })
@@ -103,7 +103,7 @@ export const signup = (
   return new Promise((resolve, reject) => {
     axios
       .post(`${baseURL}create-user`, {
-        ID : 82468,
+        ID: 82468,
         email,
         firstName,
         lastName,
@@ -176,7 +176,7 @@ export const updateUser = (
       .patch(
         `${baseURL}update-user`,
         {
-          ID : 82468,
+          ID: 82468,
           email,
           firstName,
           lastName,
@@ -216,11 +216,17 @@ export const updatePassword = (oldPassword, newPassword) => {
   });
 };
 
-export const updateProfileImage = (picture) => {
-  console.log(picture);
+export const updateProfileImage = (image) => {
+  const formData = new FormData();
+  formData.append("image", image);
   return new Promise((resolve, reject) => {
     axios
-      .patch(`${baseURL}update-profileImage`, { picture }, headers)
+      .patch(`${baseURL}update-profileImage`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
       .then((res) => {
         resolve(res.data);
       })
