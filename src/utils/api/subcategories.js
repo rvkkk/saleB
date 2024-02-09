@@ -30,8 +30,16 @@ export const getSubcategoriesOfSubcategory = (title) => {
 
 export const addSubcategory = (categoryName, title, name, image) => {
   return new Promise((resolve, reject) => {
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("name", name);
+    formData.append("image", image)
     axios
-      .post(`${baseURL}subcategory/${categoryName}`, { title, name, image })
+      .post(`${baseURL}subcategory/${categoryName}`, formData, {
+        headers: {
+           "Content-Type": 'multipart/form-data',
+           "Authorization": `Bearer ${localStorage.getItem("token")}`,
+        }})
       .then((res) => {
         resolve(res.data);
       })
