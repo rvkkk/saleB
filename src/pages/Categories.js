@@ -22,25 +22,29 @@ import { getCategories, getCategory } from "../utils/api/categories";
 
 export default function Categories() {
   const [loading, setLoading] = useState(true);
-  const [categories, setCategories] = useState({});
+  const [mainCategory, setMainCategory] = useState({});
+  const [categories, setCategories] = useState([]);
   const [sortBy, setSortBy] = useState("");
 
   useEffect(() => {
-    const category = window.location.href.split("/").pop().split("/")[0]; 
-    console.log(category)
+    const category = window.location.href.split("/").pop().split("/")[0];
+    console.log(category);
     if (category === "main-categories")
-    getCategories()
-      .then((res) => {
-        setCategories(res.categories);
-        setLoading(false);
-      })
-      .catch((err) => console.log(err));
-    /*else
-      getCategory().then((res) => {
-        setCategories(res.categories);
-        setLoading(false);
-      })
-      .catch((err) => console.log(err));*/
+      getCategories()
+        .then((res) => {
+          setCategories(res.categories);
+          setLoading(false);
+        })
+        .catch((err) => console.log(err));
+    else
+      getCategory(category)
+        .then((res) => {
+          console.log(res);
+          setMainCategory(res.category.category);
+          setCategories(res.category.subcategories);
+          setLoading(false);
+        })
+        .catch((err) => console.log(err));
   }, []);
 
   return (
@@ -62,7 +66,14 @@ export default function Categories() {
             "2xl": "1400px",
           }}
         >
-           <Heading my="30px" fontSize={{base: "26px", md: "30px", lg: "36px"}} textAlign="center" color="primaryLight">הקטגוריות הראשיות</Heading>
+          <Heading
+            my="30px"
+            fontSize={{ base: "26px", md: "30px", lg: "36px" }}
+            textAlign="center"
+            color="primaryLight"
+          >
+            {mainCategory ? mainCategory.name : "הקטגוריות הראשיות"}
+          </Heading>
           <Flex justifyContent="start">
             <Flex alignItems="center" gap="14px">
               <Text fontSize="14px" lineHeight="16px" color="naturalDarkest">
@@ -140,44 +151,53 @@ export default function Categories() {
           </Flex>
 
           <Container>
-     
-      <Grid my="20px"
-        w={{ base: "326px", sm: "392px", md: "648px", lg: "860px", xl: "1180px", "2xl": "1300px"}}
-        mx="auto"
-        gridTemplateColumns={{ base: "repeat(3, 1fr)", md: "repeat(4, 1fr)", xl: "repeat(6, 1fr)" }}
-        flexWrap="wrap"
-        rowGap={{ base: "31px", lg: "44px" }}
-        columnGap={{ base: "16px", lg: "20px" }}     
-        py={{ base: "20px", lg: "40px" }}
-      >
-        {categories[0] &&
-          categories.map((category, index) => {
-            return (
-              <CategoryItem
-              key={index}
-                onClick={() =>
-                  (window.location.href =
-                    routes.Categories.path.replace(":category", "") +
-                    category.title)
-                }
-                name={category.name}
-                imgUrl={category.image}
-              />
-            );
-          })}
-      </Grid>
-        </Container>
+            <Grid
+              my="20px"
+              w={{
+                base: "326px",
+                sm: "392px",
+                md: "648px",
+                lg: "860px",
+                xl: "1180px",
+                "2xl": "1300px",
+              }}
+              mx="auto"
+              gridTemplateColumns={{
+                base: "repeat(3, 1fr)",
+                md: "repeat(4, 1fr)",
+                xl: "repeat(6, 1fr)",
+              }}
+              flexWrap="wrap"
+              rowGap={{ base: "31px", lg: "44px" }}
+              columnGap={{ base: "16px", lg: "20px" }}
+              py={{ base: "20px", lg: "40px" }}
+            >
+              {categories &&
+                categories.map((category, index) => {
+                  return (
+                    <CategoryItem
+                      key={index}
+                      onClick={() =>
+                        (window.location.href = mainCategory
+                          ? routes.Category.path.replace(":category", "") +
+                            category.title
+                          : routes.Categories.path.replace(":category", "") +
+                            category.title)
+                      }
+                      name={category.name}
+                      imgUrl={category.image}
+                    />
+                  );
+                })}
+            </Grid>
+          </Container>
         </Flex>
       )}
     </Layout>
   );
 }
 
-export const CategoryItem = ({
-  name = "",
-  imgUrl = {},
-  onClick
-}) => {
+export const CategoryItem = ({ name = "", imgUrl = {}, onClick }) => {
   return (
     <Flex
       mx="auto"

@@ -82,7 +82,7 @@ export default function Category(props) {
               <SwiperSlide dir="ltr" key={index}>
                 <CategoryItem
                   onClick={() => {
-                    window.location.href = `${routes.categories.path.replace(
+                    window.location.href = `${routes.Categories.path.replace(
                       ":category",
                       ""
                     )}${category.title}`;
