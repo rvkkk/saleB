@@ -17,7 +17,7 @@ import { getCategories } from "../utils/api/categories"
 
 export default function Home() {
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [fetchedData, setFetchedData] = useState(false);
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
@@ -35,11 +35,10 @@ export default function Home() {
     } else setError("אנא הכנס כתובת מייל תקינה");
   };
   useEffect(() => {
-    getCategories().then((res)=> setCategories(res.categories))
+    getCategories().then((res)=> {setCategories(res.categories); setLoading(false)})
   }, [])
 
   useEffect(() => {
-    setLoading(true);
     if (!fetchedData) {
       getProducts()
         .then((res) => {
@@ -122,7 +121,7 @@ export default function Home() {
                 justifyContent="center"
               >
                 <Box flex="1">
-                  <Image alt="logo" src={process.env.PUBLIC_URL + "/assets/man.svg"} />
+                  <Image alt="an image of a man" src={process.env.PUBLIC_URL + "/assets/men.svg"} />
                 </Box>
                 <Box flex="1">
                   <Flex flexDir="column" gap="4" width="58%">

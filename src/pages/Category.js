@@ -40,24 +40,31 @@ import {
 import Loader from "../components/Loader";
 import { routes } from "../routes";
 import { CategoryIcon, Filter2Icon, SortIcon } from "../components/Icons";
+import { getSubcategory } from "../utils/api/subcategories";
 
 export default function Category() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [isList, setIsList] = useState(true);
   const [products, setProducts] = useState([]);
   const [pages, setPages] = useState(0);
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState({});
   const [tags, setTags] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState("newest");
   const [minPrice, setMinPrice] = useState(100);
   const [maxPrice, setMaxPrice] = useState(2000);
 
-  const breadcrumb = [
+  const breadcrumb = category.name && [
     { name: "דף הבית", href: routes.HOME.path },
-    { name: "אספנות", href: routes.Category.path },
-    { name: "צילום אומנותי", href: "#" },
+    {
+      name: category.mainCategory.name,
+      href: routes.Categories.path.replace(
+        ":category",
+        category.mainCategory.title
+      ),
+    },
+    { name: category.name, href: "#" },
   ];
 
   const onBackPage = () => {
@@ -91,10 +98,22 @@ export default function Category() {
   };
 
   useEffect(() => {
-    const category = window.location.href.split("/").pop().split("/")[0];
-    setCategory(category);
+    if (!category.name) {
+      let category = window.location.href.split("/").pop().split("/")[0];
+      getSubcategory(category).then((res) => {
+        console.log(res);
+        setCategory(res.subcategory);
+      });
+    } else getProducts(category.name);
+  }, [sortBy, category]);
+
+  /* useEffect(() => {
+    category.name && getProducts();
+  }, [category, sortBy]);*/
+
+  const getProducts = (categoryName) => {
     setLoading(true);
-    searchProducts(category, tags, 1, 9, minPrice, maxPrice, sortBy)
+    searchProducts(categoryName, tags, 1, 21, minPrice, maxPrice, sortBy)
       .then((res) => {
         console.log(res);
         setProducts(res.products.products);
@@ -102,9 +121,9 @@ export default function Category() {
         setLoading(false);
       })
       .catch((err) => console.log(err));
-  }, [sortBy]);
+  };
 
-  useEffect(() => {
+  /*useEffect(() => {
     const category = window.location.href.split("/").pop().split("/")[0]; //צריך להיות באנגלית
     setCategory(category);
     setLoading(true);
@@ -116,26 +135,7 @@ export default function Category() {
         setLoading(false);
       })
       .catch((err) => console.log(err));
-  }, [currentPage]);
-
-  /*useEffect(() => {
-    setLoading(true);
-    /*getProducts(currentPage, 9)
-      .then((res) => {setProducts(res.products.products); console.log(res.products)})
-      .catch((err) => console.log(err));
-    const category = window.location.href.split("/").pop().split("?")[0]; //צריך להיות באנגלית
-    setCategory(category);
-
-    getProductsByCategory(category, currentPage, 9)
-      .then((res) => {
-        console.log(res)
-        setProducts(res.products.products);
-        setPages(res.products.pages);
-    setLoading(false);
-
-      })
-      .catch((err) => console.log(err));
-  }, []);*/
+  }, [currentPage]);*/
 
   return (
     <Layout
@@ -168,6 +168,7 @@ export default function Category() {
                 minPrice={minPrice}
                 maxPrice={maxPrice}
                 onChangeTags={(tags) => setTags(tags)}
+                categoryName={category.name}
               />
             </Box>
 
@@ -363,7 +364,12 @@ export default function Category() {
                     })}
                 </Flex>
               ) : (
-                <Grid gridTemplateColumns="repeat(3, 1fr)" gap="6" mt="8">
+                <Grid
+                  w="1154px"
+                  gridTemplateColumns="repeat(3, 1fr)"
+                  gap="6"
+                  mt="8"
+                >
                   {products[0] &&
                     products.map((item) => {
                       return <CartGalleryItem data={item} />;

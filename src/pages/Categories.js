@@ -178,9 +178,8 @@ export default function Categories() {
                     <CategoryItem
                       key={index}
                       onClick={() =>
-                        (window.location.href = mainCategory
-                          ? routes.Category.path.replace(":category", "") +
-                            category.title
+                        (window.location.href = mainCategory.name
+                          ? routes.Category.path.replace(":main-category", mainCategory.title).replace(":category", category.title) 
                           : routes.Categories.path.replace(":category", "") +
                             category.title)
                       }

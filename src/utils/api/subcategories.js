@@ -1,6 +1,19 @@
 import axios from "axios";
 
-const baseURL = "https://sale-bid.df.r.appspot.com/";
+const baseURL = "http://localhost:3001/";
+
+export const getSubcategory = (title) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`${baseURL}subcategory/${title}`)
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
 
 export const getSubcategoriesOfCategory = (categoryId) => {
   return new Promise((resolve, reject) => {
@@ -18,7 +31,7 @@ export const getSubcategoriesOfCategory = (categoryId) => {
 export const getSubcategoriesOfSubcategory = (title) => {
   return new Promise((resolve, reject) => {
     axios
-      .get(`${baseURL}subcategory/${title}`)
+      .get(`${baseURL}subcategories/${title}`)
       .then((res) => {
         resolve(res.data);
       })

@@ -87,7 +87,7 @@ export default function CategorySidebar(props) {
   return (
     <Box w={{base: "360px", sm: "480px", md: "292px"}} dir="rtl">
       <Text fontSize="32px" color="primary" display={{base: "none", md: "block"}}>
-        צילום אומנותי
+        {props.categoryName}
       </Text>
       <Flex
       display={{base: "flex", md: "none"}}
@@ -147,7 +147,7 @@ export default function CategorySidebar(props) {
                     ariaLabel={["min", "max"]}
                     size="lg"
                     display="block !important"
-                    onChangeEnd={(val) => props.onChangePriceSlider(val)}
+                    //onChangeEnd={(val) => props.onChangePriceSlider(val)}
                     defaultValue={[props.minPrice, props.maxPrice]}
                     min={100}
                     max={2000}
@@ -213,12 +213,12 @@ export default function CategorySidebar(props) {
                 color="primary"
                 fontSize="14px"
                 fontWeight="medium"
-                onClick={clearAllTags}
+                onClick={() => clearAllTags()}
               >
                 נקה הכל
               </Button.TextButton>
             </Flex>
-           {tags.length > 0 && <Tags>
+            <Tags>
               {tags.map((tag) =>
                 tag.list.map((text) => (
                   <Tag
@@ -227,13 +227,13 @@ export default function CategorySidebar(props) {
                   ></Tag>
                 ))
               )}
-            </Tags>}
+            </Tags>
           </Flex>
 
           <AccordionComponent title="מיין לפי">
             <CheckBoxGroup
               deleteTag={unChecked.title === "sortBy" && unChecked.text}
-              addTag={addTags}
+              addTag={(tag) => addTags(tag)}
               title="sortBy"
               list={[
                 "מוצרים מובילים בקטגוריה",
@@ -246,7 +246,7 @@ export default function CategorySidebar(props) {
          <AccordionComponent title="מצב מוצר">
             <CheckBoxGroup
               deleteTag={unChecked.title === "status" && unChecked.text}
-              addTag={addTags}
+              addTag={(tag) => addTags(tag)}
               title="status"
               list={["חדש", "כחדש לא היה בשימוש", "משומש", "ישן", "לא עובד"]}
             />
@@ -254,7 +254,7 @@ export default function CategorySidebar(props) {
           <AccordionComponent title="מותג">
             <CheckBoxGroup
               deleteTag={unChecked.title === "brand" && unChecked.text}
-              addTag={addTags}
+              addTag={(tag) => addTags(tag)}
               title="brand"
               list={["tommy hilfiger", "michle kors", "guess"]}
             />
@@ -262,7 +262,7 @@ export default function CategorySidebar(props) {
           <AccordionComponent title="דגם">
             <CheckBoxGroup
               deleteTag={unChecked.title === "model" && unChecked.text}
-              addTag={addTags}
+              addTag={(tag) => addTags(tag)}
               title="model"
               //list={["tommy hilfiger", "michle kors", "guess"]}
             />
@@ -270,7 +270,7 @@ export default function CategorySidebar(props) {
           <AccordionComponent title="מוצרים בהנחה">
             <CheckBoxGroup
               deleteTag={unChecked.title === "discount" && unChecked.text}
-              addTag={addTags}
+              addTag={(tag) => addTags(tag)}
               title="discount"
               list={["משלוח חינם", "10% הנחה", "20% הנחה", "1+1 חינם"]}
             />
@@ -278,12 +278,12 @@ export default function CategorySidebar(props) {
           <AccordionComponent title="צבע">
             <CheckBoxGroup
               deleteTag={unChecked.title === "color" && unChecked.text}
-              addTag={addTags}
+              addTag={(tag) => addTags(tag)}
               title="color"
               list={["שחור", "לבן", "כחול", "ירוק", "אדום"]}
             />
             </AccordionComponent>
-        </Accordion>
+            </Accordion>
       </Box>
     </Box>
   );

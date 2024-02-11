@@ -55,7 +55,7 @@ export const routes = {
         component: ShoppingCart
     },
     Category: {
-        path: "/category/:category",
+        path: "/:main-category/:category",
         component: Category
     },
     Categories: {
