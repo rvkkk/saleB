@@ -304,7 +304,7 @@ const ProductItem = ({
           borderRadius="16px"
           py={{ base: "0", md: "1.5" }}
         >
-          <Text>{discount}%</Text>
+          <Text>%{discount}</Text>
         </Box>
       )}
     </Card>

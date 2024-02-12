@@ -785,7 +785,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                 fontWeight="normal"
                 _hover={{ textColor: "secondaryColor" }}
                 bg="transparent"
-                onClick={() => (window.location.href = routes.HOME.path)}
+                onClick={() => (window.location.href = routes.AddCategory.path)}
                 aria-label="link to sales"
                 role="button"
               >
