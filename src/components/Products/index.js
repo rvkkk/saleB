@@ -15,11 +15,12 @@ import { routes } from "../../routes";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import Badge from "../Badge";
 import Button from "../Button";
+import { getProducts, getProductsByCategory } from "../../utils/api/products";
 
 export default function Products({
   numberOfSlides = 4,
   title = "מוצרים חדשים",
-  products = [],
+  category = "",
   h = "360px",
   w = "300px",
   p = "280px",
@@ -28,6 +29,28 @@ export default function Products({
   const swiperRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [numberToShow, setNumberToShow] = useState(numberOfSlides);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    if (category === "")
+      getProducts(1, 25)
+        .then((res) => {
+          setProducts(res.products.products);
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    else
+      getProductsByCategory(category, 1, 25)
+        .then((res) => {
+          setProducts(res.products.products);
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -130,36 +153,34 @@ export default function Products({
           </Button>*/}
       </Flex>
       <Spacer h={{ base: "18px", md: "24px" }} />
-      <Flex justifyContent="center" alignItems="center">
-        <Swiper
-          dir="rtl"
-          slidesPerView={numberToShow}
-          ref={swiperRef}
-          navigation
-          className="hide-navigation-buttons"
-          spaceBetween={14}
-        >
-          {products &&
-            products.map((product) => {
-              return (
-                <SwiperSlide key={product._id}>
-                  <ProductItem
-                    _id={product._id}
-                    name={product.title}
-                    imgUrl={product.images[0]}
-                    price={(product.price * (100 - product.discount)) / 100}
-                    beforePrice={product.discount !== 0 && product.price}
-                    discount={product.discount}
-                    offers={product.offers}
-                    h={h}
-                    w={w}
-                    p={p}
-                  />
-                </SwiperSlide>
-              );
-            })}
-        </Swiper>
-      </Flex>
+      <Swiper
+        dir="rtl"
+        slidesPerView={numberToShow}
+        ref={swiperRef}
+        navigation
+        className="hide-navigation-buttons"
+        spaceBetween={14}
+      >
+        {products &&
+          products.map((product) => {
+            return (
+              <SwiperSlide key={product._id}>
+                <ProductItem
+                  _id={product._id}
+                  name={product.title}
+                  imgUrl={product.images[0]}
+                  price={(product.price * (100 - product.discount)) / 100}
+                  beforePrice={product.discount !== 0 && product.price}
+                  discount={product.discount}
+                  offers={product.offers}
+                  h={h}
+                  w={w}
+                  p={p}
+                />
+              </SwiperSlide>
+            );
+          })}
+      </Swiper>
     </Box>
   );
 }
@@ -178,7 +199,7 @@ const ProductItem = ({
 }) => {
   return (
     <Card
-      my="30px"
+      my="20px"
       // mx="30px"
       dir="rtl"
       borderRadius="28px"

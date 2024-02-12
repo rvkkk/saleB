@@ -94,7 +94,7 @@ export default function Category(props) {
             ))}
         </Swiper>
       </Box>
-      <Flex justifyContent="center" mt="30px">
+      <Flex justifyContent="center" mt="40px">
       <Button w={{base: "160px", md: "200px"}} fontSize={{base: "18px", md: "20px"}} onClick={() => window.location.href = routes.Categories.path.replace(":category", "") + "main-categories"}>לכל הקטגוריות</Button>
       </Flex>
     </Container>

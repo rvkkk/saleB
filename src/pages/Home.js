@@ -2,6 +2,7 @@ import React from "react";
 import Layout from "../components/Layout";
 import Category from "../components/Category";
 import Products from "../components/Products";
+import TopProducts from "../components/TopProducts"
 import Container from "../components/Container";
 import { Box, Flex, Heading, Image, Input, Text } from "@chakra-ui/react";
 import Button from "../components/Button";
@@ -9,16 +10,13 @@ import InfoBox from "../components/InfoBox";
 import { EmailIcon } from "@chakra-ui/icons";
 import { useState, useEffect } from "react";
 import { routes } from "../routes";
-import { getProducts } from "../utils/api/products";
 import { addToMailingList } from "../utils/api/mailingList";
 import Loader from "../components/Loader";
 import Banner from "../components/Banner";
 import { getCategories } from "../utils/api/categories"
 
 export default function Home() {
-  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [fetchedData, setFetchedData] = useState(false);
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [categories, setCategories] = useState([]);
@@ -37,25 +35,7 @@ export default function Home() {
   useEffect(() => {
     getCategories().then((res)=> {setCategories(res.categories); setLoading(false)})
   }, [])
-
-  useEffect(() => {
-    if (!fetchedData) {
-      getProducts()
-        .then((res) => {
-          setProducts(res.products.products);
-          console.log(res);
-          setLoading(false);
-          setFetchedData(true);
-        })
-        .catch((err) => {
-          console.log(err);
-          setLoading(false);
-        });
-    } else {
-      setLoading(false);
-    }
-  }, [fetchedData]);
-
+  
   return (
     <Layout home>
       {loading ? (
@@ -69,15 +49,8 @@ export default function Home() {
           >
             <Category categories={categories} />
             <Banner/>
-            <Products products={products.slice(0, 20)} />
-            <Products
-              title="מוצרים מובילים"
-              numberOfSlides={5}
-              h="300px"
-              w="237px"
-              p="220px"
-              products={products.slice(20, 30)}
-            />
+            <Products />
+            <TopProducts />
           </Flex>
 
       {/* <Container>

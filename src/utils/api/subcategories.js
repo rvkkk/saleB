@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "http://localhost:3001/";
+const baseURL = "https://sale-bid.df.r.appspot.com/";
 
 export const getSubcategory = (title) => {
   return new Promise((resolve, reject) => {
