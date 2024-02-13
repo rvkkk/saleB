@@ -20,7 +20,7 @@
   position: relative;
 }
 #category-stick {
-  z-index: 1000;
+  z-index: 999;
   position: fixed;
 }
 #all {

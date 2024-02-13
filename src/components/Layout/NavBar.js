@@ -28,9 +28,19 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
-import { addToCart, getCart, removeFromCart } from "../../utils/cart";
+import {
+  addToCart,
+  clearCart,
+  getCart,
+  removeFromCart,
+} from "../../utils/cart";
 import { getUserProfile } from "../../utils/api/users";
-import { getUserCart, deleteFromCart, updateCart } from "../../utils/api/carts";
+import {
+  getUserCart,
+  deleteFromCart,
+  updateCart,
+  deleteCart,
+} from "../../utils/api/carts";
 import React from "react";
 //import { useWebSocket } from "../WebSocketProvider";
 import SaleBID, { SmallLOGOIcon } from "../SaleBID";
@@ -55,16 +65,19 @@ import {
   SearchIcon,
   UserIcon,
   UserMobileIcon,
+  TrashIcon,
 } from "../Icons";
 import NavCartListItem from "../NavCartListItem";
 import Button from "../Button";
 import { useState, useEffect } from "react";
 import CountrySelect from "../CountrySelect";
+import { getCategories } from "../../utils/api/categories";
 
 export default function NavBar({ withSidebar, logo, change }) {
   const [query, setQuery] = useState("");
   const [cart, setCart] = useState({});
   const [products, setProducts] = useState([]);
+  //const [topCategories, setTopCategories] = useState([]);
   const [fetchedUser, setFetchedUser] = useState(false);
   const [userLogged, setUserLogged] = useState(false);
   const token = window.localStorage.getItem("token");
@@ -249,34 +262,30 @@ export default function NavBar({ withSidebar, logo, change }) {
     if (token !== null) getUser();
   }, [query, token]);
 
-
   useEffect(() => {
     let prevScrollY = window.pageYOffset;
     const threshold = 50;
 
     const handleScroll = () => {
       const currScrollY = window.pageYOffset;
-      if(currScrollY < threshold) {
-        setHideOnScroll(false); 
+      if (currScrollY < threshold) {
+        setHideOnScroll(false);
         setFixedLinks(false);
-      }
-      else if (prevScrollY > currScrollY) {
-        setHideOnScroll(false);  
+      } else if (prevScrollY > currScrollY) {
+        setHideOnScroll(false);
         setFixedLinks(true);
-      }
-      else {
-        setHideOnScroll(true);  
+      } else {
+        setHideOnScroll(true);
         setFixedLinks(false);
       }
       prevScrollY = currScrollY;
-    }
+    };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-    }
-
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   const getMyCart = () => {
@@ -295,9 +304,31 @@ export default function NavBar({ withSidebar, logo, change }) {
     }
   };
 
+  const deleteMyCart = () => {
+    if (token !== null) {
+      deleteCart(cart.id)
+        .then((res) => {
+          console.log(res);
+          setCart({});
+          setProducts([]);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else
+      clearCart()
+        .then((res) => {
+          setCart({});
+          setProducts([]);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  };
+
   return (
     <>
-      <Box w="100%"  display={{ base: "none", lg: "grid" }}>
+      <Box w="100%" display={{ base: "none", lg: "grid" }}>
         <Box bg="primary" id="navbar" h="80px" w="100%">
           <Flex
             h="full"
@@ -325,10 +356,7 @@ export default function NavBar({ withSidebar, logo, change }) {
             </Box>
             <Flex w="20%" gap={{ lg: "10px", xl: "30px", "2xl": "50px" }}>
               <Flex gap="2">
-                <Link
-                  role="link"
-                  to={routes.UserSettingsWhiteList.path}
-                >
+                <Link role="link" to={routes.UserSettingsWhiteList.path}>
                   <IconButton
                     role="button"
                     aria-label="link to my wish list"
@@ -376,7 +404,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                     borderRadius="16px"
                     border="none"
                     bg="white"
-                    shadow="0px 5px 40px rgba(0, 0, 0, 0.1)"
+                    shadow="0px 5px 40px 0px rgba(0, 0, 0, 0.1)"
                   >
                     <PopoverArrow />
                     <PopoverCloseButton
@@ -397,24 +425,21 @@ export default function NavBar({ withSidebar, logo, change }) {
                             העגלה שלי
                           </Text>
                           <Text color="naturalDarkest">
-                            ({cart.products && cart.products.length})
+                            ({products.length})
                           </Text>
                         </Flex>
 
                         <ChakraButton
                           variant="link"
-                          onClick={() =>
-                            (window.location.href =
-                              routes.ShoppingCart.path.replace(":id", "") +
-                              cart.id)
-                          }
+                          onClick={() => deleteMyCart()}
                           style={{ textDecoration: "none" }}
                           color="primaryLight"
                           fontSize="13px"
-                          aria-label="link to show my cart"
+                          aria-label="clear your cart"
                           role="button"
                         >
-                          לצפייה בסל
+                          רוקן עגלה
+                          <TrashIcon fill="#003DFF" />
                         </ChakraButton>
                       </Flex>
                       <Spacer h="10px" />
@@ -510,18 +535,16 @@ export default function NavBar({ withSidebar, logo, change }) {
                       </Flex>
                       <Box mt="38px">
                         <Button.Secondary
-                          aria-label="link to show my cart"
+                          aria-label="link to keep shoping"
                           borderColor="primary"
                           color="primary"
                           fontSize="20px"
                           role="button"
                           onClick={() =>
-                            (window.location.href =
-                              routes.ShoppingCart.path.replace(":id", "") +
-                              cart.id)
+                            (window.location.href = routes.HOME.path)
                           }
                         >
-                          לצפייה בעגלה
+                          להמשיך בקניות
                         </Button.Secondary>
                         <Spacer h="4" />
                         <Button>
@@ -532,8 +555,10 @@ export default function NavBar({ withSidebar, logo, change }) {
                             gap="4"
                             onClick={() =>
                               (window.location.href =
-                                routes.ShoppingCart.path.replace(":id", "") +
-                                cart.id)
+                                routes.ShoppingCart.path.replace(
+                                  ":id",
+                                  cart.id
+                                ))
                             }
                           >
                             לתשלום <ArrowBackIcon />
@@ -688,11 +713,9 @@ export default function NavBar({ withSidebar, logo, change }) {
                   textColor="white"
                   dir="rtl"
                 >
-                  <Flex
-                    gap="2"
-                    alignItems="center"
-                  >
-                    <Image alt="israel flag"
+                  <Flex gap="2" alignItems="center">
+                    <Image
+                      alt="israel flag"
                       src={process.env.PUBLIC_URL + "/assets/israel.svg"}
                     />
                     <Flex
@@ -723,8 +746,8 @@ export default function NavBar({ withSidebar, logo, change }) {
         </Box>
 
         <Box
-        w="100%"
-          className={hideOnScroll ? 'hide' : ''}
+          w="100%"
+          className={hideOnScroll ? "hide" : ""}
           bg={withSidebar ? "white" : "othersLight"}
           p="2"
           id={!fixedLinks ? "category" : "category-stick"}
@@ -799,7 +822,12 @@ export default function NavBar({ withSidebar, logo, change }) {
                 fontWeight="normal"
                 _hover={{ textColor: "secondaryColor" }}
                 bg="transparent"
-                onClick={() => (window.location.href = routes.Categories.path.replace(":category", "main-categories"))}
+                onClick={() =>
+                  (window.location.href = routes.Categories.path.replace(
+                    ":category",
+                    "main-categories"
+                  ))
+                }
                 aria-label="link to start bying"
                 role="button"
               >
@@ -824,9 +852,15 @@ export default function NavBar({ withSidebar, logo, change }) {
               </ChakraButton>
               <Menu placement="auto" isOpen={openCategories}>
                 <MenuButton
-                  onMouseEnter={() =>{ setOpenCategories(true)}}
-                  onClick={() =>  (window.location.href =
-                    routes.Categories.path.replace(":category", "main-categories"))}  
+                  onMouseEnter={() => {
+                    setOpenCategories(true);
+                  }}
+                  onClick={() =>
+                    (window.location.href = routes.Categories.path.replace(
+                      ":category",
+                      "main-categories"
+                    ))
+                  }
                   _hover={{ color: "secondaryColor" }}
                   px="4"
                   variant="link"
@@ -1114,7 +1148,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                         lineHeight="8px"
                         textColor="white"
                       >
-                        {cart.products && cart.products.length}
+                        {cart.products.length}
                       </Text>
                     </Flex>
                   )}
@@ -1146,24 +1180,20 @@ export default function NavBar({ withSidebar, logo, change }) {
                       <Text color="naturalDarkest" fontWeight="semibold">
                         העגלה שלי
                       </Text>
-                      <Text color="naturalDarkest">
-                        ({cart.products && cart.products.length})
-                      </Text>
+                      <Text color="naturalDarkest">({products.length})</Text>
                     </Flex>
 
                     <ChakraButton
                       variant="link"
-                      onClick={() =>
-                        (window.location.href =
-                          routes.ShoppingCart.path.replace(":id", "") + cart.id)
-                      }
+                      onClick={() => deleteMyCart()}
                       style={{ textDecoration: "none" }}
                       color="primaryLight"
                       fontSize="13px"
-                      aria-label="link to show my cart"
+                      aria-label="clear your cart"
                       role="button"
                     >
-                      לצפייה בסל
+                      רוקן עגלה
+                      <TrashIcon fill="#003DFF" />
                     </ChakraButton>
                   </Flex>
                   <Spacer h="10px" />
@@ -1259,17 +1289,14 @@ export default function NavBar({ withSidebar, logo, change }) {
                   </Flex>
                   <Box mt="38px">
                     <Button.Secondary
+                      aria-label="link to keep shoping"
                       borderColor="primary"
                       color="primary"
                       fontSize="20px"
-                      aria-label="link to show my cart"
                       role="button"
-                      onClick={() =>
-                        (window.location.href =
-                          routes.ShoppingCart.path.replace(":id", "") + cart.id)
-                      }
+                      onClick={() => (window.location.href = routes.HOME.path)}
                     >
-                      לצפייה בעגלה
+                      להמשיך בקניות
                     </Button.Secondary>
                     <Spacer h="4" />
                     <Button>
@@ -1280,8 +1307,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                         role="button"
                         onClick={() =>
                           (window.location.href =
-                            routes.ShoppingCart.path.replace(":id", "") +
-                            cart.id)
+                            routes.ShoppingCart.path.replace(":id", cart.id))
                         }
                       >
                         לתשלום <ArrowBackIcon />
@@ -1353,7 +1379,10 @@ export default function NavBar({ withSidebar, logo, change }) {
                         role="button"
                         onClick={() =>
                           (window.location.href =
-                            routes.Categories.path.replace(":category", "main-categories"))
+                            routes.Categories.path.replace(
+                              ":category",
+                              "main-categories"
+                            ))
                         }
                       >
                         כל הקטגוריות
@@ -1510,7 +1539,17 @@ const MenuItemComponent = ({ path, name, icon, ...rest }) => {
 };
 
 const MenuItemCategory = () => {
-  //const [category, setCategory] = useState("");
+  const [topCategories, setTopCategories] = useState([]);
+
+  useEffect(() => {
+    getCategories()
+      .then((res) => {
+        setTopCategories(res.categories.slice(0, 10));
+        console.log(res)
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <MenuItem
       id="category"
@@ -1523,7 +1562,136 @@ const MenuItemCategory = () => {
     >
       <Box pt="8px">
         <Flex alignItems="center" gap="16px">
-          <Flex flexDir="column" gap="10px" w="110px">
+          {topCategories[0] && topCategories.slice(0, 5).map((category, index) => 
+            <Flex flexDir="column" gap="10px" w="110px" key={index}>
+            <Flex dir="rtl" gap="3px" alignItems="center">
+              <Text fontSize="14px" fontWeight="semibold">
+                {category.name}
+              </Text>
+              <ArrowIcon />
+            </Flex>
+
+            <Text
+              _hover={{ color: "primary" }}
+              cursor="pointer"
+              onClick={() =>
+                (window.location.href = routes.Category.path.replace(
+                  ":category",
+                  ""
+                ))
+              }
+              fontSize="13px"
+            >
+              אספנות
+            </Text>
+            <Text
+              _hover={{ color: "primary" }}
+              cursor="pointer"
+              onClick={() =>
+                (window.location.href = routes.Category.path.replace(
+                  ":category",
+                  ""
+                ))
+              }
+              fontSize="13px"
+            >
+              אספנות
+            </Text>
+            <Text
+              _hover={{ color: "primary" }}
+              cursor="pointer"
+              onClick={() =>
+                (window.location.href = routes.Category.path.replace(
+                  ":category",
+                  ""
+                ))
+              }
+              fontSize="13px"
+            >
+              אספנות
+            </Text>
+            <Text
+              _hover={{ color: "primary" }}
+              cursor="pointer"
+              onClick={() =>
+                (window.location.href = routes.Category.path.replace(
+                  ":category",
+                  ""
+                ))
+              }
+              fontSize="13px"
+            >
+              אספנות
+            </Text>
+          </Flex>
+          )}
+          </Flex>
+          <Box my="20px" w="full" h="1px" bg="#D9D9D9"></Box>
+        <Flex alignItems="center" gap="16px">
+          {topCategories[0] && topCategories.slice(5, 10).map((category, index) => 
+            <Flex flexDir="column" gap="10px" w="110px" key={index}>
+            <Flex dir="rtl" gap="3px" alignItems="center">
+              <Text fontSize="14px" fontWeight="semibold">
+                {category.name}
+              </Text>
+              <ArrowIcon />
+            </Flex>
+
+            <Text
+              _hover={{ color: "primary" }}
+              cursor="pointer"
+              onClick={() =>
+                (window.location.href = routes.Category.path.replace(
+                  ":category",
+                  ""
+                ))
+              }
+              fontSize="13px"
+            >
+              אספנות
+            </Text>
+            <Text
+              _hover={{ color: "primary" }}
+              cursor="pointer"
+              onClick={() =>
+                (window.location.href = routes.Category.path.replace(
+                  ":category",
+                  ""
+                ))
+              }
+              fontSize="13px"
+            >
+              אספנות
+            </Text>
+            <Text
+              _hover={{ color: "primary" }}
+              cursor="pointer"
+              onClick={() =>
+                (window.location.href = routes.Category.path.replace(
+                  ":category",
+                  ""
+                ))
+              }
+              fontSize="13px"
+            >
+              אספנות
+            </Text>
+            <Text
+              _hover={{ color: "primary" }}
+              cursor="pointer"
+              onClick={() =>
+                (window.location.href = routes.Category.path.replace(
+                  ":category",
+                  ""
+                ))
+              }
+              fontSize="13px"
+            >
+              אספנות
+            </Text>
+          </Flex>
+          )}
+         {/*} <Flex flexDir="column" gap="10px" w="110px">
             <Flex dir="rtl" gap="3px" alignItems="center">
               <Text fontSize="14px" fontWeight="semibold">
                 אספנות
@@ -1847,7 +2015,7 @@ const MenuItemCategory = () => {
             <Text fontSize="13px">אספנות</Text>
             <Text fontSize="13px">אספנות</Text>
             <Text fontSize="13px">אספנות</Text>
-          </Flex>
+            </Flex>*/}
         </Flex>
         <Box my="20px" w="full" h="1px" bg="#D9D9D9"></Box>
         <Flex dir="rtl" gap="3px" alignItems="center">
@@ -1855,7 +2023,10 @@ const MenuItemCategory = () => {
             fontSize="14px"
             color="naturalDarkest"
             _hover={{ color: "primary" }}
-            href={routes.Categories.path.replace(":category", "main-categories")}
+            href={routes.Categories.path.replace(
+              ":category",
+              "main-categories"
+            )}
           >
             לכל הקטגוריות
           </Button.TextButton>

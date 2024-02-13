@@ -1,10 +1,4 @@
-import {
-  Box,
-  Image,
-  Flex,
-  Text,
-  Heading,
-} from "@chakra-ui/react";
+import { Box, Image, Flex, Text, Heading } from "@chakra-ui/react";
 import React from "react";
 import { routes } from "../../routes";
 import Container from "../Container";
@@ -20,7 +14,7 @@ export default function Category(props) {
         my={{ base: "30px", md: "40px" }}
         textAlign="center"
         color="primaryLight"
-        fontSize={{base: "26px", md: "30px", lg: "36px"}}
+        fontSize={{ base: "26px", md: "30px", lg: "36px" }}
       >
         הקטגוריות המובילות
       </Heading>
@@ -75,7 +69,7 @@ export default function Category(props) {
           }}
           mousewheel={true}
           //navigation // הפעלת כפתורי הניווט
-          autoplay={{ delay: 2500, disableOnInteraction: false }}
+          // autoplay={{ delay: 2500, disableOnInteraction: false }}
         >
           {props.categories[0] &&
             props.categories.map((category, index) => (
@@ -95,17 +89,23 @@ export default function Category(props) {
         </Swiper>
       </Box>
       <Flex justifyContent="center" mt="40px">
-      <Button w={{base: "160px", md: "200px"}} fontSize={{base: "18px", md: "20px"}} onClick={() => window.location.href = routes.Categories.path.replace(":category", "") + "main-categories"}>לכל הקטגוריות</Button>
+        <Button
+          w={{ base: "160px", md: "200px" }}
+          fontSize={{ base: "18px", md: "20px" }}
+          onClick={() =>
+            (window.location.href =
+              routes.Categories.path.replace(":category", "") +
+              "main-categories")
+          }
+        >
+          לכל הקטגוריות
+        </Button>
       </Flex>
     </Container>
   );
 }
 
-export const CategoryItem = ({
-  name = "",
-  imgUrl = {},
-  onClick
-}) => {
+export const CategoryItem = ({ name = "", imgUrl = {}, onClick }) => {
   return (
     <Flex
       mx="auto"
@@ -117,7 +117,7 @@ export const CategoryItem = ({
         "2xl": "200px",
       }}
       h={{
-        base: "140px",
+        base: "150px",
         sm: "150px",
         md: "202px",
         lg: "235.5px",
@@ -126,8 +126,9 @@ export const CategoryItem = ({
       cursor={"pointer"}
       onClick={() => onClick()}
       flexDir="column"
-      justifyContent="center"
       alignItems="center"
+      justifyContent={{md: "center"}}
+      pt={{ base: "15px", md: "0" }}
       gap={{ base: "18px", md: "28px" }}
     >
       <Box
@@ -149,7 +150,11 @@ export const CategoryItem = ({
       >
         <Image className="img" alt={name} src={imgUrl}></Image>
       </Box>
-      <Text fontSize={{ base: "16px", lg: "18.5px" }} textAlign="center">
+      <Text
+        fontSize={{ base: "16px", lg: "18.5px" }}
+        lineHeight={{ base: "16px", sm: "19.2px" }}
+        textAlign="center"
+      >
         {name}
       </Text>
     </Flex>

@@ -2,7 +2,7 @@ import React from "react";
 import Layout from "../components/Layout";
 import Category from "../components/Category";
 import Products from "../components/Products";
-import TopProducts from "../components/TopProducts"
+import TopProducts from "../components/TopProducts";
 import Container from "../components/Container";
 import { Box, Flex, Heading, Image, Input, Text } from "@chakra-ui/react";
 import Button from "../components/Button";
@@ -13,7 +13,7 @@ import { routes } from "../routes";
 import { addToMailingList } from "../utils/api/mailingList";
 import Loader from "../components/Loader";
 import Banner from "../components/Banner";
-import { getCategories } from "../utils/api/categories"
+import { getCategories } from "../utils/api/categories";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -33,9 +33,14 @@ export default function Home() {
     } else setError("אנא הכנס כתובת מייל תקינה");
   };
   useEffect(() => {
-    getCategories().then((res)=> {setCategories(res.categories); setLoading(false)})
-  }, [])
-  
+    getCategories()
+      .then((res) => {
+        setCategories(res.categories);
+        setLoading(false);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <Layout home>
       {loading ? (
@@ -48,12 +53,12 @@ export default function Home() {
             flexDir="column"
           >
             <Category categories={categories} />
-            <Banner/>
+            <Banner />
             <Products />
             <TopProducts />
           </Flex>
 
-      {/* <Container>
+          {/* <Container>
             <Box
               display={{ base: "none", md: "block" }}
               dir="rtl"
@@ -94,7 +99,10 @@ export default function Home() {
                 justifyContent="center"
               >
                 <Box flex="1">
-                  <Image alt="an image of a man" src={process.env.PUBLIC_URL + "/assets/men.svg"} />
+                  <Image
+                    alt="an image of a man"
+                    src={process.env.PUBLIC_URL + "/assets/men.svg"}
+                  />
                 </Box>
                 <Box flex="1">
                   <Flex flexDir="column" gap="4" width="58%">
@@ -158,7 +166,7 @@ export default function Home() {
               </Flex>
             </Container>
           </Box>
-        <Flex w="full" justifyContent="center">
+          <Flex w="full" justifyContent="center">
             <Flex
               display={{ base: "none", md: "flex" }}
               flexDir="column"
@@ -220,7 +228,7 @@ export default function Home() {
             </Flex>
           </Flex>
 
-        {/* <Flex
+          {/* <Flex
             flexDir="column"
             gap="3"
             w="full"
