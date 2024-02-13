@@ -208,7 +208,7 @@ export const CategoryItem = ({ name = "", imgUrl = {}, onClick }) => {
         "2xl": "200px",
       }}
       h={{
-        base: "140px",
+        base: "150px",
         sm: "150px",
         md: "202px",
         lg: "235.5px",
@@ -217,8 +217,9 @@ export const CategoryItem = ({ name = "", imgUrl = {}, onClick }) => {
       cursor={"pointer"}
       onClick={() => onClick()}
       flexDir="column"
-      justifyContent="center"
       alignItems="center"
+      justifyContent={{md: "center"}}
+      pt={{ base: "15px", md: "0" }}
       gap={{ base: "18px", md: "28px" }}
     >
       <Box
@@ -240,7 +241,11 @@ export const CategoryItem = ({ name = "", imgUrl = {}, onClick }) => {
       >
         <Image className="img" alt={name} src={imgUrl}></Image>
       </Box>
-      <Text fontSize={{ base: "16px", lg: "18.5px" }} textAlign="center">
+      <Text
+        fontSize={{ base: "16px", lg: "18.5px" }}
+        lineHeight={{ base: "16px", sm: "19.2px" }}
+        textAlign="center"
+      >
         {name}
       </Text>
     </Flex>
