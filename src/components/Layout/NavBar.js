@@ -292,8 +292,9 @@ export default function NavBar({ withSidebar, logo, change }) {
     if (token !== null) {
       getUserCart()
         .then((res) => {
-          setCart(res.cart);
+          console.log(res);
           setProducts(res.cart.products);
+          setCart(res.cart);
         })
         .catch((err) => console.log(err));
     } else {
@@ -366,207 +367,215 @@ export default function NavBar({ withSidebar, logo, change }) {
                   />
                 </Link>
 
-                <Popover>
-                  <PopoverTrigger>
-                    <Flex position="relative" role="button">
-                      <IconButton
-                        role="button"
-                        aria-label="show my cart"
-                        bgColor="#1D5FE8" //rgba(255,255,255,0.2)
-                        _hover={{ bg: "rgba(255,255,255,0.3)" }}
-                        icon={<CartIcon3 />}
-                      />
-                      {cart.products && cart.products.length > 0 && (
-                        <Flex
-                          position="absolute"
-                          top="1"
-                          right="1"
-                          alignItems="center"
-                          justifyContent="center"
-                          w="14px"
-                          pt="1px"
-                          h="14px"
-                          borderRadius="100px"
-                          bg="otherError"
-                          border="1px solid transparent"
-                          borderColor="iconButtonColor"
-                        >
-                          <Text fontSize="8px" textColor="white">
-                            {cart.products && cart.products.length}
-                          </Text>
-                        </Flex>
-                      )}
-                    </Flex>
-                  </PopoverTrigger>
-                  <PopoverContent
-                    // h="637px"
-                    w="357px"
-                    borderRadius="16px"
-                    border="none"
-                    bg="white"
-                    shadow="0px 5px 40px 0px rgba(0, 0, 0, 0.1)"
-                  >
-                    <PopoverArrow />
-                    <PopoverCloseButton
-                      size="sm"
-                      position="absolute"
-                      left="0"
-                      top="68.7px"
-                      transform="translateX(-50%)"
-                      bg="white"
-                      border="1.24779px solid"
-                      borderColor="naturalDark"
-                      borderRadius="full"
-                    />
-                    <PopoverBody py="6" px="6" dir="rtl">
-                      <Flex alignItems="center" justifyContent="space-between">
-                        <Flex gap="2" fontSize="16px" lineHeight="16.5px">
-                          <Text color="naturalDarkest" fontWeight="semibold">
-                            העגלה שלי
-                          </Text>
-                          <Text color="naturalDarkest">
-                            ({products.length})
-                          </Text>
-                        </Flex>
-
-                        <ChakraButton
-                          variant="link"
-                          onClick={() => deleteMyCart()}
-                          style={{ textDecoration: "none" }}
-                          color="primaryLight"
-                          fontSize="13px"
-                          aria-label="clear your cart"
-                          role="button"
-                        >
-                          רוקן עגלה
-                          <TrashIcon fill="#003DFF" />
-                        </ChakraButton>
-                      </Flex>
-                      <Spacer h="10px" />
-                      <Box overflow="auto" className="slider-container">
-                        <Slider {...settings}>
-                          {products && (
-                            <>
-                              {products.map((p, key) => (
-                                <React.Fragment key={key}>
-                                  <NavCartListItem
-                                    title={p.product.title}
-                                    price={
-                                      (p.product.price *
-                                        (100 - p.product.discount)) /
-                                      100
-                                    }
-                                    images={p.product.images}
-                                    amount={p.amount}
-                                    quantityLeft={p.product.quantityLeft}
-                                    onChangeAmount={(amount) =>
-                                      updateAmount(
-                                        p.product,
-                                        p.size,
-                                        p.model,
-                                        amount,
-                                        p.amount
-                                      )
-                                    }
-                                    onDelete={() => {
-                                      const a = window.confirm(
-                                        "האם אתה בטוח שברצונך למחוק את המוצר מהעגלה?"
-                                      );
-                                      if (a) {
-                                        removeProductFromCart(
-                                          p.product.id,
-                                          p.size,
-                                          p.model
-                                        );
-                                      }
-                                    }}
-                                  />
-                                </React.Fragment>
-                              ))}
-                            </>
-                          )}
-                        </Slider>
-                      </Box>
-
-                      <Spacer h="38px" />
-                      <Flex justifyContent="space-between">
-                        <Box>
-                          <Text
-                            fontWeight="500"
-                            fontSize="22px"
-                            color="naturalBlack"
-                            lineHeight="30px"
-                          >
-                            סך הכל
-                          </Text>
-                          <Text
-                            color="naturalDark"
-                            fontSize="14px"
-                            lineHeight="22px"
-                          >
-                            משלוח, עמלות ומיסים יחושבו בשעת ההזמנה
-                          </Text>
-                        </Box>
-
-                        <Text
-                          fontWeight="500"
-                          fontSize="22px"
-                          lineHeight="30px"
-                          color="naturalBlack"
-                        >
-                          ₪
-                          {(cart.products &&
-                            cart.products.length >= 1 &&
-                            Math.round(
-                              cart.products.reduce(
-                                (a, b) =>
-                                  parseFloat(a) +
-                                  parseFloat(
-                                    ((b.product.price *
-                                      (100 - b.product.discount)) /
-                                      100) *
-                                      b.amount
-                                  ),
-                                0
-                              ) * 100
-                            ) / 100) ||
-                            "0"}
-                        </Text>
-                      </Flex>
-                      <Box mt="38px">
-                        <Button.Secondary
-                          aria-label="link to keep shoping"
-                          borderColor="primary"
-                          color="primary"
-                          fontSize="20px"
-                          role="button"
-                          onClick={() =>
-                            (window.location.href = routes.HOME.path)
-                          }
-                        >
-                          להמשיך בקניות
-                        </Button.Secondary>
-                        <Spacer h="4" />
-                        <Button>
-                          <Flex
-                            aria-label="link to pay my cart"
+                <Popover closeOnBlur={false}>
+                  {({ onClose }) => (
+                    <>
+                      <PopoverTrigger>
+                        <Flex position="relative" role="button">
+                          <IconButton
                             role="button"
+                            aria-label="show my cart"
+                            bgColor="#1D5FE8" //rgba(255,255,255,0.2)
+                            _hover={{ bg: "rgba(255,255,255,0.3)" }}
+                            icon={<CartIcon3 />}
+                          />
+                          {cart.products && cart.products.length > 0 && (
+                            <Flex
+                              position="absolute"
+                              top="1"
+                              right="1"
+                              alignItems="center"
+                              justifyContent="center"
+                              w="14px"
+                              pt="1px"
+                              h="14px"
+                              borderRadius="100px"
+                              bg="otherError"
+                              border="1px solid transparent"
+                              borderColor="iconButtonColor"
+                            >
+                              <Text fontSize="8px" textColor="white">
+                                {cart.products && cart.products.length}
+                              </Text>
+                            </Flex>
+                          )}
+                        </Flex>
+                      </PopoverTrigger>
+                      <PopoverContent
+                        // h="637px"
+                        w="357px"
+                        borderRadius="16px"
+                        border="none"
+                        bg="white"
+                        shadow="0px 5px 40px 0px rgba(0, 0, 0, 0.1)"
+                      >
+                        <PopoverArrow />
+                        <PopoverCloseButton
+                          size="sm"
+                          position="absolute"
+                          left="0"
+                          top="68.7px"
+                          transform="translateX(-50%)"
+                          bg="white"
+                          border="1.24779px solid"
+                          borderColor="naturalDark"
+                          borderRadius="full"
+                        />
+                        <PopoverBody py="6" px="6" dir="rtl">
+                          <Flex
                             alignItems="center"
-                            gap="4"
-                            onClick={() =>
-                              (window.location.href =
-                                routes.ShoppingCart.path.replace(
-                                  ":id",
-                                  cart.id
-                                ))
-                            }
+                            justifyContent="space-between"
                           >
-                            לתשלום <ArrowBackIcon />
+                            <Flex gap="2" fontSize="16px" lineHeight="16.5px">
+                              <Text
+                                color="naturalDarkest"
+                                fontWeight="semibold"
+                              >
+                                העגלה שלי
+                              </Text>
+                              <Text color="naturalDarkest">
+                                ({cart.products ? cart.products.length : 0})
+                              </Text>
+                            </Flex>
+
+                            <ChakraButton
+                              variant="link"
+                              onClick={() => deleteMyCart()}
+                              style={{ textDecoration: "none" }}
+                              color="primaryLight"
+                              fontSize="13px"
+                              aria-label="clear your cart"
+                              role="button"
+                            >
+                              רוקן עגלה
+                              <TrashIcon fill="#003DFF" />
+                            </ChakraButton>
                           </Flex>
-                        </Button>
-                      </Box>
-                    </PopoverBody>
-                  </PopoverContent>
+                          <Spacer h="10px" />
+                          <Box overflow="auto" className="slider-container">
+                            <Slider {...settings}>
+                              {products && (
+                                <>
+                                  {products.map((p, key) => (
+                                    <React.Fragment key={key}>
+                                      <NavCartListItem
+                                        title={p.product.title}
+                                        price={
+                                          (p.product.price *
+                                            (100 - p.product.discount)) /
+                                          100
+                                        }
+                                        images={p.product.images}
+                                        amount={p.amount}
+                                        quantityLeft={p.product.quantityLeft}
+                                        onChangeAmount={(amount) =>
+                                          updateAmount(
+                                            p.product,
+                                            p.size,
+                                            p.model,
+                                            amount,
+                                            p.amount
+                                          )
+                                        }
+                                        onDelete={() => {
+                                          const a = window.confirm(
+                                            "האם אתה בטוח שברצונך למחוק את המוצר מהעגלה?"
+                                          );
+                                          if (a) {
+                                            removeProductFromCart(
+                                              p.product.id,
+                                              p.size,
+                                              p.model
+                                            );
+                                          }
+                                        }}
+                                      />
+                                    </React.Fragment>
+                                  ))}
+                                </>
+                              )}
+                            </Slider>
+                          </Box>
+
+                          <Spacer h="38px" />
+                          <Flex justifyContent="space-between">
+                            <Box>
+                              <Text
+                                fontWeight="500"
+                                fontSize="22px"
+                                color="naturalBlack"
+                                lineHeight="30px"
+                              >
+                                סך הכל
+                              </Text>
+                              <Text
+                                color="naturalDark"
+                                fontSize="14px"
+                                lineHeight="22px"
+                              >
+                                משלוח, עמלות ומיסים יחושבו בשעת ההזמנה
+                              </Text>
+                            </Box>
+
+                            <Text
+                              fontWeight="500"
+                              fontSize="22px"
+                              lineHeight="30px"
+                              color="naturalBlack"
+                            >
+                              ₪
+                              {(cart.products &&
+                                cart.products.length >= 1 &&
+                                Math.round(
+                                  cart.products.reduce(
+                                    (a, b) =>
+                                      parseFloat(a) +
+                                      parseFloat(
+                                        ((b.product.price *
+                                          (100 - b.product.discount)) /
+                                          100) *
+                                          b.amount
+                                      ),
+                                    0
+                                  ) * 100
+                                ) / 100) ||
+                                "0"}
+                            </Text>
+                          </Flex>
+                          <Box mt="38px">
+                            <Button.Secondary
+                              aria-label="link to keep shoping"
+                              borderColor="primary"
+                              color="primary"
+                              fontSize="20px"
+                              role="button"
+                              onClick={onClose}
+                            >
+                              להמשיך בקניות
+                            </Button.Secondary>
+                            <Spacer h="4" />
+                            <Button>
+                              <Flex
+                                aria-label="link to pay my cart"
+                                role="button"
+                                alignItems="center"
+                                gap="4"
+                                onClick={() =>
+                                  (window.location.href =
+                                    routes.ShoppingCart.path.replace(
+                                      ":id",
+                                      cart.id
+                                    ))
+                                }
+                              >
+                                לתשלום <ArrowBackIcon />
+                              </Flex>
+                            </Button>
+                          </Box>
+                        </PopoverBody>
+                      </PopoverContent>
+                    </>
+                  )}
                 </Popover>
                 <Menu placement="bottom">
                   <MenuButton>
@@ -1545,7 +1554,7 @@ const MenuItemCategory = () => {
     getCategories()
       .then((res) => {
         setTopCategories(res.categories.slice(0, 10));
-        console.log(res)
+        console.log(res);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -1562,136 +1571,138 @@ const MenuItemCategory = () => {
     >
       <Box pt="8px">
         <Flex alignItems="center" gap="16px">
-          {topCategories[0] && topCategories.slice(0, 5).map((category, index) => 
-            <Flex flexDir="column" gap="10px" w="110px" key={index}>
-            <Flex dir="rtl" gap="3px" alignItems="center">
-              <Text fontSize="14px" fontWeight="semibold">
-                {category.name}
-              </Text>
-              <ArrowIcon />
-            </Flex>
+          {topCategories[0] &&
+            topCategories.slice(0, 5).map((category, index) => (
+              <Flex flexDir="column" gap="10px" w="110px" key={index}>
+                <Flex dir="rtl" gap="3px" alignItems="center">
+                  <Text fontSize="14px" fontWeight="semibold">
+                    {category.name}
+                  </Text>
+                  <ArrowIcon />
+                </Flex>
 
-            <Text
-              _hover={{ color: "primary" }}
-              cursor="pointer"
-              onClick={() =>
-                (window.location.href = routes.Category.path.replace(
-                  ":category",
-                  ""
-                ))
-              }
-              fontSize="13px"
-            >
-              אספנות
-            </Text>
-            <Text
-              _hover={{ color: "primary" }}
-              cursor="pointer"
-              onClick={() =>
-                (window.location.href = routes.Category.path.replace(
-                  ":category",
-                  ""
-                ))
-              }
-              fontSize="13px"
-            >
-              אספנות
-            </Text>
-            <Text
-              _hover={{ color: "primary" }}
-              cursor="pointer"
-              onClick={() =>
-                (window.location.href = routes.Category.path.replace(
-                  ":category",
-                  ""
-                ))
-              }
-              fontSize="13px"
-            >
-              אספנות
-            </Text>
-            <Text
-              _hover={{ color: "primary" }}
-              cursor="pointer"
-              onClick={() =>
-                (window.location.href = routes.Category.path.replace(
-                  ":category",
-                  ""
-                ))
-              }
-              fontSize="13px"
-            >
-              אספנות
-            </Text>
-          </Flex>
-          )}
-          </Flex>
-          <Box my="20px" w="full" h="1px" bg="#D9D9D9"></Box>
+                <Text
+                  _hover={{ color: "primary" }}
+                  cursor="pointer"
+                  onClick={() =>
+                    (window.location.href = routes.Category.path.replace(
+                      ":category",
+                      ""
+                    ))
+                  }
+                  fontSize="13px"
+                >
+                  אספנות
+                </Text>
+                <Text
+                  _hover={{ color: "primary" }}
+                  cursor="pointer"
+                  onClick={() =>
+                    (window.location.href = routes.Category.path.replace(
+                      ":category",
+                      ""
+                    ))
+                  }
+                  fontSize="13px"
+                >
+                  אספנות
+                </Text>
+                <Text
+                  _hover={{ color: "primary" }}
+                  cursor="pointer"
+                  onClick={() =>
+                    (window.location.href = routes.Category.path.replace(
+                      ":category",
+                      ""
+                    ))
+                  }
+                  fontSize="13px"
+                >
+                  אספנות
+                </Text>
+                <Text
+                  _hover={{ color: "primary" }}
+                  cursor="pointer"
+                  onClick={() =>
+                    (window.location.href = routes.Category.path.replace(
+                      ":category",
+                      ""
+                    ))
+                  }
+                  fontSize="13px"
+                >
+                  אספנות
+                </Text>
+              </Flex>
+            ))}
+        </Flex>
+        <Box my="20px" w="full" h="1px" bg="#D9D9D9"></Box>
         <Flex alignItems="center" gap="16px">
-          {topCategories[0] && topCategories.slice(5, 10).map((category, index) => 
-            <Flex flexDir="column" gap="10px" w="110px" key={index}>
-            <Flex dir="rtl" gap="3px" alignItems="center">
-              <Text fontSize="14px" fontWeight="semibold">
-                {category.name}
-              </Text>
-              <ArrowIcon />
-            </Flex>
+          {topCategories[0] &&
+            topCategories.slice(5, 10).map((category, index) => (
+              <Flex flexDir="column" gap="10px" w="110px" key={index}>
+                <Flex dir="rtl" gap="3px" alignItems="center">
+                  <Text fontSize="14px" fontWeight="semibold">
+                    {category.name}
+                  </Text>
+                  <ArrowIcon />
+                </Flex>
 
-            <Text
-              _hover={{ color: "primary" }}
-              cursor="pointer"
-              onClick={() =>
-                (window.location.href = routes.Category.path.replace(
-                  ":category",
-                  ""
-                ))
-              }
-              fontSize="13px"
-            >
-              אספנות
-            </Text>
-            <Text
-              _hover={{ color: "primary" }}
-              cursor="pointer"
-              onClick={() =>
-                (window.location.href = routes.Category.path.replace(
-                  ":category",
-                  ""
-                ))
-              }
-              fontSize="13px"
-            >
-              אספנות
-            </Text>
-            <Text
-              _hover={{ color: "primary" }}
-              cursor="pointer"
-              onClick={() =>
-                (window.location.href = routes.Category.path.replace(
-                  ":category",
-                  ""
-                ))
-              }
-              fontSize="13px"
-            >
-              אספנות
-            </Text>
-            <Text
-              _hover={{ color: "primary" }}
-              cursor="pointer"
-              onClick={() =>
-                (window.location.href = routes.Category.path.replace(
-                  ":category",
-                  ""
-                ))
-              }
-              fontSize="13px"
-            >
-              אספנות
-            </Text>
-          </Flex>
-          )}
-         {/*} <Flex flexDir="column" gap="10px" w="110px">
+                <Text
+                  _hover={{ color: "primary" }}
+                  cursor="pointer"
+                  onClick={() =>
+                    (window.location.href = routes.Category.path.replace(
+                      ":category",
+                      ""
+                    ))
+                  }
+                  fontSize="13px"
+                >
+                  אספנות
+                </Text>
+                <Text
+                  _hover={{ color: "primary" }}
+                  cursor="pointer"
+                  onClick={() =>
+                    (window.location.href = routes.Category.path.replace(
+                      ":category",
+                      ""
+                    ))
+                  }
+                  fontSize="13px"
+                >
+                  אספנות
+                </Text>
+                <Text
+                  _hover={{ color: "primary" }}
+                  cursor="pointer"
+                  onClick={() =>
+                    (window.location.href = routes.Category.path.replace(
+                      ":category",
+                      ""
+                    ))
+                  }
+                  fontSize="13px"
+                >
+                  אספנות
+                </Text>
+                <Text
+                  _hover={{ color: "primary" }}
+                  cursor="pointer"
+                  onClick={() =>
+                    (window.location.href = routes.Category.path.replace(
+                      ":category",
+                      ""
+                    ))
+                  }
+                  fontSize="13px"
+                >
+                  אספנות
+                </Text>
+              </Flex>
+            ))}
+          {/*} <Flex flexDir="column" gap="10px" w="110px">
             <Flex dir="rtl" gap="3px" alignItems="center">
               <Text fontSize="14px" fontWeight="semibold">
                 אספנות

@@ -2,7 +2,7 @@ import React from "react";
 import Layout from "../components/Layout";
 import Category from "../components/Category";
 import Products from "../components/Products";
-import TopProducts from "../components/TopProducts";
+import TopProducts from "../components/LoadingProducts";
 import Container from "../components/Container";
 import { Box, Flex, Heading, Image, Input, Text } from "@chakra-ui/react";
 import Button from "../components/Button";
@@ -84,53 +84,74 @@ export default function Home() {
               </Flex>
             </Box>
       </Container>*/}
-
-          <Box
-            dir="rtl"
-            bg="aboutColor"
-            py="20"
-            display={{ base: "none", md: "block" }}
-          >
+          <Box dir="rtl" bg="aboutColor" py="20" mx="auto">
             <Container>
               <Flex
                 w="full"
                 alignItems="center"
                 gap="10"
                 justifyContent="center"
+                flexDir={{ base: "column", md: "row" }}
               >
-                <Box flex="1">
+                <Flex flex="1" justifyContent="end">
                   <Image
                     alt="an image of a man"
-                    src={process.env.PUBLIC_URL + "/assets/men.svg"}
+                    src={process.env.PUBLIC_URL + "/assets/man.svg"}
                   />
-                </Box>
+                </Flex>
                 <Box flex="1">
-                  <Flex flexDir="column" gap="4" width="58%">
-                    <Text color="primary" fontSize="18px" fontWeight="medium">
-                      {" "}
-                      הבידול שלנו{" "}
+                  <Flex
+                    flexDir="column"
+                    gap="4"
+                    w={{
+                      base: "320px",
+                      sm: "460px",
+                      md: "360px",
+                      lg: "460px",
+                      xl: "504px",
+                    }}
+                  >
+                    <Text
+                      color="primary"
+                      fontSize={{ base: "14px", md: "18px" }}
+                      fontWeight="medium"
+                    >
+                      הבידול שלנו
                     </Text>
                     <Text
                       color="primaryDark"
-                      fontSize="36px"
-                      fontWeight="medium"
+                      fontSize={{
+                        base: "20px",
+                        md: "26px",
+                        lg: "30px",
+                        xl: "36px",
+                      }}
+                      fontWeight="bold"
                     >
                       שוק עולמי מקוון המאפשר מסחר מקומי ובינלאומי
                     </Text>
-                    <Text color="naturalDarkest" fontSize="22px">
+                    <Text
+                      color="naturalDarkest"
+                      fontSize={{ base: "14px", md: "18px", lg: "20px", xl: "22px" }}
+                    >
                       שוק המסחר לעסקים קטנים עד גדולים המציע מיליוני פריטים
                       ומכירות פומביות שוק המסחר לעסקים קטנים עד גדולים המציע
                       מיליוני פריטים ומכירות פומביות
                     </Text>
-                    <Button w="164px" h="64px" href={routes.CreateProduct.path}>
-                      בוא נתחיל
-                    </Button>
+                    <Flex alignItems="center" gap="5">
+                      <Button
+                        w={{ base: "140px", lg: "164px" }}
+                        h={{ base: "52px", lg: "64px" }}
+                        href={routes.CreateProduct.path}
+                      >
+                        בוא נתחיל
+                      </Button>
+                    </Flex>
                   </Flex>
                 </Box>
               </Flex>
             </Container>
           </Box>
-
           <Box
             bg="aboutColor2"
             px="30px"

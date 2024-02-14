@@ -16,8 +16,8 @@ export default function Login() {
   const savedInput = window.localStorage.getItem("input");
   const savedPassword = window.localStorage.getItem("password");
   const [isRemember, setIsRemember] = useState(savedInput !== null);
-  const [input, setInput] = useState(savedInput || "");
-  const [password, setPassword] = useState(savedPassword || "");
+  const [input, setInput] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [invalidInput, setInvalidInput] = useState("");

@@ -36,8 +36,7 @@ export default function About() {
           .then((res) => setEmail(""))
           .catch((err) => console.log(err));
       } else setError("אנא הכנס כתובת מייל תקינה");
-    }
-   else setError("אנא הכנס כתובת מייל תקינה");
+    } else setError("אנא הכנס כתובת מייל תקינה");
   };
 
   return (
@@ -53,35 +52,63 @@ export default function About() {
                 alignItems="center"
                 gap="10"
                 justifyContent="center"
-                flexDir={{base: "column", md: "row"}}
+                flexDir={{ base: "column", md: "row" }}
               >
+                <Flex flex="1" justifyContent="end">
+                  <Image
+                    alt="an image of a man"
+                    src={process.env.PUBLIC_URL + "/assets/man.svg"}
+                  />
+                </Flex>
                 <Box flex="1">
-                  <Image src={process.env.PUBLIC_URL + "/assets/man-stats.png"} />
-                </Box>
-                <Box flex="1" >
-                  <Flex flexDir="column" gap="4" w={{base: "320px", sm: "460px", md:"360px", lg: "460px", xl: "504px"}}>
-                    <Text color="primary" fontSize="14px" fontWeight="bold">
-                      {" "}
-                      הבידול שלנו{" "}
+                  <Flex
+                    flexDir="column"
+                    gap="4"
+                    w={{
+                      base: "320px",
+                      sm: "460px",
+                      md: "360px",
+                      lg: "460px",
+                      xl: "504px",
+                    }}
+                  >
+                    <Text color="primary"
+                      fontSize={{ base: "14px", md: "18px" }}
+                      fontWeight="medium">
+                      הבידול שלנו
                     </Text>
-                    <Text color="primaryDark" fontSize={{base: "20px",md: "26px", lg: "30px", xl: "36px"}} fontWeight="bold">
+                    <Text
+                      color="primaryDark"
+                      fontSize={{
+                        base: "20px",
+                        md: "26px",
+                        lg: "30px",
+                        xl: "36px",
+                      }}
+                      fontWeight="bold"
+                    >
                       שוק עולמי מקוון המאפשר מסחר מקומי ובינלאומי
                     </Text>
-                    <Text color="naturalDarkest" fontSize={{base: "14px", md: "18px"}}>
+                    <Text
+                      color="naturalDarkest"
+                      fontSize={{ base: "14px", md: "18px", lg: "20px", xl: "22px" }}
+                    >
                       שוק המסחר לעסקים קטנים עד גדולים המציע מיליוני פריטים
                       ומכירות פומביות שוק המסחר לעסקים קטנים עד גדולים המציע
                       מיליוני פריטים ומכירות פומביות
                     </Text>
                     <Flex alignItems="center" gap="5">
-                      <Button2 w="120px" href={routes.CreateProduct.path}>
+                      <Button2 w={{base: "140px", md: "120px", lg: "164px"}} h={{base: "52px", lg: "64px"}} href={routes.CreateProduct.path}>
                         בוא נתחיל
                       </Button2>
                       <Button
-                        w={{base: "180px", sm:"200px"}}
+                        w={{ base: "180px", sm: "200px", lg: "260px" }}
+                        h={{lg: "64px"}}
                         display="flex"
-                        gap="3"
+                        gap={{base: "2", sm: "3"}}
                         p="10px 10px"
                         minH="52px"
+                        fontSize={{base: "16px", md: "18px", lg: "20px"}}
                         borderRadius="12px"
                         borderColor="primary"
                         variant="outline"
@@ -91,7 +118,7 @@ export default function About() {
                           (window.location.href = "/article/howToStartASale")
                         }
                       >
-                        <PlayIcon/>  איך לפתוח מכירה
+                        <PlayIcon /> איך לפתוח מכירה
                       </Button>
                     </Flex>
                   </Flex>
@@ -99,37 +126,71 @@ export default function About() {
               </Flex>
             </Container>
           </Box>
-          <Flex justifyContent="center" pb="10" alignItems="center" flexDir="column" dir="rtl" px={{base: "5", md: "10"}}>
-          <Heading dir="rtl" pb="10" color="primary">אודותינו</Heading>
-<Box>
-חברת "SaleBid בע"מ מפעילה את אתר המכירות https://salebid.netlify.app אתר למכירת מוצרים במכירה רגילה או מכירה פומבית
-<br/>
-האתר הוקם בשנת 2024 על מנת לאפשר למשתמשים פרטיים למכור מוצרים גם בדרך רגילה וגם בדרך של מכירה פומבית מקוונת. 
-<br/>
-הרעיון מאחורי האתר הוא לספק פלטפורמה נוחה וידידותית למכירת מוצרים שונים, במחירים אטרקטיביים תוך שימוש במנגנון של הצעות מחיר תחרותיות.
-<br/>
-האתר פונה לקהל מכירה רחב הכולל הן מוכרים פרטיים והן קונים מן השורה. 
-<br/>
-המוכרים יכולים להעלות מוצרים למכירה פומבית תוך קביעת מחיר מינימום, ולאחר מכן מתבצע תהליך הצעות מחיר תחרותי בין הקונים המעוניינים.
-<br/>
-האתר מציע מערכת מאובטחת לביצוע העסקאות, מערכת ביטולים והחזרים, מערכת דירוג ומשוב על מוכרים וקונים, וכן שירות לקוחות מקצועי.
-<br/>
-SaleBid שואפת לספק חווית משתמש איכותית ולהפוך לפלטפורמת המכירות המובילה מסוגה בישראל.
-<br/>
-הצטרפו אלינו!
-</Box>
+          <Flex
+            justifyContent="center"
+            pb="10"
+            alignItems="center"
+            flexDir="column"
+            dir="rtl"
+            px={{ base: "5", md: "10" }}
+          >
+            <Heading dir="rtl" pb="10" color="primary">
+              אודותינו
+            </Heading>
+            <Text
+              color="naturalDarkest"
+              fontSize={{ base: "14px", md: "18px" }}
+            >
+              חברת "SaleBid בע"מ מפעילה את אתר המכירות
+              https://salebid.netlify.app אתר למכירת מוצרים במכירה רגילה או
+              מכירה פומבית.
+              <br />
+              האתר הוקם בשנת 2024 על מנת לאפשר למשתמשים פרטיים למכור מוצרים גם
+              בדרך רגילה וגם בדרך של מכירה פומבית מקוונת.
+              <br />
+              הרעיון מאחורי האתר הוא לספק פלטפורמה נוחה וידידותית למכירת מוצרים
+              שונים, במחירים אטרקטיביים תוך שימוש במנגנון של הצעות מחיר
+              תחרותיות.
+              <br />
+              האתר פונה לקהל מכירה רחב הכולל הן מוכרים פרטיים והן קונים מן
+              השורה.
+              <br />
+              המוכרים יכולים להעלות מוצרים למכירה פומבית תוך קביעת מחיר מינימום,
+              ולאחר מכן מתבצע תהליך הצעות מחיר תחרותי בין הקונים המעוניינים.
+              <br />
+              האתר מציע מערכת מאובטחת לביצוע העסקאות, מערכת ביטולים והחזרים,
+              מערכת דירוג ומשוב על מוכרים וקונים, וכן שירות לקוחות מקצועי.
+              <br />
+              SaleBid שואפת לספק חווית משתמש איכותית ולהפוך לפלטפורמת המכירות
+              המובילה מסוגה בישראל.
+              <br />
+              הצטרפו אלינו!
+            </Text>
           </Flex>
           <Box bg="aboutColor">
             <Spacer h="100px" />
             <Flex alignItems="center" flexDir="column">
               <Flex alignItems="flex-start">
-              <Heading dir="rtl" fontSize={{base: "22px", md: "28px", xl:"32px"}} lineHeight="18.6px"
-        letterSpacing="0.02em" fontWeight="medium">
-                עיין במאמרי עזרה
-              </Heading>
+                <Heading
+                  dir="rtl"
+                  fontSize={{ base: "22px", md: "28px", xl: "32px" }}
+                  lineHeight="18.6px"
+                  letterSpacing="0.02em"
+                  fontWeight="medium"
+                >
+                  עיין במאמרי עזרה
+                </Heading>
               </Flex>
               <br />
-              <Grid gridTemplateColumns={{base: "1fr", md:"1fr 1fr", xl: "1fr 1fr 1fr"}} gap="4" dir="rtl">
+              <Grid
+                gridTemplateColumns={{
+                  base: "1fr",
+                  md: "1fr 1fr",
+                  xl: "1fr 1fr 1fr",
+                }}
+                gap="4"
+                dir="rtl"
+              >
                 <ArticleCard
                   text="חשבון"
                   imageUrl={process.env.PUBLIC_URL + "/assets/profile.svg"}
@@ -164,9 +225,9 @@ SaleBid שואפת לספק חווית משתמש איכותית ולהפוך ל
                 ></ArticleCard>
               </Grid>
             </Flex>
-            <Spacer h={{base: "50px", md:"100px"}} />
+            <Spacer h={{ base: "50px", md: "100px" }} />
           </Box>
-          <Box display={{base: "none", md: "block"}} py="10" bg="aboutColor2">
+          <Box display={{ base: "none", md: "block" }} py="10" bg="aboutColor2">
             <Flex
               flexDir="column"
               alignItems="center"
@@ -207,7 +268,7 @@ SaleBid שואפת לספק חווית משתמש איכותית ולהפוך ל
                     onBlur={(e) => setEmail(e.target.value)}
                   />
                   <Box
-                  cursor="pointer"
+                    cursor="pointer"
                     bg="primary"
                     h="full"
                     p="1"

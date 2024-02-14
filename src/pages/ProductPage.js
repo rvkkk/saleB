@@ -75,6 +75,7 @@ export default function ProductPage() {
   const token = window.localStorage.getItem("token");
   const [isTextShort, setIsTextShort] = useState(true);
   const [change, setChange] = useState("");
+  const [number, setNumber] = useState(1);
 
   useEffect(() => {
     const textElement = document.getElementById("text-element");
@@ -140,7 +141,8 @@ export default function ProductPage() {
           handleAddToCart();
           setDidAddedToCart(true);
           console.log(res);
-          setChange("נוסף מוצר לסל");
+          setChange("נוסף מוצר לסל " + number);
+        setNumber(number + 1)
         })
         .catch((err) => {
           console.log(err);
