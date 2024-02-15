@@ -35,7 +35,7 @@ export default function Category(props) {
           slidesPerView={3}
           //slidesPerColumn={2}
           //slidesPerGroup={2}
-          //  slidesPerColumnFill="row"
+          //slidesPerColumnFill="row"
           grid={{
             rows: 3,
             fill: "row",
@@ -69,7 +69,7 @@ export default function Category(props) {
           }}
           mousewheel={true}
           //navigation // הפעלת כפתורי הניווט
-          // autoplay={{ delay: 2500, disableOnInteraction: false }}
+          autoplay={{ delay: 2500, disableOnInteraction: false }}
         >
           {props.categories[0] &&
             props.categories.map((category, index) => (

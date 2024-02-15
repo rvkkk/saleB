@@ -71,7 +71,7 @@ import NavCartListItem from "../NavCartListItem";
 import Button from "../Button";
 import { useState, useEffect } from "react";
 import CountrySelect from "../CountrySelect";
-import { getCategories } from "../../utils/api/categories";
+import { getTopCategories } from "../../utils/api/categories";
 
 export default function NavBar({ withSidebar, logo, change }) {
   const [query, setQuery] = useState("");
@@ -84,7 +84,6 @@ export default function NavBar({ withSidebar, logo, change }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [hideOnScroll, setHideOnScroll] = useState(false);
   const [fixedLinks, setFixedLinks] = useState(false);
-  const [openCategories, setOpenCategories] = useState(false);
 
   const [user, setUser] = useState({
     userName: "Sale Bid",
@@ -859,17 +858,8 @@ export default function NavBar({ withSidebar, logo, change }) {
               >
                 מכירות פומביות
               </ChakraButton>
-              <Menu placement="auto" isOpen={openCategories}>
+              <Menu placement="auto">
                 <MenuButton
-                  onMouseEnter={() => {
-                    setOpenCategories(true);
-                  }}
-                  onClick={() =>
-                    (window.location.href = routes.Categories.path.replace(
-                      ":category",
-                      "main-categories"
-                    ))
-                  }
                   _hover={{ color: "secondaryColor" }}
                   px="4"
                   variant="link"
@@ -877,7 +867,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                   fontSize="16px"
                   fontWeight="normal"
                   bg="transparent"
-                  aria-label="show all categories"
+                  aria-label="show top categories"
                   role="button"
                 >
                   כל הקטגוריות
@@ -888,7 +878,6 @@ export default function NavBar({ withSidebar, logo, change }) {
                   bg="white"
                   borderRadius="12px"
                   shadow="0px 1px 54px rgba(35, 38, 59, 0.2)"
-                  onMouseLeave={() => setOpenCategories(false)}
                 >
                   <MenuItemCategory />
                 </MenuList>
@@ -1551,9 +1540,9 @@ const MenuItemCategory = () => {
   const [topCategories, setTopCategories] = useState([]);
 
   useEffect(() => {
-    getCategories()
+    getTopCategories()
       .then((res) => {
-        setTopCategories(res.categories.slice(0, 10));
+        setTopCategories(res.categories);
         console.log(res);
       })
       .catch((err) => console.log(err));
@@ -1580,59 +1569,35 @@ const MenuItemCategory = () => {
                   </Text>
                   <ArrowIcon />
                 </Flex>
-
-                <Text
-                  _hover={{ color: "primary" }}
-                  cursor="pointer"
-                  onClick={() =>
-                    (window.location.href = routes.Category.path.replace(
-                      ":category",
-                      ""
-                    ))
-                  }
-                  fontSize="13px"
-                >
-                  אספנות
-                </Text>
-                <Text
-                  _hover={{ color: "primary" }}
-                  cursor="pointer"
-                  onClick={() =>
-                    (window.location.href = routes.Category.path.replace(
-                      ":category",
-                      ""
-                    ))
-                  }
-                  fontSize="13px"
-                >
-                  אספנות
-                </Text>
-                <Text
-                  _hover={{ color: "primary" }}
-                  cursor="pointer"
-                  onClick={() =>
-                    (window.location.href = routes.Category.path.replace(
-                      ":category",
-                      ""
-                    ))
-                  }
-                  fontSize="13px"
-                >
-                  אספנות
-                </Text>
-                <Text
-                  _hover={{ color: "primary" }}
-                  cursor="pointer"
-                  onClick={() =>
-                    (window.location.href = routes.Category.path.replace(
-                      ":category",
-                      ""
-                    ))
-                  }
-                  fontSize="13px"
-                >
-                  אספנות
-                </Text>
+                {category.subcategories.length > 0 ? category.subcategories.map((subcategory, index) => (
+                  <Text
+                    key={index}
+                    _hover={{ color: "primary" }}
+                    cursor="pointer"
+                    onClick={() =>
+                      (window.location.href = routes.Category.path
+                        .replace(":main-category", category.title)
+                        .replace(":category", subcategory.title))
+                    }
+                    fontSize="13px"
+                  >
+                    {subcategory.name}
+                  </Text>
+                )): ["אספנות", "אספנות", "אספנות", "אספנות"].map((subcategory, index) => (
+                  <Text
+                    key={index}
+                    _hover={{ color: "primary" }}
+                    cursor="pointer"
+                    onClick={() =>
+                      (window.location.href = routes.Category.path
+                        .replace(":main-category", category.title)
+                        .replace(":category", subcategory.title))
+                    }
+                    fontSize="13px"
+                  >
+                    {subcategory}
+                  </Text>
+                ))}
               </Flex>
             ))}
         </Flex>
@@ -1647,59 +1612,35 @@ const MenuItemCategory = () => {
                   </Text>
                   <ArrowIcon />
                 </Flex>
-
-                <Text
-                  _hover={{ color: "primary" }}
-                  cursor="pointer"
-                  onClick={() =>
-                    (window.location.href = routes.Category.path.replace(
-                      ":category",
-                      ""
-                    ))
-                  }
-                  fontSize="13px"
-                >
-                  אספנות
-                </Text>
-                <Text
-                  _hover={{ color: "primary" }}
-                  cursor="pointer"
-                  onClick={() =>
-                    (window.location.href = routes.Category.path.replace(
-                      ":category",
-                      ""
-                    ))
-                  }
-                  fontSize="13px"
-                >
-                  אספנות
-                </Text>
-                <Text
-                  _hover={{ color: "primary" }}
-                  cursor="pointer"
-                  onClick={() =>
-                    (window.location.href = routes.Category.path.replace(
-                      ":category",
-                      ""
-                    ))
-                  }
-                  fontSize="13px"
-                >
-                  אספנות
-                </Text>
-                <Text
-                  _hover={{ color: "primary" }}
-                  cursor="pointer"
-                  onClick={() =>
-                    (window.location.href = routes.Category.path.replace(
-                      ":category",
-                      ""
-                    ))
-                  }
-                  fontSize="13px"
-                >
-                  אספנות
-                </Text>
+                {category.subcategories.length > 0 ? category.subcategories.map((subcategory, index) => (
+                  <Text
+                    key={index}
+                    _hover={{ color: "primary" }}
+                    cursor="pointer"
+                    onClick={() =>
+                      (window.location.href = routes.Category.path
+                        .replace(":main-category", category.title)
+                        .replace(":category", subcategory.title))
+                    }
+                    fontSize="13px"
+                  >
+                    {subcategory.name}
+                  </Text>
+                )): ["אספנות", "אספנות", "אספנות", "אספנות"].map((subcategory, index) => (
+                  <Text
+                    key={index}
+                    _hover={{ color: "primary" }}
+                    cursor="pointer"
+                    onClick={() =>
+                      (window.location.href = routes.Category.path
+                        .replace(":main-category", category.title)
+                        .replace(":category", subcategory.title))
+                    }
+                    fontSize="13px"
+                  >
+                    {subcategory}
+                  </Text>
+                ))}
               </Flex>
             ))}
           {/*} <Flex flexDir="column" gap="10px" w="110px">

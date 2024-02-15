@@ -15,6 +15,32 @@ export const getCategories = () => {
   });
 };
 
+export const getMainCategories = () => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`${baseURL}categories-main`)
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
+export const getTopCategories = () => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`${baseURL}categories-top`)
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
 export const getCategory = (title) => {
   return new Promise((resolve, reject) => {
     axios

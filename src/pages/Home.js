@@ -13,7 +13,7 @@ import { routes } from "../routes";
 import { addToMailingList } from "../utils/api/mailingList";
 import Loader from "../components/Loader";
 import Banner from "../components/Banner";
-import { getCategories } from "../utils/api/categories";
+import { getMainCategories } from "../utils/api/categories";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -32,10 +32,12 @@ export default function Home() {
       } else setError("אנא הכנס כתובת מייל תקינה");
     } else setError("אנא הכנס כתובת מייל תקינה");
   };
+
   useEffect(() => {
-    getCategories()
+    getMainCategories()
       .then((res) => {
         setCategories(res.categories);
+        console.log(res)
         setLoading(false);
       })
       .catch((err) => console.log(err));

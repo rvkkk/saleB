@@ -35,6 +35,26 @@ export const getUserProducts = () => {
   });
 };
 
+export const addProducts = (userName, file) => {
+  return new Promise((resolve, reject) => {
+    const formData = new FormData();
+    formData.append("userName", userName);
+    formData.append("file", file);
+    axios
+      .post(`${baseURL}products-many`, formData, {
+        headers: {
+           "Content-Type": 'multipart/form-data',
+        }})
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((err) => {
+        //onTokenBroken();
+        reject(err);
+      });
+  });
+};
+
 export const addProduct = (
   title,
   description,
