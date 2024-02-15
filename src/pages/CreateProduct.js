@@ -35,8 +35,8 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import Bbutton from "../components/Button";
-import DatePicker from 'react-datepicker';
-//import { DatePicker, TimePicker } from "react-rainbow-components";
+//import DatePicker from 'react-datepicker';
+import { DatePicker, TimePicker } from "react-rainbow-components";
 import { format } from "date-fns";
 import { AiFillExclamationCircle, AiOutlinePicture } from "react-icons/ai";
 import Container from "../components/Container";
