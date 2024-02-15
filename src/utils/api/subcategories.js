@@ -15,10 +15,10 @@ export const getSubcategory = (title) => {
   });
 };
 
-export const getSubcategoriesOfCategory = (categoryId) => {
+export const getSubcategoriesOfCategory = (title) => {
   return new Promise((resolve, reject) => {
     axios
-      .get(`${baseURL}subcategories/${categoryId}`)
+      .get(`${baseURL}subcategories-category/${title}`)
       .then((res) => {
         resolve(res.data);
       })

@@ -36,7 +36,7 @@ export default function AddCategory() {
 
   return (
     <Box dir="rtl" mx="100px" my="50px">
-      {message !== "" && <Text fontSize="20px">{message}</Text>}
+      {message !== "" && <Text color="red" fontSize="20px">{message}</Text>}
       <Input
         value={title}
         label="שם באנגלית"

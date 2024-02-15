@@ -35,7 +35,9 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import Bbutton from "../components/Button";
-import { DatePicker, TimePicker } from "react-rainbow-components";
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
+//import { DatePicker, TimePicker } from "react-rainbow-components";
 import { format } from "date-fns";
 import { AiFillExclamationCircle, AiOutlinePicture } from "react-icons/ai";
 import Container from "../components/Container";
@@ -54,6 +56,7 @@ import { RiPictureInPicture2Fill } from "react-icons/ri";
 import { CloseIcon } from "@chakra-ui/icons";
 import { getCategories } from "../utils/api/categories";
 import { getSubcategoriesOfCategory } from "../utils/api/subcategories";
+import { sortAlphabetCategories } from "../utils/sort";
 
 export default function CreateProduct() {
   const [loading, setLoading] = useState(false);
@@ -121,7 +124,7 @@ export default function CreateProduct() {
           },
           { fragile },
           status,
-          category,
+          subcategory,
           "no",
           price,
           discount,
@@ -209,22 +212,20 @@ export default function CreateProduct() {
   useEffect(() => {
     getCategories()
       .then((res) => {
-        setCategories(res.categories);
-        console.log(res.categories);
+        console.log(res.categories)
+        setCategories(sortAlphabetCategories(res.categories));
       })
       .catch((err) => console.log(err));
   }, []);
 
-  /*useEffect(() => {
+  useEffect(() => {
     if (categories.length > 0) {
-      console.log(category)
-      const index = categories.findIndex((c) => c.title === category);
-      const categoryId = categories[index]._id;
-      getSubcategoriesOfCategory(categoryId)
-        .then((res) => setSubcategories(res.subcategories))
+      getSubcategoriesOfCategory(category || categories[0].title)
+        .then((res) => {console.log(res); setSubcategories(sortAlphabetCategories(res.subcategories))})
         .catch((err) => console.log(err));
     }
-  }, [category]);*/
+  }, [categories, category]);
+
   return (
     <Layout logo>
       {loading ? (
@@ -393,7 +394,7 @@ export default function CreateProduct() {
                     </Text>
                   </Flex>
                 </Flex>
-                <Title name="פרטי מוצר" />
+                <Title name="פרטי המוצר" />
                 <Flex flexDir="column" gap="4">
                   <CategoryInput
                     value={category}
@@ -406,7 +407,7 @@ export default function CreateProduct() {
                   <CategoryInput
                     value={subcategory}
                     light
-                    label="תת קטגוריה"
+                    label="קטגוריה משנית"
                     labelFontSize="14px"
                     subcategories={subcategories}
                     onChange={(e) => setSubcategory(e.target.value)}
@@ -820,7 +821,22 @@ export default function CreateProduct() {
                             <PopoverCloseButton />
                             <PopoverHeader>קבע תאריך ושעה</PopoverHeader>
                             <PopoverBody>
-                              <DatePicker
+                        
+    {/* הצג כאן את החלון הקופץ */}
+    
+    <DatePicker 
+            selected={new Date()}
+            onChange={setSelectedDate}
+            value={selectedDate}
+            showTimeSelect
+            dateFormat="MMMM d, yyyy h:mm aa"
+          />
+    
+    <Button onClick={handleDateTimeSubmit}>
+      Close
+    </Button>
+  
+                             { /*<DatePicker
                                 value={selectedDate}
                                 onChange={setSelectedDate}
                                 minDate={new Date()}
@@ -831,7 +847,7 @@ export default function CreateProduct() {
                               />
                               <Button onClick={handleDateTimeSubmit}>
                                 קבע
-                              </Button>
+                            </Button>*/}
                             </PopoverBody>
                           </PopoverContent>
                         </Popover>
@@ -1142,6 +1158,7 @@ export default function CreateProduct() {
                             {image.name.split(".")[1] === "png" ? (
                               <Image
                                 h="28px"
+                                alt="an icon of png file"
                                 src={
                                   process.env.PUBLIC_URL +
                                   "/assets/FILE PNG.svg"
@@ -1150,6 +1167,7 @@ export default function CreateProduct() {
                             ) : (
                               <Image
                                 h="28px"
+                                alt="an icon of jpg file"
                                 src={
                                   process.env.PUBLIC_URL +
                                   "/assets/FILE JPG.svg"

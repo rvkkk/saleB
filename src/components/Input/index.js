@@ -399,7 +399,7 @@ export const CategoryInput = (props) => {
               ))
             : props.subcategories && props.subcategories.length > 0
             ? props.subcategories.map((subcategory) => (
-                <option key={subcategory.title} value={subcategory.title}>
+                <option key={subcategory.title} value={subcategory.name}>
                   {subcategory.name}
                 </option>
               ))
