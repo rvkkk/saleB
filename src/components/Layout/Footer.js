@@ -32,8 +32,11 @@ import {
   EuroIcon,
 } from "../Icons";
 import { EmailIcon } from "@chakra-ui/icons";
+import { addToMailingList } from "../../utils/api/mailingList";
 
 export default function Footer() {
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
   const [country, setCountry] = useState("Israel");
   const [language, setLanguage] = useState("עברית");
   const [coin, setCoin] = useState("שקל");
@@ -51,8 +54,18 @@ export default function Footer() {
     { name: "מעקב הזמנות", path: "" },
   ];
 
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
+  const createNewMailingList = () => {
+    if (email !== "") {
+      const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+      if (emailRegex.test(email)) {
+        setError("");
+        addToMailingList(email)
+          .then((res) => setEmail(""))
+          .catch((err) => console.log(err));
+      } else setError("אנא הכנס כתובת מייל תקינה");
+    } else setError("אנא הכנס כתובת מייל תקינה");
+  };
+
   return (
     <Box
       bg="primaryDark"
@@ -103,8 +116,8 @@ export default function Footer() {
                 _active={{ border: "none" }}
                 _focus={{ border: "none", ring: "none" }}
                 placeholder="כתובת המייל שלכם"
-                //value={email}
-                //onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <Box
                 cursor="pointer"
@@ -115,7 +128,7 @@ export default function Footer() {
                 borderRadius="xl"
                 color="white"
                 fontSize="20px"
-                // onClick={() => createNewMailingList()}
+                onClick={() => createNewMailingList()}
               >
                 <EmailIcon />
               </Box>
@@ -167,7 +180,7 @@ export default function Footer() {
                   minW="16px"
                   bg="transparent"
                   cursor="pointer"
-                  onClick=""
+                  //onClick=""
                   _hover={{ bg: "transparent" }}
                   _active={{ bg: "transparent" }}
                   icon={<FaWhatsapp color="white" />}
@@ -177,7 +190,7 @@ export default function Footer() {
                   minW="16px"
                   bg="transparent"
                   cursor="pointer"
-                  onClick=""
+                  //onClick=""
                   _hover={{ bg: "transparent" }}
                   _active={{ bg: "transparent" }}
                   icon={<FaInstagram color="white" />}
@@ -187,7 +200,7 @@ export default function Footer() {
                   minW="16px"
                   bg="transparent"
                   cursor="pointer"
-                  onClick=""
+                  //onClick=""
                   _hover={{ bg: "transparent" }}
                   _active={{ bg: "transparent" }}
                   icon={<FaFacebookF color="white" />}
@@ -197,7 +210,7 @@ export default function Footer() {
                   minW="16px"
                   bg="transparent"
                   cursor="pointer"
-                  onClick=""
+                  //onClick=""
                   _hover={{ bg: "transparent" }}
                   _active={{ bg: "transparent" }}
                   icon={<FaTelegramPlane color="white" />}

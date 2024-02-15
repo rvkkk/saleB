@@ -36,6 +36,7 @@ export default function AddCategory() {
 
   return (
     <Box dir="rtl" mx="100px" my="50px">
+      {message !== "" && <Text fontSize="20px">{message}</Text>}
       <Input
         value={title}
         label="שם באנגלית"
@@ -74,7 +75,6 @@ export default function AddCategory() {
       />
       <Button onClick={() => addSubC()}>הוסף קטגוריה משנית</Button>
 <Spacer h="10"></Spacer>
-
 <ChakraInput
         id="fileInput"
         type="file"
@@ -86,7 +86,6 @@ export default function AddCategory() {
         }}
       ></ChakraInput>
       <Button onClick={() => addFile()}>הוסף קובץ csv</Button>
-      {message ===! "" && <Text>{message}</Text>}
     </Box>
   );
 }

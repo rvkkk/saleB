@@ -43,8 +43,10 @@ export const addProducts = (userName, file) => {
     axios
       .post(`${baseURL}products-many`, formData, {
         headers: {
-           "Content-Type": 'multipart/form-data',
-        }})
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
       .then((res) => {
         resolve(res.data);
       })
@@ -71,7 +73,8 @@ export const addProduct = (
   pin
 ) => {
   return new Promise((resolve, reject) => {
-    console.log(title,
+    console.log(
+      title,
       description,
       technicalDetails,
       productSpecs,
@@ -83,7 +86,8 @@ export const addProduct = (
       images,
       video,
       quantityLeft,
-      pin)
+      pin
+    );
     axios
       .post(
         `${baseURL}products`,
@@ -192,7 +196,9 @@ export const getProducts = (page = 1, limit = 30) => {
 export const getProductsByCategory = (category, page = 1, limit = 30) => {
   return new Promise((resolve, reject) => {
     axios
-      .get(`${baseURL}products-category/${category}?page=${page}&limit=${limit}`)
+      .get(
+        `${baseURL}products-category/${category}?page=${page}&limit=${limit}`
+      )
       .then((res) => {
         resolve(res.data);
       })
@@ -203,10 +209,26 @@ export const getProductsByCategory = (category, page = 1, limit = 30) => {
   });
 };
 
-export const searchProducts = (category, filters, page, limit, minPrice, maxPrice, sortBy) => {
+export const searchProducts = (
+  category,
+  filters,
+  page,
+  limit,
+  minPrice,
+  maxPrice,
+  sortBy
+) => {
   return new Promise((resolve, reject) => {
     axios
-      .patch(`${baseURL}search-products`, {category, filters, page, limit, minPrice, maxPrice, sortBy})
+      .patch(`${baseURL}search-products`, {
+        category,
+        filters,
+        page,
+        limit,
+        minPrice,
+        maxPrice,
+        sortBy,
+      })
       .then((res) => {
         resolve(res.data);
       })
