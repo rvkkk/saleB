@@ -36,7 +36,6 @@ import {
 import React from "react";
 import Bbutton from "../components/Button";
 import DatePicker from 'react-datepicker';
-import "react-datepicker/dist/react-datepicker.css";
 //import { DatePicker, TimePicker } from "react-rainbow-components";
 import { format } from "date-fns";
 import { AiFillExclamationCircle, AiOutlinePicture } from "react-icons/ai";
