@@ -35,8 +35,11 @@ export default function Input(props) {
       <Flex justifyContent="space-between" alignItems="center">
         <FormLabel
           fontSize={props.labelFontSize || "14px"}
-          fontWeight={{base: "normal", md: "medium"}}
-          color={{base: "naturalDarkest", md: !props.disabled ? "black" : "naturalDarkest"}}
+          fontWeight={{ base: "normal", md: "medium" }}
+          color={{
+            base: "naturalDarkest",
+            md: !props.disabled ? "black" : "naturalDarkest",
+          }}
           letterSpacing="0.005em"
           lineHeight="18px"
         >
@@ -92,12 +95,15 @@ export default function Input(props) {
         <ChakraInput
           pl={props.type === "tel" && props.rightElement ? "60px" : "0"}
           size="lg"
-          h={{base: "55px", md: "50px"}}
-          bg={{base: "white", md: props.light ? "inputBg" : "white"}} //inputbg
+          h={{ base: "55px", md: "50px" }}
+          bg={{ base: "white", md: props.light ? "inputBg" : "white" }} //inputbg
           textColor={props.isInvalid ? "otherError" : "black"}
-          _placeholder={{ color: "naturalDark" }}        
-          borderColor={{base: props.light ? "naturalLight" : "bright", md: props.light ? "transparent" : "bright"}}
-          borderRadius={{base: "12px", md: "8px"}}
+          _placeholder={{ color: "naturalDark" }}
+          borderColor={{
+            base: props.light ? "naturalLight" : "bright",
+            md: props.light ? "transparent" : "bright",
+          }}
+          borderRadius={{ base: "12px", md: "8px" }}
           _active={{ textColor: "naturalDark" }}
           _focus={
             !props.isInvalid
@@ -167,7 +173,16 @@ export default function Input(props) {
       >
         {!props.rightElement && <WarningIcon />} {props.isInvalidMessage}
       </FormErrorMessage>
-      {props.hint && <Text mt="2px" letterSpacing="0.005em" fontSize="14px" color="naturalDark">{props.hint}</Text>}
+      {props.hint && (
+        <Text
+          mt="2px"
+          letterSpacing="0.005em"
+          fontSize="14px"
+          color="naturalDark"
+        >
+          {props.hint}
+        </Text>
+      )}
     </FormControl>
   );
 }
@@ -185,8 +200,11 @@ export const PasswordField = (props) => {
       <Flex justifyContent="space-between" alignItems="center">
         <FormLabel
           fontSize={props.labelFontSize}
-          fontWeight={{base: "normal", md: props.labelFontWeight}}
-          color={{base: "naturalDarkest", md: !props.disabled ? "black" : "naturalDarkest"}}
+          fontWeight={{ base: "normal", md: props.labelFontWeight }}
+          color={{
+            base: "naturalDarkest",
+            md: !props.disabled ? "black" : "naturalDarkest",
+          }}
           letterSpacing="0.005em"
           lineHeight="18px"
         >
@@ -224,11 +242,14 @@ export const PasswordField = (props) => {
       <InputGroup>
         <ChakraInput
           size="lg"
-          h={{base: "55px", md: "50px"}}
-          bg={{base: "white", md: props.light ? "inputBg" : "white"}} //inputbg
-          borderColor={{base: props.light ? "naturalLight" : "bright", md: props.light ? "transparent" : "bright"}}
+          h={{ base: "55px", md: "50px" }}
+          bg={{ base: "white", md: props.light ? "inputBg" : "white" }} //inputbg
+          borderColor={{
+            base: props.light ? "naturalLight" : "bright",
+            md: props.light ? "transparent" : "bright",
+          }}
           type={hidden ? "password" : "text"}
-          borderRadius={{base: "12px", md: "8px"}}
+          borderRadius={{ base: "12px", md: "8px" }}
           textColor={props.isInvalid ? "otherError" : "black"}
           _active={{ textColor: "naturalDark" }}
           _hover={
@@ -283,9 +304,12 @@ export const ExeptionInput = (props) => {
     >
       <Flex justifyContent="space-between" alignItems="center">
         <FormLabel
-          fontSize={props.labelFontSize}
-          fontWeight={{base: "normal", md: props.labelFontWeight}}
-          color={{base: "naturalDarkest", md: !props.disabled ? "black" : "naturalDarkest"}}
+          fontSize={props.labelFontSize || "14px"}
+          fontWeight={{ base: "normal", md: "medium" }}
+          color={{
+            base: "naturalDarkest",
+            md: !props.disabled ? "black" : "naturalDarkest",
+          }}
           letterSpacing="0.005em"
           lineHeight="18px"
         >
@@ -296,10 +320,13 @@ export const ExeptionInput = (props) => {
       <InputGroup>
         <Select
           size="lg"
-          h={{base: "55px", md: "50px"}}
-          bg="white"
-          borderRadius={{base: "12px", md: "8px"}}
-          borderColor={{base: props.light ? "naturalLight" : "bright", md: props.light ? "transparent" : "bright"}}
+          h={{ base: "55px", md: "50px" }}
+          bg={{ base: "white", md: props.light ? "inputBg" : "white" }} //inputbg
+          borderRadius={{ base: "12px", md: "8px" }}
+          borderColor={{
+            base: props.light ? "naturalLight" : "bright",
+            md: props.light ? "transparent" : "bright",
+          }}
           _active={{ textColor: "naturalDark" }}
           _hover={{ border: "2px solid #E8F0FF" }}
           _focus={
@@ -326,9 +353,15 @@ export const ExeptionInput = (props) => {
                   {year}
                 </option>
               ))
-            : props.months.map((year) => (
+            : props.months
+            ? props.months.map((year) => (
                 <option key={year} value={year}>
                   {year}
+                </option>
+              ))
+            : props.numbers.map((number) => (
+                <option key={number} value={number}>
+                  {number}
                 </option>
               ))}
         </Select>
@@ -354,9 +387,12 @@ export const CategoryInput = (props) => {
     >
       <Flex justifyContent="space-between" alignItems="center">
         <FormLabel
-          fontSize={props.labelFontSize}
-          fontWeight={{base: "normal", md: props.labelFontWeight}}
-          color={{base: "naturalDarkest", md: !props.disabled ? "black" : "naturalDarkest"}}
+          fontSize={props.labelFontSize || "14px"}
+          fontWeight={{ base: "normal", md: "medium" }}
+          color={{
+            base: "naturalDarkest",
+            md: !props.disabled ? "black" : "naturalDarkest",
+          }}
           letterSpacing="0.005em"
           lineHeight="18px"
         >
@@ -367,10 +403,13 @@ export const CategoryInput = (props) => {
       <InputGroup>
         <Select
           size="lg"
-          h={{base: "55px", md: "50px"}}
-          bg={{base: "white", md: props.light ? "inputBg" : "white"}} //inputbg
-          borderRadius={{base: "12px", md: "8px"}}
-          borderColor={{base: props.light ? "naturalLight" : "bright", md: props.light ? "transparent" : "bright"}}
+          h={{ base: "55px", md: "50px" }}
+          bg={{ base: "white", md: props.light ? "inputBg" : "white" }} //inputbg
+          borderRadius={{ base: "12px", md: "8px" }}
+          borderColor={{
+            base: props.light ? "naturalLight" : "bright",
+            md: props.light ? "transparent" : "bright",
+          }}
           _active={{ textColor: "naturalDark" }}
           _hover={{ border: "2px solid #E8F0FF" }}
           _focus={
