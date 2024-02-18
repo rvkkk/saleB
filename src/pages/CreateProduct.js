@@ -11,7 +11,6 @@ import {
   Spacer,
   Switch,
   Text,
-  Checkbox,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -32,6 +31,8 @@ import {
   PopoverContent,
   Input as ChakraInput,
   GridItem,
+  InputGroup,
+  Select,
 } from "@chakra-ui/react";
 import React from "react";
 import Bbutton from "../components/Button";
@@ -57,6 +58,8 @@ import { CloseIcon } from "@chakra-ui/icons";
 import { getCategories } from "../utils/api/categories";
 import { getSubcategoriesOfCategory } from "../utils/api/subcategories";
 import { sortAlphabetCategories } from "../utils/sort";
+import Checkbox from "../components/CheckBox";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function CreateProduct() {
   const [loading, setLoading] = useState(false);
@@ -68,10 +71,10 @@ export default function CreateProduct() {
   const [subcategories, setSubcategories] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [deliveryTime, setDeliveryTime] = useState(1);
-  const [warranty, setWarranty] = useState(1);
+  const [deliveryTime, setDeliveryTime] = useState("");
+  const [warranty, setWarranty] = useState("");
   const [numbers, setNumbers] = useState(
-    Array.from(Array(60).keys(), (n) => n + 1)
+    Array.from(Array(61).keys(), (n) => n)
   );
   const [barcode, setBarcode] = useState("");
   const [additionalInfo, setAdditionalInfo] = useState("");
@@ -488,8 +491,9 @@ export default function CreateProduct() {
                       light
                       required
                       label="זמן אספקה"
+                      placeholder=" "
                       labelFontSize="14px"
-                      numbers={numbers.slice(0, 15)}
+                      numbers={numbers.slice(1, 16)}
                       onChange={(e) => setDeliveryTime(e.target.value)}
                     />
                     <ExeptionInput
@@ -497,7 +501,8 @@ export default function CreateProduct() {
                       light
                       label="מספר חודשי אחריות"
                       labelFontSize="14px"
-                      numbers={numbers.slice(0, 36)}
+                      placeholder=" "
+                      numbers={numbers.slice(0, 37)}
                       onChange={(e) => setWarranty(e.target.value)}
                     />
                   </Flex>
@@ -564,11 +569,7 @@ export default function CreateProduct() {
                       onChange={(e) => setSpecification(e.target.value)}
                     />
                   </Flex>
-                  <Title
-                    name="עריכת שדות נוספים"
-                    onClick={() => setShowAdditional(!showAdditional)}
-                  />
-
+                  <Title name="עריכת שדות נוספים" />
                   <Flex flexDir="column" gap="6">
                     {additionalFields.map((field, index) => (
                       <Flex flexDir="column" gap="4" key={index}>
@@ -612,6 +613,19 @@ export default function CreateProduct() {
                     >
                       הוסף עוד
                     </Button>
+                    <Flex justifyContent="end">
+                      <Button
+                        variant="link"
+                        textDecoration="none"
+                        w="80px"
+                        //fontSize="20px"
+                        fontWeight="medium"
+                        color="naturalBlack"
+                        onClick={() => setShowAdditional(!showAdditional)}
+                      >
+                        הצג פחות
+                      </Button>
+                    </Flex>
                   </Flex>
                   {/*<Title name="מידות המוצר" />
                   <Grid
@@ -656,197 +670,219 @@ export default function CreateProduct() {
                   </Grid>*/}
                 </Flex>
                 <Title name="מצב המוצר" />
-                <Flex
-                  flexWrap="wrap"
-                  justifyContent="space-between"
-                  fontSize="16px"
-                  gap={{ base: "3" }}
+                <Swiper
+                  className="mySwiper"
+                  slidesPerView="auto"
+                  spaceBetween={12}
+                  breakpoints={{
+                    768: {
+                      spaceBetween: 20,
+                    },
+                  }}
                 >
-                  <Button
-                    variant="outline"
-                    h={{ base: "50px", md: "40px" }}
-                    borderRadius={{ base: "12px", md: "10px" }}
-                    borderColor={{
-                      base:
-                        status === "חדש, באריזה מקורית"
-                          ? "primaryLight"
-                          : "transparent",
-                      md:
-                        status === "חדש, באריזה מקורית" ? "primary" : "bright",
-                    }}
-                    fontWeight="normal"
-                    _hover={
-                      status === "חדש, באריזה מקורית"
-                        ? { bg: "primary" }
-                        : { bg: "bright" }
-                    }
-                    color={{
-                      base:
-                        status === "חדש, באריזה מקורית"
-                          ? "primary"
-                          : "naturalDarkest",
-                      md:
-                        status === "חדש, באריזה מקורית"
-                          ? "white"
-                          : "naturalDarkest",
-                    }}
-                    bg={{
-                      base:
-                        status === "חדש, באריזה מקורית"
-                          ? "primaryLightest"
-                          : "inputBg",
-                      md: status === "חדש, באריזה מקורית" ? "primary" : "white",
-                    }}
-                    onClick={() => setStatus("חדש, באריזה מקורית")}
-                  >
-                    חדש, באריזה מקורית
-                  </Button>
-                  <Button
-                    variant="outline"
-                    h={{ base: "50px", md: "40px" }}
-                    borderRadius={{ base: "12px", md: "10px" }}
-                    borderColor={{
-                      base:
-                        status === "כחדש, בשימוש קצר"
-                          ? "primaryLight"
-                          : "transparent",
-                      md: status === "כחדש, בשימוש קצר" ? "primary" : "bright",
-                    }}
-                    fontWeight="normal"
-                    _hover={
-                      status === "כחדש, בשימוש קצר"
-                        ? { bg: "primary" }
-                        : { bg: "bright" }
-                    }
-                    color={{
-                      base:
-                        status === "כחדש, בשימוש קצר"
-                          ? "primary"
-                          : "naturalDarkest",
-                      md:
-                        status === "כחדש, בשימוש קצר"
-                          ? "white"
-                          : "naturalDarkest",
-                    }}
-                    bgColor={{
-                      base:
-                        status === "כחדש, בשימוש קצר"
-                          ? "primaryLightest"
-                          : "inputBg",
-                      md: status === "כחדש, בשימוש קצר" ? "primary" : "white",
-                    }}
-                    onClick={() => setStatus("כחדש, בשימוש קצר")}
-                  >
-                    כחדש, בשימוש קצר
-                  </Button>
-                  <Button
-                    variant="outline"
-                    h={{ base: "50px", md: "40px" }}
-                    borderRadius={{ base: "12px", md: "10px" }}
-                    borderColor={{
-                      base:
-                        status === "משומש, במצב טוב"
-                          ? "primaryLight"
-                          : "transparent",
-                      md: status === "משומש, במצב טוב" ? "primary" : "bright",
-                    }}
-                    fontWeight="normal"
-                    _hover={
-                      status === "משומש, במצב טוב"
-                        ? { bg: "primary" }
-                        : { bg: "bright" }
-                    }
-                    color={{
-                      base:
-                        status === "משומש, במצב טוב"
-                          ? "primary"
-                          : "naturalDarkest",
-                      md:
-                        status === "משומש, במצב טוב"
-                          ? "white"
-                          : "naturalDarkest",
-                    }}
-                    bg={{
-                      base:
-                        status === "משומש, במצב טוב"
-                          ? "primaryLightest"
-                          : "inputBg",
-                      md: status === "משומש, במצב טוב" ? "primary" : "white",
-                    }}
-                    onClick={() => setStatus("משומש, במצב טוב")}
-                  >
-                    משומש, במצב טוב
-                  </Button>
-                  <Button
-                    variant="outline"
-                    h={{ base: "50px", md: "40px" }}
-                    borderRadius={{ base: "12px", md: "10px" }}
-                    borderColor={{
-                      base:
-                        status === "לא עובד" ? "primaryLight" : "transparent",
-                      md: status === "לא עובד" ? "primary" : "bright",
-                    }}
-                    fontWeight="normal"
-                    _hover={
-                      status === "לא עובד"
-                        ? { bg: "primary" }
-                        : { bg: "bright" }
-                    }
-                    color={{
-                      base: status === "לא עובד" ? "primary" : "naturalDarkest",
-                      md: status === "לא עובד" ? "white" : "naturalDarkest",
-                    }}
-                    bgColor={{
-                      base:
-                        status === "לא עובד" ? "primaryLightest" : "inputBg",
-                      md: status === "לא עובד" ? "primary" : "white",
-                    }}
-                    onClick={() => setStatus("לא עובד")}
-                  >
-                    לא עובד
-                  </Button>
-                  <Button
-                    variant="outline"
-                    h={{ base: "50px", md: "40px" }}
-                    borderRadius={{ base: "12px", md: "10px" }}
-                    borderColor={{
-                      base:
-                        status === "לא רלוונטי"
-                          ? "primaryLight"
-                          : "transparent",
-                      md: status === "לא רלוונטי" ? "primary" : "bright",
-                    }}
-                    fontWeight="normal"
-                    _hover={
-                      status === "לא רלוונטי"
-                        ? { bg: "primary" }
-                        : { bg: "bright" }
-                    }
-                    color={{
-                      base:
-                        status === "לא רלוונטי" ? "primary" : "naturalDarkest",
-                      md: status === "לא רלוונטי" ? "white" : "naturalDarkest",
-                    }}
-                    bgColor={{
-                      base:
-                        status === "לא רלוונטי" ? "primaryLightest" : "inputBg",
-                      md: status === "לא רלוונטי" ? "primary" : "white",
-                    }}
-                    onClick={() => setStatus("לא רלוונטי")}
-                  >
-                    לא רלוונטי
-                  </Button>
-                </Flex>
+                  <SwiperSlide>
+                    <Button
+                      variant="outline"
+                      w={{ base: "139px", md: "175px" }}
+                      h={{ base: "50px", md: "40px" }}
+                      borderRadius={{ base: "12px", md: "10px" }}
+                      borderColor={{
+                        base:
+                          status === "חדש, באריזה מקורית"
+                            ? "primaryLight"
+                            : "transparent",
+                        md:
+                          status === "חדש, באריזה מקורית"
+                            ? "primary"
+                            : "bright",
+                      }}
+                      fontSize={{ base: "14px", md: "16px" }}
+                      fontWeight="normal"
+                      px={{ base: "10px", md: "16px" }}
+                      _hover={
+                        status !== "חדש, באריזה מקורית" && { bg: "bright" }
+                      }
+                      color={{
+                        base:
+                          status === "חדש, באריזה מקורית"
+                            ? "primary"
+                            : "naturalDarkest",
+                        md:
+                          status === "חדש, באריזה מקורית"
+                            ? "white"
+                            : "naturalDarkest",
+                      }}
+                      bg={{
+                        base:
+                          status === "חדש, באריזה מקורית"
+                            ? "primaryLightest"
+                            : "inputBg",
+                        md:
+                          status === "חדש, באריזה מקורית" ? "primary" : "white",
+                      }}
+                      onClick={() => setStatus("חדש, באריזה מקורית")}
+                    >
+                      חדש, באריזה מקורית
+                    </Button>
+                  </SwiperSlide>
+                  <SwiperSlide w="20%">
+                    <Button
+                      variant="outline"
+                      w={{ base: "132px", md: "168px" }}
+                      h={{ base: "50px", md: "40px" }}
+                      borderRadius={{ base: "12px", md: "10px" }}
+                      borderColor={{
+                        base:
+                          status === "כחדש, בשימוש קצר"
+                            ? "primaryLight"
+                            : "transparent",
+                        md:
+                          status === "כחדש, בשימוש קצר" ? "primary" : "bright",
+                      }}
+                      fontSize={{ base: "14px", md: "16px" }}
+                      fontWeight="normal"
+                      px={{ base: "10px", md: "16px" }}
+                      _hover={status !== "כחדש, בשימוש קצר" && { bg: "bright" }}
+                      color={{
+                        base:
+                          status === "כחדש, בשימוש קצר"
+                            ? "primary"
+                            : "naturalDarkest",
+                        md:
+                          status === "כחדש, בשימוש קצר"
+                            ? "white"
+                            : "naturalDarkest",
+                      }}
+                      bgColor={{
+                        base:
+                          status === "כחדש, בשימוש קצר"
+                            ? "primaryLightest"
+                            : "inputBg",
+                        md: status === "כחדש, בשימוש קצר" ? "primary" : "white",
+                      }}
+                      onClick={() => setStatus("כחדש, בשימוש קצר")}
+                    >
+                      כחדש, בשימוש קצר
+                    </Button>
+                  </SwiperSlide>
+                  <SwiperSlide w="20%">
+                    <Button
+                      variant="outline"
+                      w={{ base: "123px", md: "157px" }}
+                      h={{ base: "50px", md: "40px" }}
+                      borderRadius={{ base: "12px", md: "10px" }}
+                      borderColor={{
+                        base:
+                          status === "משומש, במצב טוב"
+                            ? "primaryLight"
+                            : "transparent",
+                        md: status === "משומש, במצב טוב" ? "primary" : "bright",
+                      }}
+                      fontSize={{ base: "14px", md: "16px" }}
+                      fontWeight="normal"
+                      px={{ base: "10px", md: "16px" }}
+                      _hover={status !== "משומש, במצב טוב" && { bg: "bright" }}
+                      color={{
+                        base:
+                          status === "משומש, במצב טוב"
+                            ? "primary"
+                            : "naturalDarkest",
+                        md:
+                          status === "משומש, במצב טוב"
+                            ? "white"
+                            : "naturalDarkest",
+                      }}
+                      bg={{
+                        base:
+                          status === "משומש, במצב טוב"
+                            ? "primaryLightest"
+                            : "inputBg",
+                        md: status === "משומש, במצב טוב" ? "primary" : "white",
+                      }}
+                      onClick={() => setStatus("משומש, במצב טוב")}
+                    >
+                      משומש, במצב טוב
+                    </Button>
+                  </SwiperSlide>
+                  <SwiperSlide>
+                    <Button
+                      variant="outline"
+                      w={{ base: "66px", md: "93px" }}
+                      h={{ base: "50px", md: "40px" }}
+                      borderRadius={{ base: "12px", md: "10px" }}
+                      borderColor={{
+                        base:
+                          status === "לא עובד" ? "primaryLight" : "transparent",
+                        md: status === "לא עובד" ? "primary" : "bright",
+                      }}
+                      fontSize={{ base: "14px", md: "16px" }}
+                      fontWeight="normal"
+                      px={{ base: "10px", md: "16px" }}
+                      _hover={status !== "לא עובד" && { bg: "bright" }}
+                      color={{
+                        base:
+                          status === "לא עובד" ? "primary" : "naturalDarkest",
+                        md: status === "לא עובד" ? "white" : "naturalDarkest",
+                      }}
+                      bgColor={{
+                        base:
+                          status === "לא עובד" ? "primaryLightest" : "inputBg",
+                        md: status === "לא עובד" ? "primary" : "white",
+                      }}
+                      onClick={() => setStatus("לא עובד")}
+                    >
+                      לא עובד
+                    </Button>
+                  </SwiperSlide>
+                  <SwiperSlide>
+                    <Button
+                      variant="outline"
+                      w={{ base: "79px", md: "107px" }}
+                      h={{ base: "50px", md: "40px" }}
+                      borderRadius={{ base: "12px", md: "10px" }}
+                      borderColor={{
+                        base:
+                          status === "לא רלוונטי"
+                            ? "primaryLight"
+                            : "transparent",
+                        md: status === "לא רלוונטי" ? "primary" : "bright",
+                      }}
+                      fontSize={{ base: "14px", md: "16px" }}
+                      fontWeight="normal"
+                      px={{ base: "10px", md: "16px" }}
+                      _hover={status !== "לא רלוונטי" && { bg: "bright" }}
+                      color={{
+                        base:
+                          status === "לא רלוונטי"
+                            ? "primary"
+                            : "naturalDarkest",
+                        md:
+                          status === "לא רלוונטי" ? "white" : "naturalDarkest",
+                      }}
+                      bgColor={{
+                        base:
+                          status === "לא רלוונטי"
+                            ? "primaryLightest"
+                            : "inputBg",
+                        md: status === "לא רלוונטי" ? "primary" : "white",
+                      }}
+                      onClick={() => setStatus("לא רלוונטי")}
+                    >
+                      לא רלוונטי
+                    </Button>
+                  </SwiperSlide>
+                </Swiper>
                 <Spacer h="6" />
                 <Checkbox
-                  isChecked={fragile}
-                  borderRadius="full"
-                  onChange={() =>
-                    fragile ? setFragile(false) : setFragile(true)
-                  }
-                >
-                  מוצר שביר
-                </Checkbox>
+                  size="big"
+                  checked={fragile}
+                  default
+                  fontSize="16px"
+                  lineHeight="16px"
+                  color="naturlDarkest"
+                  onChange={() => setFragile(!fragile)}
+                  text={"מוצר שביר"}
+                ></Checkbox>
                 <>
                   {auction ? (
                     <>
@@ -931,9 +967,7 @@ export default function CreateProduct() {
                             md: time === 1 ? "primary" : "bright",
                           }}
                           fontWeight="normal"
-                          _hover={
-                            time === 1 ? { bg: "primary" } : { bg: "bright" }
-                          }
+                          _hover={time !== 1 && { bg: "bright" }}
                           color={{
                             base: time === 1 ? "primary" : "naturalDarkest",
                             md: time === 1 ? "white" : "naturalDarkest",
@@ -966,11 +1000,7 @@ export default function CreateProduct() {
                                 md: time === 2 ? "primary" : "bright",
                               }}
                               fontWeight="normal"
-                              _hover={
-                                time === 2
-                                  ? { bg: "primary" }
-                                  : { bg: "bright" }
-                              }
+                              _hover={time !== 2 && { bg: "bright" }}
                               color={{
                                 base: time === 2 ? "primary" : "naturalDarkest",
                                 md: time === 2 ? "white" : "naturalDarkest",
@@ -1025,182 +1055,223 @@ export default function CreateProduct() {
                       </Flex>
 
                       <Title name="משך המכרז" />
-                      <Flex
-                        flexWrap="wrap"
-                        gap="4"
-                        fontSize="16px"
-                        color="naturalDarkest"
+                      <Swiper
+                        className="mySwiper"
+                        slidesPerView="auto"
+                        spaceBetween={11}
+                        breakpoints={{
+                          768: {
+                            spaceBetween: 20,
+                          },
+                        }}
                       >
-                        <Button
-                          h={{ base: "50px", md: "40px" }}
-                          w={{ base: "66px", md: "113.33px" }}
-                          variant="outline"
-                          borderColor={{
-                            base:
-                              timeFrame === 2 ? "primaryLight" : "transparent",
-                            md: timeFrame === 2 ? "primary" : "bright",
-                          }}
-                          fontWeight="normal"
-                          _hover={
-                            timeFrame === 2
-                              ? { bg: "primary" }
-                              : { bg: "bright" }
-                          }
-                          color={{
-                            base:
-                              timeFrame === 2 ? "primary" : "naturalDarkest",
-                            md: timeFrame === 2 ? "white" : "naturalDarkest",
-                          }}
-                          bgColor={{
-                            base:
-                              timeFrame === 2 ? "primaryLightest" : "inputBg",
-                            md: timeFrame === 2 ? "primary" : "white",
-                          }}
-                          borderRadius={{ base: "12px", md: "10px" }}
-                          onClick={() => setTimeFrame(2)}
-                        >
-                          2 ימים
-                        </Button>
-                        <Button
-                          h={{ base: "50px", md: "40px" }}
-                          w={{ base: "66px", md: "133.33px" }}
-                          variant="outline"
-                          borderColor={{
-                            base:
-                              timeFrame === 4 ? "primaryLight" : "transparent",
-                            md: timeFrame === 4 ? "primary" : "bright",
-                          }}
-                          fontWeight="normal"
-                          _hover={
-                            timeFrame === 4
-                              ? { bg: "primary" }
-                              : { bg: "bright" }
-                          }
-                          color={{
-                            base:
-                              timeFrame === 4 ? "primary" : "naturalDarkest",
-                            md: timeFrame === 4 ? "white" : "naturalDarkest",
-                          }}
-                          bgColor={{
-                            base:
-                              timeFrame === 4 ? "primaryLightest" : "inputBg",
-                            md: timeFrame === 4 ? "primary" : "white",
-                          }}
-                          borderRadius={{ base: "12px", md: "10px" }}
-                          onClick={() => setTimeFrame(4)}
-                        >
-                          4 ימים
-                        </Button>
-                        <Button
-                          h={{ base: "50px", md: "40px" }}
-                          w={{ base: "66px", md: "113.33px" }}
-                          variant="outline"
-                          borderColor={{
-                            base:
-                              timeFrame === 7 ? "primaryLight" : "transparent",
-                            md: timeFrame === 7 ? "primary" : "bright",
-                          }}
-                          fontWeight="normal"
-                          _hover={
-                            timeFrame === 7
-                              ? { bg: "primary" }
-                              : { bg: "bright" }
-                          }
-                          color={{
-                            base:
-                              timeFrame === 7 ? "primary" : "naturalDarkest",
-                            md: timeFrame === 7 ? "white" : "naturalDarkest",
-                          }}
-                          bgColor={{
-                            base:
-                              timeFrame === 7 ? "primaryLightest" : "inputBg",
-                            md: timeFrame === 7 ? "primary" : "white",
-                          }}
-                          borderRadius={{ base: "12px", md: "10px" }}
-                          onClick={() => setTimeFrame(7)}
-                        >
-                          7 ימים
-                        </Button>
-                        <Button
-                          h={{ base: "50px", md: "40px" }}
-                          w={{ base: "66px", md: "113.33px" }}
-                          variant="outline"
-                          borderColor={{
-                            base:
-                              timeFrame === 14 ? "primaryLight" : "transparent",
-                            md: timeFrame === 14 ? "primary" : "bright",
-                          }}
-                          fontWeight="normal"
-                          _hover={
-                            timeFrame === 14
-                              ? { bg: "primary" }
-                              : { bg: "bright" }
-                          }
-                          color={{
-                            base:
-                              timeFrame === 14 ? "primary" : "naturalDarkest",
-                            md: timeFrame === 14 ? "white" : "naturalDarkest",
-                          }}
-                          bgColor={{
-                            base:
-                              timeFrame === 14 ? "primaryLightest" : "inputBg",
-                            md: timeFrame === 14 ? "primary" : "white",
-                          }}
-                          borderRadius={{ base: "12px", md: "10px" }}
-                          onClick={() => setTimeFrame(14)}
-                        >
-                          14 ימים
-                        </Button>
-                        <Button
-                          h={{ base: "50px", md: "40px" }}
-                          w={{ base: "66px", md: "113.33px" }}
-                          variant="outline"
-                          borderColor={{
-                            base:
-                              timeFrame === 30 ? "primaryLight" : "transparent",
-                            md: timeFrame === 30 ? "primary" : "bright",
-                          }}
-                          fontWeight="normal"
-                          _hover={
-                            timeFrame === 30
-                              ? { bg: "primary" }
-                              : { bg: "bright" }
-                          }
-                          color={{
-                            base:
-                              timeFrame === 30 ? "primary" : "naturalDarkest",
-                            md: timeFrame === 30 ? "white" : "naturalDarkest",
-                          }}
-                          bgColor={{
-                            base:
-                              timeFrame === 30 ? "primaryLightest" : "inputBg",
-                            md: timeFrame === 30 ? "primary" : "white",
-                          }}
-                          borderRadius={{ base: "12px", md: "10px" }}
-                          onClick={() => setTimeFrame(30)}
-                        >
-                          30 יום
-                        </Button>
-                        <ChakraInput
-                          h={{ base: "50px", md: "40px" }}
-                          w={{ base: "66px", md: "113.33px" }}
-                          bg="naturalLightest"
-                          border="1px solid"
-                          borderColor="naturalLight"
-                          placeHolder="אחר"
-                          textColor="naturalDark"
-                          type="number"
-                          _focus={{
-                            borderColor: "primary",
-                            boxShadow: "0 0 0 3px #E8F0FF",
-                            textColor: "black",
-                          }}
-                          _hover={{
-                            border: "2px solid",
-                            borderColor: "#E8F0FF",
-                          }}
-                        ></ChakraInput>
-                      </Flex>
+                        <SwiperSlide>
+                          <Button
+                            h={{ base: "50px", md: "40px" }}
+                            w={{ base: "65px", md: "113.33px" }}
+                            fontSize={{ base: "14px", md: "16px" }}
+                            variant="outline"
+                            borderColor={{
+                              base:
+                                timeFrame === 2
+                                  ? "primaryLight"
+                                  : "transparent",
+                              md: timeFrame === 2 ? "primary" : "bright",
+                            }}
+                            fontWeight="normal"
+                            _hover={timeFrame !== 2 && { bg: "bright" }}
+                            color={{
+                              base:
+                                timeFrame === 2 ? "primary" : "naturalDarkest",
+                              md: timeFrame === 2 ? "white" : "naturalDarkest",
+                            }}
+                            bgColor={{
+                              base:
+                                timeFrame === 2 ? "primaryLightest" : "inputBg",
+                              md: timeFrame === 2 ? "primary" : "white",
+                            }}
+                            borderRadius={{ base: "12px", md: "10px" }}
+                            onClick={() => setTimeFrame(2)}
+                          >
+                            2 ימים
+                          </Button>
+                        </SwiperSlide>
+                        <SwiperSlide>
+                          <Button
+                            h={{ base: "50px", md: "40px" }}
+                            w={{ base: "65px", md: "113.33px" }}
+                            fontSize={{ base: "14px", md: "16px" }}
+                            variant="outline"
+                            borderColor={{
+                              base:
+                                timeFrame === 4
+                                  ? "primaryLight"
+                                  : "transparent",
+                              md: timeFrame === 4 ? "primary" : "bright",
+                            }}
+                            fontWeight="normal"
+                            _hover={timeFrame !== 4 && { bg: "bright" }}
+                            /* _hover={
+                              timeFrame === 4
+                                ? { color: "primaryLight" }
+                                : { bg: "bright" }
+                            }*/
+                            color={{
+                              base:
+                                timeFrame === 4 ? "primary" : "naturalDarkest",
+                              md: timeFrame === 4 ? "white" : "naturalDarkest",
+                            }}
+                            bgColor={{
+                              base:
+                                timeFrame === 4 ? "primaryLightest" : "inputBg",
+                              md: timeFrame === 4 ? "primary" : "white",
+                            }}
+                            borderRadius={{ base: "12px", md: "10px" }}
+                            onClick={() => setTimeFrame(4)}
+                          >
+                            4 ימים
+                          </Button>
+                        </SwiperSlide>
+                        <SwiperSlide>
+                          <Button
+                            h={{ base: "50px", md: "40px" }}
+                            w={{ base: "65px", md: "113.33px" }}
+                            fontSize={{ base: "14px", md: "16px" }}
+                            variant="outline"
+                            borderColor={{
+                              base:
+                                timeFrame === 7
+                                  ? "primaryLight"
+                                  : "transparent",
+                              md: timeFrame === 7 ? "primary" : "bright",
+                            }}
+                            fontWeight="normal"
+                            _hover={timeFrame !== 7 && { bg: "bright" }}
+                            color={{
+                              base:
+                                timeFrame === 7 ? "primary" : "naturalDarkest",
+                              md: timeFrame === 7 ? "white" : "naturalDarkest",
+                            }}
+                            bgColor={{
+                              base:
+                                timeFrame === 7 ? "primaryLightest" : "inputBg",
+                              md: timeFrame === 7 ? "primary" : "white",
+                            }}
+                            borderRadius={{ base: "12px", md: "10px" }}
+                            onClick={() => setTimeFrame(7)}
+                          >
+                            7 ימים
+                          </Button>
+                        </SwiperSlide>
+                        <SwiperSlide>
+                          <Button
+                            h={{ base: "50px", md: "40px" }}
+                            w={{ base: "66px", md: "113.33px" }}
+                            fontSize={{ base: "14px", md: "16px" }}
+                            variant="outline"
+                            borderColor={{
+                              base:
+                                timeFrame === 14
+                                  ? "primaryLight"
+                                  : "transparent",
+                              md: timeFrame === 14 ? "primary" : "bright",
+                            }}
+                            fontWeight="normal"
+                            _hover={timeFrame !== 14 && { bg: "bright" }}
+                            color={{
+                              base:
+                                timeFrame === 14 ? "primary" : "naturalDarkest",
+                              md: timeFrame === 14 ? "white" : "naturalDarkest",
+                            }}
+                            bgColor={{
+                              base:
+                                timeFrame === 14
+                                  ? "primaryLightest"
+                                  : "inputBg",
+                              md: timeFrame === 14 ? "primary" : "white",
+                            }}
+                            borderRadius={{ base: "12px", md: "10px" }}
+                            onClick={() => setTimeFrame(14)}
+                          >
+                            14 ימים
+                          </Button>
+                        </SwiperSlide>
+                        <SwiperSlide>
+                          <Button
+                            h={{ base: "50px", md: "40px" }}
+                            w={{ base: "66px", md: "113.33px" }}
+                            fontSize={{ base: "14px", md: "16px" }}
+                            variant="outline"
+                            borderColor={{
+                              base:
+                                timeFrame === 30
+                                  ? "primaryLight"
+                                  : "transparent",
+                              md: timeFrame === 30 ? "primary" : "bright",
+                            }}
+                            fontWeight="normal"
+                            /*  _hover={
+                              timeFrame === 30
+                                ? {
+                                    base: { color: "primaryLight" },
+                                    md: { color: "white", bg: "primaryDark" },
+                                  }
+                                : { bg: "bright" }
+                            }*/
+                            _hover={timeFrame !== 30 && { bg: "bright" }}
+                            color={{
+                              base:
+                                timeFrame === 30 ? "primary" : "naturalDarkest",
+                              md: timeFrame === 30 ? "white" : "naturalDarkest",
+                            }}
+                            bgColor={{
+                              base:
+                                timeFrame === 30
+                                  ? "primaryLightest"
+                                  : "inputBg",
+                              md: timeFrame === 30 ? "primary" : "white",
+                            }}
+                            borderRadius={{ base: "12px", md: "10px" }}
+                            onClick={() => setTimeFrame(30)}
+                          >
+                            30 יום
+                          </Button>
+                        </SwiperSlide>
+                        <SwiperSlide>
+                          <Select
+                            size="lg"
+                            h={{ base: "50px", md: "40px" }}
+                            w={{ base: "76px", md: "113.33px" }}
+                            bg="naturalLightest"
+                            fontSize={{ base: "14px", md: "16px" }}
+                            border="1px solid"
+                            borderColor="naturalLight"
+                            placeholder="אחר"
+                            textColor="naturalDarkest"
+                            type="number"
+                            //bg={{ base: "white", md: "inputBg" }}
+                            borderRadius={{ base: "12px", md: "10px" }}
+                            _focus={{
+                              borderColor: "primary",
+                              boxShadow: "0 0 0 3px #E8F0FF",
+                              textColor: "black",
+                            }}
+                            _hover={{
+                              border: "2px solid",
+                              borderColor: "#E8F0FF",
+                            }}
+                            letterSpacing="0.005em"
+                            lineHeight="16.5px"
+                            onChange={(e) => setTimeFrame(e.target.value)}
+                          >
+                            {numbers.slice(1, 61).map((number) => (
+                              <option key={number} value={number}>
+                                {number}
+                              </option>
+                            ))}
+                          </Select>
+                        </SwiperSlide>
+                      </Swiper>
                     </>
                   ) : (
                     <>
@@ -1250,14 +1321,26 @@ export default function CreateProduct() {
                     onDrop={(files) => {
                       if (files) {
                         let p = [];
-                        for (const file of files)
+                        for (const file of files) {
+                          if (pictures.length === 6) {
+                            break; // יוצא מהלולאה אם הגענו ל-6 תמונות
+                          }
                           p.push({
+                            image: file,
                             url: URL.createObjectURL(file),
                             name: file.name,
                             size: file.size,
                           });
-                        if (pictures.length < 6)
-                          setPictures([...pictures, ...p]);
+                        }
+
+                        setPictures((prev) => {
+                          if (prev.length + p.length > 6) {
+                            // חותך את התמונות העודפות אם יש יותר מ-6
+                            return [...prev, ...p.slice(0, 6 - prev.length)];
+                          } else {
+                            return [...prev, ...p];
+                          }
+                        });
                       }
                     }}
                   />
@@ -1271,14 +1354,25 @@ export default function CreateProduct() {
                       const files = e.target.files;
                       if (files) {
                         let p = [];
-                        for (const file of files)
+                        for (const file of files) {
+                          if (pictures.length === 6) {
+                            break;
+                          }
                           p.push({
+                            image: file,
                             url: URL.createObjectURL(file),
                             name: file.name,
                             size: file.size,
                           });
-                        if (pictures.length < 6)
-                          setPictures([...pictures, ...p]);
+                        }
+
+                        setPictures((prev) => {
+                          if (prev.length + p.length > 6) {
+                            return [...prev, ...p.slice(0, 6 - prev.length)];
+                          } else {
+                            return [...prev, ...p];
+                          }
+                        });
                       }
                     }}
                   ></ChakraInput>
@@ -1388,7 +1482,7 @@ export default function CreateProduct() {
                       h={{ base: "60px", md: "64px" }}
                       bg={{ base: "primaryLight", md: "primary" }}
                       borderRadius={{ base: "14px", md: "12px" }}
-                      //onClick={() => createProduct()}
+                      onClick={() => createProduct()}
                     >
                       הפעל מכירה
                     </Bbutton>
@@ -1522,6 +1616,8 @@ const Title = ({ name, onClick }) => {
         <Divider bg="naturalLight" h="2px" flex="1" />
       </Flex>
       <Flex
+        cursor={onClick && "pointer"}
+        onClick={onClick}
         display={{ base: "flex", md: "none" }}
         bg="inputBg"
         p="10px"
@@ -1529,6 +1625,7 @@ const Title = ({ name, onClick }) => {
         alignItems="center"
         mt="40px"
         mb="10px"
+        gap="1"
       >
         <Text
           fontWeight="medium"
@@ -1538,6 +1635,7 @@ const Title = ({ name, onClick }) => {
         >
           {name}
         </Text>
+        {onClick && <HiArrowDown />}
       </Flex>
     </>
   );

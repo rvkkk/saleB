@@ -11,6 +11,9 @@
 * {
   box-sizing: border-box !important;
 }
+.mySwiper .swiper-slide {
+  width: auto;
+}
 #navbar {
   z-index: 1000;
   position: fixed;
