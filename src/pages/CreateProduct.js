@@ -38,8 +38,8 @@ import Bbutton from "../components/Button";
 //import DatePicker from 'react-datepicker';
 import { DatePicker, TimePicker } from "react-rainbow-components";
 import { format } from "date-fns";
-import { AiFillExclamationCircle, AiOutlinePicture, } from "react-icons/ai";
-import { HiArrowDown } from "react-icons/hi"
+import { AiFillExclamationCircle, AiOutlinePicture } from "react-icons/ai";
+import { HiArrowDown } from "react-icons/hi";
 import Container from "../components/Container";
 import FileUploader from "../components/FileUploader";
 import { RightIcon2, ShareIcon, TrashIcon } from "../components/Icons";
@@ -69,9 +69,9 @@ export default function CreateProduct() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [deliveryTime, setDeliveryTime] = useState(1);
-  const [warrnaty, setWarranty] = useState(1);
+  const [warranty, setWarranty] = useState(1);
   const [numbers, setNumbers] = useState(
-    Array.from(Array(36).keys(), (n) => n + 1)
+    Array.from(Array(60).keys(), (n) => n + 1)
   );
   const [barcode, setBarcode] = useState("");
   const [additionalInfo, setAdditionalInfo] = useState("");
@@ -122,8 +122,13 @@ export default function CreateProduct() {
     }
   };
 
-  /* const createProduct = () => {
-    if (name !== "" && description !== "" && status !== "" && pictures[0]) {
+  const createProduct = () => {
+    if (
+      name !== "" &&
+      description !== "" &&
+      subcategory !== "" &&
+      pictures[0]
+    ) {
       const images = mainPicture.url
         ? [mainPicture, ...pictures.filter((p) => p.url !== mainPicture.url)]
         : pictures;
@@ -131,23 +136,23 @@ export default function CreateProduct() {
       if (!auction) {
         addProduct(
           name,
-          description,
-          {
-            width,
-            height,
-            thickness,
-            weight,
-          },
-          { fragile },
-          status,
-          subcategory,
-          "no",
+          barcode,
           price,
-          discount,
+          priceBefore,
+          warranty,
+          subcategory,
+          description,
+          additionalInfo,
+          properties,
+          notes,
+          kitInclude,
+          quantity,
+          deliveryTime,
+          modelName,
+          specification,
+          additionalFields,
           images,
-          video,
-          amount,
-          true
+          fragile
         )
           .then((res) => {
             console.log(res);
@@ -184,8 +189,7 @@ export default function CreateProduct() {
           maxPrice,
           startTime,
           timeFrame,
-          images,
-          video
+          images
         ).then((res) => {
           console.log(res);
           if (res.status === "ok") {
@@ -199,7 +203,7 @@ export default function CreateProduct() {
         });
       }
     }
-  };*/
+  };
 
   const deleteAll = () => {
     setAuction(true);
@@ -489,68 +493,23 @@ export default function CreateProduct() {
                       onChange={(e) => setDeliveryTime(e.target.value)}
                     />
                     <ExeptionInput
-                      value={warrnaty}
+                      value={warranty}
                       light
                       label="מספר חודשי אחריות"
                       labelFontSize="14px"
-                      numbers={numbers}
+                      numbers={numbers.slice(0, 36)}
                       onChange={(e) => setWarranty(e.target.value)}
                     />
                   </Flex>
                 </Flex>
                 <Title
-                  name="עריכת שדות נוספים"
+                  name="מידע נוסף על המוצר"
                   onClick={() => setShowAdditional(!showAdditional)}
                 />
                 <Flex
                   flexDir="column"
                   display={showAdditional ? "flex" : "none"}
                 >
-                  <Flex flexDir="column" gap="6">
-                    {additionalFields.map((field, index) => (
-                      <Flex flexDir="column" gap="4" key={index}>
-                        <Text fontWeight="medium">{index + 1}.</Text>
-                        <Input
-                          light
-                          label="כותרת (הכותרת שתופיע בלשונית)"
-                          labelFontSize="14px"
-                          value={field.title}
-                          onChange={(e) =>
-                            updateField(index, "title", e.target.value)
-                          }
-                        />
-                        <Input
-                          light
-                          label="תוכן (התוכן שיופיע תחת הכותרת)"
-                          labelFontSize="14px"
-                          value={field.desc}
-                          onChange={(e) =>
-                            updateField(index, "desc", e.target.value)
-                          }
-                        />
-                      </Flex>
-                    ))}
-                    <Button
-                      h="50px"
-                      w="200px"
-                      mx="auto"
-                      //fontSize="20px"
-                      borderRadius={{ base: "14px", md: "12px" }}
-                      fontWeight="medium"
-                      _hover={{ bg: "primaryHover" }}
-                      color="white"
-                      bg="primary"
-                      onClick={() =>
-                        setAdditionalFields((prev) => [
-                          ...prev,
-                          { title: "", desc: "" },
-                        ])
-                      }
-                    >
-                      הוסף עוד
-                    </Button>
-                  </Flex>
-                  <Title name="מידע נוסף על המוצר" />
                   <Flex flexDir="column" gap="4">
                     <Input
                       light
@@ -605,7 +564,56 @@ export default function CreateProduct() {
                       onChange={(e) => setSpecification(e.target.value)}
                     />
                   </Flex>
-                  <Title name="מידות המוצר" />
+                  <Title
+                    name="עריכת שדות נוספים"
+                    onClick={() => setShowAdditional(!showAdditional)}
+                  />
+
+                  <Flex flexDir="column" gap="6">
+                    {additionalFields.map((field, index) => (
+                      <Flex flexDir="column" gap="4" key={index}>
+                        <Text fontWeight="medium">{index + 1}.</Text>
+                        <Input
+                          light
+                          label="כותרת (הכותרת שתופיע בלשונית)"
+                          labelFontSize="14px"
+                          value={field.title}
+                          onChange={(e) =>
+                            updateField(index, "title", e.target.value)
+                          }
+                        />
+                        <Input
+                          light
+                          label="תוכן (התוכן שיופיע תחת הכותרת)"
+                          labelFontSize="14px"
+                          value={field.desc}
+                          onChange={(e) =>
+                            updateField(index, "desc", e.target.value)
+                          }
+                        />
+                      </Flex>
+                    ))}
+                    <Button
+                      h="50px"
+                      w="200px"
+                      mx="auto"
+                      //fontSize="20px"
+                      borderRadius={{ base: "14px", md: "12px" }}
+                      fontWeight="medium"
+                      _hover={{ bg: "primaryHover" }}
+                      color="white"
+                      bg="primary"
+                      onClick={() =>
+                        setAdditionalFields((prev) => [
+                          ...prev,
+                          { title: "", desc: "" },
+                        ])
+                      }
+                    >
+                      הוסף עוד
+                    </Button>
+                  </Flex>
+                  {/*<Title name="מידות המוצר" />
                   <Grid
                     gridTemplateColumns={{
                       base: "repeat(2, 1fr)",
@@ -645,7 +653,7 @@ export default function CreateProduct() {
                       light
                       onChange={(e) => setWeight(e.target.value)}
                     />
-                  </Grid>
+                  </Grid>*/}
                 </Flex>
                 <Title name="מצב המוצר" />
                 <Flex
@@ -1506,10 +1514,10 @@ const Title = ({ name, onClick }) => {
         mb="16px"
       >
         <Flex alignItems="center" gap="1">
-        <Text fontWeight="semibold" letterSpacing="0.005em">
-          {name}
-        </Text>
-        {onClick && <HiArrowDown/>}
+          <Text fontWeight="semibold" letterSpacing="0.005em">
+            {name}
+          </Text>
+          {onClick && <HiArrowDown />}
         </Flex>
         <Divider bg="naturalLight" h="2px" flex="1" />
       </Flex>
