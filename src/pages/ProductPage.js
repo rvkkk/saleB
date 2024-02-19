@@ -116,18 +116,19 @@ export default function ProductPage() {
     if (token === null)
       addToCart({
         product: {
+          //האם לשמור רק ID
           id: product.id,
           title: product.title,
           description: product.description,
           price: product.price,
-          discount: product.discount,
+          priceBefore: product["price-before-discount"],
           images: product.images,
           quantityLeft: product.quantityLeft,
           pin: product.pin,
         },
         amount: amountToBuy,
-        size,
-        model,
+        //size,
+        //model,
       })
         .then((res) => {
           console.log("added:", res);
@@ -138,23 +139,22 @@ export default function ProductPage() {
           console.log(err);
         });
     else
-      addCart({ productId: product.id, amount: amountToBuy, size, model })
+      addCart({ productId: product.id, amount: amountToBuy })
         .then((res) => {
           //handleAddToCart();
           setDidAddedToCart(true);
           console.log(res);
           setChange("נוסף מוצר לסל " + number);
-        setNumber(number + 1)
+          setNumber(number + 1);
         })
         .catch((err) => {
           console.log(err);
         });
-    
   };
 
   const removeProductFromCart = () => {
     if (token === null)
-      removeFromCart({ productId: product.id, size, model })
+      removeFromCart({ productId: product.id })
         .then((res) => {
           console.log(res);
           setDidAddedToCart(false);
@@ -164,7 +164,7 @@ export default function ProductPage() {
           console.log(err);
         });
     else
-      deleteFromCart(product.id, size, model)
+      deleteFromCart(product.id)
         .then((res) => {
           //handleRemoveFromCart();
           console.log(res);
@@ -190,8 +190,6 @@ export default function ProductPage() {
           pin: product.pin,
         },
         amount: amountToBuy,
-        size,
-        model,
       })
         .then((res) => {
           setInWishList(true);
@@ -201,7 +199,7 @@ export default function ProductPage() {
           console.log(err);
         });
     else
-      addNewWish({ productId: product.id, amount: amountToBuy, size, model })
+      addNewWish({ productId: product.id, amount: amountToBuy })
         .then((res) => {
           setInWishList(true);
           console.log(res);
@@ -215,8 +213,6 @@ export default function ProductPage() {
     if (token === null)
       removeFromWishList({
         productId: product.id,
-        size,
-        model,
       })
         .then((res) => {
           setInWishList(false);
@@ -226,7 +222,7 @@ export default function ProductPage() {
           console.log(err);
         });
     else
-      deleteFromWishList(product.id, size, model)
+      deleteFromWishList(product.id)
         .then((res) => {
           setInWishList(false);
           console.log(res);
@@ -240,7 +236,6 @@ export default function ProductPage() {
     setLoading(true);
     getProduct(window.location.href.split("/").pop().split("?")[0])
       .then((res) => {
-        console.log(res.product);
         setProduct(res.product);
         setLoading(false);
       })
@@ -254,7 +249,7 @@ export default function ProductPage() {
 
   useEffect(() => {
     if (token === null)
-      if (checkIfProductInWishList({ productId: product.id, size, model }))
+      if (checkIfProductInWishList({ productId: product.id }))
         setInWishList(true);
       else setInWishList(false);
     else
@@ -279,8 +274,19 @@ export default function ProductPage() {
 
   const breadcrumb = product.title && [
     { name: "דף הבית", href: routes.HOME.path },
-    { name: product.mainCategory.name, href: routes.Categories.path.replace(":category", product.mainCategory.title) },
-    { name: product.category.name, href: routes.Category.path.replace(":main-category", product.mainCategory.title).replace(":category", product.category.title) },
+    {
+      name: product.mainCategory.name,
+      href: routes.Categories.path.replace(
+        ":category",
+        product.mainCategory.title
+      ),
+    },
+    {
+      name: product.category.name,
+      href: routes.Category.path
+        .replace(":main-category", product.mainCategory.title)
+        .replace(":category", product.category.title),
+    },
     { name: product.title, href: "#" },
   ];
 
@@ -303,35 +309,36 @@ export default function ProductPage() {
                   <ProductBanner />
                   <Flex mt="10" gap={{ md: "5", lg: "10" }} mx="auto">
                     <Flex justifyContent="end" w="50%">
-                      {" "}
                       <ImageGallery images={product.images} />
                     </Flex>
 
                     <Box w="50%">
                       <Box w="80%">
-                        <Flex flexDir="column" gap="2">
-                          <Flex
-                            alignItems="center"
-                            textAlign="center"
-                            justifyContent="center"
-                            bg="white"
-                            border="1px solid transparent"
-                            borderColor="bright"
-                            color="naturalDarkest"
-                            w={{ md: "100px", lg: "150px" }}
-                            h={{ md: "30px", lg: "39px" }}
-                            borderRadius="8px"
-                          >
-                            <Text
-                              fontWeight="medium"
-                              fontSize={{ md: "14px", lg: "16px" }}
+                        <Flex flexDir="column" gap="4">
+                          {product.status !== "לא רלוונטי" && (
+                            <Flex
+                              alignItems="center"
+                              textAlign="center"
+                              justifyContent="center"
+                              bg="white"
+                              border="1px solid transparent"
+                              borderColor="bright"
+                              color="naturalDarkest"
+                              w={{ md: "100px", lg: "150px" }}
+                              h={{ md: "30px", lg: "39px" }}
+                              borderRadius="8px"
                             >
-                              {product.status}
-                            </Text>
-                          </Flex>
+                              <Text
+                                fontWeight="medium"
+                                fontSize={{ md: "14px", lg: "16px" }}
+                              >
+                                {product.status}
+                              </Text>
+                            </Flex>
+                          )}
                           <Text
                             fontWeight="medium"
-                            fontSize={{ md: "24px", lg: "32px" }}
+                            fontSize={{ md: "28px", lg: "32px" }}
                             lineHeight={{ md: "30px", lg: "35px" }}
                             color="naturalBlack"
                           >
@@ -371,7 +378,7 @@ export default function ProductPage() {
                             />
                           </Flex>
                           <Text
-                            fontSize="16px"
+                            fontSize="18px"
                             lineHeight={{ md: "18px", lg: "26px" }}
                             color="naturalDarkest"
                           >
@@ -379,7 +386,7 @@ export default function ProductPage() {
                           </Text>
                           <Text
                             fontWeight="medium"
-                            fontSize={{ md: "22px", lg: "28px" }}
+                            fontSize={{ md: "24px", lg: "28px" }}
                             color="primary"
                             lineHeight="26px"
                             letterSpacing="-0.02em"
@@ -387,8 +394,8 @@ export default function ProductPage() {
                             {product.price} ₪
                           </Text>
                         </Flex>
-                        <Spacer h={{ md: "2", lg: "4", xl: "8" }} />
-                        <Box>
+                        <Spacer h="8" />
+                        {/*<Box>
                           <Text
                             fontSize="14px"
                             lineHeight="20px"
@@ -572,7 +579,7 @@ export default function ProductPage() {
                               }
                             />
                           </Flex>
-                        </Box>
+                            </Box>*/}
                         <Spacer h={{ md: "3", xl: "6" }} />
                         <Flex alignItems="center" gap="4">
                           <Text
@@ -586,7 +593,7 @@ export default function ProductPage() {
                           <QuantityInput
                             value={amountToBuy}
                             onChange={(e) => setAmountToBuy(e)}
-                            limit={product.quantityLeft}
+                            limit={product.quantity}
                           />
                           <Flex alignItems="center" gap="2">
                             <Text
@@ -601,7 +608,7 @@ export default function ProductPage() {
                               lineHeight="20px"
                               letterSpacing="-0.02em"
                             >
-                              {product.quantityLeft}
+                              {product.quantity}
                             </Text>
                           </Flex>
                         </Flex>
@@ -612,13 +619,11 @@ export default function ProductPage() {
                           <Button
                             h={{ md: "52px", lg: "60px", xl: "64px" }}
                             w={{ md: "140px", lg: "180px", xl: "219.5px" }}
-                            onClick={() =>
-                              (window.location.href =
-                                routes.ShoppingCart.path.replace(":id", "") +
-                                product.product.id
-                                  .toString()
-                                  .replace("[object%20Object]", ""))
-                            }
+                            onClick={() => {
+                              addProductToCart();
+                              window.location.href =
+                                routes.ShoppingCart.path.replace(":id", "");
+                            }}
                           >
                             קנו עכשיו
                           </Button>
@@ -687,7 +692,7 @@ export default function ProductPage() {
                             fontWeight="medium"
                             color="naturalBlack"
                           >
-                            משלוח תוך 4 ימים
+                            משלוח תוך {product["delivery-time"]} ימים
                           </Text>
                           <Text color="naturalLight">
                             <AiFillExclamationCircle />
@@ -808,7 +813,7 @@ export default function ProductPage() {
                       title="מוצרים דומים"
                       category={product.Category && product.category.title}
                     />
-                     <TopProducts />
+                    <TopProducts />
                   </Flex>
                 </Container>
               </Box>
@@ -848,7 +853,7 @@ export default function ProductPage() {
                           color="primary"
                           lineHeight="21px"
                         >
-                          {(product.price * (100 - product.discount)) / 100} ₪
+                          {product.price} ₪
                         </Text>
                       </Flex>
                       <ProductBanner />
@@ -878,7 +883,7 @@ export default function ProductPage() {
                         )}
                       </Box>
                     </Flex>
-                    <Flex pt="8px" flexDir="column" gap="14px">
+                    {/* <Flex pt="8px" flexDir="column" gap="14px">
                       <Text
                         fontSize="14px"
                         fontWeight="medium"
@@ -1039,7 +1044,7 @@ export default function ProductPage() {
                           onClick={() => setSize("XL")}
                         />
                       </Flex>
-                    </Flex>
+                        </Flex>*/}
                     <Flex gap="8px" alignItems="center">
                       <Text
                         fontSize="12px"
@@ -1052,7 +1057,7 @@ export default function ProductPage() {
                       <QuantityInput
                         value={amountToBuy}
                         onChange={(e) => setAmountToBuy(e)}
-                        limit={product.quantityLeft}
+                        limit={product.quantity}
                       />
                       <Text
                         fontSize="12px"
@@ -1060,7 +1065,7 @@ export default function ProductPage() {
                         lineHeight="21px"
                         color="naturalDarkest"
                       >
-                        {product.quantityLeft} במלאי
+                        {product.quantity} במלאי
                       </Text>
                     </Flex>
                     <Flex pt="10px" gap="11px">
@@ -1068,13 +1073,11 @@ export default function ProductPage() {
                         bg="primaryLight"
                         h="60px"
                         w="178px"
-                        onClick={() =>
-                          (window.location.href =
-                            routes.ShoppingCart.path.replace(":id", "") +
-                            product.product.id
-                              .toString()
-                              .replace("[object%20Object]", ""))
-                        }
+                        onClick={() => {
+                          addProductToCart();
+                          window.location.href =
+                            routes.ShoppingCart.path.replace(":id", "");
+                        }}
                       >
                         קנו עכשיו
                       </Button>
@@ -1113,7 +1116,7 @@ export default function ProductPage() {
                           fontWeight="medium"
                           color="naturalBlack"
                         >
-                          משלוח תוך 4 ימים
+                          משלוח תוך {product["delivery-time"]} ימים
                         </Text>
                         <Text color="naturalLight">
                           <AiFillExclamationCircle />
@@ -1187,12 +1190,9 @@ export default function ProductPage() {
                     <ProductAccordings tabs={tabs} />
                     <Products
                       title="מוצרים דומים"
-                      w="298px"
-                      h="406px"
-                      p="310px"
-                      numberOfSlides={5}
-                      products={productsInCategory.slice(0, 25)}
-                    />{" "}
+                      category={product.Category && product.category.title}
+                    />
+                    <TopProducts />
                   </Flex>
                 </Container>
               </Box>

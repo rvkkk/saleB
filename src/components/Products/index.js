@@ -169,9 +169,19 @@ export default function Products({
                   _id={product._id}
                   name={product.title}
                   imgUrl={product.images[0]}
-                  price={(product.price * (100 - product.discount)) / 100}
-                  beforePrice={product.discount !== 0 && product.price}
-                  discount={product.discount}
+                  price={product.price}
+                  beforePrice={
+                    product["price-before-discount"] !== 0
+                      ? product["price-before-discount"]
+                      : null
+                  }
+                  discount={
+                    product["price-before-discount"] !== 0
+                      ? ((product["price-before-discount"] - product.price) /
+                          product["price-before-discount"]) *
+                        100
+                      : null
+                  }
                   offers={product.offers}
                   h={h}
                   w={w}
