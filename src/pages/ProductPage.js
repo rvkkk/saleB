@@ -55,9 +55,11 @@ import {
   StarHalfIcon,
 } from "../components/Icons";
 import ProductAccordings from "../components/ProductAccordings";
+import TopProducts from "../components/LoadingProducts";
+
 export default function ProductPage() {
   const tabs = [
-    { name: "פרטים טכניים", component: <Tab1Component /> },
+    { name: "מידע נוסף", component: <Tab1Component /> },
     { name: "המלצות", component: <Tab2Component /> },
     { name: "משלוחים והחזרות", component: <Tab3Component /> },
   ];
@@ -96,7 +98,7 @@ export default function ProductPage() {
     // כאן תוכל לטפל בסגירת החיבור
   });*/
 
-  const handleAddToCart = () => {
+  /*const handleAddToCart = () => {
     console.log("Connected to WebSocket");
     //socket.send("הוסף לסל");
   };
@@ -138,7 +140,7 @@ export default function ProductPage() {
     else
       addCart({ productId: product.id, amount: amountToBuy, size, model })
         .then((res) => {
-          handleAddToCart();
+          //handleAddToCart();
           setDidAddedToCart(true);
           console.log(res);
           setChange("נוסף מוצר לסל " + number);
@@ -164,7 +166,7 @@ export default function ProductPage() {
     else
       deleteFromCart(product.id, size, model)
         .then((res) => {
-          handleRemoveFromCart();
+          //handleRemoveFromCart();
           console.log(res);
           setDidAddedToCart(false);
           setChange("הוסר מוצר מהסל");
@@ -240,10 +242,6 @@ export default function ProductPage() {
       .then((res) => {
         console.log(res.product);
         setProduct(res.product);
-        setProductsInCategory(
-          sortProductsByCategory(res.product.products, res.product.category)
-        );
-        setMostByProducts(sortMostBuyProducts(res.product.products));
         setLoading(false);
       })
       .catch((err) => {
@@ -279,11 +277,11 @@ export default function ProductPage() {
         });
   }, [product, size, model]);
 
-  const breadcrumb = [
+  const breadcrumb = product.title && [
     { name: "דף הבית", href: routes.HOME.path },
-    { name: "קטגוריה", href: routes.Category.path },
-    { name: "מחלקה", href: routes.Category.path + product.category },
-    { name: "מוצר", href: routes.ProductPage.path + product.id },
+    { name: product.mainCategory.name, href: routes.Categories.path.replace(":category", product.mainCategory.title) },
+    { name: product.category.name, href: routes.Category.path.replace(":main-category", product.mainCategory.title).replace(":category", product.category.title) },
+    { name: product.title, href: "#" },
   ];
 
   return (
@@ -386,7 +384,7 @@ export default function ProductPage() {
                             lineHeight="26px"
                             letterSpacing="-0.02em"
                           >
-                            {(product.price * (100 - product.discount)) / 100} ₪
+                            {product.price} ₪
                           </Text>
                         </Flex>
                         <Spacer h={{ md: "2", lg: "4", xl: "8" }} />
@@ -808,16 +806,9 @@ export default function ProductPage() {
                   >
                     <Products
                       title="מוצרים דומים"
-                      products={productsInCategory.slice(0, 25)}
+                      category={product.Category && product.category.title}
                     />
-                    <Products
-                      title="מוצרים מובילים"
-                      w="290px"
-                      h="400px"
-                      p="300px"
-                      numberOfSlides={5}
-                      products={mostByProducts.slice(0, 25)}
-                    />
+                     <TopProducts />
                   </Flex>
                 </Container>
               </Box>

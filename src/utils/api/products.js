@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "https://sale-bid.df.r.appspot.com/";
+const baseURL = "http://localhost:3001/";
 const headers = {
   headers: {
     Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -75,58 +75,42 @@ export const addProduct = (
   specification,
   additionalFields,
   images,
-  fragile,
+  fragile
   //YouTubeLink,
 ) => {
-  return new Promise((resolve, reject) => {
-    console.log(
-      title,
-      barcode,
-      price,
-      priceBefore,
-      warranty,
-      category,
-      description,
-      additionalInfo,
-      properties,
-      notes,
-      kitInclude,
-      quantity,
-      deliveryTime,
-      modelName,
-      specification,
-      additionalFields,
-      images,
-      fragile,
-      //YouTubeLink,
-    );
+  return new Promise(async(resolve, reject) => {
+   const json = JSON.stringify(additionalFields);
+    const additionalBlob = new Blob([json]);
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("main-barcode", barcode);
+    formData.append("price", price);
+    formData.append("price-before-discount", priceBefore);
+    formData.append("warranty", warranty);
+    formData.append("category", category);
+    formData.append("description", description);
+    formData.append("additional-information", additionalInfo);
+    formData.append("properties", properties);
+    formData.append("notes", notes);
+    formData.append("kit-include", kitInclude);
+    formData.append("quantity", quantity);
+    formData.append("delivery-time", deliveryTime);
+    formData.append("model-name", modelName);
+    formData.append("specification", specification);
+    formData.append("additional-fields", additionalBlob);
+    for (const image of images) {
+      formData.append("images", image);
+    }
+    formData.append("fragile", fragile);
+    formData.append("pin", false);
     axios
-      .post(
-        `${baseURL}products`,
-        {
-          title,
-          "main-barcode": barcode,
-          price,
-          "price-before-discount": priceBefore,
-          warranty,
-          category,
-          description,
-          "additional-information": additionalInfo,
-          properties,
-          notes,
-          "kit-include": kitInclude,
-          quantity,
-          "delivery-time": deliveryTime,
-          "model-name": modelName,
-          specification,
-          "additional-fields": additionalFields,
-          images,
-          fragile,
-          //YouTubeLink,
-          pin: false,
+      .post(`${baseURL}products`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        headers
-      )
+      })
       .then((res) => {
         resolve(res.data);
       })
@@ -160,32 +144,39 @@ export const updateProduct = (
   pin
 ) => {
   return new Promise((resolve, reject) => {
+    const json = JSON.stringify(additionalFields);
+    const additionalBlob = new Blob([json]);
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("main-barcode", barcode);
+    formData.append("price", price);
+    formData.append("price-before-discount", priceBefore);
+    formData.append("warranty", warranty);
+    formData.append("category", category);
+    formData.append("description", description);
+    formData.append("additional-information", additionalInfo);
+    formData.append("properties", properties);
+    formData.append("notes", notes);
+    formData.append("kit-include", kitInclude);
+    formData.append("quantity", quantity);
+    formData.append("delivery-time", deliveryTime);
+    formData.append("model-name", modelName);
+    formData.append("specification", specification);
+    formData.append("additional-fields", additionalBlob);
+    for (const image of images) {
+      formData.append("images", image);
+    }
+    formData.append("fragile", fragile);
+    formData.append("pin", pin);
+
     axios
-      .patch(
-        `${baseURL}products/${id}`,
-        {
-          title,
-          barcode,
-          price,
-          priceBefore,
-          warranty,
-          category,
-          description,
-          additionalInfo,
-          properties,
-          notes,
-          kitInclude,
-          quantity,
-          deliveryTime,
-          modelName,
-          specification,
-          additionalFields,
-          images,
-          fragile,
-          pin,
+      .patch(`${baseURL}products/${id}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        headers
-      )
+      })
       .then((res) => {
         resolve(res.data);
       })

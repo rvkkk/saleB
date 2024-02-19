@@ -135,6 +135,7 @@ export default function CreateProduct() {
       const images = mainPicture.url
         ? [mainPicture, ...pictures.filter((p) => p.url !== mainPicture.url)]
         : pictures;
+      const filesOnly = images.map(imageObj => imageObj.image);
       setLoading(true);
       if (!auction) {
         addProduct(
@@ -154,7 +155,7 @@ export default function CreateProduct() {
           modelName,
           specification,
           additionalFields,
-          images,
+          filesOnly,
           fragile
         )
           .then((res) => {
