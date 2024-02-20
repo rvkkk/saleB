@@ -439,19 +439,13 @@ export default function NavBar({ withSidebar, logo, change }) {
                                     <React.Fragment key={key}>
                                       <NavCartListItem
                                         title={p.product.title}
-                                        price={
-                                          (p.product.price *
-                                            (100 - p.product.discount)) /
-                                          100
-                                        }
+                                        price={p.product.price}
                                         images={p.product.images}
                                         amount={p.amount}
-                                        quantityLeft={p.product.quantityLeft}
+                                        quantityLeft={p.product.quantity}
                                         onChangeAmount={(amount) =>
                                           updateAmount(
                                             p.product,
-                                            p.size,
-                                            p.model,
                                             amount,
                                             p.amount
                                           )
@@ -461,11 +455,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                                             "האם אתה בטוח שברצונך למחוק את המוצר מהעגלה?"
                                           );
                                           if (a) {
-                                            removeProductFromCart(
-                                              p.product.id,
-                                              p.size,
-                                              p.model
-                                            );
+                                            removeProductFromCart(p.product.id);
                                           }
                                         }}
                                       />
@@ -509,12 +499,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                                   cart.products.reduce(
                                     (a, b) =>
                                       parseFloat(a) +
-                                      parseFloat(
-                                        ((b.product.price *
-                                          (100 - b.product.discount)) /
-                                          100) *
-                                          b.amount
-                                      ),
+                                      parseFloat(b.product.price * b.amount),
                                     0
                                   ) * 100
                                 ) / 100) ||
@@ -1183,33 +1168,19 @@ export default function NavBar({ withSidebar, logo, change }) {
                             <React.Fragment key={key}>
                               <NavCartListItem
                                 title={p.product.title}
-                                price={
-                                  (p.product.price *
-                                    (100 - p.product.discount)) /
-                                  100
-                                }
+                                price={p.product.price}
                                 images={p.product.images}
                                 amount={p.amount}
-                                quantityLeft={p.product.quantityLeft}
+                                quantityLeft={p.product.quantity}
                                 onChangeAmount={(amount) =>
-                                  updateAmount(
-                                    p.product,
-                                    p.size,
-                                    p.model,
-                                    amount,
-                                    p.amount
-                                  )
+                                  updateAmount(p.product, amount, p.amount)
                                 }
                                 onDelete={() => {
                                   const a = window.confirm(
                                     "האם אתה בטוח שברצונך למחוק את המוצר מהעגלה?"
                                   );
                                   if (a) {
-                                    removeProductFromCart(
-                                      p.product.id,
-                                      p.size,
-                                      p.model
-                                    );
+                                    removeProductFromCart(p.product.id);
                                   }
                                 }}
                               />
@@ -1253,12 +1224,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                           cart.products.reduce(
                             (a, b) =>
                               parseFloat(a) +
-                              parseFloat(
-                                ((b.product.price *
-                                  (100 - b.product.discount)) /
-                                  100) *
-                                  b.amount
-                              ),
+                              parseFloat(b.product.price * b.amount),
                             0
                           ) * 100
                         ) / 100) ||

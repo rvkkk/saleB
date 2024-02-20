@@ -111,7 +111,7 @@ export default function ProductPage() {
       addToCart({
         product: {
           //האם לשמור רק ID
-          id: product._id,
+          id: product.id,
           title: product.title,
           "english-title": product["english-title"],
           description: product.description,
@@ -176,7 +176,7 @@ export default function ProductPage() {
     if (token === null)
       addToWishList({
         product: {
-          id: product._id,
+          id: product.id,
           title: product.title,
           "english-title": product["english-title"],
           description: product.description,

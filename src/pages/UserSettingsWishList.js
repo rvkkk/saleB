@@ -110,7 +110,7 @@ export default function UserSettingsWishList() {
     if (token === null)
       addToCart({
         product: {
-          id: product._id,
+          id: product.id,
           title: product.title,
           "english-title": product["english-title"],
           description: product.description,
