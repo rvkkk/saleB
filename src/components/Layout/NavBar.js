@@ -526,10 +526,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                                 gap="4"
                                 onClick={() =>
                                   (window.location.href =
-                                    routes.ShoppingCart.path.replace(
-                                      ":id",
-                                      cart.id
-                                    ))
+                                    routes.ShoppingCart.path)
                                 }
                               >
                                 לתשלום <ArrowBackIcon />
@@ -1084,182 +1081,191 @@ export default function NavBar({ withSidebar, logo, change }) {
                 </MenuList>
               )}
             </Menu>
-            <Popover>
-              <PopoverTrigger>
-                <Flex justifyContent="center" alignItems="center" role="list">
-                  <CartIcon2 />
-                  {cart.products && cart.products.length > 0 && (
+            <Popover closeOnBlur={false}>
+              {({ onClose }) => (
+                <>
+                  <PopoverTrigger>
                     <Flex
-                      position="absolute"
-                      //top="1"
-                      //right="1"
-                      mb="10px"
-                      ml="15px"
-                      alignItems="center"
                       justifyContent="center"
-                      w="14px"
-                      h="14px"
-                      //pt="1px"
-                      borderRadius="full"
-                      bg="otherError"
-                      border="2px solid transparent"
-                      borderColor="primary"
+                      alignItems="center"
+                      role="list"
                     >
-                      <Text
-                        fontSize="8px"
-                        mt="1px"
-                        lineHeight="8px"
-                        textColor="white"
-                      >
-                        {cart.products.length}
-                      </Text>
-                    </Flex>
-                  )}
-                </Flex>
-              </PopoverTrigger>
-              <PopoverContent
-                // h="637px"
-                w="357px"
-                borderRadius="16px"
-                border="none"
-                bg="white"
-                shadow="0px 5px 40px rgba(0, 0, 0, 0.1)"
-              >
-                <PopoverArrow />
-                <PopoverCloseButton
-                  size="sm"
-                  position="absolute"
-                  left="0"
-                  top="68.7px"
-                  transform="translateX(-50%)"
-                  bg="white"
-                  border="1.24779px solid"
-                  borderColor="naturalDark"
-                  borderRadius="full"
-                />
-                <PopoverBody py="6" px="6" dir="rtl">
-                  <Flex alignItems="center" justifyContent="space-between">
-                    <Flex gap="2" fontSize="16px" lineHeight="16.5px">
-                      <Text color="naturalDarkest" fontWeight="semibold">
-                        העגלה שלי
-                      </Text>
-                      <Text color="naturalDarkest">({products.length})</Text>
-                    </Flex>
-
-                    <ChakraButton
-                      variant="link"
-                      onClick={() => deleteMyCart()}
-                      style={{ textDecoration: "none" }}
-                      color="primaryLight"
-                      fontSize="13px"
-                      aria-label="clear your cart"
-                      role="button"
-                    >
-                      רוקן עגלה
-                      <TrashIcon fill="#003DFF" />
-                    </ChakraButton>
-                  </Flex>
-                  <Spacer h="10px" />
-                  <Box overflow="auto" className="slider-container">
-                    <Slider {...settings}>
-                      {products && (
-                        <>
-                          {products.map((p, key) => (
-                            <React.Fragment key={key}>
-                              <NavCartListItem
-                                title={p.product.title}
-                                price={p.product.price}
-                                images={p.product.images}
-                                amount={p.amount}
-                                quantity={p.product.quantity}
-                                onChangeAmount={(amount) =>
-                                  updateAmount(p.product, amount, p.amount)
-                                }
-                                onDelete={() => {
-                                  const a = window.confirm(
-                                    "האם אתה בטוח שברצונך למחוק את המוצר מהעגלה?"
-                                  );
-                                  if (a) {
-                                    removeProductFromCart(p.product.id);
-                                  }
-                                }}
-                              />
-                            </React.Fragment>
-                          ))}
-                        </>
+                      <CartIcon2 />
+                      {cart.products && cart.products.length > 0 && (
+                        <Flex
+                          position="absolute"
+                          //top="1"
+                          //right="1"
+                          mb="10px"
+                          ml="15px"
+                          alignItems="center"
+                          justifyContent="center"
+                          w="14px"
+                          h="14px"
+                          //pt="1px"
+                          borderRadius="full"
+                          bg="otherError"
+                          border="2px solid transparent"
+                          borderColor="primary"
+                        >
+                          <Text
+                            fontSize="8px"
+                            mt="1px"
+                            lineHeight="8px"
+                            textColor="white"
+                          >
+                            {cart.products.length}
+                          </Text>
+                        </Flex>
                       )}
-                    </Slider>
-                  </Box>
+                    </Flex>
+                  </PopoverTrigger>
+                  <PopoverContent
+                    // h="637px"
+                    w="357px"
+                    borderRadius="16px"
+                    border="none"
+                    bg="white"
+                    shadow="0px 5px 40px rgba(0, 0, 0, 0.1)"
+                  >
+                    <PopoverArrow />
+                    <PopoverCloseButton
+                      size="sm"
+                      position="absolute"
+                      left="0"
+                      top="68.7px"
+                      transform="translateX(-50%)"
+                      bg="white"
+                      border="1.24779px solid"
+                      borderColor="naturalDark"
+                      borderRadius="full"
+                    />
+                    <PopoverBody py="6" px="6" dir="rtl">
+                      <Flex alignItems="center" justifyContent="space-between">
+                        <Flex gap="2" fontSize="16px" lineHeight="16.5px">
+                          <Text color="naturalDarkest" fontWeight="semibold">
+                            העגלה שלי
+                          </Text>
+                          <Text color="naturalDarkest">
+                            ({products.length})
+                          </Text>
+                        </Flex>
 
-                  <Spacer h="38px" />
-                  <Flex justifyContent="space-between">
-                    <Box>
-                      <Text
-                        fontWeight="500"
-                        fontSize="22px"
-                        color="naturalBlack"
-                        lineHeight="30px"
-                      >
-                        סך הכל
-                      </Text>
-                      <Text
-                        color="naturalDark"
-                        fontSize="14px"
-                        lineHeight="22px"
-                      >
-                        משלוח, עמלות ומיסים יחושבו בשעת ההזמנה
-                      </Text>
-                    </Box>
-
-                    <Text
-                      fontWeight="500"
-                      fontSize="22px"
-                      lineHeight="30px"
-                      color="naturalBlack"
-                    >
-                      ₪
-                      {(cart.products &&
-                        cart.products.length >= 1 &&
-                        Math.round(
-                          cart.products.reduce(
-                            (a, b) =>
-                              parseFloat(a) +
-                              parseFloat(b.product.price * b.amount),
-                            0
-                          ) * 100
-                        ) / 100) ||
-                        "0"}
-                    </Text>
-                  </Flex>
-                  <Box mt="38px">
-                    <Button.Secondary
-                      aria-label="link to keep shoping"
-                      borderColor="primary"
-                      color="primary"
-                      fontSize="20px"
-                      role="button"
-                      onClick={() => (window.location.href = routes.HOME.path)}
-                    >
-                      להמשיך בקניות
-                    </Button.Secondary>
-                    <Spacer h="4" />
-                    <Button>
-                      <Flex
-                        alignItems="center"
-                        gap="4"
-                        aria-label="link to pay my cart"
-                        role="button"
-                        onClick={() =>
-                          (window.location.href =
-                            routes.ShoppingCart.path.replace(":id", cart.id))
-                        }
-                      >
-                        לתשלום <ArrowBackIcon />
+                        <ChakraButton
+                          variant="link"
+                          onClick={() => deleteMyCart()}
+                          style={{ textDecoration: "none" }}
+                          color="primaryLight"
+                          fontSize="13px"
+                          aria-label="clear your cart"
+                          role="button"
+                        >
+                          רוקן עגלה
+                          <TrashIcon fill="#003DFF" />
+                        </ChakraButton>
                       </Flex>
-                    </Button>
-                  </Box>
-                </PopoverBody>
-              </PopoverContent>
+                      <Spacer h="10px" />
+                      <Box overflow="auto" className="slider-container">
+                        <Slider {...settings}>
+                          {products && (
+                            <>
+                              {products.map((p, key) => (
+                                <React.Fragment key={key}>
+                                  <NavCartListItem
+                                    title={p.product.title}
+                                    price={p.product.price}
+                                    images={p.product.images}
+                                    amount={p.amount}
+                                    quantity={p.product.quantity}
+                                    onChangeAmount={(amount) =>
+                                      updateAmount(p.product, amount, p.amount)
+                                    }
+                                    onDelete={() => {
+                                      const a = window.confirm(
+                                        "האם אתה בטוח שברצונך למחוק את המוצר מהעגלה?"
+                                      );
+                                      if (a) {
+                                        removeProductFromCart(p.product.id);
+                                      }
+                                    }}
+                                  />
+                                </React.Fragment>
+                              ))}
+                            </>
+                          )}
+                        </Slider>
+                      </Box>
+
+                      <Spacer h="38px" />
+                      <Flex justifyContent="space-between">
+                        <Box>
+                          <Text
+                            fontWeight="500"
+                            fontSize="22px"
+                            color="naturalBlack"
+                            lineHeight="30px"
+                          >
+                            סך הכל
+                          </Text>
+                          <Text
+                            color="naturalDark"
+                            fontSize="14px"
+                            lineHeight="22px"
+                          >
+                            משלוח, עמלות ומיסים יחושבו בשעת ההזמנה
+                          </Text>
+                        </Box>
+
+                        <Text
+                          fontWeight="500"
+                          fontSize="22px"
+                          lineHeight="30px"
+                          color="naturalBlack"
+                        >
+                          ₪
+                          {(cart.products &&
+                            cart.products.length >= 1 &&
+                            Math.round(
+                              cart.products.reduce(
+                                (a, b) =>
+                                  parseFloat(a) +
+                                  parseFloat(b.product.price * b.amount),
+                                0
+                              ) * 100
+                            ) / 100) ||
+                            "0"}
+                        </Text>
+                      </Flex>
+                      <Box mt="38px">
+                        <Button.Secondary
+                          aria-label="link to keep shoping"
+                          borderColor="primary"
+                          color="primary"
+                          fontSize="20px"
+                          role="button"
+                          onClick={onClose}
+                        >
+                          להמשיך בקניות
+                        </Button.Secondary>
+                        <Spacer h="4" />
+                        <Button>
+                          <Flex
+                            alignItems="center"
+                            gap="4"
+                            aria-label="link to pay my cart"
+                            role="button"
+                            onClick={() =>
+                              (window.location.href = routes.ShoppingCart.path)
+                            }
+                          >
+                            לתשלום <ArrowBackIcon />
+                          </Flex>
+                        </Button>
+                      </Box>
+                    </PopoverBody>
+                  </PopoverContent>
+                </>
+              )}
             </Popover>
 
             <Popover>

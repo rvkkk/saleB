@@ -619,7 +619,7 @@ export default function ProductPage() {
                             onClick={() => {
                               addProductToCart();
                               window.location.href =
-                                routes.ShoppingCart.path.replace(":id", "");
+                                routes.ShoppingCart.path;
                             }}
                           >
                             קנו עכשיו
@@ -1073,7 +1073,7 @@ export default function ProductPage() {
                         onClick={() => {
                           addProductToCart();
                           window.location.href =
-                            routes.ShoppingCart.path.replace(":id", "");
+                            routes.ShoppingCart.path;
                         }}
                       >
                         קנו עכשיו

@@ -51,7 +51,7 @@ export const routes = {
         component: Home
     },
     ShoppingCart: {
-        path: "/cart/:id",
+        path: "/my-cart",
         component: ShoppingCart
     },
     Category: {
