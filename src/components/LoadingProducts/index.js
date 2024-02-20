@@ -19,7 +19,7 @@ export default function TopProducts() {
       ? 3
       : window.innerWidth < 1280
       ? 4
-      : 5; // מספר המוצרים להצגה בכל שורה
+      : 5;
   const itemsPerPage = itemsPerRow * 2;
 
   useEffect(() => {

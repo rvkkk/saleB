@@ -57,7 +57,7 @@ export const deleteWishList = (id) => {
 export const deleteFromWishList = (productId) => {
   return new Promise((resolve, reject) => {
     axios
-      .patch(`${baseURL}wish-lists-remove/${productId}`, headers)
+      .delete(`${baseURL}wish-lists-remove/${productId}`, headers)
       .then((res) => {
         resolve(res.data);
       })

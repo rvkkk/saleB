@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const baseURL = "https://sale-bid.df.r.appspot.com/";
-
 const headers = {
   headers: {
     Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -81,7 +80,7 @@ export const deleteCart = (id) => {
 export const deleteFromCart = (productId) => {
   return new Promise((resolve, reject) => {
     axios
-      .patch(`${baseURL}carts-remove/${productId}`, headers)
+      .delete(`${baseURL}carts-remove/${productId}`, headers)
       .then((res) => {
         resolve(res.data);
       })
