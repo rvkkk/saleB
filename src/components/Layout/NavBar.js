@@ -442,7 +442,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                                         price={p.product.price}
                                         images={p.product.images}
                                         amount={p.amount}
-                                        quantityLeft={p.product.quantity}
+                                        quantity={p.product.quantity}
                                         onChangeAmount={(amount) =>
                                           updateAmount(
                                             p.product,
@@ -1171,7 +1171,7 @@ export default function NavBar({ withSidebar, logo, change }) {
                                 price={p.product.price}
                                 images={p.product.images}
                                 amount={p.amount}
-                                quantityLeft={p.product.quantity}
+                                quantity={p.product.quantity}
                                 onChangeAmount={(amount) =>
                                   updateAmount(p.product, amount, p.amount)
                                 }

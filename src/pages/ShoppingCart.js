@@ -6,7 +6,7 @@ import { Icon1, Icon2, Icon3, Icon4 } from "../components/Icons";
 import Layout from "../components/Layout";
 import Tabs from "../components/Tabs";
 import { useState } from "react";
-import { getCart, removeFromCart, clearCart, addToCart } from "../utils/cart";
+//import { getCart, removeFromCart, clearCart, addToCart } from "../utils/cart";
 /*import { getUserCart, deleteFromCart, updateCart } from "../utils/api/carts";
 import { getUser } from "../utils/api/users";
 import { getUserDefaultShippingAddress } from "../utils/api/shippingAddresses";*/
@@ -24,12 +24,12 @@ export default function ShoppingCart() {
   const [tab, setTab] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  const getProductsFromCart = async () => {
+  /*const getProductsFromCart = async () => {
     const cart = await getCart();
     return cart.products;
-  };
+  };*/
 
-  const getProductsToPurchase = async () => {
+ /* const getProductsToPurchase = async () => {
     let products = [];
     let cart = [];
     try {
@@ -38,7 +38,7 @@ export default function ShoppingCart() {
       // console.log(error);
     }
 
-    const specificProduct = window.location.pathname
+   const specificProduct = window.location.pathname
       .split("/")
       .pop()
       .split("?")[0];
@@ -66,7 +66,7 @@ export default function ShoppingCart() {
     });
     console.log(products);
     setProducts(products);
-  };
+  };*/
 
  
 

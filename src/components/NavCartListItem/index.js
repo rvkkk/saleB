@@ -32,7 +32,7 @@ export default function NavCartListItem(props) {
               ₪{props.price}
             </Text>
           </Flex>
-          <QuantityInput onChange={(e) => props.onChangeAmount(e)} value={props.amount} limit={props.quantityLeft} />
+          <QuantityInput onChange={(e) => props.onChangeAmount(e)} value={props.amount} limit={props.quantity} />
         </Flex>
       </Flex>
 
