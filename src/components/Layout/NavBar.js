@@ -77,7 +77,6 @@ export default function NavBar({ withSidebar, logo, change }) {
   const [query, setQuery] = useState("");
   const [cart, setCart] = useState({});
   const [products, setProducts] = useState([]);
-  //const [topCategories, setTopCategories] = useState([]);
   const [fetchedUser, setFetchedUser] = useState(false);
   const [userLogged, setUserLogged] = useState(false);
   const token = window.localStorage.getItem("token");
@@ -89,6 +88,16 @@ export default function NavBar({ withSidebar, logo, change }) {
     userName: "Sale Bid",
     profileImage: "",
   });
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    rtl: true,
+    swipe: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
 
   const getUser = () => {
     if (!fetchedUser) {
@@ -153,18 +162,14 @@ export default function NavBar({ withSidebar, logo, change }) {
     // כאן תוכל לטפל בסגירת החיבור
   });*/
 
-  const updateAmount = (product, size, model, newAmount, amount) => {
+  const updateAmount = (product, newAmount, amount) => {
     if (token === null)
-      addToCart({ product: product, amount: newAmount - amount, size, model })
+      addToCart({ product: product, amount: newAmount - amount })
         .then((res) => {
           console.log(res);
           setCart((prevCart) => {
             const updatedProducts = prevCart.products.map((p) => {
-              if (
-                p.product.id === product.id &&
-                p.size === size &&
-                p.model === model
-              ) {
+              if (p.product.id === product.id) {
                 return { ...p, amount: p.amount + newAmount - amount };
               }
               return p;
@@ -179,19 +184,13 @@ export default function NavBar({ withSidebar, logo, change }) {
     else
       updateCart({
         productId: product.id,
-        size,
-        model,
         amount: newAmount - amount,
       })
         .then((res) => {
           console.log(res);
           setCart((prevCart) => {
             const updatedProducts = prevCart.products.map((p) => {
-              if (
-                p.product.id === product.id &&
-                p.size === size &&
-                p.model === model
-              ) {
+              if (p.product.id === product.id) {
                 return { ...p, amount: p.amount + newAmount - amount };
               }
               return p;
@@ -204,28 +203,14 @@ export default function NavBar({ withSidebar, logo, change }) {
           console.log(err);
         });
   };
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    rtl: true,
-    swipe: true,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
 
-  const removeProductFromCart = (productId, size, model) => {
+  const removeProductFromCart = (productId) => {
     if (token === null)
-      removeFromCart({ productId, size, model })
+      removeFromCart({ productId })
         .then((res) => {
           setCart((prevCart) => {
             const updatedProducts = prevCart.products.filter(
-              (p) =>
-                !(
-                  p.product.id === productId &&
-                  p.size === size &&
-                  p.model === model
-                )
+              (p) => !(p.product.id === productId)
             );
             setProducts(updatedProducts);
             return { ...prevCart, products: updatedProducts };
@@ -235,16 +220,11 @@ export default function NavBar({ withSidebar, logo, change }) {
           console.log(err);
         });
     else
-      deleteFromCart(productId, size, model)
+      deleteFromCart(productId)
         .then((res) => {
           setCart((prevCart) => {
             const updatedProducts = prevCart.products.filter(
-              (p) =>
-                !(
-                  p.product.id === productId &&
-                  p.size === size &&
-                  p.model === model
-                )
+              (p) => !(p.product.id === productId)
             );
             setProducts(updatedProducts);
             return { ...prevCart, products: updatedProducts };
@@ -1569,35 +1549,39 @@ const MenuItemCategory = () => {
                   </Text>
                   <ArrowIcon />
                 </Flex>
-                {category.subcategories.length > 0 ? category.subcategories.map((subcategory, index) => (
-                  <Text
-                    key={index}
-                    _hover={{ color: "primary" }}
-                    cursor="pointer"
-                    onClick={() =>
-                      (window.location.href = routes.Category.path
-                        .replace(":main-category", category.title)
-                        .replace(":category", subcategory.title))
-                    }
-                    fontSize="13px"
-                  >
-                    {subcategory.name}
-                  </Text>
-                )): ["אספנות", "אספנות", "אספנות", "אספנות"].map((subcategory, index) => (
-                  <Text
-                    key={index}
-                    _hover={{ color: "primary" }}
-                    cursor="pointer"
-                    onClick={() =>
-                      (window.location.href = routes.Category.path
-                        .replace(":main-category", category.title)
-                        .replace(":category", subcategory.title))
-                    }
-                    fontSize="13px"
-                  >
-                    {subcategory}
-                  </Text>
-                ))}
+                {category.subcategories.length > 0
+                  ? category.subcategories.map((subcategory, index) => (
+                      <Text
+                        key={index}
+                        _hover={{ color: "primary" }}
+                        cursor="pointer"
+                        onClick={() =>
+                          (window.location.href = routes.Category.path
+                            .replace(":main-category", category.title)
+                            .replace(":category", subcategory.title))
+                        }
+                        fontSize="13px"
+                      >
+                        {subcategory.name}
+                      </Text>
+                    ))
+                  : ["אספנות", "אספנות", "אספנות", "אספנות"].map(
+                      (subcategory, index) => (
+                        <Text
+                          key={index}
+                          _hover={{ color: "primary" }}
+                          cursor="pointer"
+                          onClick={() =>
+                            (window.location.href = routes.Category.path
+                              .replace(":main-category", category.title)
+                              .replace(":category", subcategory.title))
+                          }
+                          fontSize="13px"
+                        >
+                          {subcategory}
+                        </Text>
+                      )
+                    )}
               </Flex>
             ))}
         </Flex>
@@ -1612,35 +1596,39 @@ const MenuItemCategory = () => {
                   </Text>
                   <ArrowIcon />
                 </Flex>
-                {category.subcategories.length > 0 ? category.subcategories.map((subcategory, index) => (
-                  <Text
-                    key={index}
-                    _hover={{ color: "primary" }}
-                    cursor="pointer"
-                    onClick={() =>
-                      (window.location.href = routes.Category.path
-                        .replace(":main-category", category.title)
-                        .replace(":category", subcategory.title))
-                    }
-                    fontSize="13px"
-                  >
-                    {subcategory.name}
-                  </Text>
-                )): ["אספנות", "אספנות", "אספנות", "אספנות"].map((subcategory, index) => (
-                  <Text
-                    key={index}
-                    _hover={{ color: "primary" }}
-                    cursor="pointer"
-                    onClick={() =>
-                      (window.location.href = routes.Category.path
-                        .replace(":main-category", category.title)
-                        .replace(":category", subcategory.title))
-                    }
-                    fontSize="13px"
-                  >
-                    {subcategory}
-                  </Text>
-                ))}
+                {category.subcategories.length > 0
+                  ? category.subcategories.map((subcategory, index) => (
+                      <Text
+                        key={index}
+                        _hover={{ color: "primary" }}
+                        cursor="pointer"
+                        onClick={() =>
+                          (window.location.href = routes.Category.path
+                            .replace(":main-category", category.title)
+                            .replace(":category", subcategory.title))
+                        }
+                        fontSize="13px"
+                      >
+                        {subcategory.name}
+                      </Text>
+                    ))
+                  : ["אספנות", "אספנות", "אספנות", "אספנות"].map(
+                      (subcategory, index) => (
+                        <Text
+                          key={index}
+                          _hover={{ color: "primary" }}
+                          cursor="pointer"
+                          onClick={() =>
+                            (window.location.href = routes.Category.path
+                              .replace(":main-category", category.title)
+                              .replace(":category", subcategory.title))
+                          }
+                          fontSize="13px"
+                        >
+                          {subcategory}
+                        </Text>
+                      )
+                    )}
               </Flex>
             ))}
           {/*} <Flex flexDir="column" gap="10px" w="110px">
@@ -1988,3 +1976,96 @@ const MenuItemCategory = () => {
     </MenuItem>
   );
 };
+
+/* const updateAmount = (product, size, model, newAmount, amount) => {
+    if (token === null)
+      addToCart({ product: product, amount: newAmount - amount, size, model })
+        .then((res) => {
+          console.log(res);
+          setCart((prevCart) => {
+            const updatedProducts = prevCart.products.map((p) => {
+              if (
+                p.product.id === product.id &&
+                p.size === size &&
+                p.model === model
+              ) {
+                return { ...p, amount: p.amount + newAmount - amount };
+              }
+              return p;
+            });
+            setProducts(updatedProducts);
+            return { ...prevCart, products: updatedProducts };
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    else
+      updateCart({
+        productId: product.id,
+        size,
+        model,
+        amount: newAmount - amount,
+      })
+        .then((res) => {
+          console.log(res);
+          setCart((prevCart) => {
+            const updatedProducts = prevCart.products.map((p) => {
+              if (
+                p.product.id === product.id &&
+                p.size === size &&
+                p.model === model
+              ) {
+                return { ...p, amount: p.amount + newAmount - amount };
+              }
+              return p;
+            });
+            setProducts(updatedProducts);
+            return { ...prevCart, products: updatedProducts };
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  };
+
+  const removeProductFromCart = (productId, size, model) => {
+    if (token === null)
+      removeFromCart({ productId, size, model })
+        .then((res) => {
+          setCart((prevCart) => {
+            const updatedProducts = prevCart.products.filter(
+              (p) =>
+                !(
+                  p.product.id === productId &&
+                  p.size === size &&
+                  p.model === model
+                )
+            );
+            setProducts(updatedProducts);
+            return { ...prevCart, products: updatedProducts };
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    else
+      deleteFromCart(productId, size, model)
+        .then((res) => {
+          setCart((prevCart) => {
+            const updatedProducts = prevCart.products.filter(
+              (p) =>
+                !(
+                  p.product.id === productId &&
+                  p.size === size &&
+                  p.model === model
+                )
+            );
+            setProducts(updatedProducts);
+            return { ...prevCart, products: updatedProducts };
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  };*/

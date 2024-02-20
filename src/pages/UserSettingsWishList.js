@@ -77,18 +77,13 @@ export default function UserSettingsWishList() {
         });
   };
 
-  const removeProductFromWishList = (productId, size, model) => {
+  const removeProductFromWishList = (productId) => {
     if (token === null)
-      removeFromWishList({ productId, size, model })
+      removeFromWishList({ productId })
         .then((res) => {
           setWishList((prevWishList) => {
             const updatedProducts = prevWishList.filter(
-              (w) =>
-                !(
-                  w.product.id === productId &&
-                  w.size === size &&
-                  w.model === model
-                )
+              (w) => !(w.product.id === productId)
             );
             return updatedProducts;
           });
@@ -97,16 +92,11 @@ export default function UserSettingsWishList() {
           console.log(err);
         });
     else
-      deleteFromWishList(productId, size, model)
+      deleteFromWishList(productId)
         .then((res) => {
           setWishList((prevWishList) => {
             const updatedProducts = prevWishList.filter(
-              (w) =>
-                !(
-                  w.product.id === productId &&
-                  w.size === size &&
-                  w.model === model
-                )
+              (w) => !(w.product.id === productId)
             );
             return updatedProducts;
           });
@@ -116,22 +106,24 @@ export default function UserSettingsWishList() {
         });
   };
 
-  const addProductToCart = (product, amount, size, model) => {
+  const addProductToCart = (product, amount) => {
     if (token === null)
       addToCart({
         product: {
-          id: product.id,
+          id: product._id,
           title: product.title,
+          "english-title": product["english-title"],
           description: product.description,
+          "english-description": product["english-description"],
           price: product.price,
-          discount: product.discount,
+          "price-before-discount": product["price-before-discount"],
+          cateegory: product.category,
+          quantity: product.quantity,
           images: product.images,
-          quantityLeft: product.quantityLeft,
+          "shipping-cost": product["shipping-cost"],
           pin: product.pin,
         },
         amount,
-        size,
-        model,
       })
         .then((res) => {
           console.log("added:", res);
@@ -140,7 +132,7 @@ export default function UserSettingsWishList() {
           console.log(err);
         });
     else
-      addCart({ productId: product.id, amount, size, model })
+      addCart({ productId: product.id, amount })
         .then((res) => {
           console.log(res); //האם למחוק מרשימת המשאלות כאשר בסל?
         })
@@ -177,18 +169,16 @@ export default function UserSettingsWishList() {
                         hideInfo
                         data={wish}
                         badge={
-                          wish.product.quantityLeft > 0
-                            ? "במלאי"
-                            : "המוצר לא במלאי"
+                          wish.product.quantity > 0 ? "במלאי" : "המוצר לא במלאי"
                         }
-                        notificationBtn={wish.product.quantityLeft === 0}
+                        notificationBtn={wish.product.quantity === 0}
                         badgeColor={
-                          wish.product.quantityLeft > 0
+                          wish.product.quantity > 0
                             ? "secendaryDarkest"
                             : "threeDark"
                         }
                         badgeBg={
-                          wish.product.quantityLeft > 0
+                          wish.product.quantity > 0
                             ? "secendaryLightest"
                             : "threeLight"
                         }
@@ -198,20 +188,11 @@ export default function UserSettingsWishList() {
                             "האם אתה בטוח שברצונך למחוק פריט זה מהרשימה?"
                           );
                           if (a) {
-                            removeProductFromWishList(
-                              wish.product.id,
-                              wish.size,
-                              wish.model
-                            );
+                            removeProductFromWishList(wish.product.id);
                           }
                         }}
                         addToCart={() => {
-                          addProductToCart(
-                            wish.product,
-                            wish.amount,
-                            wish.size,
-                            wish.model
-                          );
+                          addProductToCart(wish.product, wish.amount);
                         }}
                       />
                     );

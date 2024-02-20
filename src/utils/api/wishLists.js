@@ -22,12 +22,12 @@ export const getUserWishList = () => {
   });
 };
 
-export const checkIfInWishList = (productId, size, model) => {
+export const checkIfInWishList = (productId) => {
   getUserWishList()
     .then((res) => {
       if (res.wishList.products.length >= 1) {
         const index = res.wishList.products.findIndex(
-          (p) => p.product.id === productId && p.size === size && p.model === model
+          (p) => p.product.id === productId
         );
         return index !== -1;
       } else {
@@ -54,14 +54,10 @@ export const deleteWishList = (id) => {
   });
 };
 
-export const deleteFromWishList = (productId, size, model) => {
+export const deleteFromWishList = (productId) => {
   return new Promise((resolve, reject) => {
     axios
-      .patch(
-        `${baseURL}wish-lists-remove/${productId}`,
-        { size, model },
-        headers
-      )
+      .patch(`${baseURL}wish-lists-remove/${productId}`, headers)
       .then((res) => {
         resolve(res.data);
       })

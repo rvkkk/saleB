@@ -4,9 +4,6 @@ import { AiFillExclamationCircle } from "react-icons/ai";
 import { GrLocation } from "react-icons/gr";
 import {
   Box,
-  //Breadcrumb,
-  //BreadcrumbItem,
-  //BreadcrumbLink,
   Divider,
   Flex,
   IconButton,
@@ -42,7 +39,6 @@ import {
 import { routes } from "../routes";
 import Loader from "../components/Loader";
 //import { useWebSocket } from "../components/WebSocketProvider";
-import { sortMostBuyProducts, sortProductsByCategory } from "../utils/sort";
 import {
   CartBigIcon2,
   CartIcon4,
@@ -65,13 +61,11 @@ export default function ProductPage() {
   ];
 
   const [product, setProduct] = useState({});
-  const [productsInCategory, setProductsInCategory] = useState([]);
-  const [mostByProducts, setMostByProducts] = useState([]);
   const [didAddedToCart, setDidAddedToCart] = useState(false);
   const [amountToBuy, setAmountToBuy] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [size, setSize] = useState("S");
-  const [model, setModel] = useState("1");
+  // const [size, setSize] = useState("S");
+  //const [model, setModel] = useState("1");
   const [inWishList, setInWishList] = useState(false);
   const [showFullText, setShowFullText] = useState(false);
   const token = window.localStorage.getItem("token");
@@ -117,18 +111,20 @@ export default function ProductPage() {
       addToCart({
         product: {
           //האם לשמור רק ID
-          id: product.id,
+          id: product._id,
           title: product.title,
+          "english-title": product["english-title"],
           description: product.description,
+          "english-description": product["english-description"],
           price: product.price,
-          priceBefore: product["price-before-discount"],
+          "price-before-discount": product["price-before-discount"],
+          cateegory: product.category,
+          quantity: product.quantity,
           images: product.images,
-          quantityLeft: product.quantityLeft,
+          "shipping-cost": product["shipping-cost"],
           pin: product.pin,
         },
         amount: amountToBuy,
-        //size,
-        //model,
       })
         .then((res) => {
           console.log("added:", res);
@@ -180,13 +176,17 @@ export default function ProductPage() {
     if (token === null)
       addToWishList({
         product: {
-          id: product.id,
+          id: product._id,
           title: product.title,
+          "english-title": product["english-title"],
           description: product.description,
+          "english-description": product["english-description"],
           price: product.price,
-          discount: product.discount,
+          "price-before-discount": product["price-before-discount"],
+          cateegory: product.category,
+          quantity: product.quantity,
           images: product.images,
-          quantityLeft: product.quantityLeft,
+          "shipping-cost": product["shipping-cost"],
           pin: product.pin,
         },
         amount: amountToBuy,
@@ -257,10 +257,7 @@ export default function ProductPage() {
         .then((res) => {
           if (res.wishList.products.length >= 1) {
             const index = res.wishList.products.findIndex(
-              (p) =>
-                p.product.id === product.id &&
-                p.size === size &&
-                p.model === model
+              (p) => p.product.id === product.id
             );
             if (index !== -1) setInWishList(true);
             else setInWishList(false);
@@ -270,7 +267,7 @@ export default function ProductPage() {
           console.log(err);
           return false;
         });
-  }, [product, size, model]);
+  }, [product, token]);
 
   const breadcrumb = product.title && [
     { name: "דף הבית", href: routes.HOME.path },

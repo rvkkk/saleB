@@ -18,7 +18,7 @@ import {
   ModalContent,
   useDisclosure,
   ModalFooter,
-  ModalBody
+  ModalBody,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import Button from "../Button";
@@ -58,18 +58,14 @@ export default function Tab1(props) {
   const token = window.localStorage.getItem("token");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const updateAmount = (product, size, model, newAmount, amount) => {
+  const updateAmount = (product, newAmount, amount) => {
     if (token === null)
-      addToCart({ product: product, amount: newAmount - amount, size, model })
+      addToCart({ product: product, amount: newAmount - amount })
         .then((res) => {
           console.log(res);
           setCart((prevCart) => {
             const updatedProducts = prevCart.products.map((p) => {
-              if (
-                p.product.id === product.id &&
-                p.size === size &&
-                p.model === model
-              ) {
+              if (p.product.id === product.id) {
                 return { ...p, amount: p.amount + newAmount - amount };
               }
               return p;
@@ -85,19 +81,13 @@ export default function Tab1(props) {
     else
       updateCart({
         productId: product.id,
-        size,
-        model,
         amount: newAmount - amount,
       })
         .then((res) => {
           console.log(res);
           setCart((prevCart) => {
             const updatedProducts = prevCart.products.map((p) => {
-              if (
-                p.product.id === product.id &&
-                p.size === size &&
-                p.model === model
-              ) {
+              if (p.product.id === product.id) {
                 return { ...p, amount: p.amount + newAmount - amount };
               }
               return p;
@@ -112,18 +102,13 @@ export default function Tab1(props) {
         });
   };
 
-  const removeProductFromCart = (productId, size, model) => {
+  const removeProductFromCart = (productId) => {
     if (token === null)
-      removeFromCart({ productId, size, model })
+      removeFromCart({ productId })
         .then((res) => {
           setCart((prevCart) => {
             const updatedProducts = prevCart.products.filter(
-              (p) =>
-                !(
-                  p.product.id === productId &&
-                  p.size === size &&
-                  p.model === model
-                )
+              (p) => !(p.product.id === productId)
             );
             setProducts(updatedProducts);
             setCheckedProducts(updatedProducts);
@@ -134,16 +119,11 @@ export default function Tab1(props) {
           console.log(err);
         });
     else
-      deleteFromCart(productId, size, model)
+      deleteFromCart(productId)
         .then((res) => {
           setCart((prevCart) => {
             const updatedProducts = prevCart.products.filter(
-              (p) =>
-                !(
-                  p.product.id === productId &&
-                  p.size === size &&
-                  p.model === model
-                )
+              (p) => !(p.product.id === productId)
             );
             setProducts(updatedProducts);
             setCheckedProducts(updatedProducts);
@@ -328,20 +308,14 @@ export default function Tab1(props) {
                                   <Checkbox
                                     size="medium"
                                     checked={checkedProducts.some(
-                                      (p) =>
-                                        p.product.id === product.product.id &&
-                                        p.size === product.size &&
-                                        p.model === product.model
+                                      (p) => p.product.id === product.product.id
                                     )}
                                     default
                                     onChange={() => {
                                       const isProductChecked =
                                         checkedProducts.some(
                                           (p) =>
-                                            p.product.id ===
-                                              product.product.id &&
-                                            p.size === product.size &&
-                                            p.model === product.model
+                                            p.product.id === product.product.id
                                         );
 
                                       if (isProductChecked) {
@@ -350,10 +324,10 @@ export default function Tab1(props) {
                                             prevCheckedProducts.filter(
                                               (p) =>
                                                 !(
-                                                  p.product.id ===
-                                                    product.product.id &&
-                                                  p.size === product.size &&
-                                                  p.model === product.model
+                                                  (
+                                                    p.product.id ===
+                                                    product.product.id
+                                                  ) // && p.size === product.size && p.model === product.model
                                                 )
                                             )
                                         );
@@ -443,23 +417,15 @@ export default function Tab1(props) {
                                   </Box>
                                 </Td>
                                 <Td fontSize="14px">
-                                  ₪
-                                  {product.product.price &&
-                                    removeDecimal(
-                                      (product.product.price *
-                                        (100 - product.product.discount)) /
-                                        100
-                                    )}
+                                  ₪{product.product.price}
                                 </Td>
                                 <Td>
                                   <QuantityInput
                                     value={product.amount}
-                                    limit={product.product.quantityLeft}
+                                    limit={product.product.quantity}
                                     onChange={(amount) =>
                                       updateAmount(
                                         product.product,
-                                        product.size,
-                                        product.model,
                                         amount,
                                         product.amount
                                       )
@@ -473,11 +439,7 @@ export default function Tab1(props) {
                                 >
                                   ₪
                                   {removeDecimal(
-                                    product.product.price &&
-                                      ((product.product.price *
-                                        (100 - product.product.discount)) /
-                                        100) *
-                                        product.amount
+                                    product.product.price * product.amount
                                   )}
                                 </Td>
                                 <Td>
@@ -486,11 +448,7 @@ export default function Tab1(props) {
                                     bg="Lightest"
                                     icon={<TrashIcon fill="#4F5162" />}
                                     onClick={() =>
-                                      removeProductFromCart(
-                                        product.product.id,
-                                        product.size,
-                                        product.model
-                                      )
+                                      removeProductFromCart(product.product.id)
                                     }
                                   />
                                 </Td>
@@ -617,12 +575,7 @@ export default function Tab1(props) {
                               checkedProducts.reduce(
                                 (a, b) =>
                                   parseFloat(a) +
-                                  parseFloat(
-                                    ((b.product.price *
-                                      (100 - b.product.discount)) /
-                                      100) *
-                                      b.amount
-                                  ),
+                                  parseFloat(b.product.price * b.amount),
                                 0
                               ) * 100
                             ) / 100) ||
@@ -631,7 +584,11 @@ export default function Tab1(props) {
                       </Flex>
                       <Flex fontSize="16px" justifyContent="space-between">
                         <Text>משלוח</Text>
-                        <Text>{props.delivery.priceNum ? "₪" + props.delivery["priceNum"] : "יחושב במעמד התשלום"}</Text>
+                        <Text>
+                          {props.delivery.priceNum
+                            ? "₪" + props.delivery["priceNum"]
+                            : "יחושב במעמד התשלום"}
+                        </Text>
                       </Flex>
                       <Flex fontSize="16px" justifyContent="space-between">
                         <Text>עמלה</Text>
@@ -667,18 +624,15 @@ export default function Tab1(props) {
                         >
                           ₪
                           {(checkedProducts.length >= 1 &&
-                            3.25 + (props.delivery.priceNum ? props.delivery["priceNum"] : 0) 
-                            +
+                            3.25 +
+                              (props.delivery.priceNum
+                                ? props.delivery["priceNum"]
+                                : 0) +
                               Math.round(
                                 checkedProducts.reduce(
                                   (a, b) =>
                                     parseFloat(a) +
-                                    parseFloat(
-                                      ((b.product.price *
-                                        (100 - b.product.discount)) /
-                                        100) *
-                                        b.amount
-                                    ),
+                                    parseFloat(b.product.price * b.amount),
                                   0
                                 ) * 100
                               ) /
@@ -690,7 +644,8 @@ export default function Tab1(props) {
 
                     <Button
                       onClick={() =>
-                        checkedProducts.length >= 1 && props.proceedToCheckout(checkedProducts, discount)
+                        checkedProducts.length >= 1 &&
+                        props.proceedToCheckout(checkedProducts, discount)
                       }
                     >
                       <Flex alignItems="center" gap="6">
