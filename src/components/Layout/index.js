@@ -118,6 +118,7 @@ const BreadcrumbComponent = ({ breadcrumb = [] }) => {
             let isCurrentPage = index === breadcrumb.length - 1;
             return (
               <BreadcrumbItem
+                key={index}
                 _hover={{ color: "primary", textDecoration: "none" }}
                 textDecoration="none !important"
                 color={isCurrentPage ? "primary" : "naturalDarkest"}

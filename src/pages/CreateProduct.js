@@ -109,6 +109,14 @@ export default function CreateProduct() {
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
   const [showAdditional, setShowAdditional] = useState(false);
+  const [invalidMainCategory, setInvalidMainCategory] = useState("");
+  const [invalidCategory, setInvalidCategory] = useState("");
+  const [invalidName, setInvalidName] = useState("");
+  const [invalidDescription, setInvalidDescription] = useState("");
+  const [invalidDeliveryTime, setInvalidDeliveryTime] = useState("");
+  const [invalidPrice, setInvalidPrice] = useState("");
+  const [invalidQuantity, setInvalidQuantity] = useState("");
+  const [invalidPicture, setInvalidPicture] = useState("");
 
   const handleDateTimeSubmit = () => {
     if (selectedDate && selectedTime) {
@@ -126,10 +134,23 @@ export default function CreateProduct() {
   };
 
   const createProduct = () => {
+    if(category === "") setInvalidMainCategory("שדה חובה");
+    if(subcategory === "") setInvalidCategory("שדה חובה");
+    if(name === "") setInvalidName("שדה חובה");
+    if(description === "") setInvalidDescription("שדה חובה");
+    if(deliveryTime === "") setInvalidDeliveryTime("שדה חובה");
+    if(price === "") setInvalidPrice("שדה חובה");
+    if(quantity === "") setInvalidQuantity("שדה חובה");
+    if(pictures.length === 0) setInvalidQuantity("שדה חובה");
+
     if (
+      category !== "" &&
+      subcategory !== "" &&
       name !== "" &&
       description !== "" &&
-      subcategory !== "" &&
+      deliveryTime !== "" &&
+      price !== "" &&
+      quantity !== "" && quantity >= 1 &&
       pictures[0]
     ) {
       const images = mainPicture.url
@@ -207,6 +228,7 @@ export default function CreateProduct() {
         });
       }
     }
+    else return onOpen1;
   };
 
   const deleteAll = () => {
@@ -238,6 +260,7 @@ export default function CreateProduct() {
   };
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen1, onOpen1, onClose1 } = useDisclosure();
 
   const handleButtonClick = () => {
     const fileInput = document.getElementById("fileInput");
@@ -442,30 +465,36 @@ export default function CreateProduct() {
                     value={category}
                     light
                     required
+                    isInvalid={invalidMainCategory !== ""}
+                    isInvalidMessage={invalidMainCategory}
                     label="קטגוריה ראשית"
                     labelFontSize="14px"
                     categories={["בחר", ...categories]}
-                    onChange={(e) => setCategory(e.target.value)}
+                    onChange={(e) => {setCategory(e.target.value); setInvalidMainCategory("")}}
                   />
                   <CategoryInput
                     value={subcategory}
                     light
                     required
+                    isInvalid={invalidMainCategory !== ""}
+                    isInvalidMessage={invalidMainCategory}
                     label="קטגוריה משנית"
                     labelFontSize="14px"
                     subcategories={["בחר", ...subcategories]}
-                    onChange={(e) => setSubcategory(e.target.value)}
+                    onChange={(e) => {setSubcategory(e.target.value); setInvalidCategory("")}}
                   />
                   <Input
                     light
                     label="שם המוצר"
                     labelFontSize="14px"
+                    isInvalid={invalidName !== ""}
+                    isInvalidMessage={invalidName}
                     required
                     value={name}
                     withCounter
                     maxLength="40"
-                    onChange={(e) => setName(e.target.value)}
-                    hint={
+                    onChange={(e) => {setName(e.target.value); setInvalidName("")}}
+                    hint={ invalidName === "" &&
                       <Flex alignItems="center" gap="2">
                         <Text color="primary">
                           <AiFillExclamationCircle />
@@ -479,9 +508,11 @@ export default function CreateProduct() {
                   <TextArea
                     value={description}
                     light
+                    isInvalid={invalidDescription !== ""}
+                    isInvalidMessage={invalidDescription}
                     required
                     label="תיאור המוצר"
-                    onChange={(e) => setDescription(e.target.value)}
+                    onChange={(e) => {setDescription(e.target.value); setInvalidDescription("")}}
                   />
                   <Flex
                     justifyContent="space-between"
@@ -491,11 +522,13 @@ export default function CreateProduct() {
                       value={deliveryTime}
                       light
                       required
+                      isInvalid={invalidDeliveryTime !== ""}
+                      isInvalidMessage={invalidDeliveryTime}
                       label="זמן אספקה"
                       placeholder=" "
                       labelFontSize="14px"
                       numbers={numbers.slice(1, 16)}
-                      onChange={(e) => setDeliveryTime(e.target.value)}
+                      onChange={(e) => {setDeliveryTime(e.target.value); setInvalidDeliveryTime("")}}
                     />
                     <ExeptionInput
                       value={warranty}
@@ -1289,8 +1322,11 @@ export default function CreateProduct() {
                           type="number"
                           label="מחיר"
                           labelFontSize="14px"
+                          required
+                          isInvalid={invalidPrice !== ""}
+                          isInvalidMessage={invalidPrice}
                           light
-                          onChange={(e) => setPrice(e.target.value)}
+                          onChange={(e) => {setPrice(e.target.value); setInvalidPrice("")}}
                         />
                         <Input
                           value={priceBefore}
@@ -1306,8 +1342,13 @@ export default function CreateProduct() {
                             type="number"
                             label="כמות במלאי"
                             labelFontSize="14px"
+                            required
+                            isInvalid={invalidQuantity !== ""}
+                            isInvalidMessage={invalidQuantity}
                             light
-                            onChange={(e) => setQuantity(e.target.value)}
+                            onChange={(e) => {setQuantity(e.target.value); 
+                              if(e.target.value >= 1) setInvalidQuantity("")
+                            else setInvalidQuantity("כמות במלאי אינה תקינה")}}
                           />
                         </GridItem>
                       </Grid>
@@ -1319,6 +1360,8 @@ export default function CreateProduct() {
                   <FileUploader
                     number={pictures.length}
                     onClick={handleButtonClick}
+                    isInvalid={invalidPicture !== ""}
+                    isInvalidMessage={invalidPicture}
                     onDrop={(files) => {
                       if (files) {
                         let p = [];
@@ -1333,7 +1376,7 @@ export default function CreateProduct() {
                             size: file.size,
                           });
                         }
-
+                        setInvalidPicture("");
                         setPictures((prev) => {
                           if (prev.length + p.length > 6) {
                             // חותך את התמונות העודפות אם יש יותר מ-6
@@ -1366,7 +1409,7 @@ export default function CreateProduct() {
                             size: file.size,
                           });
                         }
-
+                        setInvalidPicture("");
                         setPictures((prev) => {
                           if (prev.length + p.length > 6) {
                             return [...prev, ...p.slice(0, 6 - prev.length)];
@@ -1514,7 +1557,73 @@ export default function CreateProduct() {
               </Box>
             </Box>
           </Container>
+          <Modal isOpen={isOpen1} onClose={onClose1}>
+            <ModalOverlay />
+            <ModalContent
+              dir="rtl"
+              borderRadius="21px"
+              shadow="0px 5px 40px rgba(0, 0, 0, 0.1)"
+              w="600px"
+              h="378px"
+            >
+              <ModalCloseButton
+                bg="naturalLightest"
+                color="naturalDarkest"
+                w="34.94px"
+                h="34.94px"
+                borderRadius="full"
+                right="10px"
+                top="10px"
+              />
 
+              <ModalBody>
+                <Flex
+                  mt="2"
+                  flexDirection="column"
+                  alignItems="center"
+                  h="full"
+                  gap="4"
+                  justifyContent="center"
+                >
+                  <Box w="252px" textAlign="center">
+                    <Text
+                      fontSize="28px"
+                      fontWeight="semibold"
+                      color="naturalBlack"
+                    >
+                      חלק משדות החובה אינם מלאים
+                    </Text>
+                    <Text
+                      fontSize="22px"
+                      fontWeight="semibold"
+                      color="naturalBlack"
+                    >
+                      אנא מלא אותם כראוי והמשך בהפעלת המכירה
+                    </Text>
+                  </Box>
+                </Flex>
+              </ModalBody>
+              <ModalFooter>
+                <Flex
+                  justifyContent="center"
+                  alighItems="center"
+                >
+                  <Button
+                    w="96px"
+                    h="52px"
+                    fontSize="18px"
+                    color="white"
+                    bg="primary"
+                    onClick={() => {
+                      return onClose1();
+                    }}
+                  >
+                    אישור
+                  </Button>
+                </Flex>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
           <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent

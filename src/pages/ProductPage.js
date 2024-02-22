@@ -42,6 +42,7 @@ import Loader from "../components/Loader";
 import {
   CartBigIcon2,
   CartIcon4,
+  FlagIcon,
   HeartFullIcon,
   HeartFullMobileIcon,
   HeartIcon,
@@ -54,16 +55,11 @@ import ProductAccordings from "../components/ProductAccordings";
 import TopProducts from "../components/LoadingProducts";
 
 export default function ProductPage() {
-  const tabs = [
-    { name: "מידע נוסף", component: <Tab1Component /> },
-    { name: "המלצות", component: <Tab2Component /> },
-    { name: "משלוחים והחזרות", component: <Tab3Component /> },
-  ];
-
   const [product, setProduct] = useState({});
   const [didAddedToCart, setDidAddedToCart] = useState(false);
   const [amountToBuy, setAmountToBuy] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [additionalInfo, setAdditionalInfo] = useState([]);
   // const [size, setSize] = useState("S");
   //const [model, setModel] = useState("1");
   const [inWishList, setInWishList] = useState(false);
@@ -72,6 +68,18 @@ export default function ProductPage() {
   const [isTextShort, setIsTextShort] = useState(true);
   const [change, setChange] = useState("");
   const [number, setNumber] = useState(1);
+
+  const tabs = [
+    {
+      name: "מידע נוסף",
+      component: <Tab1Component additionalInfo={additionalInfo} />,
+    },
+    { name: "המלצות", component: <Tab2Component /> },
+    {
+      name: "משלוחים והחזרות",
+      component: <Tab3Component shippingCost={product["shipping-cost"]} deliveryTime={product["delivery-time"]}/>,
+    },
+  ];
 
   useEffect(() => {
     const textElement = document.getElementById("text-element");
@@ -237,6 +245,7 @@ export default function ProductPage() {
     getProduct(window.location.href.split("/").pop().split("?")[0])
       .then((res) => {
         setProduct(res.product);
+        console.log(res.product);
         setLoading(false);
       })
       .catch((err) => {
@@ -246,6 +255,42 @@ export default function ProductPage() {
         window.location.href = routes.HOME.path;
       });
   }, []);
+
+  useEffect(() => {
+    if (product.title)
+    {
+    const array = [
+      {
+        title: "מידע נוסף",
+        "english-title": "additional information",
+        desc: product["additional-information"],
+      },
+      {
+        title: "מאפיינים",
+        "english-title": "properties",
+        desc: product.properties,
+      },
+      { title: "הערות", "english-title": "notes", desc: product.notes },
+      {
+        title: "הערכה כוללת",
+        "english-title": "the kit includes",
+        desc: product["kit-include"],
+      },
+      {
+        title: "שם הדגם",
+        "english-title": "model name",
+        desc: product["model-name"],
+      },
+      {
+        title: "מפרט",
+        "english-title": "specification",
+        desc: product.specification,
+      },
+    ];
+    for (const field of product["additional-fields"]) array.push(field);
+    setAdditionalInfo(array);
+  }
+  }, [product]);
 
   useEffect(() => {
     if (token === null)
@@ -303,7 +348,7 @@ export default function ProductPage() {
                 display={{ base: "none", md: "block" }}
               >
                 <Container>
-                  <ProductBanner />
+                  <ProductBanner sellerDetails={product["seller-details"]}/>
                   <Flex mt="10" gap={{ md: "5", lg: "10" }} mx="auto">
                     <Flex justifyContent="end" w="50%">
                       <ImageGallery images={product.images} />
@@ -618,8 +663,7 @@ export default function ProductPage() {
                             w={{ md: "140px", lg: "180px", xl: "219.5px" }}
                             onClick={() => {
                               addProductToCart();
-                              window.location.href =
-                                routes.ShoppingCart.path;
+                              window.location.href = routes.ShoppingCart.path;
                             }}
                           >
                             קנו עכשיו
@@ -783,9 +827,7 @@ export default function ProductPage() {
                             נתקלתם בבעיה עם מוצר זה?
                           </Text>
                           <Flex gap="1" w="max" alignItems="center">
-                            <Image
-                              src={process.env.PUBLIC_URL + "/assets/flag.png"}
-                            />
+                            <FlagIcon />
                             <Link
                               fontSize="14px"
                               lineHeight="22px"
@@ -853,7 +895,7 @@ export default function ProductPage() {
                           {product.price} ₪
                         </Text>
                       </Flex>
-                      <ProductBanner />
+                      <ProductBanner sellerDetails={product["seller-details"]}/>
                       <Box
                         onClick={() => setShowFullText(!showFullText)}
                         className="text-container"
@@ -1072,8 +1114,7 @@ export default function ProductPage() {
                         w="178px"
                         onClick={() => {
                           addProductToCart();
-                          window.location.href =
-                            routes.ShoppingCart.path;
+                          window.location.href = routes.ShoppingCart.path;
                         }}
                       >
                         קנו עכשיו

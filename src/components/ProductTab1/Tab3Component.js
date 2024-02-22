@@ -1,7 +1,7 @@
 import { Box, Divider, Flex, ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import React from "react";
 
-export default function Tab3Component() {
+export default function Tab3Component({ shippingCost, deliveryTime}) {
   return (
     <Box w={{base: "100%", md: "60%"}} dir="rtl">
       <Box pb="4" w={{base: "100%", md: "90%"}}>
@@ -16,12 +16,11 @@ export default function Tab3Component() {
       <Divider h="2px" bg="Gray30" />
       <Flex flexDir="column" py="4" gap="14px">
         <Text fontSize={{base: "16px", md: "20px"}} lineHeight="22px" fontWeight="medium">
-          שילוח תוך 2 ימים
+          שילוח תוך {deliveryTime} ימים
         </Text>
         <UnorderedList>
           <ListItem fontSize={{base: "14px", md: "16px"}} lineHeight={{base: "18px", md: "22px"}}>
-            משלוח רגיל ‏29.99 ₪ - משלוח בין יום ד׳ 07 דצמבר 2022–יום ב׳ 26 דצמבר
-            2022
+            עלות המשלוח: {shippingCost}
           </ListItem>
         </UnorderedList>
         <Text fontSize={{base: "14px", md: "16px"}} lineHeight={{base: "18px", md: "22px"}}>נשלח מבריטניה</Text>

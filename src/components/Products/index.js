@@ -82,9 +82,9 @@ export default function Products({
         base: "330px",
         sm: "460px",
         md: "740px",
-        lg: "970px",
+        lg: "950px",
         xl: "1200px",
-        "2xl": "1242px",
+        "2xl": "1300px",
       }}
       mx="auto"
       py="24px"
@@ -155,11 +155,18 @@ export default function Products({
       <Spacer h={{ base: "18px", md: "24px" }} />
       <Swiper
         dir="rtl"
-        slidesPerView={numberToShow}
+        slidesPerView={"auto"}
+        className="mySwiper"
         ref={swiperRef}
-        navigation
-        className="hide-navigation-buttons"
+        //navigation
+        //className="hide-navigation-buttons"
         spaceBetween={14}
+        breakpoints={{
+          768: {
+            spaceBetween: 25,
+          },
+          1536: {spaceBetween: 30,}
+        }}
       >
         {products &&
           products.map((product) => {
@@ -209,8 +216,7 @@ const ProductItem = ({
 }) => {
   return (
     <Card
-      my="20px"
-      // mx="30px"
+      //my="20px"
       dir="rtl"
       borderRadius="28px"
       overflow="hidden"
@@ -218,20 +224,20 @@ const ProductItem = ({
       borderColor="naturalLightest"
       position="relative"
       h={{
-        base: h === "360px" ? "230px" : "220px",
-        sm: h === "360px" ? "230px" : "210px",
+        base: h === "360px" ? "200px" : "220px",
+        sm: h === "360px" ? "220px" : "210px",
         md: h === "360px" ? "300px" : "240px",
         lg: h === "360px" ? "360px" : "300px",
-        xl: h === "360px" ? "320px" : "300px",
+        xl: h === "360px" ? "335px" : "300px",
         "2xl": h,
       }}
       w={{
-        base: w === "300px" ? "160px" : "158px",
+        base: w === "300px" ? "140px" : "158px",
         sm: w === "300px" ? "160px" : "144px",
-        md: w === "300px" ? "235px" : "170px",
+        md: w === "300px" ? "230px" : "170px",
         lg: w === "300px" ? "300px" : "230px",
-        xl: w === "300px" ? "285px" : "230px",
-        "2xl": w,
+        xl: w === "300px" ? "281px" : "230px",
+        "2xl": "302.5px",
       }}
       cursor={"pointer"}
       boxShadow="none"
@@ -247,17 +253,17 @@ const ProductItem = ({
           alt={name}
           w="full"
           h={{
-            base: p === "280px" ? "160px" : "155px",
+            base: p === "280px" ? "140px" : "155px",
             sm: p === "280px" ? "160px" : "140px",
-            md: p === "280px" ? "220px" : "170px",
+            md: p === "280px" ? "230px" : "170px",
             lg: p === "280px" ? "280px" : "230px",
-            xl: p === "280px" ? "280px" : "230px",
-            "2xl": p,
+            xl: p === "280px" ? "260px" : "230px",
+            "2xl": "280px",
           }}
           src={imgUrl}
         />
       </Box>
-      <Flex flexDir="column" gap="2" p="3">
+      <Flex flexDir="column" gap={{base: "1", md: "2"}} p="3">
         <Text
           fontSize={{ base: "12px", md: "14px" }}
           lineHeight={{ base: "12px", md: "18px" }}

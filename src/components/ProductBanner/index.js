@@ -2,7 +2,7 @@ import { Button, Divider, Flex, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import { StarFullSmallIcon, StarShopIcon } from "../Icons";
 
-export default function ProductBanner() {
+export default function ProductBanner({sellerDetails}) {
   return (
     <>
       <Flex
@@ -18,7 +18,7 @@ export default function ProductBanner() {
         <Flex alignItems="center" gap="8">
           <Image w="45px" src="/assets/user.png" />
           <Text fontWeight="semibold" fontSize="18px" color="primary">
-            All_Store59
+            {sellerDetails && sellerDetails.userName}
           </Text>
         </Flex>
 
@@ -69,7 +69,7 @@ export default function ProductBanner() {
         <Image w="40px" h="40px" src="/assets/user.png" />
         <Flex flexDir="column" py="3px">
           <Text fontSize="12px" color="naturalDark">
-            All_Store59
+          {sellerDetails && sellerDetails.userName}
           </Text>
           <Flex
             alignItems="center"

@@ -1,13 +1,21 @@
+import { WarningIcon } from "@chakra-ui/icons";
 import {
   Box,
   Flex,
+  FormControl,
+  FormErrorMessage,
   FormLabel,
   Image,
   Text,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 
-export default function FileUploader({ onClick, onDrop, number }) {
+export default function FileUploader({
+  onClick,
+  onDrop,
+  number,
+  isInvalidMessage,
+}) {
   const [color, setColor] = useState("naturalDarkest");
 
   const handleDragOver = (e) => {
@@ -29,12 +37,22 @@ export default function FileUploader({ onClick, onDrop, number }) {
   };
 
   return (
-    <Box>
-      <Flex justifyContent="space-between" mb={{base: "10px", md:"16px"}}>
-        <FormLabel fontSize={{base: "14px", md: "16px"}} m="0" lineHeight="24px" fontWeight="normal">
+    <FormControl isInvalid={isInvalidMessage !== ""}>
+      <Flex justifyContent="space-between" mb={{ base: "10px", md: "16px" }}>
+        <FormLabel
+          fontSize={{ base: "14px", md: "16px" }}
+          m="0"
+          lineHeight="24px"
+          fontWeight="normal"
+        >
           העלה קבצי PNG, או JPG עד משקל של 3Mb
         </FormLabel>
-        <Text display={{base: "none", md:"block"}} fontSize="16px" lineHeight="24px" color="naturalDarkest">
+        <Text
+          display={{ base: "none", md: "block" }}
+          fontSize="16px"
+          lineHeight="24px"
+          color="naturalDarkest"
+        >
           {number}/6
         </Text>
       </Flex>
@@ -46,13 +64,13 @@ export default function FileUploader({ onClick, onDrop, number }) {
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         w="full"
-        h={{base: "170px", md: "293px"}}
+        h={{ base: "170px", md: "293px" }}
         justifyContent="center"
         alignItems="center"
-        bg={{base: "inputBg", md: "naturalLightest"}}
+        bg={{ base: "inputBg", md: "naturalLightest" }}
         border="1px"
         borderStyle="dashed"
-        borderColor="naturalDark"
+        borderColor={isInvalidMessage !== "" ? "otherError" : "naturalDark"}
         borderRadius="16px"
       >
         <Flex flexDirection="column" alignItems="center" gap="4">
@@ -61,21 +79,29 @@ export default function FileUploader({ onClick, onDrop, number }) {
             h="72px"
             justifyContent="center"
             alignItems="center"
-            bg={{base: "naturalLight", md: "white"}}
+            bg={{ base: "naturalLight", md: "white" }}
             borderRadius="full"
           >
             <Image src={process.env.PUBLIC_URL + "/assets/image_icon.svg"} />
           </Flex>
 
-          <Box textAlign="center" display={{base: "none", md: "block"}}>
-            <Text fontSize="18px" fontWeight="medium" color="naturalBlack">
+          <Box textAlign="center" display={{ base: "none", md: "block" }}>
+            <Text fontSize="18px" fontWeight="medium" color={isInvalidMessage !== "" ? "otherError" :"naturalBlack"}>
               הוסף תמונה
             </Text>
             <Text color={color}>גרור ושחרר או לחץ כאן כדי להעלות תמונה</Text>
           </Box>
         </Flex>
       </Flex>
-    </Box>
+      <FormErrorMessage
+        display="flex"
+        alignItems="center"
+        gap="1"
+        letterSpacing="0.005em"
+      >
+        <WarningIcon /> {isInvalidMessage}{" "}
+      </FormErrorMessage>
+    </FormControl>
   );
 }
 

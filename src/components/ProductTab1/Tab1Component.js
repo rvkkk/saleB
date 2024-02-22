@@ -9,11 +9,52 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { routes } from "../../routes";
+import { FlagIcon } from "../Icons";
 
-export default function Tab1Component() {
+export default function Tab1Component({ additionalInfo }) {
   return (
     <Flex flexDir="column" gap="4" pb="4">
-      <Box>
+      {additionalInfo[0] &&
+        additionalInfo.map((info) => {
+          return (
+            info.desc !== "" && (
+              <Box>
+                <Text
+                  fontSize={{ base: "16px", md: "20px" }}
+                  fontWeight="medium"
+                  lineHeight="22px"
+                  color="naturalBlack"
+                >
+                  {info.title}:
+                </Text>
+                <Text
+                  fontSize={{ base: "14px", md: "16px" }}
+                  lineHeight={{ base: "20px", md: "26px" }}
+                  color="naturalBlack"
+                >
+                  {info.desc}
+                </Text>
+              </Box>
+            )
+          );
+        })}
+      <Flex display={{ base: "flex", md: "none" }} alignItems="center" gap="1">
+        <Text color="naturalDark" fontSize="14px" lineHeight="22px">
+          נתקלתם בבעיה עם מוצר זה?
+        </Text>
+        <Flex gap="1" w="max" alignItems="center">
+          <FlagIcon />
+          <Link
+            fontSize="14px"
+            lineHeight="22px"
+            href={routes.ContactUs.path}
+            textColor="primary"
+          >
+            דווחו לנו
+          </Link>
+        </Flex>
+      </Flex>
+      {/* <Box>
         <Text fontSize={{base: "16px", md: "20px"}} fontWeight="medium" lineHeight="22px" color="naturalBlack">
           תיאור המוצר:
         </Text>
@@ -60,7 +101,7 @@ export default function Tab1Component() {
             דווחו לנו
           </Link>
         </Flex>
-      </Flex>
+    </Flex>*/}
     </Flex>
   );
 }

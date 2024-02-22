@@ -86,9 +86,9 @@ export default function TopProducts() {
         base: "330px",
         sm: "460px",
         md: "740px",
-        lg: "970px",
+        lg: "950px",
         xl: "1200px",
-        "2xl": "1242px",
+        "2xl": "1300px",
       }}
       mx="auto"
       py="24px"
@@ -107,13 +107,14 @@ export default function TopProducts() {
           md: "repeat(4, 1fr)",
           xl: "repeat(5, 1fr)",
         }}
-        gap={"19px"}
+        gap={{base: "19px", xl: "20px", "2xl": "30px"}}
         mx="auto"
       >
         {products[0] &&
-          products.map((product) => {
+          products.map((product, key) => {
             return (
               <ProductItem
+                key={key}
                 _id={product._id}
                 name={product.title}
                 imgUrl={product.images[0]}
@@ -175,7 +176,7 @@ const ProductItem = ({
 }) => {
   return (
     <Card
-      mt="20px"
+      //mt="20px"
       dir="rtl"
       borderRadius="28px"
       overflow="hidden"
@@ -183,20 +184,20 @@ const ProductItem = ({
       borderColor="naturalLightest"
       position="relative"
       h={{
-        base: "220px",
-        sm: "210px",
+        base: "214px",
+        sm: "200px",
         md: "240px",
-        lg: "300px",
+        lg: "295px",
         xl: "300px",
-        "2xl": "300px",
+        "2xl": "310px",
       }}
       w={{
-        base: "158px",
-        sm: "144px",
-        md: "170px",
-        lg: "230px",
-        xl: "230px",
-        "2xl": "237px",
+        base: "154px",
+        sm: "140.66px",
+        md: "170.5px",
+        lg: "223.25px",
+        xl: "224px",
+        "2xl": "236px",
       }}
       cursor={"pointer"}
       boxShadow="none"
@@ -212,17 +213,17 @@ const ProductItem = ({
           alt={name}
           w="full"
           h={{
-            base: "155px",
-            sm: "140px",
-            md: "170px",
-            lg: "230px",
-            xl: "230px",
-            "2xl": "220px",
+            base: "154px",
+            sm: "140.66px",
+            md: "170.5px",
+            lg: "219.25px",
+            xl: "224px",
+            "2xl": "236px",
           }}
           src={imgUrl}
         />
       </Box>
-      <Flex flexDir="column" gap="2" p="3">
+      <Flex flexDir="column" gap={{base: "1", md: "2"}} p="3">
         <Text
           fontSize={{ base: "12px", md: "14px" }}
           lineHeight={{ base: "12px", md: "18px" }}
