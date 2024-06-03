@@ -28,6 +28,7 @@ export default function SearchComponent() {
   const [query, setQuery] = useState("");
   const [show, setShow] = useState(false);
   const [products, setProducts] = useState([]);
+  const [active, setActive] = useState(false);
 
   useEffect(() => {
     if (query.length >= 2) searchProducts(query);
@@ -55,7 +56,7 @@ export default function SearchComponent() {
     slidesToScroll: 1,
   };
   const boxRef = useRef();
-    const inputRef = useRef();
+  const inputRef = useRef();
 
   useOutsideClick({
     ref: boxRef,
@@ -127,10 +128,14 @@ export default function SearchComponent() {
           _hover={{ bgGradient: "linear(to-r, #F53689, #F53689)" }}
           borderRightRadius="0"
           icon={<SearchIcon />}
-          onClick={() => (window.location.href = routes.SearchResults.path.replace(":query", query))}
+          onClick={() =>
+            (window.location.href = routes.SearchResults.path.replace(
+              ":query",
+              query
+            ))
+          }
         />
       </Flex>
-     
 
       {/* <Menu isOpen={products.length > 0}>
         <MenuItem>
@@ -163,7 +168,7 @@ export default function SearchComponent() {
 
       <Flex
         gap="8px"
-       px={{ sm: "70px" }}
+        px={{ sm: "70px" }}
         display={{ base: "flex", lg: "none" }}
         ref={inputRef}
       >
@@ -176,7 +181,12 @@ export default function SearchComponent() {
           _hover={{ bgGradient: "linear(to-r, #F53689, #F53689)" }}
           borderRadius="14px"
           icon={<SearchIcon />}
-          onClick={() => (window.location.href = routes.SearchResults.path.replace(":query", query))}
+          onClick={() =>
+            (window.location.href = routes.SearchResults.path.replace(
+              ":query",
+              query
+            ))
+          }
         />
         <Input
           dir="rtl"
@@ -193,7 +203,7 @@ export default function SearchComponent() {
         <Box
           dir="rtl"
           position="absolute"
-          top={{base: "100%", lg: "auto"}}
+          top={{ base: "100%", lg: "auto" }}
           mt="5px"
           w={{ base: "100%", lg: "530px", xl: "700px", "2xl": "800px" }}
           bg="white"
@@ -206,12 +216,27 @@ export default function SearchComponent() {
           {products.map((product, key) => (
             <ProductComponent key={key} p={product}></ProductComponent>
           ))}
-          <Flex justifyContent="end" p="4">
-            {" "}
-            <Button.TextButton href={routes.SearchResults.path.replace(":query", query)}>לכל התוצאות</Button.TextButton>
-          </Flex>
+          <Link
+            to={routes.SearchResults.path.replace(":query", query)}
+            aria-label="link to search results"
+            role="link"
+            style={{ textDecoration: "none" }}
+          >
+            <Flex
+              p="10px"
+              borderRadius="8px"
+              dir="ltr"
+              m="2"
+              bg={active ? "othersLight" : "white"}
+              onMouseEnter={() => setActive(true)}
+              onMouseLeave={() => setActive(false)}
+              color="naturalDark"
+              alignItems="center"
+            >
+              <Text textColor="primary">לכל התוצאות</Text>
+            </Flex>
+          </Link>
         </Box>
-        
       )}
     </>
   );

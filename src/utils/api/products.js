@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "https://sale-bid.df.r.appspot.com/";
+const baseURL = "http://localhost:3001/";
 const headers = {
   headers: {
     Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -224,6 +224,22 @@ export const getProductsByCategory = (category, page = 1, limit = 30) => {
     axios
       .get(
         `${baseURL}products-category/${category}?page=${page}&limit=${limit}`
+      )
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((err) => {
+        //onTokenBroken();
+        reject(err);
+      });
+  });
+};
+
+export const getProductsByMainCategory = (category, page = 1, limit = 30) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(
+        `${baseURL}products-main-category/${category}?page=${page}&limit=${limit}`
       )
       .then((res) => {
         resolve(res.data);
